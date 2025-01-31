@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zblume <zblume@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:04:28 by zblume            #+#    #+#             */
-/*   Updated: 2024/06/29 14:10:14 by zblume           ###   ########.fr       */
+/*   Updated: 2025/01/31 18:36:39 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
-# include "ft_printf.h"
 # include "get_next_line_bonus.h"
 
 typedef struct s_list

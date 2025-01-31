@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zblume <zblume@student.42.fr>              +#+  +:+       +#+         #
+#    By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 10:19:33 by zblume            #+#    #+#              #
-#    Updated: 2024/06/29 14:36:15 by zblume           ###   ########.fr        #
+#    Updated: 2025/01/31 18:45:10 by mpeshko          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,8 @@ GNL_DIR = get_next_line
 GNL_SRC = $(addprefix $(GNL_DIR)/, \
 		get_next_line_bonus.c get_next_line_utils_bonus.c)
 
-PRINTF_DIR = printf
-PRINTF_SRC = $(addprefix $(PRINTF_DIR)/, \
-		ft_printf.c ft_putfunct.c ft_hexconvert.c)
-
-FUNC_DIRS = $(GNL_DIR) $(PRINTF_DIR)
-FUNC_SRCS = $(GNL_SRC) $(PRINTF_SRC)
+FUNC_DIRS = $(GNL_DIR)
+FUNC_SRCS = $(GNL_SRC)
 
 SRC_DIR = ./src
 SRC = $(addprefix $(SRC_DIR)/, \
@@ -62,7 +58,6 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/$(GNL_DIR)
-	@mkdir -p $(OBJ_DIR)/$(PRINTF_DIR)
 	@$(CC) $(CFLAGS) $(OPTIONS) $< -o $@
 	@printf "$(BLUE)Compiling...$(CYAN) $<$(RESET)\n"
 

@@ -15,7 +15,7 @@ OPTIONS = -c
 SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
-	empty_one.c				\
+	main.c				\
 	empty_two.c 			)
 
 ##SRC_DIR = ./src
