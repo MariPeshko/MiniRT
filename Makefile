@@ -15,8 +15,7 @@ OPTIONS = -c
 SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
-	empty_one.c				\
-	empty_two.c 			)
+		parse_delegate.c 			)
 
 ##SRC_DIR = ./src
 ##SRC_FILES = empty_one.c empty_two.c
