@@ -12,6 +12,9 @@
 # define FAILURE 1
 # define MEMORY "Memory allocation failed."
 # define INVALID_NBR_ARG "Invalid number of Arguments."
+# define WRONG_CHAR "unexpected character."
+# define RGB_SCOPE "RGB value out of scope."
+# define WRONG_IDENTIFIER "Invalid Idetifier."
 
 typedef struct s_vector
 {
@@ -26,6 +29,14 @@ void    print_map(char **map);
 
 //error_handling.c
 int	display_error(char *msg);
+
+//parse_delegate.c
+int	parse_specific(char *line);
+int	parse_ambient_lighting(char *line);
+int	parse_delegate(char *line);
+
+//unsorted
+int	map_len(char **map);
 
 //whitespaces.c
 bool	is_whitespace(char c);

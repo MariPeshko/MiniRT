@@ -2,6 +2,6 @@
 
 int	display_error(char *msg)
 {
-	printf("ERROR: %s\n", msg);
+	printf("\nError\n%s\n", msg);
 	return (1);
 }
