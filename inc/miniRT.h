@@ -22,7 +22,8 @@ typedef enum
     TOO_MANY_ARGS = 2,
 	EMPTY_STRING = 3,
 	WRONG_EXTEN = 4,
-    FILE_ERR = 5
+    FILE_ERR = 5,
+    EMPTY_FILE = 6
 } error_type ;
 
 # define SUCCESS 0

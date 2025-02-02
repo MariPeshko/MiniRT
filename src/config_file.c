@@ -19,6 +19,8 @@ static void    print_error(error_type type)
 		printf("Wrong extention. File must be in .rt format.\n");
 	if (type == FILE_ERR)
 		printf("Error opening file.\n");
+	if (type == EMPTY_FILE)
+		printf("Configuration file is empty.\n");
 }
 
 void arg_error(int argc)
@@ -56,6 +58,23 @@ static void	check_extention(char *config)
 	}
 }
 
+void check_empt_file(char *filename)
+{
+	int		fd;
+	int		byte;
+	char	buff[1];
+
+	fd = open(filename, O_RDONLY);
+	byte = read(fd, buff, 1);
+	if (byte != 1)
+	{
+		close(fd);
+		print_error(EMPTY_FILE);
+		exit(FAILURE);
+	}
+	close(fd);
+}
+
 static int	fd_creator(char *filename)
 {
 	int		fd;
@@ -72,7 +91,10 @@ static int	fd_creator(char *filename)
 		exit(FAILURE);
 	}
 	else
+	{
+		check_empt_file(filename);
 		fd = open(filename, O_RDONLY);
+	}
 	return (fd);
 }
 
@@ -88,7 +110,17 @@ void	open_config(char *config)
 		exit(SUCCESS);
 	}
 	check_extention(config);
-	printf("Extention is correct. The file will be opened.\n");
 	fd_conf = fd_creator(config);
+
+	char *line;
+	while(line != NULL)
+	{
+		line = get_next_line(fd_conf);
+		
+		// PARSING FUNCTION
+
+		printf("%s", line);
+		free(line);
+	}
 	close(fd_conf);
 }
