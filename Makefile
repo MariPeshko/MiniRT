@@ -16,6 +16,7 @@ SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
 	main.c				\
+	config_file.c		\
 	empty_two.c 			)
 
 ##SRC_DIR = ./src
