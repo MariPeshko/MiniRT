@@ -6,6 +6,7 @@
 # include "../libft/inc/get_next_line.h"
 
 # include <stdio.h>
+# include <fcntl.h> // open
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -20,7 +21,8 @@ typedef enum
     NO_CONFIG_FILE = 1,
     TOO_MANY_ARGS = 2,
 	EMPTY_STRING = 3,
-	WRONG_EXTEN = 4
+	WRONG_EXTEN = 4,
+    FILE_ERR = 5
 } error_type ;
 
 # define SUCCESS 0

@@ -17,6 +17,8 @@ static void    print_error(error_type type)
 	}
 	if (type == WRONG_EXTEN)
 		printf("Wrong extention. File must be in .rt format.\n");
+	if (type == FILE_ERR)
+		printf("Error opening file.\n");
 }
 
 void arg_error(int argc)
@@ -54,10 +56,32 @@ static void	check_extention(char *config)
 	}
 }
 
+static int	fd_creator(char *filename)
+{
+	int		fd;
+
+	fd = 0;
+	if (access(filename, F_OK))
+	{
+		printf("%s: No such file or directory\n", filename);
+		exit(FAILURE);
+	}
+	else if (access(filename, R_OK))
+	{
+		printf("%s: Permission denied\n", filename);
+		exit(FAILURE);
+	}
+	else
+		fd = open(filename, O_RDONLY);
+	return (fd);
+}
+
 // open a config file
 // a scene in format *.rt
 void	open_config(char *config)
 {
+	int fd_conf;
+	
 	if (!*config || !config)
 	{
 		print_error(EMPTY_STRING);
@@ -65,4 +89,6 @@ void	open_config(char *config)
 	}
 	check_extention(config);
 	printf("Extention is correct. The file will be opened.\n");
+	fd_conf = fd_creator(config);
+	close(fd_conf);
 }
