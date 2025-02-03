@@ -51,6 +51,8 @@ TOTAL_SRC = $(addprefix $(SRC_DIR)/, \
 OBJ_DIR = ./obj
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(TOTAL_SRC))
 
+INCLUDES = inc/libft_gnl_printf.h inc/ft_printf.h inc/get_next_line.h  inc/libft.h
+
 NAME = libft.a
 
 ##############################
@@ -62,7 +64,7 @@ $(NAME): $(OBJ)
 	@printf "$(GREEN)$(NAME) created$(RESET)\n"
 	@printf "$(MAGENTA)"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/$(GNL_DIR)
 	@mkdir -p $(OBJ_DIR)/$(FT_PRINTF_DIR)

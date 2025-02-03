@@ -40,4 +40,5 @@ int		end_of_line(char *safetycopy);
 char	*append_safetycopy(char *safetycopy, char *reading);
 char	*read_line(int fd, char *reading, char *safetycopy);
 char	*gnl_free(char *a);
+
 #endif

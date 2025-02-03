@@ -24,8 +24,13 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		whitespaces.c 		\
 		unsorted.c 			)
 
-
 INCLUDES = inc/miniRT.h
+LIBFT_INC = libft/inc/ft_printf.h \
+	libft/inc/get_next_line.h \
+	libft/inc/libft_gnl_printf.h \
+	libft/inc/libft.h
+
+
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
@@ -42,7 +47,7 @@ $(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ)
 	@echo "$(GREEN)Compiling $(NAME)... $(RESET)"
 	@$(CC) $(FLAGS) $(OBJ) $(LIBFT_DIR)/$(LIBFT) -o $(NAME)
 
-$(LIBFT_DIR)/$(LIBFT): $(LIBFT_SRC)
+$(LIBFT_DIR)/$(LIBFT): $(LIBFT_SRC) $(LIBFT_INC)
 	@echo "$(GREEN)Building $(LIBFT)... $(RESET)"
 	@make -s -C $(LIBFT_DIR)
 

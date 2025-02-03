@@ -15,6 +15,7 @@
 # define WRONG_CHAR "unexpected character."
 # define RGB_SCOPE "RGB value out of scope."
 # define WRONG_IDENTIFIER "Invalid Idetifier."
+# define A_SCOPE "Ambient light ratio out of scope."
 
 
 typedef struct s_vector
@@ -27,6 +28,7 @@ typedef struct s_point
 
 //debugging_prints.c
 void    print_map(char **map);
+void	print_triplet(float *triplet);
 
 //error_handling.c
 int	display_error(char *msg);
@@ -43,6 +45,8 @@ int	parse_sphere(char *line);
 int	parse_delegate(char *line);
 
 //parse_get.c
+int	get_float(char *line, int *pos, float *dest);
+int	get_three_floats(char *line, int *pos, float *triplet);
 int	get_RGB(char *line, int *pos);
 
 //unsorted

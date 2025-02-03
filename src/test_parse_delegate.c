@@ -1,6 +1,7 @@
 //main for testing parse delegate only
 #include "../inc/miniRT.h"
 
+/*tests parse_ambient and displays a message if the result (success / failure) is unexpected*/
 void test_ambient(void)
 {
     char *valid_ambient_low = "A 0.0 0,0,0";
@@ -9,6 +10,7 @@ void test_ambient(void)
     
     char *invalid_ambient = "A 1.5 255,255,255"; // Ambient ratio out of range
     char *invalid_ambient_format = "A 0.5 255-255-255"; // Wrong separator
+	char *invalid_missing_seperator = "A 0.5255-255-255 a"; // Wrong separator
     
     if (parse_delegate(valid_ambient_low) != SUCCESS) printf("Failed test valid_ambient_low\n");
     if (parse_delegate(valid_ambient_middle) != SUCCESS) printf("Failed test valid_ambient_middle\n");
@@ -16,24 +18,25 @@ void test_ambient(void)
     
     if (parse_delegate(invalid_ambient) != 1) printf("Failed test invalid_ambient\n");
     if (parse_delegate(invalid_ambient_format) != 1) printf("Failed test invalid_ambient_format\n");
+    if (parse_delegate(invalid_missing_seperator) != 1) printf("Failed test invalid_missing_seperator\n");
 }
 
-// void test_camera(void)
-// {
-//     char *valid_camera_low = "C -1000,-1000,-1000 -1,-1,-1 0";
-//     char *valid_camera_middle = "C 0,0,0 0,0,0 90";
-//     char *valid_camera_high = "C 1000,1000,1000 1,1,1 180";
+void test_camera(void)
+{
+    char *valid_camera_low = "C -1000,-1000,-1000 -1,-1,-1 0";
+    // char *valid_camera_middle = "C 0,0,0 0,0,0 90";
+    // char *valid_camera_high = "C 1000,1000,1000 1,1,1 180";
     
-//     char *invalid_camera = "C -50.0,0,20 0,0,2 70"; // Orientation out of range
-//     char *invalid_camera_fov = "C -50.0,0,20 0,0,1 190"; // FOV out of range
+    // char *invalid_camera = "C -50.0,0,20 0,0,2 70"; // Orientation out of range
+    // char *invalid_camera_fov = "C -50.0,0,20 0,0,1 190"; // FOV out of range
     
-//     if (parse_delegate(valid_camera_low) != 0) printf("Failed test valid_camera_low\n");
-//     if (parse_delegate(valid_camera_middle) != 0) printf("Failed test valid_camera_middle\n");
-//     if (parse_delegate(valid_camera_high) != 0) printf("Failed test valid_camera_high\n");
+    if (parse_delegate(valid_camera_low) != 0) printf("Failed test valid_camera_low\n");
+    // if (parse_delegate(valid_camera_middle) != 0) printf("Failed test valid_camera_middle\n");
+    // if (parse_delegate(valid_camera_high) != 0) printf("Failed test valid_camera_high\n");
     
-//     if (parse_delegate(invalid_camera) != 1) printf("Failed test invalid_camera\n");
-//     if (parse_delegate(invalid_camera_fov) != 1) printf("Failed test invalid_camera_fov\n");
-// }
+    // if (parse_delegate(invalid_camera) != 1) printf("Failed test invalid_camera\n");
+    // if (parse_delegate(invalid_camera_fov) != 1) printf("Failed test invalid_camera_fov\n");
+}
 
 // void test_light(void)
 // {
@@ -71,8 +74,8 @@ void test_ambient(void)
 
 int main(void)
 {
-    test_ambient();
-    // test_camera();
+    //test_ambient();
+     test_camera();
     // test_light();
     // test_sphere();
     // test_plane();

@@ -8,15 +8,20 @@ int	parse_ambient_lighting(char *line)//+ large struct
 {
 	char **arguments;
 	int	pos;
+	float	tmp = 0;
 
-	pos = 5;//position at which RGB starts in tests
+	pos = 1;
 	arguments = ft_split(line, ' ');
 	if (!arguments)
 		return (display_error(MEMORY));
 	print_map(arguments);
 	if (map_len(arguments) != 3)
 		return (display_error(INVALID_NBR_ARG));
-	//get ambient light ratio from arguments[1]
+	get_float(line, &pos, &tmp);
+	if (tmp < 0.0 || tmp > 1.0)
+		return (display_error(A_SCOPE));
+	if (!is_whitespace(line[pos]))
+		return (display_error(WRONG_CHAR));
 	if (get_RGB(line, &pos) == FAILURE)
 		return (FAILURE);
 	free(arguments);
@@ -27,17 +32,24 @@ int	parse_ambient_lighting(char *line)//+ large struct
 int	parse_camera(char *line)//+ large struct
 {
 	char **arguments;
-	//int	pos;
+	int	pos = 1;
+	float triplet[3];
 
-	//pos = 5;//position at which RGB starts in tests
 	arguments = ft_split(line, ' ');
 	if (!arguments)
 		return (display_error(MEMORY));
 	print_map(arguments);
 	if (map_len(arguments) != 4)
 		return (display_error(INVALID_NBR_ARG));
-	//get Point (coordinates of View point)
+	//get Point (coordinates of View point) and save them
+	if (get_three_floats(line, &pos, triplet) == FAILURE)
+		return (FAILURE);
+	printf("Point: ");
+	print_triplet(triplet);
 	//get normalized orientation vector (3 floats)
+	get_three_floats(line, &pos, triplet);
+	printf("normalized orientation Vector: ");
+	print_triplet(triplet);
 	//get FOV
 	free(arguments);
 	return (SUCCESS);
