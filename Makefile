@@ -9,7 +9,7 @@ WHITE   = \033[0;37m
 RESET   = \033[0m
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -lm
+FLAGS = -Wall -Wextra -Werror -g
 OPTIONS = -c
 
 SRC_DIR = ./src

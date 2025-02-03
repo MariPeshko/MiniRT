@@ -10,6 +10,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <math.h>
 
 #define RESET   "\033[0m"
 #define RED     "\033[1;31m"
