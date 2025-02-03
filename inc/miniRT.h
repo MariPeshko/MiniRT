@@ -16,6 +16,7 @@
 # define RGB_SCOPE "RGB value out of scope."
 # define WRONG_IDENTIFIER "Invalid Idetifier."
 
+
 typedef struct s_vector
 {
 }	t_vector;
@@ -30,10 +31,19 @@ void    print_map(char **map);
 //error_handling.c
 int	display_error(char *msg);
 
-//parse_delegate.c
-int	parse_specific(char *line);
+//parse_objects.c
 int	parse_ambient_lighting(char *line);
+int	parse_camera(char *line);
+int	parse_light(char *line);
+int	parse_cylinder(char *line);
+int	parse_plane(char *line);
+int	parse_sphere(char *line);
+
+//parse_delegate.c
 int	parse_delegate(char *line);
+
+//parse_get.c
+int	get_RGB(char *line, int *pos);
 
 //unsorted
 int	map_len(char **map);
