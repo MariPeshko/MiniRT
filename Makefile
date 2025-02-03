@@ -18,6 +18,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		debugging_prints.c	\
 		error_handling.c 	\
 		parse_delegate.c	\
+		parse_get.c 		\
+		parse_objects.c 	\
 		test_parse_delegate.c 	\
 		whitespaces.c 		\
 		unsorted.c 			)
