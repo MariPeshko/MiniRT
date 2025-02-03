@@ -2,7 +2,7 @@
 
 static void    print_error(error_type type)
 {
-	printf(RED "Error: " RESET);
+	printf(RED "Error:\n" RESET);
 	if (type == NO_CONFIG_FILE)
 	{
 		printf("Run a program with a configuration file as follows:\n");
@@ -98,21 +98,6 @@ static int	fd_creator(char *filename)
 	return (fd);
 }
 
-/**
- * @brief checks for empty input (only tabs or spaces)
- * to ignore it in history and return a new prompt
- * 
- * @param input the readline input
- */
-int	ft_spacetabchecker(char *input)
-{
-	if ((*input >= 9 && *input <= 11)
-		|| *input == 32)
-		return (1);
-	else
-		return (0);
-}
-
 // open a config file
 // a scene in format *.rt
 void	open_config(char *config)
@@ -130,18 +115,12 @@ void	open_config(char *config)
 	char *line = NULL;
 	while((line = get_next_line(fd_conf)) != NULL)
 	{
-		//line = get_next_line(fd_conf);
+		if (ft_spacetabchecker(line))
+			trim_out_spaces(&line);
 
-		// Rewrite this function
-		if (!ft_spacetabchecker(line))
-			printf("No white spaces\n");
-		else
-			printf ("Leading whitespaces\n");
-		// function to remove leading spaces, and a string is already malloced.
+		//// PARSING FUNCTION
 
-		// PARSING FUNCTION
-
-		//printf("%s", line);
+		printf("%s", line);
 		free(line);
 	}
 	close(fd_conf);

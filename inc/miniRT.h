@@ -39,7 +39,11 @@ typedef struct s_point
 }	t_point;
 
 // config_file.c
-void    arg_error(int argc);
+void	arg_error(int argc);
 void	open_config(char *config);
+
+// str_utils.c
+void	trim_out_spaces(char **str);
+int		ft_spacetabchecker(char *input);
 
 #endif
