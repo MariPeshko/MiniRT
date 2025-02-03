@@ -29,10 +29,6 @@ GNL_DIR = get_next_line
 GNL_SRC = $(addprefix $(GNL_DIR)/, \
 		get_next_line.c get_next_line_utils.c)
 
-FT_PRINTF_DIR = ft_printf
-FT_PRINTF_SRC = $(addprefix $(FT_PRINTF_DIR)/, \
-		ft_printf.c ft_printf_put.c)
-
 LIBFT_DIR = libft
 LIBFT_SRC = $(addprefix $(LIBFT_DIR)/, \
 		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
@@ -46,12 +42,12 @@ LIBFT_SRC = $(addprefix $(LIBFT_DIR)/, \
 
 SRC_DIR = ./src
 TOTAL_SRC = $(addprefix $(SRC_DIR)/, \
-		$(LIBFT_SRC) $(GNL_SRC) $(FT_PRINTF_SRC))
+		$(LIBFT_SRC) $(GNL_SRC))
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(TOTAL_SRC))
 
-INCLUDES = inc/libft_gnl_printf.h inc/ft_printf.h inc/get_next_line.h  inc/libft.h
+INCLUDES = inc/libft_gnl_printf.h inc/get_next_line.h  inc/libft.h
 
 NAME = libft.a
 
@@ -67,7 +63,6 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/$(GNL_DIR)
-	@mkdir -p $(OBJ_DIR)/$(FT_PRINTF_DIR)
 	@mkdir -p $(OBJ_DIR)/$(LIBFT_DIR)
 	@$(CC) $(CFLAGS) $(OPTIONS) $< -o $@
 	@printf "$(BLUE)Compiling...$(CYAN) $<$(RESET)\n"

@@ -19,11 +19,6 @@
 # include <stdarg.h>
 # include <fcntl.h>
 
-// # ifndef BUFFER_SIZE
-// #  define BUFFER_SIZE 42
-// # endif
-
-
 typedef struct s_list
 {
 	void			*content;
@@ -74,29 +69,4 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strtrim(char const *s1, char const *set);
 
-//printf
-int		ft_printf(const char *format, ...);
-int		ft_putnbr(int n, int size);
-int		ft_putstr(char *s);
-int		ft_putchar(unsigned char c);
-int		ft_hexa(long long int n, int size, int up);
-int		ft_putunsigned(unsigned int n, int size);
-
-//get_next_line
-// char	*extract_return_line(char *safetycopy);
-// char	*edit_safetycopy(char *safetycopy);
-// char	*append_safetycopy(char *sc, char *read);
-// char	*read_line(int fd, char *reading, char *safetycopy);
-// char	*get_next_line(int fd);
-// int		end_of_line(char *safetycopy);
-// size_t	gnl_strlen(char *s);
-// char	*gnl_free(char *a);
-// char	*get_next_line(int fd);
-// size_t	gnl_strlen(char *s);
-// char	*extract_return_line(char *safetycopy);
-// char	*edit_safetycopy(char *safetycopy);
-// int		end_of_line(char *safetycopy);
-// char	*append_safetycopy(char *safetycopy, char *reading);
-// char	*read_line(int fd, char *reading, char *safetycopy);
-// char	*gnl_free(char *a);
 #endif

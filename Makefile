@@ -25,8 +25,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		unsorted.c 			)
 
 INCLUDES = inc/miniRT.h
-LIBFT_INC = libft/inc/ft_printf.h \
-	libft/inc/get_next_line.h \
+LIBFT_INC = libft/inc/get_next_line.h \
 	libft/inc/libft_gnl_printf.h \
 	libft/inc/libft.h
 

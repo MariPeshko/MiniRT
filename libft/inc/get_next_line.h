@@ -23,15 +23,6 @@
 #  define BUFFER_SIZE 42
 # endif
 
-//get_next_line
-// char	*extract_return_line(char *safetycopy);
-// char	*edit_safetycopy(char *safetycopy);
-// char	*append_safetycopy(char *sc, char *read);
-// char	*read_line(int fd, char *reading, char *safetycopy);
-// char	*get_next_line(int fd);
-// int		end_of_line(char *safetycopy);
-// size_t	gnl_strlen(char *s);
-// char	*gnl_free(char *a);
 char	*get_next_line(int fd);
 size_t	gnl_strlen(char *s);
 char	*extract_return_line(char *safetycopy);
