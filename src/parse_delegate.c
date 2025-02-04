@@ -9,6 +9,7 @@ and passes it on to the respective parsing function
 */
 int	parse_delegate(char *line)//+ largest struct
 {
+	whitespace_to_space(line);
 	if (ft_strncmp(line, "A", 1) == SUCCESS)
 		return (parse_ambient_lighting(line));//+ largest struct
 	else if (ft_strncmp(line, "C", 1) == SUCCESS)

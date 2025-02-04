@@ -86,6 +86,7 @@ int		ft_spacetabchecker(char *input);
 int	map_len(char **map);
 
 //whitespaces.c
+void	whitespace_to_space(char *line);
 bool	is_whitespace(char c);
 void	skip_whitespace(char *str, int *pos);
 

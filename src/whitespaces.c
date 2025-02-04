@@ -16,3 +16,17 @@ void	skip_whitespace(char *str, int *pos)
 	while (is_whitespace(str[*pos]))
 		*pos += 1;
 }
+
+/*switches all whitespaces to spaces*/
+void	whitespace_to_space(char *line)
+{
+	int	pos;
+
+	pos = 0;
+	while (line && line[pos])
+	{
+		if (is_whitespace(line[pos]))
+			line[pos] = ' ';
+		pos++;
+	}
+}
