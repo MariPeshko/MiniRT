@@ -18,7 +18,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		debugging_prints.c	\
 		error_handling.c 	\
 		parse_delegate.c	\
-		parse_get.c 		\
+		parse_helpers.c 	\
 		parse_objects.c 	\
 		test_parse_delegate.c 	\
 		whitespaces.c 		\
@@ -28,8 +28,6 @@ INCLUDES = inc/miniRT.h
 LIBFT_INC = libft/inc/get_next_line.h \
 	libft/inc/libft_gnl_printf.h \
 	libft/inc/libft.h
-
-
 
 OBJ_DIR = ./obj
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))

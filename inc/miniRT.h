@@ -17,7 +17,8 @@
 # define WRONG_IDENTIFIER "Invalid Idetifier."
 # define A_SCOPE "Ambient light ratio out of scope."
 # define NV_SCOPE "normalized Vector out of Scope [0.0, 1.0]"
-
+# define SP_DIAMETER_SCOPE "Sphere diameter out of scope."
+# define CY_DIAMETER_SCOPE "Cylinder diameter out of scope."
 
 typedef struct s_vector
 {
@@ -45,7 +46,8 @@ int	parse_sphere(char *line);
 //parse_delegate.c
 int	parse_delegate(char *line);
 
-//parse_get.c
+//parse_helpers.c
+int	triplet_in_scope(float *triplet, float min, float max);
 int	get_float(char *line, int *pos, float *dest);
 int	get_three_floats(char *line, int *pos, float *triplet);
 int	get_RGB(char *line, int *pos);

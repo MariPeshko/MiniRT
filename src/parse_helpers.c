@@ -1,5 +1,16 @@
 #include "../inc/miniRT.h"
 
+/*checks if the values in the triplet are in scope of [min, max]*/
+int	triplet_in_scope(float *triplet, float min, float max)
+{
+	if (triplet[0] < min || triplet[0] > max)
+		return (FAILURE);
+	if (triplet[1] < min || triplet[1] > max)
+		return (FAILURE);
+	if (triplet[2] < min || triplet[2] > max)
+		return (FAILURE);
+	return (SUCCESS);
+}
 
 /*function that extracts the next float in from a string.
 line: input line starting with Identifier
@@ -47,6 +58,7 @@ int	get_float(char *line, int *pos, float *dest)
 	return (SUCCESS);
 }
 
+/*gets the next three floats from line, starting at pos and saves them in triplet*/
 int	get_three_floats(char *line, int *pos, float triplet[3])
 {
 	int i = 0;
