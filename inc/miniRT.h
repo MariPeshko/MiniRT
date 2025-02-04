@@ -35,7 +35,7 @@ typedef enum
 # define INVALID_NBR_ARG "Invalid number of Arguments."
 # define WRONG_CHAR "unexpected character."
 # define RGB_SCOPE "RGB value out of scope."
-# define WRONG_IDENTIFIER "Invalid Idetifier."
+# define WRONG_IDENTIFIER "Invalid Identifier."
 # define A_SCOPE "Ambient light ratio out of scope."
 # define NV_SCOPE "normalized Vector out of Scope [0.0, 1.0]"
 # define SP_DIAMETER_SCOPE "Sphere diameter out of scope."

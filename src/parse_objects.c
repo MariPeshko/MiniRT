@@ -16,6 +16,7 @@ int	parse_ambient_lighting(char *line)//+ large struct
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 3)
 		return (display_error(INVALID_NBR_ARG));
+	print_map(arguments);
 	//get ambient ratio
 	get_float(line, &pos, &tmp);
 	if (tmp < 0.0 || tmp > 1.0)
@@ -47,7 +48,7 @@ int	parse_camera(char *line)//+ large struct
 	get_three_floats(line, &pos, triplet);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
-	//get FOV. Is this an int or float?
+	//get FOV. Is this an int or float? -> full nbr
 	//
 	free(arguments);
 	return (SUCCESS);

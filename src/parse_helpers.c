@@ -47,12 +47,16 @@ int	get_float(char *line, int *pos, float *dest)
 	if (line[*pos] != '.')
 		return (display_error(WRONG_CHAR));
 	(*pos)++;
+	if (!ft_isdigit(line[*pos]))
+		return (display_error(WRONG_CHAR));
 	while (ft_isdigit(line[*pos]))
 	{
 		fractional = fractional + ((line[*pos] - '0') / divisor);
 		divisor *= 10;
 		(*pos)++;
 	}
+	if (!(line[*pos] == ',' || is_whitespace(line[*pos])))
+		return (display_error(WRONG_CHAR));
 	*dest = (full_nbr + fractional) * neg;
 	//printf("FLOAT: %f\n", *dest);
 	return (SUCCESS);

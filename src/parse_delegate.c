@@ -3,9 +3,9 @@
 
 
 /*
-line: Input line starting with an Identifier
-Function checks which identifier the line has
-and passes it on to the respective parsing function
+line: Input line starting with an Identifier.
+Function checks which identifier the line has.
+and passes it on to the respective parsing function.
 */
 int	parse_delegate(char *line)//+ largest struct
 {

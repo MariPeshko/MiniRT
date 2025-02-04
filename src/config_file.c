@@ -122,7 +122,7 @@ void	open_config(char *config)
 		parse_delegate(line);
 
 
-		printf("%s", line);
+		printf("%s\n", line);
 		free(line);
 	}
 	close(fd_conf);
