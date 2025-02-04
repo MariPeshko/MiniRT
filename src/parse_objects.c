@@ -1,5 +1,16 @@
 #include "../inc/miniRT.h"
 
+int	triplet_in_scope(float *triplet, float min, float max)
+{
+	if (triplet[0] < min || triplet[0] > max)
+		return (FAILURE);
+	if (triplet[1] < min || triplet[1] > max)
+		return (FAILURE);
+	if (triplet[2] < min || triplet[2] > max)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 /*potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 
@@ -19,6 +30,7 @@ int	parse_ambient_lighting(char *line)//+ large struct
 	if (map_len(arguments) != 3)
 		return (display_error(INVALID_NBR_ARG));
 	get_float(line, &pos, &tmp);
+	printf("ambient light ratio: %f\n", tmp);
 	if (tmp < 0.0 || tmp > 1.0)
 		return (display_error(A_SCOPE));
 	if (!is_whitespace(line[pos]))
@@ -52,6 +64,8 @@ int	parse_camera(char *line)//+ large struct
 	get_three_floats(line, &pos, triplet);
 	printf("normalized orientation Vector: ");
 	print_triplet(triplet);
+	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
+		return (display_error(NV_SCOPE));
 	//get FOV. Is this an int or float?
 	//
 	free(arguments);
@@ -115,6 +129,8 @@ int	parse_cylinder(char *line)//+ large struct
 	get_three_floats(line, &pos, triplet);
 	printf("normalized orientation Vector: ");
 	print_triplet(triplet);
+	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
+		return (display_error(NV_SCOPE));
 	//get cylinder diameter (float)
 	get_float(line, &pos, &tmp);
 	printf("cylinder diameter: %f\n", tmp);
@@ -154,6 +170,8 @@ int	parse_plane(char *line)//+ large struct
 	get_three_floats(line, &pos, triplet);
 	printf("normalized orientation Vector: ");
 	print_triplet(triplet);
+	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
+		return (display_error(NV_SCOPE));
 	//get RGB color of plane
 	if (get_RGB(line, &pos) == FAILURE)
 		return (FAILURE);

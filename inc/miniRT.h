@@ -16,6 +16,7 @@
 # define RGB_SCOPE "RGB value out of scope."
 # define WRONG_IDENTIFIER "Invalid Idetifier."
 # define A_SCOPE "Ambient light ratio out of scope."
+# define NV_SCOPE "normalized Vector out of Scope [0.0, 1.0]"
 
 
 typedef struct s_vector
