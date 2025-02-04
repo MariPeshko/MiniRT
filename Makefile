@@ -9,17 +9,20 @@ WHITE   = \033[0;37m
 RESET   = \033[0m
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g -lm
+FLAGS = -Wall -Wextra -Werror -g
 OPTIONS = -c
 
 SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
+		config_file.c		\
 		debugging_prints.c	\
 		error_handling.c 	\
+		main.c				\
 		parse_delegate.c	\
 		parse_helpers.c 	\
 		parse_objects.c 	\
+		str_utils.c			\
 		test_parse_delegate.c 	\
 		whitespaces.c 		\
 		unsorted.c 			)
@@ -34,7 +37,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 LIBFT_DIR = libft
 LIBFT = libft.a
-LIBFT_SRC = $(shell find $(LIBFT_DIR) -name "*.c")
+LIBFT_SRC = $(shell find $(LIBFT_DIR) -name "*.c")#is this allowed cause wildcard?
 
 NAME = miniRT
 
