@@ -72,13 +72,49 @@ void test_sphere(void)
 	if (parse_delegate(invalid_sphere_format) != 1) printf("Failed test invalid_sphere_format\n");
 }
 
+void test_plane(void)
+{
+    char *valid_plane_low = "pl -1000,-1000,-1000 -1,-1,-1 0,0,0";
+    char *valid_plane_middle = "pl 0.0,0.0,-10.0 0.0,1.0,0.0 128,128,128";
+    char *valid_plane_high = "pl 1000,1000,1000 1,1,1 255,255,255";
+    
+    char *invalid_plane_normal = "pl 0.0,0.0,-10.0 0.0,2.0,0.0 0,0,225"; // Normal vector out of range
+    char *invalid_plane_format = "pl 0.0,0.0,-10.0 0.0,1.0,0.0, 0,0,225"; // Extra comma
+    
+    if (parse_delegate(valid_plane_low) != 0) printf("Failed test valid_plane_low\n");
+    if (parse_delegate(valid_plane_middle) != 0) printf("Failed test valid_plane_middle\n");
+    if (parse_delegate(valid_plane_high) != 0) printf("Failed test valid_plane_high\n");
+    
+    if (parse_delegate(invalid_plane_normal) != 1) printf("Failed test invalid_plane_normal\n");
+    if (parse_delegate(invalid_plane_format) != 1) printf("Failed test invalid_plane_format\n");
+}
+
+void test_cylinder(void)
+{
+    char *valid_cylinder_low = "cy -1000,-1000,-1000 -1,-1,-1 0.1 0.1 0,0,0";
+    char *valid_cylinder_middle = "cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 128,128,128";
+    char *valid_cylinder_high = "cy 1000,1000,1000 1,1,1 100 200 255,255,255";
+    
+    char *invalid_cylinder_vector = "cy 50.0,0.0,20.6 0.0,0.0,2.0 14.2 21.42 10,0,255"; // Axis vector out of range
+    char *invalid_cylinder_diameter = "cy 50.0,0.0,20.6 0.0,0.0,1.0 -14.2 21.42 10,0,255"; // Negative diameter
+    char *invalid_cylinder_rgb = "cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 300,0,255"; // RGB out of range
+    
+    if (parse_delegate(valid_cylinder_low) != 0) printf("Failed test valid_cylinder_low\n");
+    if (parse_delegate(valid_cylinder_middle) != 0) printf("Failed test valid_cylinder_middle\n");
+    if (parse_delegate(valid_cylinder_high) != 0) printf("Failed test valid_cylinder_high\n");
+    
+    if (parse_delegate(invalid_cylinder_vector) != 1) printf("Failed test invalid_cylinder_vector\n");
+    if (parse_delegate(invalid_cylinder_diameter) != 1) printf("Failed test invalid_cylinder_diameter\n");
+    if (parse_delegate(invalid_cylinder_rgb) != 1) printf("Failed test invalid_cylinder_rgb\n");
+}
+
 int main(void)
 {
 	//test_ambient();
 	//test_camera();
 	//test_light();
 	///test_sphere();
-	test_plane();
+	//test_plane();
 	// test_cylinder();
 	
 	//General invalid cases
