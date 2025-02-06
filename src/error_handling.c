@@ -6,6 +6,6 @@ prints Error message given as Argument
 */
 int	display_error(char *msg)
 {
-	printf("\nError\n%s\n", msg);
+	printf(RED "\nError\n%s\n" RESET, msg);
 	return (FAILURE);
 }

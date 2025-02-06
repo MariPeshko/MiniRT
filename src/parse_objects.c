@@ -1,5 +1,29 @@
 #include "../inc/miniRT.h"
 
+
+
+int	get_int(char *line, int *pos, int *dest)
+{
+	int	nbr = 0;
+	int	neg = 1;
+	skip_whitespace(line, pos);
+	if (line[*pos] == '-')
+	{
+		(*pos)++;
+		neg = -1;
+	}
+	if (!ft_isdigit(line[*pos]))
+		return (display_error(WRONG_CHAR));
+	while (ft_isdigit(line[*pos]))
+	{
+		nbr = nbr * 10 + line[*pos] - '0';
+		(*pos)++;
+	}
+	if (!is_whitespace(line[*pos]))
+		return (display_error(WRONG_CHAR));
+	*dest = nbr * neg;
+	return (SUCCESS);
+}
 /*potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 
@@ -16,9 +40,10 @@ int	parse_ambient_lighting(char *line)//+ large struct
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 3)
 		return (display_error(INVALID_NBR_ARG));
-	print_map(arguments);
+	//print_map(arguments);
 	//get ambient ratio
-	get_float(line, &pos, &tmp);
+	if (get_float(line, &pos, &tmp) == FAILURE)
+		return (FAILURE);
 	if (tmp < 0.0 || tmp > 1.0)
 		return (display_error(A_SCOPE));
 	if (!is_whitespace(line[pos]))
@@ -34,6 +59,7 @@ int	parse_camera(char *line)//+ large struct
 {
 	char **arguments;
 	int	pos = 1;
+	int	tmp;
 
 	arguments = ft_split(line, ' ');
 	if (!arguments)
@@ -45,11 +71,15 @@ int	parse_camera(char *line)//+ large struct
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get normalized orientation vector (3 floats)
-	get_three_floats(line, &pos, triplet);
+	if (get_three_floats(line, &pos, triplet) == FAILURE)
+		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
 	//get FOV. Is this an int or float? -> full nbr
-	//
+	if (get_int(line, &pos, &tmp) == FAILURE)
+		return (FAILURE);
+	if (tmp > 180 || tmp < 0)
+		return (display_error(FOV_SCOPE));
 	free(arguments);
 	return (SUCCESS);
 }
@@ -72,7 +102,8 @@ int	parse_light(char *line)//+ large struct
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get brightness (float)
-	get_float(line, &pos, &tmp);
+	if (get_float(line, &pos, &tmp) == FAILURE)
+		return (FAILURE);
 	if (tmp < 0.0 || tmp > 1.0)
 		return (display_error(A_SCOPE));
 	//get RGB? (unused in mandatory, so require it or not?)
@@ -100,16 +131,19 @@ int	parse_cylinder(char *line)//+ large struct
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get normalized vector
-	get_three_floats(line, &pos, triplet);
+	if (get_three_floats(line, &pos, triplet) == FAILURE)
+		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
 	//get cylinder diameter (float)
-	get_float(line, &pos, &tmp);
+	if (get_float(line, &pos, &tmp) == FAILURE)
+		return (FAILURE);
 	if (tmp < 0)
 		return (display_error(CY_DIAMETER_SCOPE));
 	//get cylinder height (float). can be negative or not?
 	//
-	get_float(line, &pos, &tmp);
+	if (get_float(line, &pos, &tmp) == FAILURE)
+		return (FAILURE);
 	//get RGB color of cylinder
 	if (get_RGB(line, &pos) == FAILURE)
 		return (FAILURE);
@@ -136,7 +170,8 @@ int	parse_plane(char *line)//+ large struct
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get normalized vector
-	get_three_floats(line, &pos, triplet);
+	if (get_three_floats(line, &pos, triplet) == FAILURE)
+		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
 	//get RGB color of plane
@@ -168,7 +203,8 @@ int	parse_sphere(char *line)//+ large struct
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get sphere diameter (float)
-	get_float(line, &pos, &tmp);
+	if (get_float(line, &pos, &tmp) == FAILURE)
+		return (FAILURE);
 	if (tmp < 0)
 		return (display_error(SP_DIAMETER_SCOPE));
 	//get RGB color of sphere

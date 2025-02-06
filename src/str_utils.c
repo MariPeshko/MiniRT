@@ -90,7 +90,7 @@ void	trim_out_spaces(char **str)
 	new = ft_calloc(new_len + 1, sizeof(char));
 	if (!new)
 	{
-		perror ("ft_calloc error");
+		display_error(CALLOC);
 		return ;
 	}
 	trim_it(str, &new);
