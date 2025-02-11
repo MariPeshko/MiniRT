@@ -8,5 +8,5 @@ typedef struct s_vector
 typedef struct s_point
 {
 }	t_point;
-
+ 
 #endif

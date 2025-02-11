@@ -11,7 +11,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <math.h>
-# include <stdbool.h>
+# include <stdbool.h> //boolean
 # include "../libft/inc/libft_gnl_printf.h"//libft, gnl and fr_printf by sgramsch
 # include "miniRT_error_macro.h"
 # include "miniRT_structs.h"
