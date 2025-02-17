@@ -5,102 +5,155 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 11:34:37 by zblume            #+#    #+#             */
-/*   Updated: 2024/12/10 14:08:43 by sgramsch         ###   ########.fr       */
+/*   Created: 2024/01/16 16:30:39 by sgramsch          #+#    #+#             */
+/*   Updated: 2024/01/16 16:30:39 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/get_next_line.h"
+#include "../../inc/libft_gnl_printf.h"
 
-char	*ft_get_line(char *trim)
+char	*extract_return_line(char *safetycopy)
 {
-	int		i;
-	char	*str;
+	size_t	pos;
+	char	*return_line;
 
-	i = 0;
-	if (!trim[i])
+	pos = 0;
+	if (!safetycopy[pos])
 		return (NULL);
-	while (trim[i] && trim[i] != '\n')
-		i++;
-	str = (char *)malloc(sizeof(char) * (i + 2));
-	if (!str)
+	while (safetycopy[pos] && safetycopy[pos] != '\n')
+		pos ++;
+	return_line = (char *)malloc((pos + 2) * sizeof(char));
+	if (!return_line)
 		return (NULL);
-	i = 0;
-	while (trim[i] && trim[i] != '\n')
+	pos = 0;
+	while (safetycopy[pos] && safetycopy[pos] != '\n')
 	{
-		str[i] = trim[i];
-		i++;
+		return_line[pos] = safetycopy[pos];
+		pos ++;
 	}
-	if (trim[i] == '\n')
+	if (safetycopy[pos] == '\n')
 	{
-		str[i] = trim[i];
-		i++;
+		return_line[pos] = safetycopy[pos];
+		pos ++;
 	}
-	str[i] = '\0';
-	return (str);
+	return_line[pos] = '\0';
+	return (return_line);
 }
 
-char	*ft_new_trim(char *trim)
+char	*edit_safetycopy(char *safetycopy)
 {
-	int		i;
-	int		j;
-	char	*str;
+	char	*edited;
+	size_t	pos;
+	size_t	pos2;
 
-	i = 0;
-	while (trim[i] && trim[i] != '\n')
-		i++;
-	if (!trim[i])
-	{
-		clean_pointer(&trim);
+	pos = 0;
+	if (!safetycopy)
 		return (NULL);
-	}
-	str = (char *)malloc(sizeof(char) * (ft_gnl_strlen_line(trim) - i + 1));
-	if (!str)
+	while (safetycopy[pos] && safetycopy[pos] != '\n')
+		pos ++;
+	if (!safetycopy[pos])
+		return (gnl_free(safetycopy));
+	if (!safetycopy[pos + 1])
+		return (gnl_free(safetycopy));
+	edited = (char *)malloc((gnl_strlen(safetycopy) - pos + 1) * sizeof(char));
+	if (!edited)
 		return (NULL);
-	i++;
-	j = 0;
-	while (trim[i])
-		str[j++] = trim[i++];
-	str[j] = '\0';
-	clean_pointer(&trim);
-	return (str);
+	pos ++;
+	pos2 = -1;
+	while (safetycopy[pos + ++pos2] != '\0')
+		edited[pos2] = safetycopy[pos + pos2];
+	edited[pos2] = '\0';
+	if (safetycopy)
+		safetycopy = gnl_free(safetycopy);
+	return (edited);
 }
 
-char	*ft_read_to_trim(int fd, char *trim)
+char	*append_safetycopy(char *sc, char *read)
 {
-	char	*buff;
-	int		size;
+	int		pos;
+	int		pos2;
+	char	*appended;
 
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buff)
-		return (NULL);
-	size = 1;
-	while (!ft_strchr_line(trim, '\n') && size != 0)
+	pos = 0;
+	pos2 = -1;
+	if (!sc)
 	{
-		size = read(fd, buff, BUFFER_SIZE);
-		if (size == -1)
-		{
-			clean_pointer(&buff);
+		sc = (char *)malloc(1 * sizeof(char));
+		if (!sc || !read)
 			return (NULL);
-		}
-		buff[size] = '\0';
-		trim = ft_strjoin_line(trim, buff);
+		sc[0] = '\0';
 	}
-	clean_pointer(&buff);
-	return (trim);
+	appended = malloc((gnl_strlen(sc) + gnl_strlen(read) + 1) * sizeof(char));
+	if (!appended)
+		return (NULL);
+	pos --;
+	while (sc[++pos])
+		appended[pos] = sc[pos];
+	while (read[++pos2])
+		appended[pos + pos2] = read[pos2];
+	appended[pos + pos2] = '\0';
+	sc = gnl_free(sc);
+	return (appended);
+}
+
+char	*read_line(int fd, char *reading, char *safetycopy)
+{
+	int	progress;
+
+	progress = 1;
+	while ((end_of_line(safetycopy) == -1) && progress > 0)
+	{
+		progress = read(fd, reading, BUFFER_SIZE);
+		if (progress == -1)
+			return (gnl_free(safetycopy));
+		if (progress == 0)
+			break ;
+		reading[progress] = '\0';
+		safetycopy = append_safetycopy(safetycopy, reading);
+	}
+	return (safetycopy);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*trim;
+	char			*reading;
+	static char		*safetycopy;
+	char			*return_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0 || fd >= __FD_SETSIZE)
-		return (0);
-	trim = ft_read_to_trim(fd, trim);
-	if (!trim)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = ft_get_line(trim);
-	trim = ft_new_trim(trim);
-	return (line);
+	reading = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!reading)
+		return (NULL);
+	safetycopy = read_line(fd, reading, safetycopy);
+	reading = gnl_free(reading);
+	if (safetycopy == NULL)
+		return (NULL);
+	return_line = extract_return_line(safetycopy);
+	safetycopy = edit_safetycopy(safetycopy);
+	return (return_line);
 }
+/*
+int main(void)
+{
+	int fd = open("test", O_RDONLY);
+	printf("\nfd = %d\n", fd);
+	char	*a;
+	a = get_next_line(fd);
+	while (a != NULL)
+	{
+		printf("result:%s", a);
+		free(a); //this missing causes the leaks
+		a = get_next_line(fd);
+	}
+	
+	free(a);
+	close(fd);
+	// printf("result:%s", get_next_line(fd));
+	// printf("result:%s", get_next_line(fd));
+	// printf("result:%s", get_next_line(fd));
+	// printf("result:%s", get_next_line(fd));
+	// printf("result:%s", get_next_line(fd));
+//	printf("finished");
+	return (0);
+}*/

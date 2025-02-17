@@ -1,49 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 16:29:04 by sgramsch          #+#    #+#             */
-/*   Updated: 2024/04/07 11:56:31 by sgramsch         ###   ########.fr       */
+/*   Created: 2023/11/27 14:42:32 by sgramsch          #+#    #+#             */
+/*   Updated: 2023/11/27 15:11:43 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft_gnl_printf.h"
+#include "../../inc/libft.h"
 
-int	end_of_line(char *safetycopy)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	pos;
+	t_list	*temp;
 
-	pos = 0;
-	if (!safetycopy)
-		return (-1);
-	while (safetycopy[pos])
+	temp = *lst;
+	if (*lst == NULL)
 	{
-		if (safetycopy[pos] == '\n')
-			return (pos);
-		pos ++;
+		*lst = new;
+		return ;
 	}
-	return (-1);
-}
-
-size_t	gnl_strlen(char *s)
-{
-	size_t	pos;
-
-	pos = 0;
-	while (s[pos])
-		pos ++;
-	return (pos);
-}
-
-char	*gnl_free(char *a)
-{
-	if (a)
+	while (temp)
 	{
-		free(a);
-		a = NULL;
+		if (temp->next == NULL)
+			break ;
+		temp = temp->next;
 	}
-	return (NULL);
+	temp->next = new;
 }

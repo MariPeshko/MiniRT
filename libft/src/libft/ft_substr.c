@@ -1,49 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 16:29:04 by sgramsch          #+#    #+#             */
-/*   Updated: 2024/04/07 11:56:31 by sgramsch         ###   ########.fr       */
+/*   Created: 2023/11/17 09:43:07 by sgramsch          #+#    #+#             */
+/*   Updated: 2023/11/20 15:09:01 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft_gnl_printf.h"
+#include "../../inc/libft.h"
 
-int	end_of_line(char *safetycopy)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	pos;
+	char				*substr;
+	long unsigned int	pos;
 
 	pos = 0;
-	if (!safetycopy)
-		return (-1);
-	while (safetycopy[pos])
-	{
-		if (safetycopy[pos] == '\n')
-			return (pos);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	while (s[start + pos] && pos < len)
 		pos ++;
-	}
-	return (-1);
-}
-
-size_t	gnl_strlen(char *s)
-{
-	size_t	pos;
-
+	len = pos;
+	substr = (char *) malloc((1 + len) * sizeof (char));
+	if (substr == 0)
+		return (0);
 	pos = 0;
-	while (s[pos])
-		pos ++;
-	return (pos);
-}
-
-char	*gnl_free(char *a)
-{
-	if (a)
+	while (pos < len && s[start + pos] != '\0')
 	{
-		free(a);
-		a = NULL;
+		substr[pos] = s[start + pos];
+		pos ++;
 	}
-	return (NULL);
+	substr[pos] = '\0';
+	return (substr);
 }

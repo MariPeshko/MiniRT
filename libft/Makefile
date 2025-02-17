@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/14 10:19:33 by zblume            #+#    #+#              #
-#    Updated: 2025/01/31 18:45:10 by mpeshko          ###   ########.fr        #
+#    Created: 2023/11/14 10:34:54 by sgramsch          #+#    #+#              #
+#    Updated: 2024/03/28 11:06:46 by sgramsch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,32 +21,37 @@ WHITE   = \033[0;37m
 RESET   = \033[0m
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
+OPTIONS = -c
+#-g3 makes debugging easier
 
 GNL_DIR = get_next_line
 GNL_SRC = $(addprefix $(GNL_DIR)/, \
-		get_next_line_bonus.c get_next_line_utils_bonus.c)
+		get_next_line.c get_next_line_utils.c)
 
-FUNC_DIRS = $(GNL_DIR)
-FUNC_SRCS = $(GNL_SRC)
-
-SRC_DIR = ./src
-SRC = $(addprefix $(SRC_DIR)/, \
+LIBFT_DIR = libft
+LIBFT_SRC = $(addprefix $(LIBFT_DIR)/, \
 		ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 		ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c ft_memcmp.c ft_memcpy.c \
 		ft_memmove.c ft_memset.c ft_putchar_fd.c ft_putendl_fd.c ft_putstr_fd.c \
 		ft_putnbr_fd.c ft_split.c ft_strchr.c ft_strdup.c ft_strjoin.c ft_strlcat.c \
 		ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c \
 		ft_striteri.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
-		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
-		ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c \
-		$(FUNC_SRCS))
+		ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c \
+		ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c )
+
+SRC_DIR = ./src
+TOTAL_SRC = $(addprefix $(SRC_DIR)/, \
+		$(LIBFT_SRC) $(GNL_SRC))
 
 OBJ_DIR = ./obj
-OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(TOTAL_SRC))
+
+INCLUDES = inc/libft_gnl_printf.h inc/get_next_line.h  inc/libft.h
 
 NAME = libft.a
-OPTIONS = -c
+
+##############################
 
 all: $(NAME)
 
@@ -55,9 +60,10 @@ $(NAME): $(OBJ)
 	@printf "$(GREEN)$(NAME) created$(RESET)\n"
 	@printf "$(MAGENTA)"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)/$(GNL_DIR)
+	@mkdir -p $(OBJ_DIR)/$(LIBFT_DIR)
 	@$(CC) $(CFLAGS) $(OPTIONS) $< -o $@
 	@printf "$(BLUE)Compiling...$(CYAN) $<$(RESET)\n"
 

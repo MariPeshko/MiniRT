@@ -3,27 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zblume <zblume@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 11:34:34 by zblume            #+#    #+#             */
-/*   Updated: 2024/03/06 11:40:15 by zblume           ###   ########.fr       */
+/*   Created: 2023/11/14 10:37:06 by sgramsch          #+#    #+#             */
+/*   Updated: 2024/04/07 11:56:34 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdarg.h>
+# include <fcntl.h>
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
 
-# include <unistd.h>
-# include <stdlib.h>
-
-char		*get_next_line(int fd);
-size_t		ft_strlen_line(char *s);
-char		*ft_strjoin_line(char *left_str, char *buff);
-char		*ft_strchr_line(char *s, int c);
-void		clean_pointer(char **ptr);
+char	*get_next_line(int fd);
+size_t	gnl_strlen(char *s);
+char	*extract_return_line(char *safetycopy);
+char	*edit_safetycopy(char *safetycopy);
+int		end_of_line(char *safetycopy);
+char	*append_safetycopy(char *safetycopy, char *reading);
+char	*read_line(int fd, char *reading, char *safetycopy);
+char	*gnl_free(char *a);
 
 #endif

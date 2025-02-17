@@ -1,49 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 16:29:04 by sgramsch          #+#    #+#             */
-/*   Updated: 2024/04/07 11:56:31 by sgramsch         ###   ########.fr       */
+/*   Created: 2023/11/13 12:25:46 by sgramsch          #+#    #+#             */
+/*   Updated: 2023/11/14 14:57:54 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft_gnl_printf.h"
+#include "../../inc/libft.h"
 
-int	end_of_line(char *safetycopy)
+void	ft_bzero(void *s, size_t n)
 {
-	int	pos;
+	unsigned char	*p;
 
-	pos = 0;
-	if (!safetycopy)
-		return (-1);
-	while (safetycopy[pos])
+	p = (unsigned char *)s;
+	while (n > 0)
 	{
-		if (safetycopy[pos] == '\n')
-			return (pos);
-		pos ++;
+		*p = 0;
+		p ++;
+		n --;
 	}
-	return (-1);
-}
-
-size_t	gnl_strlen(char *s)
-{
-	size_t	pos;
-
-	pos = 0;
-	while (s[pos])
-		pos ++;
-	return (pos);
-}
-
-char	*gnl_free(char *a)
-{
-	if (a)
-	{
-		free(a);
-		a = NULL;
-	}
-	return (NULL);
 }

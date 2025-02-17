@@ -1,49 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 16:29:04 by sgramsch          #+#    #+#             */
-/*   Updated: 2024/04/07 11:56:31 by sgramsch         ###   ########.fr       */
+/*   Created: 2023/11/14 15:34:25 by sgramsch          #+#    #+#             */
+/*   Updated: 2023/11/21 11:41:12 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft_gnl_printf.h"
+#include "../../inc/libft.h"
 
-int	end_of_line(char *safetycopy)
+char	*ft_strrchr(const char *s, int c)
 {
 	int	pos;
 
 	pos = 0;
-	if (!safetycopy)
-		return (-1);
-	while (safetycopy[pos])
-	{
-		if (safetycopy[pos] == '\n')
-			return (pos);
+	while (c > 127)
+		c = c - 128;
+	while (s[pos] != '\0')
 		pos ++;
-	}
-	return (-1);
-}
-
-size_t	gnl_strlen(char *s)
-{
-	size_t	pos;
-
-	pos = 0;
-	while (s[pos])
-		pos ++;
-	return (pos);
-}
-
-char	*gnl_free(char *a)
-{
-	if (a)
+	while (pos >= 0)
 	{
-		free(a);
-		a = NULL;
+		if (s[pos] == c)
+			return ((char *)s + pos);
+		pos --;
 	}
-	return (NULL);
+	return (0);
 }

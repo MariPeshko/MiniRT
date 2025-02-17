@@ -1,49 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 16:29:04 by sgramsch          #+#    #+#             */
-/*   Updated: 2024/04/07 11:56:31 by sgramsch         ###   ########.fr       */
+/*   Created: 2023/11/15 14:12:28 by sgramsch          #+#    #+#             */
+/*   Updated: 2023/11/29 13:56:23 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft_gnl_printf.h"
+#include "../../inc/libft.h"
 
-int	end_of_line(char *safetycopy)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	int	pos;
+	unsigned char		*d;
+	const unsigned char	*s;
+	long unsigned int	pos;
 
 	pos = 0;
-	if (!safetycopy)
-		return (-1);
-	while (safetycopy[pos])
+	d = dest;
+	s = src;
+	if (!dest && !src)
+		return (NULL);
+	while (pos < n)
 	{
-		if (safetycopy[pos] == '\n')
-			return (pos);
-		pos ++;
+		d[pos] = s[pos];
+		pos++;
 	}
-	return (-1);
-}
-
-size_t	gnl_strlen(char *s)
-{
-	size_t	pos;
-
-	pos = 0;
-	while (s[pos])
-		pos ++;
-	return (pos);
-}
-
-char	*gnl_free(char *a)
-{
-	if (a)
-	{
-		free(a);
-		a = NULL;
-	}
-	return (NULL);
+	return (dest);
 }

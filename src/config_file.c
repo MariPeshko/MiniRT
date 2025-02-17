@@ -1,6 +1,6 @@
 #include "../inc/miniRT.h"
 
-static void    print_error(error_type type)
+/*static void    print_error(error_type type)
 {
 	printf(RED "Error:\n" RESET);
 	if (type == NO_CONFIG_FILE)
@@ -21,14 +21,14 @@ static void    print_error(error_type type)
 		printf("Error opening file.\n");
 	if (type == EMPTY_FILE)
 		printf("Configuration file is empty.\n");
-}
+}*/
 
 void arg_error(int argc)
 {
 	if (argc == 1)
-		print_error(NO_CONFIG_FILE);
+		display_error(NO_CONFIG_FILE);
 	if (argc > 2)
-		print_error(TOO_MANY_ARGS);
+		display_error(TOO_MANY_ARGS);
 	exit(FAILURE);
 }
 
@@ -40,7 +40,7 @@ static void	check_extention(char *config)
 	i = 0;
 	if (ft_strchr(config, '.') == 0)
 	{
-		print_error(WRONG_EXTEN);
+		display_error(WRONG_EXTEN);
 		exit(FAILURE);
 	}
 	while (config[i])
@@ -50,7 +50,7 @@ static void	check_extention(char *config)
 			if (!(config[i + 1] == 'r' && config[i + 2] == 't' 
 				&& !(config[i + 3])))
 				{
-					print_error(WRONG_EXTEN);
+					display_error(WRONG_EXTEN);
 					exit(FAILURE);
 				}
 		}
@@ -69,7 +69,7 @@ void check_empt_file(char *filename)
 	if (byte != 1)
 	{
 		close(fd);
-		print_error(EMPTY_FILE);
+		display_error(EMPTY_FILE);
 		exit(FAILURE);
 	}
 	close(fd);
@@ -106,7 +106,7 @@ void	open_config(char *config)
 	
 	if (!*config || !config)
 	{
-		print_error(EMPTY_STRING);
+		display_error(EMPTY_STRING);
 		exit(SUCCESS);
 	}
 	check_extention(config);
@@ -119,8 +119,9 @@ void	open_config(char *config)
 			trim_out_spaces(&line);
 
 		//// PARSING FUNCTION
+		parse_delegate(line);
 
-		printf("%s", line);
+		printf("%s\n", line);
 		free(line);
 	}
 	close(fd_conf);
