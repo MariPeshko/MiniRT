@@ -38,9 +38,8 @@
 void	arg_error(int argc);
 void	open_config(char *config);
 
-
 //debugging_prints.c
-void    print_map(char **map);
+void	print_map(char **map);
 void	print_triplet(float *triplet);
 
 //error_handling.c
