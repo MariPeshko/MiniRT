@@ -36,7 +36,7 @@
 
 // config_file.c
 void	arg_error(int argc);
-void	open_config(char *config);
+void	open_config(char *config, s_config *cf);
 
 //debugging_prints.c
 void	print_map(char **map);

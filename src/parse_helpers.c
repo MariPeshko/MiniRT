@@ -62,7 +62,8 @@ int	get_float(char *line, int *pos, float *dest)
 	return (SUCCESS);
 }
 
-/*gets the next three floats from line, starting at pos and saves them in triplet*/
+/* Gets the next three floats from line, starting at pos and saves 
+them in triplet */
 int	get_three_floats(char *line, int *pos, float triplet[3])
 {
 	int i = 0;

@@ -100,10 +100,13 @@ static int	fd_creator(char *filename)
 
 // open a config file
 // a scene in format *.rt
-void	open_config(char *config)
+void	open_config(char *config, s_config *cf)
 {
 	int fd_conf;
 	
+	cf = ft_calloc(1, sizeof(s_config));
+	free(cf);
+
 	if (!*config || !config)
 	{
 		display_error(EMPTY_STRING);
