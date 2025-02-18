@@ -59,7 +59,7 @@ int	parse_delegate(char *line);
 //parse_helpers.c
 int	triplet_in_scope(float *triplet, float min, float max);
 int	get_float(char *line, int *pos, float *dest);
-int	get_three_floats(char *line, int *pos, float *triplet);
+int	get_three_floats(char *line, int *pos, float triplet[3]);
 int	get_RGB(char *line, int *pos);
 
 // str_utils.c

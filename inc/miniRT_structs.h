@@ -3,16 +3,35 @@
 
 typedef struct s_vector
 {
+	double	x;
+	double	y;
+	double	z;
 }	t_vector;
 
+// x,y,z coordinates
 typedef struct s_point
 {
+	double	x;
+	double	y;
+	double	z;
 }	t_point;
 
+// R,G,B colors in range [0-255]: 255, 255, 255
+typedef struct	s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	s_color ;
+
+// Second parameter - 3d normalized orientation vector.
+// In range [-1,1] for each x,y,z axis.
 typedef struct s_camera
 {
-
-} s_camera ;
+	t_point		point;
+	t_vector	norm_vec;
+	double		fov; 
+}	s_camera ;
 
 /*
 	Ambient lighting ratio in range [0.0,1.0].
@@ -20,6 +39,7 @@ typedef struct s_camera
 typedef struct s_ambient
 {
 	double	lighting_ratio;
+	s_color	col;
 }	s_ambient ;
 
 typedef struct s_light
@@ -49,7 +69,7 @@ typedef struct s_config
 	s_ambient	amb;
 	s_camera	cam;
 	s_light		light;
-	s_planes	*pl;
+	s_planes	*pl; // linked list
 	s_spheres	*sp; // linked list
 	s_cylinders	*cy; // linked list
 }	s_config ;
