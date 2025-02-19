@@ -5,4 +5,5 @@ obj/
 a.out
 **/a.out
 **/*.a
+.gitignore
 #the ** is short for "any subdirectory"
