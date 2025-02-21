@@ -30,8 +30,8 @@ parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
 int	parse_ambient_lighting(char *line)//+ large struct
 {
-	char **arguments;
-	int	pos;
+	char	**arguments;
+	int		pos;
 	float	tmp = 0;
 
 	pos = 1;

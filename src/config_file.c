@@ -58,7 +58,7 @@ static void	check_extention(char *config)
 	}
 }
 
-void check_empt_file(char *filename)
+int	check_empt_file(char *filename)
 {
 	int		fd;
 	int		byte;
@@ -69,10 +69,10 @@ void check_empt_file(char *filename)
 	if (byte != 1)
 	{
 		close(fd);
-		display_error(EMPTY_FILE);
-		exit(FAILURE);
+		return (-1);
 	}
 	close(fd);
+	return (1);
 }
 
 static int	fd_creator(char *filename)
@@ -80,22 +80,27 @@ static int	fd_creator(char *filename)
 	int		fd;
 
 	fd = 0;
-	if (access(filename, F_OK))
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
 	{
-		printf("%s: No such file or directory\n", filename);
+		display_error(strerror(errno));
 		exit(FAILURE);
 	}
-	else if (access(filename, R_OK))
+	if (check_empt_file(filename) < 0)
 	{
-		printf("%s: Permission denied\n", filename);
+		display_error(EMPTY_FILE);
 		exit(FAILURE);
-	}
-	else
-	{
-		check_empt_file(filename);
-		fd = open(filename, O_RDONLY);
 	}
 	return (fd);
+}
+
+// It initialises all linked list to NULL.
+void	init_config(s_config *cf)
+{
+	cf->pl = NULL;
+	cf->sp = NULL;
+	cf->cy = NULL;
+	// What about inisialising of int and double? (Maryna)
 }
 
 // open a config file
@@ -104,9 +109,7 @@ void	open_config(char *config, s_config *cf)
 {
 	int fd_conf;
 	
-	cf = ft_calloc(1, sizeof(s_config));
-	free(cf);
-
+	init_config(cf);
 	if (!*config || !config)
 	{
 		display_error(EMPTY_STRING);

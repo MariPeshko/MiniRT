@@ -90,6 +90,7 @@ typedef struct s_config
 	s_planes	*pl; // linked list
 	s_spheres	*sp; // linked list
 	s_cys		*cy; // linked list
+	// flags
 }	s_config ;
 
 typedef struct mini_rt
