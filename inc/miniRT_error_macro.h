@@ -4,6 +4,7 @@
 # define MEMORY "Memory allocation failed"
 # define INVALID_NBR_ARG "Invalid number of Arguments"
 # define WRONG_CHAR "unexpected character"
+# define RGB_WRONG_CHAR "unexpected character in RGB"
 # define RGB_SCOPE "RGB value out of scope"
 # define WRONG_IDENTIFIER "Invalid Identifier"
 # define A_SCOPE "Ambient light ratio out of scope"

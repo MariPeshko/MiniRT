@@ -7,6 +7,6 @@ int	map_len(char **map)
 
 	pos = 0;
 	while (map && map[pos])
-		pos ++;
+		pos++;
 	return (pos);
 }

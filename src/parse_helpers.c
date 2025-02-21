@@ -88,6 +88,17 @@ int	get_three_floats(char *line, int *pos, float triplet[3])
 	return (SUCCESS);
 }
 
+// 0 - r, 1 - g, 2 - b
+static void add_color(t_color *color, int identifier, int value)
+{
+	if (identifier == 0)
+		color->r = value;
+	if (identifier == 1)
+		color->g = value;
+	if (identifier == 2)
+		color->b = value;
+}
+
 /*
 line: input line starting with an Identifier
 *pos: position at which we expect the start of RGB values
@@ -96,7 +107,7 @@ line[*pos] is a valid RGB triplet
 later: adds foudn values to the needed struct.
 maybe make this edit a triplet like three floats function? 
 */
-int	get_RGB(char *line, int *pos)
+int	get_RGB(char *line, int *pos, t_config *cf)
 {
 	int	value;
 	int	i;
@@ -109,7 +120,7 @@ int	get_RGB(char *line, int *pos)
 		value = 0;
 		//printf("%c", line[*pos]);
 		if (!ft_isdigit(line[*pos]))
-			return (display_error(WRONG_CHAR));
+			return (display_error(RGB_WRONG_CHAR));
 		while (ft_isdigit(line[*pos]))
 		{
 			value = value * 10 + line[*pos] - '0';
@@ -118,14 +129,16 @@ int	get_RGB(char *line, int *pos)
 			(*pos)++;
 		}
 		if (i < 2 && line[*pos] != ',')
-			return (display_error(WRONG_CHAR));
+			return (display_error(RGB_WRONG_CHAR));
+		//printf result
+		// if (i == 2)
+		// 	printf("%i number is %d\n", i, value);
+		// else
+		// 	printf("%i number is %d\n", i, value);
 		//add Value to struct
-		//if (i == 2)
-		//	printf("%d]\n", value);
-		//else
-		//	printf("%d,", value);
+		add_color(&cf->amb.col, i, value);
 		(*pos)++;
-		i ++;
+		i++;
 	}
 	//printf("\n");
 	return (SUCCESS);

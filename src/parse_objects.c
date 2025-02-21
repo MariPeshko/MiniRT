@@ -24,11 +24,10 @@ int	get_int(char *line, int *pos, int *dest)
 	*dest = nbr * neg;
 	return (SUCCESS);
 }
-/*potentially later split up into parse lights (A and L)
+/* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
-
 /*parses a line starting with A*/
-int	parse_ambient_lighting(char *line)//+ large struct
+int	parse_ambient_lighting(char *line, t_config *cf)
 {
 	char	**arguments;
 	int		pos;
@@ -39,23 +38,40 @@ int	parse_ambient_lighting(char *line)//+ large struct
 	if (!arguments)
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 3)
-		return (display_error(INVALID_NBR_ARG));
+	{
+		display_error(INVALID_NBR_ARG);
+		ft_freestr(arguments);
+		return (FAILURE);
+	}
 	//print_map(arguments);
-	//get ambient ratio
 	if (get_float(line, &pos, &tmp) == FAILURE)
+	{
+		ft_freestr(arguments);
 		return (FAILURE);
+	}
 	if (tmp < 0.0 || tmp > 1.0)
-		return (display_error(A_SCOPE));
-	if (!is_whitespace(line[pos]))
-		return (display_error(WRONG_CHAR));
-	if (get_RGB(line, &pos) == FAILURE)
+	{
+		display_error(A_SCOPE);
+		ft_freestr(arguments);
 		return (FAILURE);
-	free(arguments);
+	}
+	cf->amb.lighting_ratio = tmp;
+	if (!is_whitespace(line[pos]))
+	{
+		printf("I try to understand for what it is :D\n");
+		display_error(WRONG_CHAR);
+	}
+	if (get_RGB(line, &pos, cf) == FAILURE)
+	{
+		ft_freestr(arguments);
+		return (FAILURE);
+	}
+	ft_freestr(arguments);
 	return (SUCCESS);
 }
 
 /*parses a line starting with C*/
-int	parse_camera(char *line)//+ large struct
+int	parse_camera(char *line, t_config *cf)
 {
 	char **arguments;
 	int	pos = 1;
@@ -80,12 +96,14 @@ int	parse_camera(char *line)//+ large struct
 		return (FAILURE);
 	if (tmp > 180 || tmp < 0)
 		return (display_error(FOV_SCOPE));
+	// temp to silence warning
+	cf->cam.fov = 50;
 	free(arguments);
 	return (SUCCESS);
 }
 
 /*parses a line starting with L*/
-int	parse_light(char *line)//+ large struct
+int	parse_light(char *line, t_config *cf)//+ large struct
 {
 	char **arguments;
 	int	pos;
@@ -107,14 +125,14 @@ int	parse_light(char *line)//+ large struct
 	if (tmp < 0.0 || tmp > 1.0)
 		return (display_error(A_SCOPE));
 	//get RGB? (unused in mandatory, so require it or not?)
-	if (get_RGB(line, &pos) == FAILURE)
+	if (get_RGB(line, &pos, cf) == FAILURE)
 		return (FAILURE);
 	free(arguments);
 	return (SUCCESS);
 }
 
 /*parses a line starting with cy*/
-int	parse_cylinder(char *line)//+ large struct
+int	parse_cylinder(char *line, t_config *cf)
 {
 	char **arguments;
 	int	pos;
@@ -145,7 +163,7 @@ int	parse_cylinder(char *line)//+ large struct
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	//get RGB color of cylinder
-	if (get_RGB(line, &pos) == FAILURE)
+	if (get_RGB(line, &pos, cf) == FAILURE)
 		return (FAILURE);
 	free(arguments);
 	return (SUCCESS);
@@ -154,7 +172,7 @@ int	parse_cylinder(char *line)//+ large struct
 /*
 parses a line starting with pl
 */
-int	parse_plane(char *line)//+ large struct
+int	parse_plane(char *line, t_config *cf)
 {
 	char **arguments;
 	int	pos;
@@ -175,7 +193,7 @@ int	parse_plane(char *line)//+ large struct
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
 	//get RGB color of plane
-	if (get_RGB(line, &pos) == FAILURE)
+	if (get_RGB(line, &pos, cf) == FAILURE)
 		return (FAILURE);
 	free(arguments);
 	return (SUCCESS);
@@ -184,7 +202,7 @@ int	parse_plane(char *line)//+ large struct
 /*
 parses a line starting with sp
 */
-int	parse_sphere(char *line)//+ large struct
+int	parse_sphere(char *line, t_config *cf)
 {
 	char **arguments;
 	int	pos;
@@ -208,7 +226,7 @@ int	parse_sphere(char *line)//+ large struct
 	if (tmp < 0)
 		return (display_error(SP_DIAMETER_SCOPE));
 	//get RGB color of sphere
-	if (get_RGB(line, &pos) == FAILURE)
+	if (get_RGB(line, &pos, cf) == FAILURE)
 		return (FAILURE);
 	free(arguments);
 	return (SUCCESS);

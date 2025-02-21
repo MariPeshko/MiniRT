@@ -60,7 +60,7 @@ static int	loop(const char *s, char c, char **splitted)
 			wc++;
 			while (s[pos + pos2] != c && s[pos + pos2])
 				pos2++;
-			splitted[wc] = (char *) malloc ((pos2 + 1) * sizeof (char));
+			splitted[wc] = (char *)malloc ((pos2 + 1) * sizeof(char));
 			if (!splitted[wc])
 				return (0);
 			ft_strlcpy(splitted[wc], s + pos, pos2 + 1);

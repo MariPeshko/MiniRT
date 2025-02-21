@@ -53,23 +53,24 @@ void	print_triplet(float *triplet);
 int		display_error(char *msg);
 
 //parse_objects.c
-int		parse_ambient_lighting(char *line);
-int		parse_camera(char *line);
-int		parse_light(char *line);
-int		parse_cylinder(char *line);
-int		parse_plane(char *line);
-int		parse_sphere(char *line);
+int		parse_ambient_lighting(char *line, t_config *cf);
+int		parse_camera(char *line, t_config *cf);
+int		parse_light(char *line, t_config *cf);
+int		parse_cylinder(char *line, t_config *cf);
+int		parse_plane(char *line, t_config *cf);
+int		parse_sphere(char *line, t_config *cf);
 
 //parse_delegate.c
-int		parse_delegate(char *line);
+int		parse_delegate(char *line, t_config *cf);
 
 //parse_helpers.c
 int		triplet_in_scope(float *triplet, float min, float max);
 int		get_float(char *line, int *pos, float *dest);
 int		get_three_floats(char *line, int *pos, float triplet[3]);
-int		get_RGB(char *line, int *pos);
+int		get_RGB(char *line, int *pos, t_config *cf);
 
 // str_utils.c
+void	ft_freestr(char **lst);
 void	trim_out_spaces(char **str);
 int		ft_spacetabchecker(char *input);
 

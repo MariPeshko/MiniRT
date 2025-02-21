@@ -1,6 +1,28 @@
 #include "../inc/miniRT.h"
 
 /**
+ * This function frees an array of strings.
+ * The function iterates through each string in the array, freeing each one 
+ * individually. After freeing all the strings, it frees the array itself.
+ */
+void	ft_freestr(char **lst)
+{
+	int		i;
+	char	*n1;
+
+	i = 0;
+	if (!lst)
+		return ;
+	while (lst[i] != NULL)
+	{
+		n1 = lst[i];
+		i++;
+		free(n1);
+	}
+	free(lst);
+}
+
+/**
  * To trim leading and trailing spaces from a string
  */
 static void	trim_it(char **str, char **new)
