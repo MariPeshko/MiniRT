@@ -15,6 +15,7 @@ OPTIONS = -c
 SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
+		check_initial.c		\
 		config_file.c		\
 		debugging_prints.c	\
 		error_handling.c 	\
@@ -29,7 +30,6 @@ SRC = $(addprefix $(SRC_DIR)/,\
 
 INCLUDES = inc/miniRT.h
 LIBFT_INC = libft/inc/get_next_line.h \
-	libft/inc/libft_gnl_printf.h \
 	libft/inc/libft.h
 
 OBJ_DIR = ./obj

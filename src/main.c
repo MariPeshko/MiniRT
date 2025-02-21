@@ -2,7 +2,7 @@
 
 int	main(int argc, char **argv)
 {
-	mini_rt	rt;
+	t_mini_rt	rt;
 
 	if (argc != 2)
 		arg_error(argc);

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 16:29:04 by sgramsch          #+#    #+#             */
-/*   Updated: 2024/04/07 11:56:31 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:14:38 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft_gnl_printf.h"
+//#include "../../inc/libft_gnl_printf.h"
+# include "../../inc/libft.h"
+# include "../../inc/get_next_line.h"
 
 int	end_of_line(char *safetycopy)
 {

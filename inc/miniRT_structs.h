@@ -17,12 +17,12 @@ typedef struct s_point
 }	t_point;
 
 // R,G,B colors in range [0-255]: 255, 255, 255
-typedef struct	s_color
+typedef struct s_color
 {
 	int	r;
 	int	g;
 	int	b;
-}	s_color ;
+}	t_color;
 
 // Second parameter - 3d normalized orientation vector.
 // In range [-1,1] for each x,y,z axis.
@@ -30,8 +30,8 @@ typedef struct s_camera
 {
 	t_point		point;
 	t_vector	norm_vec;
-	double		fov; 
-}	s_camera ;
+	double		fov;
+}	t_camera;
 
 /*
 	Ambient lighting ratio in range [0.0,1.0].
@@ -39,8 +39,8 @@ typedef struct s_camera
 typedef struct s_ambient
 {
 	double	lighting_ratio;
-	s_color	col;
-}	s_ambient ;
+	t_color	col;
+}	t_ambient;
 
 // the light brightness ratio in range [0.0,1.0]
 // (unused in mandatory part)R,G,B colors in range [0-255]
@@ -48,55 +48,55 @@ typedef struct s_light
 {
 	t_point		point;
 	double		bright;
-	s_color		col;
-}	s_light ;
+	t_color		col;
+}	t_light;
 
 typedef struct s_planes
 {
-	t_point		point;
-	t_vector	norm_vec;
-	s_color		col;
-	int			id; // identifier
-	struct s_planes	*next;
-}	s_planes ;
+	t_point			point;
+	t_vector		norm_vec;
+	t_color			col;
+	int				id; // identifier
+	struct t_planes	*next;
+}	t_planes;
 
 typedef struct s_spheres
 {
-	t_point		point;
-	double		diam;
-	s_color		col;
-	int			id; // identifier
-	struct s_spheres	*next;
-}	s_spheres ;
+	t_point				point;
+	double				diam;
+	t_color				col;
+	int					id; // identifier
+	struct t_spheres	*next;
+}	t_spheres;
 
 // Cylinder(s)
 typedef struct s_cys
 {
-	t_point		point;
-	t_vector	norm_vec;
-	double		diam;
-	double		height;
-	s_color		col;
-	int			id; // identifier
-	struct s_cys	*next;
-}	s_cys ;
+	t_point			point;
+	t_vector		norm_vec;
+	double			diam;
+	double			height;
+	t_color			col;
+	int				id; // identifier
+	struct t_cys	*next;
+}	t_cys;
 
 // Structure to store all information from a config file .rt
 typedef struct s_config
 {
-	s_ambient	amb;
-	s_camera	cam;
-	s_light		light;
-	s_planes	*pl; // linked list
-	s_spheres	*sp; // linked list
-	s_cys		*cy; // linked list
+	t_ambient	amb;
+	t_camera	cam;
+	t_light		light;
+	t_planes	*pl; // linked list
+	t_spheres	*sp; // linked list
+	t_cys		*cy; // linked list
 	// flags
-}	s_config ;
+}	t_config;
 
 typedef struct mini_rt
 {
-	s_config	cf;
+	t_config	cf;
 	// rest of the structs
-} mini_rt ;
+}	t_mini_rt;
 
 #endif

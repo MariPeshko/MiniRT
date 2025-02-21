@@ -2,7 +2,6 @@
 
 /**
  * To trim leading and trailing spaces from a string
- * (c) Maryna
  */
 static void	trim_it(char **str, char **new)
 {
@@ -67,6 +66,8 @@ static int	count_trim_len(char *str)
  */
 int	ft_spacetabchecker(char *input)
 {
+	if (*input >= '\n')
+		return (0);
 	if ((*input >= 9 && *input <= 11)
 		|| *input == 32)
 		return (1);
@@ -77,7 +78,6 @@ int	ft_spacetabchecker(char *input)
 /**
  * To trim leading and trailing spaces from a string and then
  * update the original string pointer with the new trimmed string.
- * (c) Marina
  */
 void	trim_out_spaces(char **str)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+         #
+#    By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/14 10:34:54 by sgramsch          #+#    #+#              #
-#    Updated: 2024/03/28 11:06:46 by sgramsch         ###   ########.fr        #
+#    Updated: 2025/02/21 17:10:42 by mpeshko          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ TOTAL_SRC = $(addprefix $(SRC_DIR)/, \
 OBJ_DIR = ./obj
 OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(TOTAL_SRC))
 
-INCLUDES = inc/libft_gnl_printf.h inc/get_next_line.h  inc/libft.h
+INCLUDES = inc/get_next_line.h  inc/libft.h
 
 NAME = libft.a
 

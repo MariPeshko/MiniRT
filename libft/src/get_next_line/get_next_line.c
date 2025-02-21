@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/libft_gnl_printf.h"
+//#include "../../inc/libft_gnl_printf.h"
+# include "../../inc/libft.h"
+# include "../../inc/get_next_line.h"
 
 char	*extract_return_line(char *safetycopy)
 {

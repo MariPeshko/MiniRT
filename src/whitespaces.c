@@ -1,11 +1,13 @@
 #include "../inc/miniRT.h"
 
-/*c = random character
-returns true (aka 1) if c is a whitspace, false (aka 0) if not.
-needs stdbool.h for boolean useage*/
 bool	is_whitespace(char c)
 {
-    return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+	if (c == ' ' || c == '\t' || c == '\n')
+		return (1);
+	if (c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	else
+		return (0);
 }
 
 /*str = random string
@@ -17,7 +19,7 @@ void	skip_whitespace(char *str, int *pos)
 		*pos += 1;
 }
 
-/*switches all whitespaces to spaces*/
+/* switches all whitespaces to spaces */
 void	whitespace_to_space(char *line)
 {
 	int	pos;

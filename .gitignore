@@ -5,4 +5,5 @@ obj/
 a.out
 **/a.out
 **/*.a
+gpt_draft.c
 #the ** is short for "any subdirectory"
