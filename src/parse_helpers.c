@@ -93,9 +93,9 @@ static void add_color(t_color *color, int identifier, int value)
 {
 	if (identifier == 0)
 		color->r = value;
-	if (identifier == 1)
+	else if (identifier == 1)
 		color->g = value;
-	if (identifier == 2)
+	else if (identifier == 2)
 		color->b = value;
 }
 
@@ -118,7 +118,6 @@ int	get_RGB(char *line, int *pos, t_config *cf)
 	while (i < 3)
 	{
 		value = 0;
-		//printf("%c", line[*pos]);
 		if (!ft_isdigit(line[*pos]))
 			return (display_error(RGB_WRONG_CHAR));
 		while (ft_isdigit(line[*pos]))
@@ -130,16 +129,14 @@ int	get_RGB(char *line, int *pos, t_config *cf)
 		}
 		if (i < 2 && line[*pos] != ',')
 			return (display_error(RGB_WRONG_CHAR));
-		//printf result
-		// if (i == 2)
-		// 	printf("%i number is %d\n", i, value);
-		// else
-		// 	printf("%i number is %d\n", i, value);
 		//add Value to struct
 		add_color(&cf->amb.col, i, value);
+		/*S: this seem sto add value to amient struct all the time.
+		however, this fucntion may be called for all objects. 
+		therefor i think it wise to actually have this triplet sorta thing
+		to return and have who called this function assign the values*/
 		(*pos)++;
 		i++;
 	}
-	//printf("\n");
 	return (SUCCESS);
 }

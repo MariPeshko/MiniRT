@@ -8,10 +8,10 @@ and passes it on to the respective parsing function.
 int	parse_delegate(char *line, t_config *cf)
 {
 	if (ft_strncmp(line, "\n", 1) == SUCCESS)
-		return (1);
+		return (FAILURE);//empty line
 	whitespace_to_space(line);
 	if (ft_strncmp(line, "A", 1) == SUCCESS)
-		parse_ambient_lighting(line, cf);
+		return (parse_ambient_lighting(line, cf));
 	else if (ft_strncmp(line, "C", 1) == SUCCESS)
 		return (parse_camera(line, cf));
 	else if (ft_strncmp(line, "L", 1) == SUCCESS)

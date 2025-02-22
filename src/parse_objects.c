@@ -1,7 +1,7 @@
 #include "../inc/miniRT.h"
 
 
-
+/*gets an int from line*/
 int	get_int(char *line, int *pos, int *dest)
 {
 	int	nbr = 0;
@@ -24,6 +24,7 @@ int	get_int(char *line, int *pos, int *dest)
 	*dest = nbr * neg;
 	return (SUCCESS);
 }
+
 /* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
@@ -59,6 +60,7 @@ int	parse_ambient_lighting(char *line, t_config *cf)
 	if (!is_whitespace(line[pos]))
 	{
 		printf("I try to understand for what it is :D\n");
+		//checks for there not being a whitespace between ambient light ratio and RGB value ^^
 		display_error(WRONG_CHAR);
 	}
 	if (get_RGB(line, &pos, cf) == FAILURE)
@@ -159,7 +161,6 @@ int	parse_cylinder(char *line, t_config *cf)
 	if (tmp < 0)
 		return (display_error(CY_DIAMETER_SCOPE));
 	//get cylinder height (float). can be negative or not?
-	//
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	//get RGB color of cylinder

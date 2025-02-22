@@ -1,5 +1,6 @@
 #include "../inc/miniRT.h"
 
+/*displays the correct error if argc isn't 2*/
 void	arg_error(int argc)
 {
 	if (argc == 1)
@@ -35,9 +36,10 @@ static void	check_extention(char *config)
 	}
 }
 
+//checks for empty string as filename argument
 void	check_filename(char *config)
 {
-	if (!*config || !config)
+	if (!*config || !config)//should these be turned around?
 	{
 		display_error(EMPTY_STRING);
 		exit(SUCCESS);
@@ -45,6 +47,7 @@ void	check_filename(char *config)
 	check_extention(config);
 }
 
+//checks if filename is empty (read immediately returns < 1)
 int	check_empt_file(char *filename)
 {
 	int		fd;
@@ -56,8 +59,8 @@ int	check_empt_file(char *filename)
 	if (byte != 1)
 	{
 		close(fd);
-		return (-1);
+		return (FAILURE);
 	}
 	close(fd);
-	return (1);
+	return (SUCCESS);//whats with the return values?
 }

@@ -33,17 +33,15 @@ typedef struct s_camera
 	double		fov;
 }	t_camera;
 
-/*
-	Ambient lighting ratio in range [0.0,1.0].
-*/
+/*Ambient lighting ratio in range [0.0,1.0].*/
 typedef struct s_ambient
 {
 	double	lighting_ratio;
 	t_color	col;
 }	t_ambient;
 
-// the light brightness ratio in range [0.0,1.0]
-// (unused in mandatory part)R,G,B colors in range [0-255]
+/*the light brightness ratio in range [0.0,1.0]
+(unused in mandatory part)R,G,B colors in range [0-255]*/
 typedef struct s_light
 {
 	t_point		point;

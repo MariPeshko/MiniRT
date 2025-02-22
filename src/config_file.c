@@ -1,5 +1,7 @@
 #include "../inc/miniRT.h"
 
+/*opens given file and returns id upon it being a
+file worth reading from. otherwise exits*/
 static int	fd_creator(char *filename)
 {
 	int		fd;
@@ -11,7 +13,7 @@ static int	fd_creator(char *filename)
 		display_error(strerror(errno));
 		exit(FAILURE);
 	}
-	if (check_empt_file(filename) < 0)
+	if (check_empt_file(filename) == FAILURE)
 	{
 		display_error(EMPTY_FILE);
 		exit(FAILURE);
@@ -19,10 +21,10 @@ static int	fd_creator(char *filename)
 	return (fd);
 }
 
-// It initialises all linked list to NULL.
-// What about inisialising of int and double? (Maryna)
-// Yes, valgrind complaining when I print uninitialised 
-// values (it is conditional jump or move)
+/*It initialises all linked list to NULL.
+What about inisialising of int and double? (Maryna)
+Yes, valgrind complaining when I print uninitialised
+values (it is conditional jump or move) (S: thanks for the warning)*/
 void	init_config(t_config *cf)
 {
 	cf->pl = NULL;
@@ -33,8 +35,8 @@ void	init_config(t_config *cf)
 	cf->amb.col.b = 0;
 }
 
-// open a config file
-// a scene in format *.rt
+/*open a config file
+a scene in format *.rt*/
 void	open_config(char *config, t_config *cf)
 {
 	int		fd_conf;
