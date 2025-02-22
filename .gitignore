@@ -6,4 +6,5 @@ a.out
 **/a.out
 **/*.a
 gpt_draft.c
+**/miniRT
 #the ** is short for "any subdirectory"
