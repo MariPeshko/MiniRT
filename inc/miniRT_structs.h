@@ -85,9 +85,9 @@ typedef struct s_config
 	t_ambient	amb;
 	t_camera	cam;
 	t_light		light;
-	t_planes	*pl; // linked list
-	t_spheres	*sp; // linked list
-	t_cys		*cy; // linked list
+	t_planes	*pl;
+	t_spheres	*sp;
+	t_cys		*cy;
 	// flags
 }	t_config;
 

@@ -1,5 +1,11 @@
 #include "../inc/miniRT.h"
 
+void	assign_rgb(t_color *in_struct, t_color result_rgb)
+{
+	in_struct->r = result_rgb.r;
+	in_struct->g = result_rgb.g;
+	in_struct->b = result_rgb.b;
+}
 
 /*gets an int from line*/
 int	get_int(char *line, int *pos, int *dest)
@@ -28,7 +34,7 @@ int	get_int(char *line, int *pos, int *dest)
 /* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
-int	parse_ambient_lighting(char *line, t_config *cf)
+int	parse_ambient_lighting(char *line, t_ambient *amb)
 {
 	char	**arguments;
 	int		pos;
@@ -56,7 +62,7 @@ int	parse_ambient_lighting(char *line, t_config *cf)
 		ft_freestr(arguments);
 		return (FAILURE);
 	}
-	cf->amb.lighting_ratio = tmp;
+	amb->lighting_ratio = tmp;
 	if (!is_whitespace(line[pos]))
 	{
 		printf("I try to understand for what it is :D\n");
@@ -64,17 +70,19 @@ int	parse_ambient_lighting(char *line, t_config *cf)
 		//light ratio and RGB value ^^
 		display_error(WRONG_CHAR);
 	}
-	if (get_RGB(line, &pos, cf) == FAILURE)
+	t_color	rgb;
+	if (get_RGB(line, &pos, &rgb) == FAILURE)
 	{
 		ft_freestr(arguments);
 		return (FAILURE);
 	}
+	assign_rgb(&amb->col, rgb);
 	ft_freestr(arguments);
 	return (SUCCESS);
 }
 
 /*parses a line starting with C*/
-int	parse_camera(char *line, t_config *cf)
+int	parse_camera(char *line, t_camera *camera)
 {
 	char **arguments;
 	int	pos = 1;
@@ -99,14 +107,13 @@ int	parse_camera(char *line, t_config *cf)
 		return (FAILURE);
 	if (tmp > 180 || tmp < 0)
 		return (display_error(FOV_SCOPE));
-	// temp to silence warning
-	cf->cam.fov = 50;
+	camera->fov = tmp;
 	free(arguments);
 	return (SUCCESS);
 }
 
 /*parses a line starting with L*/
-int	parse_light(char *line, t_config *cf)//+ large struct
+int	parse_light(char *line, t_light *light)
 {
 	char **arguments;
 	int	pos;
@@ -128,18 +135,27 @@ int	parse_light(char *line, t_config *cf)//+ large struct
 	if (tmp < 0.0 || tmp > 1.0)
 		return (display_error(A_SCOPE));
 	//get RGB? (unused in mandatory, so require it or not?)
-	if (get_RGB(line, &pos, cf) == FAILURE)
+	t_color	rgb;
+	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
+	assign_rgb(&light->col, rgb);
 	free(arguments);
 	return (SUCCESS);
 }
 
+
 /*parses a line starting with cy*/
-int	parse_cylinder(char *line, t_config *cf)
+int	parse_cylinder(char *line, t_cys **cylinder)
 {
 	char	**arguments;
 	int		pos;
 	float	tmp;
+
+	if(!*cylinder)
+	{
+		*cylinder = ft_calloc(1, sizeof(t_cys));
+		(*cylinder)->next = NULL;
+	}
 
 	pos = 2;
 	arguments = ft_split(line, ' ');
@@ -165,8 +181,10 @@ int	parse_cylinder(char *line, t_config *cf)
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	//get RGB color of cylinder
-	if (get_RGB(line, &pos, cf) == FAILURE)
+	t_color	rgb;
+	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
+	assign_rgb(&(*cylinder)->col, rgb);
 	free(arguments);
 	return (SUCCESS);
 }
@@ -174,10 +192,16 @@ int	parse_cylinder(char *line, t_config *cf)
 /*
 parses a line starting with pl
 */
-int	parse_plane(char *line, t_config *cf)
+int	parse_plane(char *line, t_planes **plane)
 {
 	char **arguments;
 	int	pos;
+
+	if(!*plane)
+	{
+		*plane = ft_calloc(1, sizeof(t_planes));
+		(*plane)->next = NULL;
+	}
 
 	pos = 2;
 	arguments = ft_split(line, ' ');
@@ -195,8 +219,10 @@ int	parse_plane(char *line, t_config *cf)
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
 	//get RGB color of plane
-	if (get_RGB(line, &pos, cf) == FAILURE)
+	t_color	rgb;
+	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
+	assign_rgb(&(*plane)->col, rgb);
 	free(arguments);
 	return (SUCCESS);
 }
@@ -204,14 +230,19 @@ int	parse_plane(char *line, t_config *cf)
 /*
 parses a line starting with sp
 */
-int	parse_sphere(char *line, t_config *cf)
+int	parse_sphere(char *line, t_spheres **sphere)
 {
-	char **arguments;
-	int	pos;
+	char	**arguments;
+	int		pos;
 	float	tmp;
 	//int	rgb[3];make like triplet so that data gets changed out here
 	//or make it a struct that get RGB can alter.
 
+	if(!*sphere)
+	{
+		*sphere = ft_calloc(1, sizeof(t_spheres));
+		(*sphere)->next = NULL;
+	}
 	pos = 2;
 	arguments = ft_split(line, ' ');
 	if (!arguments)
@@ -228,8 +259,10 @@ int	parse_sphere(char *line, t_config *cf)
 	if (tmp < 0)
 		return (display_error(SP_DIAMETER_SCOPE));
 	//get RGB color of sphere
-	if (get_RGB(line, &pos, cf) == FAILURE)
+	t_color	rgb;
+	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
+	assign_rgb(&(*sphere)->col, rgb);
 	free(arguments);
 	return (SUCCESS);
 }

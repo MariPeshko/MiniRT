@@ -94,6 +94,20 @@ void	init_config(t_config *cf)
 	cf->cy = NULL;
 }
 
+static void	print_test_config(t_config *cf)
+{
+	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n");
+	printf("Amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
+	print_col(&cf->amb.col, "Ambience");
+	print_vec(&cf->cam.norm_vec, "Camera norm vector");
+	printf("Camera fov: %.2f\n", cf->cam.fov);
+	print_point(&cf->cam.point, NULL);
+	print_col(&cf->light.col, "Light");
+	print_col(&cf->pl->col, "Plane");
+	print_col(&cf->sp->col, "Sphere");
+	print_col(&cf->cy->col, "Cyliner");
+}
+
 /*open a config file
 a scene in format *.rt*/
 void	open_config(char *config, t_config *cf)
@@ -114,9 +128,6 @@ void	open_config(char *config, t_config *cf)
 		free(line);
 		line = get_next_line(fd_conf);
 	}
-	printf("amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
-	print_col(&cf->amb.col, "Ambience");
-	print_vec(&cf->cam.norm_vec, "Camera norm vector");
-	print_point(&cf->cam.point, NULL);
+	print_test_config(cf);
 	close(fd_conf);
 }

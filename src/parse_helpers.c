@@ -107,7 +107,7 @@ line[*pos] is a valid RGB triplet
 later: adds foudn values to the needed struct.
 maybe make this edit a triplet like three floats function? 
 */
-int	get_RGB(char *line, int *pos, t_config *cf)
+int	get_RGB(char *line, int *pos, t_color *result_rgb)
 {
 	int	value;
 	int	i;
@@ -130,7 +130,7 @@ int	get_RGB(char *line, int *pos, t_config *cf)
 		if (i < 2 && line[*pos] != ',')
 			return (display_error(RGB_WRONG_CHAR));
 		//add Value to struct
-		add_color(&cf->amb.col, i, value);
+		add_color(result_rgb, i, value);
 		/*S: this seems to add value to ambient struct all the time.
 		however, this fucntion may be called for all objects. 
 		therefor i think it wise to actually have this triplet sorta thing

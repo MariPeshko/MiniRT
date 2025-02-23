@@ -11,17 +11,17 @@ int	parse_delegate(char *line, t_config *cf)
 		return (FAILURE);//empty line
 	whitespace_to_space(line);
 	if (ft_strncmp(line, "A", 1) == SUCCESS)
-		return (parse_ambient_lighting(line, cf));
+		return (parse_ambient_lighting(line, &cf->amb));
 	else if (ft_strncmp(line, "C", 1) == SUCCESS)
-		return (parse_camera(line, cf));
+		return (parse_camera(line, &cf->cam));
 	else if (ft_strncmp(line, "L", 1) == SUCCESS)
-		return (parse_light(line, cf));
+		return (parse_light(line, &cf->light));
 	else if (ft_strncmp(line, "cy", 2) == SUCCESS)
-		return (parse_cylinder(line, cf));
+		return (parse_cylinder(line, &cf->cy));
 	else if (ft_strncmp(line, "pl", 2) == SUCCESS)
-		return (parse_plane(line, cf));
+		return (parse_plane(line, &cf->pl));
 	else if (ft_strncmp(line, "sp", 2) == SUCCESS)
-		return (parse_sphere(line, cf));
+		return (parse_sphere(line, &cf->sp));
 	else if (line[0] != '\0')
 		return (display_error(WRONG_IDENTIFIER));
 	return (SUCCESS);

@@ -57,12 +57,12 @@ void	print_triplet(float *triplet);
 int		display_error(char *msg);
 
 //parse_objects.c
-int		parse_ambient_lighting(char *line, t_config *cf);
-int		parse_camera(char *line, t_config *cf);
-int		parse_light(char *line, t_config *cf);
-int		parse_cylinder(char *line, t_config *cf);
-int		parse_plane(char *line, t_config *cf);
-int		parse_sphere(char *line, t_config *cf);
+int		parse_ambient_lighting(char *line, t_ambient *amb);
+int		parse_camera(char *line, t_camera *camera);
+int		parse_light(char *line, t_light *light);
+int		parse_cylinder(char *line, t_cys **cylinder);
+int		parse_plane(char *line, t_planes **plane);
+int		parse_sphere(char *line, t_spheres **sphere);
 
 //parse_delegate.c
 int		parse_delegate(char *line, t_config *cf);
@@ -71,7 +71,7 @@ int		parse_delegate(char *line, t_config *cf);
 int		triplet_in_scope(float *triplet, float min, float max);
 int		get_float(char *line, int *pos, float *dest);
 int		get_three_floats(char *line, int *pos, float triplet[3]);
-int		get_RGB(char *line, int *pos, t_config *cf);
+int		get_RGB(char *line, int *pos, t_color *result_rgb);
 
 // str_utils.c
 void	ft_freestr(char **lst);
