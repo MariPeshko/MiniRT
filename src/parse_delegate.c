@@ -16,12 +16,12 @@ int	parse_delegate(char *line, t_config *cf)
 		return (parse_camera(line, &cf->cam));
 	else if (ft_strncmp(line, "L", 1) == SUCCESS)
 		return (parse_light(line, &cf->light));
-	else if (ft_strncmp(line, "cy", 2) == SUCCESS)
-		return (parse_cylinder(line, &cf->cy));
 	else if (ft_strncmp(line, "pl", 2) == SUCCESS)
 		return (parse_plane(line, &cf->pl));
 	else if (ft_strncmp(line, "sp", 2) == SUCCESS)
 		return (parse_sphere(line, &cf->sp));
+	else if (ft_strncmp(line, "cy", 2) == SUCCESS)
+		return (parse_cylinder(line, &cf->cy));
 	else if (line[0] != '\0')
 		return (display_error(WRONG_IDENTIFIER));
 	return (SUCCESS);
