@@ -137,8 +137,8 @@ int	parse_light(char *line, t_config *cf)//+ large struct
 /*parses a line starting with cy*/
 int	parse_cylinder(char *line, t_config *cf)
 {
-	char **arguments;
-	int	pos;
+	char	**arguments;
+	int		pos;
 	float	tmp;
 
 	pos = 2;

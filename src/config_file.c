@@ -81,16 +81,17 @@ Yes, valgrind complaining when I print uninitialised
 values (it is conditional jump or move) (S: thanks for the warning)*/
 void	init_config(t_config *cf)
 {
-	cf->pl = NULL;
-	cf->sp = NULL;
-	cf->cy = NULL;
-	init_col(&cf->amb.col, 0, 0, 0);
 	cf->amb.lighting_ratio = 0;
+	init_col(&cf->amb.col, 0, 0, 0);
 	cf->cam.fov = 0;
 	init_vec(&cf->cam.norm_vec, 0, 0, 0);
 	init_point(&cf->cam.point, 0, 0, 0);
 	cf->light.bright = 0;
 	init_col(&cf->light.col, 0, 0, 0);
+	init_point(&cf->light.point, 0, 0, 0);
+	cf->pl = NULL;
+	cf->sp = NULL;
+	cf->cy = NULL;
 }
 
 /*open a config file
