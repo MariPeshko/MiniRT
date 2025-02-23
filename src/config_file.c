@@ -21,13 +21,33 @@ static int	fd_creator(char *filename)
 	return (fd);
 }
 
-void	print_vec(t_vector *vec, const char *msg)
+void	print_point(t_point *p, const char *msg)
 {
 	if (msg)
 		printf("%s ", msg);
+	else
+		printf("Undefined element's point ");
+	printf("x: %f, ", p->x);
+	printf("y: %f, ", p->y);
+	printf("z: %f\n", p->y);
+}
+
+static void	print_vec(t_vector *vec, const char *msg)
+{
+	if (msg)
+		printf("%s ", msg);
+	else
+		printf("Undefined element's vector ");
 	printf("x: %f, ", vec->x);
 	printf("y: %f, ", vec->y);
 	printf("z: %f\n", vec->y);
+}
+
+static void	init_point(t_point *p, double x, double y, double z)
+{
+	p->x = x;
+	p->y = y;
+	p->z = z;
 }
 
 static void	init_vec(t_vector *vec, double x, double y, double z)
@@ -52,6 +72,7 @@ void	init_config(t_config *cf)
 	cf->amb.lighting_ratio = 0;
 	cf->cam.fov = 0;
 	init_vec(&cf->cam.norm_vec, 0, 0, 0);
+	init_point(&cf->cam.point, 0, 0, 0);
 }
 
 /*open a config file
@@ -79,5 +100,6 @@ void	open_config(char *config, t_config *cf)
 	printf("amb.col.g: %i\n", cf->amb.col.g);
 	printf("amb.col.b: %i\n", cf->amb.col.b);
 	print_vec(&cf->cam.norm_vec, "Camera norm vector");
+	print_point(&cf->cam.point, NULL);
 	close(fd_conf);
 }
