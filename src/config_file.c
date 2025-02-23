@@ -21,6 +21,22 @@ static int	fd_creator(char *filename)
 	return (fd);
 }
 
+void	print_vec(t_vector *vec, const char *msg)
+{
+	if (msg)
+		printf("%s ", msg);
+	printf("x: %f, ", vec->x);
+	printf("y: %f, ", vec->y);
+	printf("z: %f\n", vec->y);
+}
+
+static void	init_vec(t_vector *vec, double x, double y, double z)
+{
+	vec->x = x;
+	vec->y = y;
+	vec->z = z;
+}
+
 /*It initialises all linked list to NULL.
 What about inisialising of int and double? (Maryna)
 Yes, valgrind complaining when I print uninitialised
@@ -33,6 +49,9 @@ void	init_config(t_config *cf)
 	cf->amb.col.r = 0;
 	cf->amb.col.g = 0;
 	cf->amb.col.b = 0;
+	cf->amb.lighting_ratio = 0;
+	cf->cam.fov = 0;
+	init_vec(&cf->cam.norm_vec, 0, 0, 0);
 }
 
 /*open a config file
@@ -59,5 +78,6 @@ void	open_config(char *config, t_config *cf)
 	printf("amb.col.r: %i\n", cf->amb.col.r);
 	printf("amb.col.g: %i\n", cf->amb.col.g);
 	printf("amb.col.b: %i\n", cf->amb.col.b);
+	print_vec(&cf->cam.norm_vec, "Camera norm vector");
 	close(fd_conf);
 }
