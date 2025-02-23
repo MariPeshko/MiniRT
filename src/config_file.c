@@ -50,7 +50,7 @@ void	open_config(char *config, t_config *cf)
 	{
 		if (ft_spacetabchecker(line))
 			trim_out_spaces(&line);
-		if (parse_delegate(line, cf) != 1)
+		if (parse_delegate(line, cf) == SUCCESS)
 			printf("%s\n", line);
 		free(line);
 		line = get_next_line(fd_conf);

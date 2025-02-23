@@ -60,7 +60,8 @@ int	parse_ambient_lighting(char *line, t_config *cf)
 	if (!is_whitespace(line[pos]))
 	{
 		printf("I try to understand for what it is :D\n");
-		//checks for there not being a whitespace between ambient light ratio and RGB value ^^
+		//checks for there not being a whitespace between ambient 
+		//light ratio and RGB value ^^
 		display_error(WRONG_CHAR);
 	}
 	if (get_RGB(line, &pos, cf) == FAILURE)
