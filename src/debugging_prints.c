@@ -22,7 +22,7 @@ void    print_map(char **map)
     printf("\n");
 }
 
-
+/*prints out a triplet of floats*/
 void	print_triplet(float *triplet)
 {
 	printf("%f , %f , %f\n", triplet[0], triplet[1], triplet[2]);

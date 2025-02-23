@@ -22,9 +22,7 @@ void	ft_freestr(char **lst)
 	free(lst);
 }
 
-/**
- * To trim leading and trailing spaces from a string
- */
+/*To trim leading and trailing spaces from a string*/
 static void	trim_it(char **str, char **new)
 {
 	int	last_not_space;

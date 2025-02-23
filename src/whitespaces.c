@@ -1,18 +1,19 @@
 #include "../inc/miniRT.h"
 
+/*determins weither or not a character is a whitespace*/
 bool	is_whitespace(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
+		return (true);
 	if (c == '\v' || c == '\f' || c == '\r')
-		return (1);
+		return (true);
 	else
-		return (0);
+		return (false);
 }
 
 /*str = random string
 pos = pointer to position in String
-Function skips any whitespaces starting at *pos*/
+Function skips any whitespaces starting at *pos */
 void	skip_whitespace(char *str, int *pos)
 {
 	while (is_whitespace(str[*pos]))
