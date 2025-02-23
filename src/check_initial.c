@@ -58,8 +58,8 @@ int	is_empt_file(char *filename)
 	if (byte != 1)
 	{
 		close(fd);
-		return (FALSE);
+		return (TRUE);
 	}
 	close(fd);
-	return (TRUE);
+	return (FALSE);
 }
