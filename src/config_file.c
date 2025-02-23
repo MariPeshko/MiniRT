@@ -21,7 +21,18 @@ static int	fd_creator(char *filename)
 	return (fd);
 }
 
-void	print_point(t_point *p, const char *msg)
+static void	print_col(t_color *c, const char *msg)
+{
+	if (msg)
+		printf("%s RGB ", msg);
+	else
+		printf("Undefined element's RGB ");
+	printf("%i,", c->r);
+	printf("%i,", c->g);
+	printf("%i\n", c->b);
+}
+
+static void	print_point(t_point *p, const char *msg)
 {
 	if (msg)
 		printf("%s ", msg);
@@ -57,6 +68,13 @@ static void	init_vec(t_vector *vec, double x, double y, double z)
 	vec->z = z;
 }
 
+static void	init_col(t_color *c, int r, int g, int b)
+{
+	c->r = r;
+	c->g = g;
+	c->b = b;
+}
+
 /*It initialises all linked list to NULL.
 What about inisialising of int and double? (Maryna)
 Yes, valgrind complaining when I print uninitialised
@@ -66,13 +84,13 @@ void	init_config(t_config *cf)
 	cf->pl = NULL;
 	cf->sp = NULL;
 	cf->cy = NULL;
-	cf->amb.col.r = 0;
-	cf->amb.col.g = 0;
-	cf->amb.col.b = 0;
+	init_col(&cf->amb.col, 0, 0, 0);
 	cf->amb.lighting_ratio = 0;
 	cf->cam.fov = 0;
 	init_vec(&cf->cam.norm_vec, 0, 0, 0);
 	init_point(&cf->cam.point, 0, 0, 0);
+	cf->light.bright = 0;
+	init_col(&cf->light.col, 0, 0, 0);
 }
 
 /*open a config file
@@ -96,9 +114,7 @@ void	open_config(char *config, t_config *cf)
 		line = get_next_line(fd_conf);
 	}
 	printf("amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
-	printf("amb.col.r: %i\n", cf->amb.col.r);
-	printf("amb.col.g: %i\n", cf->amb.col.g);
-	printf("amb.col.b: %i\n", cf->amb.col.b);
+	print_col(&cf->amb.col, "Ambience");
 	print_vec(&cf->cam.norm_vec, "Camera norm vector");
 	print_point(&cf->cam.point, NULL);
 	close(fd_conf);
