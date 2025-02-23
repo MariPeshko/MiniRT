@@ -37,7 +37,7 @@ static void	check_extention(char *config)
 
 void	check_filename(char *config)
 {
-	if (!*config || !config)
+	if (!config || !*config)
 	{
 		display_error(EMPTY_STRING);
 		exit(SUCCESS);
