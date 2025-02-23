@@ -9,3 +9,6 @@
 > Our first RayTracer with miniLibX
 > miniLibX is [explanation].
 
+## Function Return Value Conventions
+...
+"Predicate functions (those that answer a yes/no question) return ..."

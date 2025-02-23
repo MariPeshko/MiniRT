@@ -37,10 +37,14 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+// Maryna's suggestion for return value convention
+#define TRUE 1
+#define FALSE 0
+
 // check_initial.c
 void	arg_error(int argc);
 void	check_filename(char *config);
-int		check_empt_file(char *filename);
+int		is_empt_file(char *filename);
 
 // config_file.c
 void	open_config(char *config, t_config *cf);

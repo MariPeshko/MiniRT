@@ -11,7 +11,7 @@ static int	fd_creator(char *filename)
 		display_error(strerror(errno));
 		exit(FAILURE);
 	}
-	if (check_empt_file(filename) < 0)
+	if (is_empt_file(filename) == FALSE)
 	{
 		display_error(EMPTY_FILE);
 		exit(FAILURE);

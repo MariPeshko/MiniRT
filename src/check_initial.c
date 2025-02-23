@@ -45,7 +45,7 @@ void	check_filename(char *config)
 	check_extention(config);
 }
 
-int	check_empt_file(char *filename)
+int	is_empt_file(char *filename)
 {
 	int		fd;
 	int		byte;
@@ -56,8 +56,8 @@ int	check_empt_file(char *filename)
 	if (byte != 1)
 	{
 		close(fd);
-		return (-1);
+		return (FALSE);
 	}
 	close(fd);
-	return (1);
+	return (TRUE);
 }
