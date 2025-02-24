@@ -106,7 +106,7 @@ static void	print_test_config(t_config *cf)
 	print_col(&cf->pl->col, "Plane");
 	print_col(&cf->sp->col, "Sphere");
 	print_col(&cf->cy->col, "Cyliner");
-}
+}//to debugging prints
 
 /*open a config file
 a scene in format *.rt*/

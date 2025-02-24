@@ -86,4 +86,7 @@ void	whitespace_to_space(char *line);
 bool	is_whitespace(char c);
 void	skip_whitespace(char *str, int *pos);
 
+//cleanup.c
+int	cleanup(t_config *cf);
+void	clean_exit(t_config *cf, char *er_msg);
 #endif
