@@ -8,7 +8,7 @@ and passes it on to the respective parsing function.
 int	parse_delegate(char *line, t_config *cf)
 {
 	if (ft_strncmp(line, "\n", 1) == SUCCESS)
-		return (FAILURE);//empty line
+		return (SUCCESS);//empty line
 	whitespace_to_space(line);
 	if (ft_strncmp(line, "A", 1) == SUCCESS)
 		return (parse_ambient_lighting(line, &cf->amb));
@@ -23,6 +23,9 @@ int	parse_delegate(char *line, t_config *cf)
 	else if (ft_strncmp(line, "cy", 2) == SUCCESS)
 		return (parse_cylinder(line, &cf->cy));
 	else if (line[0] != '\0')
-		return (display_error(WRONG_IDENTIFIER));
+	{
+		free(line);
+		clean_exit(cf,WRONG_IDENTIFIER);
+	}
 	return (SUCCESS);
 }

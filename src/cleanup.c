@@ -68,6 +68,14 @@ int	cleanup(t_config *cf)//rename cleanup and exit
 void	clean_exit(t_config *cf, char *er_msg)
 {
 	cleanup(cf);
-	display_error(er_msg);
+	if (er_msg)
+		display_error(er_msg);
 	exit(FAILURE);
+}
+
+void	clean_exit_from_parsing(t_config *cf, char *er_msg, char *line)
+{
+	if (line)
+		free(line);
+	clean_exit(cf, er_msg);
 }

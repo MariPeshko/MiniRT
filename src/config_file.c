@@ -125,6 +125,14 @@ void	open_config(char *config, t_config *cf)
 			trim_out_spaces(&line);
 		if (parse_delegate(line, cf) == SUCCESS)
 			printf("%s\n", line);
+		/*else block makes clean exit upon first error. 
+		However, if file hasn't been read till the end, there will be
+		gnl reachable memory leaks*/
+		/*else
+		{
+			free(line);
+			clean_exit(cf, NULL);
+		}*/
 		free(line);
 		line = get_next_line(fd_conf);
 	}
