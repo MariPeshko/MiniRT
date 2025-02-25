@@ -88,13 +88,14 @@ int	open_config(char *config, t_config *cf)
 	{
 		if (ft_spacetabchecker(line))
 			trim_out_spaces(&line);
-		if (parse_delegate(line, cf) == SUCCESS)
-		{
+		if (parse_delegate(line, cf) == FAILURE)
+			cf->valid = false;
+		/* {
 			if (line[0] && (line[0] != '\n') && cf->valid == true)
 				printf("%s\n", line);
 		}
-		else
-			cf->valid = false;
+		else */
+		//	cf->valid = false;
 		free(line);
 		line = get_next_line(fd_conf);
 	}

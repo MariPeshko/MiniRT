@@ -31,8 +31,6 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 	return (SUCCESS);
 }
 
-
-
 /*parses a line starting with C*/
 int	parse_camera(char *line, t_camera *camera)
 {
@@ -66,9 +64,9 @@ int	parse_camera(char *line, t_camera *camera)
 /*parses a line starting with L*/
 int	parse_light(char *line, t_light *light)
 {
-	int	pos;
+	int		pos;
 	float	tmp;
-	int	nmb_args;
+	int		nmb_args;
 
 	pos = 1;
 	nmb_args = calc_nmb_args(line);
@@ -78,11 +76,13 @@ int	parse_light(char *line, t_light *light)
 	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
+	init_point(&light->point, triplet);
 	//get brightness (float)
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	if (tmp < 0.0 || tmp > 1.0)
 		return (display_error(A_SCOPE));
+	light->bright = tmp;
 	//get RGB? (unused in mandatory, so require it or not?)
 	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
@@ -90,7 +90,6 @@ int	parse_light(char *line, t_light *light)
 	assign_rgb(&light->col, rgb);
 	return (SUCCESS);
 }
-
 
 /*parses a line starting with cy*/
 int	parse_cylinder(char *line, t_cys **cylinder)
@@ -109,22 +108,26 @@ int	parse_cylinder(char *line, t_cys **cylinder)
 		(*cylinder)->next = NULL;
 	}
 	//get Point (center of cylinder)
-	double triplet[3];
+	double	triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
+	init_point(&(*cylinder)->point, triplet);
 	//get normalized vector
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
+	init_vec(&(*cylinder)->norm_vec, triplet);
 	//get cylinder diameter (float)
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
-	if (tmp < 0)
+	if (tmp <= 0)
 		return (display_error(CY_DIAMETER_SCOPE));
+	(*cylinder)->diam = tmp;
 	//get cylinder height (float). can be negative or not?
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
+	(*cylinder)->height = tmp;
 	//get RGB color of cylinder
 	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
@@ -133,9 +136,7 @@ int	parse_cylinder(char *line, t_cys **cylinder)
 	return (SUCCESS);
 }
 
-/*
-parses a line starting with pl
-*/
+/* parses a line starting with pl */
 int	parse_plane(char *line, t_planes **plane)
 {
 	int	pos;
@@ -154,11 +155,13 @@ int	parse_plane(char *line, t_planes **plane)
 	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
+	init_point(&(*plane)->point, triplet);
 	//get normalized vector
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
+	init_vec(&(*plane)->norm_vec, triplet);
 	//get RGB color of plane
 	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
@@ -175,8 +178,6 @@ int	parse_sphere(char *line, t_spheres **sphere)
 	int		pos;
 	float	tmp;
 	int		nmb_args;
-	//int	rgb[3];make like triplet so that data gets changed out here
-	//or make it a struct that get RGB can alter.
 	
 	pos = 2;
 	nmb_args = calc_nmb_args(line);
@@ -191,11 +192,13 @@ int	parse_sphere(char *line, t_spheres **sphere)
 	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
+	init_point(&(*sphere)->point, triplet);
 	//get sphere diameter (float)
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
-	if (tmp < 0)
+	if (tmp <= 0)
 		return (display_error(SP_DIAMETER_SCOPE));
+	(*sphere)->diam = tmp;
 	//get RGB color of sphere
 	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
