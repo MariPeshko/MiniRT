@@ -64,6 +64,10 @@ void	print_test_config(t_config *cf)
 	printf("Cylinder diameter: %.2f\n", cf->cy->diam);
 	printf("Cylinder height: %.2f\n", cf->cy->height);
 	print_col(&cf->cy->col, "Cyliner");
+
+	t_cys *last;
+	last = ft_lstlast_cy(cf->cy);
+	printf("id of the last CY: %d\n", last->id);
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
 }
 

@@ -49,6 +49,7 @@ int		display_error(char *msg);
 int		parse_ambient_lighting(char *line, t_ambient *amb);
 int		parse_camera(char *line, t_camera *camera);
 int		parse_light(char *line, t_light *light);
+t_cys	*ft_lstlast_cy(t_cys *lst);
 int		parse_cylinder(char *line, t_cys **cylinder);
 int		parse_plane(char *line, t_planes **plane);
 int		parse_sphere(char *line, t_spheres **sphere);
