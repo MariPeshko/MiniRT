@@ -24,22 +24,8 @@
 # define GREEN   "\033[1;32m"
 # define YELLOW  "\033[1;33m"
 
-/*typedef enum 
-{
-    NO_CONFIG_FILE = 1,
-    TOO_MANY_ARGS = 2,
-	EMPTY_STRING = 3,
-	WRONG_EXTEN = 4,
-    FILE_ERR = 5,
-    EMPTY_FILE = 6
-} error_type ;*/
-
 # define SUCCESS 0
 # define FAILURE 1
-
-// Maryna's suggestion for return value convention
-#define TRUE 1
-#define FALSE 0
 
 // check_initial.c
 void	arg_error(int argc);
