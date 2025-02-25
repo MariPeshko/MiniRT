@@ -26,6 +26,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		str_utils.c			\
 		test_parse_delegate.c 	\
 		whitespaces.c 		\
+		cleanup.c 			\
 		unsorted.c 			)
 
 INCLUDES = inc/miniRT.h

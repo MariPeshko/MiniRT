@@ -1,0 +1,73 @@
+#include "../inc/miniRT.h"
+
+
+void	*free_cys(t_cys *cys)
+{
+	t_cys	*tmp;
+	t_cys	*tmp2;
+
+	tmp = cys->next;
+	free(cys);
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = tmp2;
+	}
+	return (NULL);
+}//set cys to NULL
+
+void	*free_sps(t_spheres *sps)
+{
+	t_spheres	*tmp;
+	t_spheres	*tmp2;
+
+	tmp = sps->next;
+	free(sps);
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = tmp2;
+	}
+	return (NULL);
+}
+
+void	*free_pls(t_planes *pls)
+{
+	t_planes	*tmp;
+	t_planes	*tmp2;
+
+	tmp = pls->next;
+	free(pls);
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = tmp2;
+	}
+	return (NULL);
+}
+
+/* takes the main struct and error macro
+displays error macro
+frees all heap memory
+exits
+*/
+int	cleanup(t_config *cf)//rename cleanup and exit
+{
+	if (cf->cy)
+		cf->cy = free_cys(cf->cy);
+	if (cf->sp)
+		cf->sp = free_sps(cf->sp);
+	if (cf->pl)
+		cf->pl = free_pls(cf->pl);
+	return (SUCCESS);
+}
+
+void	clean_exit(t_config *cf, char *er_msg)
+{
+	cleanup(cf);
+	display_error(er_msg);
+	exit(FAILURE);
+}

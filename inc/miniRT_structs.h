@@ -55,7 +55,7 @@ typedef struct s_planes
 	t_vector		norm_vec;
 	t_color			col;
 	int				id; // identifier
-	struct t_planes	*next;
+	struct s_planes	*next;
 }	t_planes;
 
 typedef struct s_spheres
@@ -64,7 +64,7 @@ typedef struct s_spheres
 	double				diam;
 	t_color				col;
 	int					id; // identifier
-	struct t_spheres	*next;
+	struct s_spheres	*next;
 }	t_spheres;
 
 // Cylinder(s)
@@ -76,7 +76,7 @@ typedef struct s_cys
 	double			height;
 	t_color			col;
 	int				id; // identifier
-	struct t_cys	*next;
+	struct s_cys	*next;
 }	t_cys;
 
 // Structure to store all information from a config file .rt

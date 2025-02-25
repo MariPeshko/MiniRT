@@ -50,34 +50,33 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 		ft_freestr(arguments);
 		return (FAILURE);
 	}
+	ft_freestr(arguments);
 	//print_map(arguments);
 	if (get_float(line, &pos, &tmp) == FAILURE)
 	{
-		ft_freestr(arguments);
+		//ft_freestr(arguments);
 		return (FAILURE);
 	}
 	if (tmp < 0.0 || tmp > 1.0)
 	{
 		display_error(A_SCOPE);
-		ft_freestr(arguments);
+		//ft_freestr(arguments);
 		return (FAILURE);
 	}
 	amb->lighting_ratio = tmp;
-	if (!is_whitespace(line[pos]))
+	/*if (!is_whitespace(line[pos]))
 	{
-		printf("I try to understand for what it is :D\n");
-		//checks for there not being a whitespace between ambient 
-		//light ratio and RGB value ^^
+		//check if we actually need this.
 		display_error(WRONG_CHAR);
-	}
+	}*/
 	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
 	{
-		ft_freestr(arguments);
+	//	ft_freestr(arguments);
 		return (FAILURE);
 	}
 	assign_rgb(&amb->col, rgb);
-	ft_freestr(arguments);
+	//ft_freestr(arguments);
 	return (SUCCESS);
 }
 
@@ -92,7 +91,12 @@ int	parse_camera(char *line, t_camera *camera)
 	if (!arguments)
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 4)
-		return (display_error(INVALID_NBR_ARG));
+	{
+		display_error(INVALID_NBR_ARG);
+		ft_freestr(arguments);
+		return (FAILURE);
+	}
+	ft_freestr(arguments);
 	//get Point (coordinates of View point) and save them
 	float triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -108,7 +112,6 @@ int	parse_camera(char *line, t_camera *camera)
 	if (tmp > 180 || tmp < 0)
 		return (display_error(FOV_SCOPE));
 	camera->fov = tmp;
-	free(arguments);
 	return (SUCCESS);
 }
 
@@ -124,7 +127,12 @@ int	parse_light(char *line, t_light *light)
 	if (!arguments)
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 4)
-		return (display_error(INVALID_NBR_ARG));
+	{
+		display_error(INVALID_NBR_ARG);
+		ft_freestr(arguments);
+		return (FAILURE);
+	}
+	ft_freestr(arguments);
 	//get Point (coordinates of Light point)
 	float triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -139,7 +147,6 @@ int	parse_light(char *line, t_light *light)
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&light->col, rgb);
-	free(arguments);
 	return (SUCCESS);
 }
 
@@ -162,7 +169,12 @@ int	parse_cylinder(char *line, t_cys **cylinder)
 	if (!arguments)
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 6)
-		return (display_error(INVALID_NBR_ARG));
+	{
+		display_error(INVALID_NBR_ARG);
+		ft_freestr(arguments);
+		return (FAILURE);
+	}
+	ft_freestr(arguments);
 	//get Point (center of cylinder)
 	float triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -185,7 +197,6 @@ int	parse_cylinder(char *line, t_cys **cylinder)
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&(*cylinder)->col, rgb);
-	free(arguments);
 	return (SUCCESS);
 }
 
@@ -208,7 +219,12 @@ int	parse_plane(char *line, t_planes **plane)
 	if (!arguments)
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 4)
-		return (display_error(INVALID_NBR_ARG));
+	{
+		display_error(INVALID_NBR_ARG);
+		ft_freestr(arguments);
+		return (FAILURE);
+	}
+	ft_freestr(arguments);
 	//get Point in the plane
 	float triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -223,7 +239,6 @@ int	parse_plane(char *line, t_planes **plane)
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&(*plane)->col, rgb);
-	free(arguments);
 	return (SUCCESS);
 }
 
@@ -248,7 +263,12 @@ int	parse_sphere(char *line, t_spheres **sphere)
 	if (!arguments)
 		return (display_error(MEMORY));
 	if (map_len(arguments) != 4)
-		return (display_error(INVALID_NBR_ARG));
+	{
+		display_error(INVALID_NBR_ARG);
+		ft_freestr(arguments);
+		return (FAILURE);
+	}
+	ft_freestr(arguments);
 	//get Point (center of sphere)
 	float triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -263,6 +283,5 @@ int	parse_sphere(char *line, t_spheres **sphere)
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&(*sphere)->col, rgb);
-	free(arguments);
 	return (SUCCESS);
 }
