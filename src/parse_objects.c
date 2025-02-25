@@ -1,25 +1,36 @@
 #include "../inc/miniRT.h"
 
+/**
+ * Calculates the number of arguments in the line
+ * of the configuration file '.rt'.
+*/
+static int	calc_nmb_args(char *line)
+{
+	char	**arguments;
+	int		nmb_args;
+
+	nmb_args = 0;
+	arguments = ft_split(line, ' ');
+	if (!arguments)
+		return (display_error(MEMORY));
+	nmb_args = map_len(arguments);
+	ft_freestr(arguments);
+	return(nmb_args);
+}
+
 /* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
 int	parse_ambient_lighting(char *line, t_ambient *amb)
 {
-	char	**arguments;
 	int		pos;
 	float	tmp = 0;
+	int		nmb_args;
 
 	pos = 1;
-	arguments = ft_split(line, ' ');
-	if (!arguments)
-		return (display_error(MEMORY));
-	if (map_len(arguments) != 3)
-	{
-		display_error(INVALID_NBR_ARG);
-		ft_freestr(arguments);
-		return (FAILURE);
-	}
-	ft_freestr(arguments);
+	nmb_args = calc_nmb_args(line);
+	if (nmb_args != 3)
+		return (display_error(INVALID_NBR_ARG));
 	//print_map(arguments);
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
