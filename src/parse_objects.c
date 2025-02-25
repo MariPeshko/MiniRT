@@ -1,23 +1,5 @@
 #include "../inc/miniRT.h"
 
-/**
- * Calculates the number of arguments in the line
- * of the configuration file '.rt'.
-*/
-static int	calc_nmb_args(char *line)
-{
-	char	**arguments;
-	int		nmb_args;
-
-	nmb_args = 0;
-	arguments = ft_split(line, ' ');
-	if (!arguments)
-		return (display_error(MEMORY));
-	nmb_args = map_len(arguments);
-	ft_freestr(arguments);
-	return(nmb_args);
-}
-
 /* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
@@ -54,20 +36,13 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 /*parses a line starting with C*/
 int	parse_camera(char *line, t_camera *camera)
 {
-	char **arguments;
 	int	pos = 1;
 	int	tmp;
+	int	nmb_args;
 
-	arguments = ft_split(line, ' ');
-	if (!arguments)
-		return (display_error(MEMORY));
-	if (map_len(arguments) != 4)
-	{
-		display_error(INVALID_NBR_ARG);
-		ft_freestr(arguments);
-		return (FAILURE);
-	}
-	ft_freestr(arguments);
+	nmb_args = calc_nmb_args(line);
+	if (nmb_args != 4)
+		return (display_error(INVALID_NBR_ARG));
 	//get Point (coordinates of View point) and save them
 	double	triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -78,9 +53,7 @@ int	parse_camera(char *line, t_camera *camera)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
-	printf("get normalized orientation vector:\n%1.f\n", triplet[2]);
 	init_vec(&camera->norm_vec, triplet);
-	printf("%1.f\n", camera->norm_vec.z);
 	//get FOV. Is this an int or float? -> full nbr
 	if (get_int(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
@@ -93,21 +66,14 @@ int	parse_camera(char *line, t_camera *camera)
 /*parses a line starting with L*/
 int	parse_light(char *line, t_light *light)
 {
-	char **arguments;
 	int	pos;
 	float	tmp;
+	int	nmb_args;
 
 	pos = 1;
-	arguments = ft_split(line, ' ');
-	if (!arguments)
-		return (display_error(MEMORY));
-	if (map_len(arguments) != 4)
-	{
-		display_error(INVALID_NBR_ARG);
-		ft_freestr(arguments);
-		return (FAILURE);
-	}
-	ft_freestr(arguments);
+	nmb_args = calc_nmb_args(line);
+	if (nmb_args != 4)
+		return (display_error(INVALID_NBR_ARG));
 	//get Point (coordinates of Light point)
 	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -129,27 +95,19 @@ int	parse_light(char *line, t_light *light)
 /*parses a line starting with cy*/
 int	parse_cylinder(char *line, t_cys **cylinder)
 {
-	char	**arguments;
 	int		pos;
 	float	tmp;
+	int		nmb_args;
 
+	pos = 2;
+	nmb_args = calc_nmb_args(line);
+	if (nmb_args != 6)
+		return (display_error(INVALID_NBR_ARG_CY));
 	if(!*cylinder)
 	{
 		*cylinder = ft_calloc(1, sizeof(t_cys));
 		(*cylinder)->next = NULL;
 	}
-
-	pos = 2;
-	arguments = ft_split(line, ' ');
-	if (!arguments)
-		return (display_error(MEMORY));
-	if (map_len(arguments) != 6)
-	{
-		display_error(INVALID_NBR_ARG);
-		ft_freestr(arguments);
-		return (FAILURE);
-	}
-	ft_freestr(arguments);
 	//get Point (center of cylinder)
 	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -180,26 +138,18 @@ parses a line starting with pl
 */
 int	parse_plane(char *line, t_planes **plane)
 {
-	char **arguments;
 	int	pos;
+	int	nmb_args;
 
+	pos = 2;
+	nmb_args = calc_nmb_args(line);
+	if (nmb_args != 4)
+		return (display_error(INVALID_NBR_ARG_PL));
 	if(!*plane)
 	{
 		*plane = ft_calloc(1, sizeof(t_planes));
 		(*plane)->next = NULL;
 	}
-
-	pos = 2;
-	arguments = ft_split(line, ' ');
-	if (!arguments)
-		return (display_error(MEMORY));
-	if (map_len(arguments) != 4)
-	{
-		display_error(INVALID_NBR_ARG);
-		ft_freestr(arguments);
-		return (FAILURE);
-	}
-	ft_freestr(arguments);
 	//get Point in the plane
 	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
@@ -222,28 +172,21 @@ parses a line starting with sp
 */
 int	parse_sphere(char *line, t_spheres **sphere)
 {
-	char	**arguments;
 	int		pos;
 	float	tmp;
+	int		nmb_args;
 	//int	rgb[3];make like triplet so that data gets changed out here
 	//or make it a struct that get RGB can alter.
-
+	
+	pos = 2;
+	nmb_args = calc_nmb_args(line);
+	if (nmb_args != 4)
+		return (display_error(INVALID_NBR_ARG_SP));
 	if(!*sphere)
 	{
 		*sphere = ft_calloc(1, sizeof(t_spheres));
 		(*sphere)->next = NULL;
 	}
-	pos = 2;
-	arguments = ft_split(line, ' ');
-	if (!arguments)
-		return (display_error(MEMORY));
-	if (map_len(arguments) != 4)
-	{
-		display_error(INVALID_NBR_ARG);
-		ft_freestr(arguments);
-		return (FAILURE);
-	}
-	ft_freestr(arguments);
 	//get Point (center of sphere)
 	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)

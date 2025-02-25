@@ -29,3 +29,21 @@ int	parse_delegate(char *line, t_config *cf)
 	}
 	return (SUCCESS);
 }
+
+/**
+ * Calculates the number of arguments in the line
+ * of the configuration file '.rt'.
+*/
+int	calc_nmb_args(char *line)
+{
+	char	**arguments;
+	int		nmb_args;
+
+	nmb_args = 0;
+	arguments = ft_split(line, ' ');
+	if (!arguments)
+		return (display_error(MEMORY));
+	nmb_args = map_len(arguments);
+	ft_freestr(arguments);
+	return(nmb_args);
+}

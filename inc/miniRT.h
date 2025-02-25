@@ -55,6 +55,7 @@ int		parse_sphere(char *line, t_spheres **sphere);
 
 //parse_delegate.c
 int		parse_delegate(char *line, t_config *cf);
+int		calc_nmb_args(char *line);
 
 //parse_helpers.c
 void	assign_rgb(t_color *in_struct, t_color result_rgb);

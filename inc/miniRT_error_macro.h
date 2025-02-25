@@ -3,6 +3,9 @@
 
 # define MEMORY "Memory allocation failed"
 # define INVALID_NBR_ARG "Invalid number of Arguments"
+# define INVALID_NBR_ARG_CY "Invalid number of Arguments in cylinder"
+# define INVALID_NBR_ARG_PL "Invalid number of Arguments in plane"
+# define INVALID_NBR_ARG_SP "Invalid number of Arguments in sphere"
 # define WRONG_CHAR "unexpected character"
 # define RGB_WRONG_CHAR "unexpected character in RGB"
 # define RGB_SCOPE "RGB value out of scope"
