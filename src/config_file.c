@@ -21,39 +21,6 @@ static int	fd_creator(char *filename)
 	return (fd);
 }
 
-static void	print_col(t_color *c, const char *msg)
-{
-	if (msg)
-		printf("%s RGB ", msg);
-	else
-		printf("Undefined element's RGB ");
-	printf("%i,", c->r);
-	printf("%i,", c->g);
-	printf("%i\n", c->b);
-}
-
-static void	print_point(t_point *p, const char *msg)
-{
-	if (msg)
-		printf("%s point ", msg);
-	else
-		printf("Undefined element's point ");
-	printf("x: %f, ", p->x);
-	printf("y: %f, ", p->y);
-	printf("z: %f\n", p->y);
-}
-
-static void	print_vec(t_vector *vec, const char *msg)
-{
-	if (msg)
-		printf("%s ", msg);
-	else
-		printf("Undefined element's vector ");
-	printf("x: %f, ", vec->x);
-	printf("y: %f, ", vec->y);
-	printf("z: %f\n", vec->y);
-}
-
 static void	init_point(t_point *p, double x, double y, double z)
 {
 	p->x = x;
@@ -81,6 +48,7 @@ Yes, valgrind complaining when I print uninitialised
 values (it is conditional jump or move) (S: thanks for the warning)*/
 void	init_config(t_config *cf)
 {
+	cf->valid = true;
 	cf->amb.lighting_ratio = 0;
 	init_col(&cf->amb.col, 0, 0, 0);
 	cf->cam.fov = 0;
@@ -94,23 +62,9 @@ void	init_config(t_config *cf)
 	cf->cy = NULL;
 }
 
-static void	print_test_config(t_config *cf)
-{
-	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n");
-	printf("Amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
-	print_col(&cf->amb.col, "Ambience");
-	print_vec(&cf->cam.norm_vec, "Camera norm vector");
-	printf("Camera fov: %.2f\n", cf->cam.fov);
-	print_point(&cf->cam.point, "Camera");
-	print_col(&cf->light.col, "Light");
-	print_col(&cf->pl->col, "Plane");
-	print_col(&cf->sp->col, "Sphere");
-	print_col(&cf->cy->col, "Cyliner");
-}//to debugging prints
-
 /*open a config file
 a scene in format *.rt*/
-void	open_config(char *config, t_config *cf)
+int	open_config(char *config, t_config *cf)
 {
 	int		fd_conf;
 	char	*line;
@@ -124,10 +78,20 @@ void	open_config(char *config, t_config *cf)
 		if (ft_spacetabchecker(line))
 			trim_out_spaces(&line);
 		if (parse_delegate(line, cf) == SUCCESS)
-			printf("%s\n", line);
+		{
+			if (line[0] && (line[0] != '\n') && cf->valid == true)
+				printf("%s\n", line);
+		}
+		else
+			cf->valid = false;
 		free(line);
 		line = get_next_line(fd_conf);
 	}
-	print_test_config(cf);
 	close(fd_conf);
+	if (cf->valid == true)
+	{
+		print_test_config(cf);
+		return (SUCCESS);
+	}
+	return (FAILURE);
 }

@@ -33,9 +33,10 @@ void	check_filename(char *config);
 int		is_empt_file(char *filename);
 
 // config_file.c
-void	open_config(char *config, t_config *cf);
+int		open_config(char *config, t_config *cf);
 
 //debugging_prints.c
+void	print_test_config(t_config *cf);
 void	print_map(char **map);
 void	print_triplet(float *triplet);
 

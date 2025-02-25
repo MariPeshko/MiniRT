@@ -8,7 +8,7 @@ and passes it on to the respective parsing function.
 int	parse_delegate(char *line, t_config *cf)
 {
 	if (ft_strncmp(line, "\n", 1) == SUCCESS)
-		return (FAILURE);//empty line
+		return (SUCCESS);
 	whitespace_to_space(line);
 	if (ft_strncmp(line, "A", 1) == SUCCESS)
 		return (parse_ambient_lighting(line, &cf->amb));

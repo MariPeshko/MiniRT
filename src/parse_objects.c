@@ -54,13 +54,11 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 	//print_map(arguments);
 	if (get_float(line, &pos, &tmp) == FAILURE)
 	{
-		//ft_freestr(arguments);
 		return (FAILURE);
 	}
 	if (tmp < 0.0 || tmp > 1.0)
 	{
 		display_error(A_SCOPE);
-		//ft_freestr(arguments);
 		return (FAILURE);
 	}
 	amb->lighting_ratio = tmp;
@@ -76,7 +74,6 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 		return (FAILURE);
 	}
 	assign_rgb(&amb->col, rgb);
-	//ft_freestr(arguments);
 	return (SUCCESS);
 }
 

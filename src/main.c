@@ -6,7 +6,9 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		arg_error(argc);
-	open_config(argv[1], &rt.cf);
+	if (open_config(argv[1], &rt.cf) == FAILURE)
+		cleanup(&rt.cf);
+	// Keep running
 	cleanup(&rt.cf);
 	return (SUCCESS);
 }

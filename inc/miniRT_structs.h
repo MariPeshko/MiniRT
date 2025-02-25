@@ -88,7 +88,7 @@ typedef struct s_config
 	t_planes	*pl;
 	t_spheres	*sp;
 	t_cys		*cy;
-	// flags
+	bool		valid;
 }	t_config;
 
 typedef struct mini_rt
