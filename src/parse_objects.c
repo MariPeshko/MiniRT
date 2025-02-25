@@ -1,36 +1,5 @@
 #include "../inc/miniRT.h"
 
-void	assign_rgb(t_color *in_struct, t_color result_rgb)
-{
-	in_struct->r = result_rgb.r;
-	in_struct->g = result_rgb.g;
-	in_struct->b = result_rgb.b;
-}
-
-/*gets an int from line*/
-int	get_int(char *line, int *pos, int *dest)
-{
-	int	nbr = 0;
-	int	neg = 1;
-	skip_whitespace(line, pos);
-	if (line[*pos] == '-')
-	{
-		(*pos)++;
-		neg = -1;
-	}
-	if (!ft_isdigit(line[*pos]))
-		return (display_error(WRONG_CHAR));
-	while (ft_isdigit(line[*pos]))
-	{
-		nbr = nbr * 10 + line[*pos] - '0';
-		(*pos)++;
-	}
-	if (!is_whitespace(line[*pos]))
-		return (display_error(WRONG_CHAR));
-	*dest = nbr * neg;
-	return (SUCCESS);
-}
-
 /* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
@@ -53,16 +22,9 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 	ft_freestr(arguments);
 	//print_map(arguments);
 	if (get_float(line, &pos, &tmp) == FAILURE)
-	{
-		//ft_freestr(arguments);
 		return (FAILURE);
-	}
 	if (tmp < 0.0 || tmp > 1.0)
-	{
-		display_error(A_SCOPE);
-		//ft_freestr(arguments);
-		return (FAILURE);
-	}
+		return (display_error(A_SCOPE));
 	amb->lighting_ratio = tmp;
 	/*if (!is_whitespace(line[pos]))
 	{
@@ -71,12 +33,8 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 	}*/
 	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
-	{
-	//	ft_freestr(arguments);
 		return (FAILURE);
-	}
 	assign_rgb(&amb->col, rgb);
-	//ft_freestr(arguments);
 	return (SUCCESS);
 }
 

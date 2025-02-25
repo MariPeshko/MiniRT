@@ -68,6 +68,8 @@ int		parse_sphere(char *line, t_spheres **sphere);
 int		parse_delegate(char *line, t_config *cf);
 
 //parse_helpers.c
+void	assign_rgb(t_color *in_struct, t_color result_rgb);
+int	get_int(char *line, int *pos, int *dest);
 int		triplet_in_scope(float *triplet, float min, float max);
 int		get_float(char *line, int *pos, float *dest);
 int		get_three_floats(char *line, int *pos, float triplet[3]);

@@ -1,5 +1,36 @@
 #include "../inc/miniRT.h"
 
+void	assign_rgb(t_color *in_struct, t_color result_rgb)
+{
+	in_struct->r = result_rgb.r;
+	in_struct->g = result_rgb.g;
+	in_struct->b = result_rgb.b;
+}
+
+/*gets an int from line*/
+int	get_int(char *line, int *pos, int *dest)
+{
+	int	nbr = 0;
+	int	neg = 1;
+	skip_whitespace(line, pos);
+	if (line[*pos] == '-')
+	{
+		(*pos)++;
+		neg = -1;
+	}
+	if (!ft_isdigit(line[*pos]))
+		return (display_error(WRONG_CHAR));
+	while (ft_isdigit(line[*pos]))
+	{
+		nbr = nbr * 10 + line[*pos] - '0';
+		(*pos)++;
+	}
+	if (!is_whitespace(line[*pos]))
+		return (display_error(WRONG_CHAR));
+	*dest = nbr * neg;
+	return (SUCCESS);
+}
+
 /*checks if the values in the triplet are in scope of [min, max]*/
 int	triplet_in_scope(float *triplet, float min, float max)
 {
@@ -104,8 +135,6 @@ line: input line starting with an Identifier
 *pos: position at which we expect the start of RGB values
 function checks if the next set of values starting
 line[*pos] is a valid RGB triplet
-later: adds foudn values to the needed struct.
-maybe make this edit a triplet like three floats function? 
 */
 int	get_RGB(char *line, int *pos, t_color *result_rgb)
 {
@@ -114,7 +143,6 @@ int	get_RGB(char *line, int *pos, t_color *result_rgb)
 
 	i = 0;
 	skip_whitespace(line, pos);
-	//printf("\nGetting RGB [");
 	while (i < 3)
 	{
 		value = 0;
@@ -129,12 +157,7 @@ int	get_RGB(char *line, int *pos, t_color *result_rgb)
 		}
 		if (i < 2 && line[*pos] != ',')
 			return (display_error(RGB_WRONG_CHAR));
-		//add Value to struct
 		add_color(result_rgb, i, value);
-		/*S: this seems to add value to ambient struct all the time.
-		however, this fucntion may be called for all objects. 
-		therefor i think it wise to actually have this triplet sorta thing
-		to return and have who called this function assign the values*/
 		(*pos)++;
 		i++;
 	}
