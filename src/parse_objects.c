@@ -49,6 +49,8 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 	return (SUCCESS);
 }
 
+
+
 /*parses a line starting with C*/
 int	parse_camera(char *line, t_camera *camera)
 {
@@ -67,14 +69,18 @@ int	parse_camera(char *line, t_camera *camera)
 	}
 	ft_freestr(arguments);
 	//get Point (coordinates of View point) and save them
-	float triplet[3];
+	double	triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
+	init_point(&camera->point, triplet);
 	//get normalized orientation vector (3 floats)
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
+	printf("get normalized orientation vector:\n%1.f\n", triplet[2]);
+	init_vec(&camera->norm_vec, triplet);
+	printf("%1.f\n", camera->norm_vec.z);
 	//get FOV. Is this an int or float? -> full nbr
 	if (get_int(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
@@ -103,7 +109,7 @@ int	parse_light(char *line, t_light *light)
 	}
 	ft_freestr(arguments);
 	//get Point (coordinates of Light point)
-	float triplet[3];
+	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get brightness (float)
@@ -145,7 +151,7 @@ int	parse_cylinder(char *line, t_cys **cylinder)
 	}
 	ft_freestr(arguments);
 	//get Point (center of cylinder)
-	float triplet[3];
+	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get normalized vector
@@ -195,7 +201,7 @@ int	parse_plane(char *line, t_planes **plane)
 	}
 	ft_freestr(arguments);
 	//get Point in the plane
-	float triplet[3];
+	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get normalized vector
@@ -239,7 +245,7 @@ int	parse_sphere(char *line, t_spheres **sphere)
 	}
 	ft_freestr(arguments);
 	//get Point (center of sphere)
-	float triplet[3];
+	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	//get sphere diameter (float)

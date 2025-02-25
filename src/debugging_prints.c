@@ -20,12 +20,12 @@ static void	print_col(t_color *c, const char *msg)
 static void	print_point(t_point *p, const char *msg)
 {
 	if (msg)
-		printf("%s point ", msg);
+		printf("%s point       ", msg);
 	else
 		printf("Undefined element's point ");
-	printf("x: %f, ", p->x);
-	printf("y: %f, ", p->y);
-	printf("z: %f\n", p->y);
+	printf("x: %.1f, ", p->x);
+	printf("y: %.1f, ", p->y);
+	printf("z: %.1f\n", p->y);
 }
 
 static void	print_vec(t_vector *vec, const char *msg)
@@ -34,9 +34,9 @@ static void	print_vec(t_vector *vec, const char *msg)
 		printf("%s ", msg);
 	else
 		printf("Undefined element's vector ");
-	printf("x: %f, ", vec->x);
-	printf("y: %f, ", vec->y);
-	printf("z: %f\n", vec->y);
+	printf("x: %.1f, ", vec->x);
+	printf("y: %.1f, ", vec->y);
+	printf("z: %.1f\n", vec->z);
 }
 
 void	print_test_config(t_config *cf)
@@ -45,8 +45,8 @@ void	print_test_config(t_config *cf)
 	printf("Amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
 	print_col(&cf->amb.col, "Ambience");
 	print_vec(&cf->cam.norm_vec, "Camera norm vector");
-	printf("Camera fov: %.2f\n", cf->cam.fov);
 	print_point(&cf->cam.point, "Camera");
+	printf("Camera fov:        %.2f\n", cf->cam.fov);
 	print_col(&cf->light.col, "Light");
 	print_col(&cf->pl->col, "Plane");
 	print_col(&cf->sp->col, "Sphere");

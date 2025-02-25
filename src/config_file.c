@@ -21,25 +21,31 @@ static int	fd_creator(char *filename)
 	return (fd);
 }
 
-static void	init_point(t_point *p, double x, double y, double z)
-{
-	p->x = x;
-	p->y = y;
-	p->z = z;
-}
-
-static void	init_vec(t_vector *vec, double x, double y, double z)
-{
-	vec->x = x;
-	vec->y = y;
-	vec->z = z;
-}
-
 static void	init_col(t_color *c, int r, int g, int b)
 {
 	c->r = r;
 	c->g = g;
 	c->b = b;
+}
+
+void	init_point(t_point *p, double *triplet)
+{
+    if (p != NULL)
+	{
+        p->x = triplet[0];
+        p->y = triplet[1];
+        p->z = triplet[2];
+    }
+}
+
+void	init_vec(t_vector *vec, double *triplet)
+{
+	if (vec != NULL)
+	{
+		vec->x = triplet[0];
+		vec->y = triplet[1];
+		vec->z = triplet[2];
+	}
 }
 
 /*It initialises all linked list to NULL.
@@ -48,15 +54,20 @@ Yes, valgrind complaining when I print uninitialised
 values (it is conditional jump or move) (S: thanks for the warning)*/
 void	init_config(t_config *cf)
 {
+	double triplet[3];
+
+    triplet[0] = 0.0;
+    triplet[1] = 0.0;
+    triplet[2] = 0.0;
 	cf->valid = true;
 	cf->amb.lighting_ratio = 0;
 	init_col(&cf->amb.col, 0, 0, 0);
 	cf->cam.fov = 0;
-	init_vec(&cf->cam.norm_vec, 0, 0, 0);
-	init_point(&cf->cam.point, 0, 0, 0);
+	init_vec(&cf->cam.norm_vec,triplet);
+	init_point(&cf->cam.point, triplet);
 	cf->light.bright = 0;
 	init_col(&cf->light.col, 0, 0, 0);
-	init_point(&cf->light.point, 0, 0, 0);
+	init_point(&cf->light.point, triplet);
 	cf->pl = NULL;
 	cf->sp = NULL;
 	cf->cy = NULL;

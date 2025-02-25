@@ -34,6 +34,8 @@ int		is_empt_file(char *filename);
 
 // config_file.c
 int		open_config(char *config, t_config *cf);
+void	init_point(t_point *p, double *triplet);
+void	init_vec(t_vector *vec, double *triplet);
 
 //debugging_prints.c
 void	print_test_config(t_config *cf);
@@ -56,10 +58,10 @@ int		parse_delegate(char *line, t_config *cf);
 
 //parse_helpers.c
 void	assign_rgb(t_color *in_struct, t_color result_rgb);
-int	get_int(char *line, int *pos, int *dest);
-int		triplet_in_scope(float *triplet, float min, float max);
+int		get_int(char *line, int *pos, int *dest);
+int		triplet_in_scope(double *triplet, double min, double max);
 int		get_float(char *line, int *pos, float *dest);
-int		get_three_floats(char *line, int *pos, float triplet[3]);
+int		get_three_floats(char *line, int *pos, double triplet[3]);
 int		get_RGB(char *line, int *pos, t_color *result_rgb);
 
 // str_utils.c

@@ -32,7 +32,7 @@ int	get_int(char *line, int *pos, int *dest)
 }
 
 /*checks if the values in the triplet are in scope of [min, max]*/
-int	triplet_in_scope(float *triplet, float min, float max)
+int	triplet_in_scope(double *triplet, double min, double max)
 {
 	if (triplet[0] < min || triplet[0] > max)
 		return (FAILURE);
@@ -95,7 +95,7 @@ int	get_float(char *line, int *pos, float *dest)
 
 /* Gets the next three floats from line, starting at pos and saves 
 them in triplet */
-int	get_three_floats(char *line, int *pos, float triplet[3])
+int	get_three_floats(char *line, int *pos, double triplet[3])
 {
 	int i = 0;
 	while (i < 3)
