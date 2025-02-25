@@ -35,7 +35,7 @@ static void	print_col(t_color *c, const char *msg)
 static void	print_point(t_point *p, const char *msg)
 {
 	if (msg)
-		printf("%s ", msg);
+		printf("%s point ", msg);
 	else
 		printf("Undefined element's point ");
 	printf("x: %f, ", p->x);
@@ -101,7 +101,7 @@ static void	print_test_config(t_config *cf)
 	print_col(&cf->amb.col, "Ambience");
 	print_vec(&cf->cam.norm_vec, "Camera norm vector");
 	printf("Camera fov: %.2f\n", cf->cam.fov);
-	print_point(&cf->cam.point, NULL);
+	print_point(&cf->cam.point, "Camera");
 	print_col(&cf->light.col, "Light");
 	print_col(&cf->pl->col, "Plane");
 	print_col(&cf->sp->col, "Sphere");
