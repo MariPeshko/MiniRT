@@ -23,6 +23,9 @@ int	parse_delegate(char *line, t_config *cf)
 	else if (ft_strncmp(line, "cy", 2) == SUCCESS)
 		return (parse_cylinder(line, &cf->cy));
 	else if (line[0] != '\0')
-		return (display_error(WRONG_IDENTIFIER));
+	{
+		free(line);
+		clean_exit(cf,WRONG_IDENTIFIER);
+	}
 	return (SUCCESS);
 }

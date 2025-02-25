@@ -79,6 +79,16 @@ typedef struct s_cys
 	struct s_cys	*next;
 }	t_cys;
 
+typedef struct s_vp//view port
+{
+	t_point	point;
+	t_vector	horizontal;
+	t_vector	vertical;
+	int			width;
+	int			height;//both in pixel
+	t_point		c_point;//easier access to C point?
+}	t_vp;
+
 // Structure to store all information from a config file .rt
 typedef struct s_config
 {
@@ -91,7 +101,7 @@ typedef struct s_config
 	bool		valid;
 }	t_config;
 
-typedef struct mini_rt
+typedef struct s_mini_rt
 {
 	t_config	cf;
 	// rest of the structs
