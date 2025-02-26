@@ -35,11 +35,13 @@ int	get_int(char *line, int *pos, int *dest)
 int	triplet_in_scope(double *triplet, double min, double max)
 {
 	if (triplet[0] < min || triplet[0] > max)
-		return (FAILURE);
+		return (display_error(NV_SCOPE));
 	if (triplet[1] < min || triplet[1] > max)
-		return (FAILURE);
+		return (display_error(NV_SCOPE));
 	if (triplet[2] < min || triplet[2] > max)
-		return (FAILURE);
+		return (display_error(NV_SCOPE));
+	if (triplet[0] == 0 && triplet[1] == 0 && triplet [2] == 0)
+		return(display_error(NV_ZEROS));
 	return (SUCCESS);
 }
 

@@ -8,6 +8,7 @@ int	full_parse_ambient(char *line, t_ambient *amb)
 	int		pos;
 	float	tmp = 0;
 	int		nmb_args;
+	t_color	rgb;
 
 	pos = 1;
 	nmb_args = calc_nmb_args(line);
@@ -24,7 +25,6 @@ int	full_parse_ambient(char *line, t_ambient *amb)
 		//check if we actually need this.
 		display_error(WRONG_CHAR);
 	}*/
-	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&amb->col, rgb);
@@ -34,10 +34,11 @@ int	full_parse_ambient(char *line, t_ambient *amb)
 /*parses a line starting with C*/
 int	full_parse_camera(char *line, t_camera *camera)
 {
-	int	pos = 1;
+	int	pos;
 	int	tmp;
 	int	nmb_args;
 
+	pos = 1;
 	nmb_args = calc_nmb_args(line);
 	if (nmb_args != 4)
 		return (display_error(INVALID_NBR_ARG));
@@ -50,7 +51,7 @@ int	full_parse_camera(char *line, t_camera *camera)
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
-		return (display_error(NV_SCOPE));
+		return (FAILURE);
 	init_vec(&camera->norm_vec, triplet);
 	//get FOV. Is this an int or float? -> full nbr
 	if (get_int(line, &pos, &tmp) == FAILURE)
@@ -105,7 +106,7 @@ int	assign_value_plane(char *line, t_plane *lst_pl)
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
-		return (display_error(NV_SCOPE));
+		return (FAILURE);
 	init_vec(&lst_pl->norm_vec, triplet);
 	//get RGB color of plane
 	t_color	rgb;
@@ -148,7 +149,7 @@ int	assign_value_cyl(char *line, t_cys *cylinder)
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
-		return (display_error(NV_SCOPE));
+		return (FAILURE);
 	init_vec(&cylinder->norm_vec, triplet);
 	//get cylinder diameter (float)
 	if (get_float(line, &pos, &tmp) == FAILURE)
