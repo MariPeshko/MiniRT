@@ -3,7 +3,7 @@
 /* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
-int	parse_ambient_lighting(char *line, t_ambient *amb)
+int	full_parse_ambient(char *line, t_ambient *amb)
 {
 	int		pos;
 	float	tmp = 0;
@@ -32,7 +32,7 @@ int	parse_ambient_lighting(char *line, t_ambient *amb)
 }
 
 /*parses a line starting with C*/
-int	parse_camera(char *line, t_camera *camera)
+int	full_parse_camera(char *line, t_camera *camera)
 {
 	int	pos = 1;
 	int	tmp;
@@ -62,7 +62,7 @@ int	parse_camera(char *line, t_camera *camera)
 }
 
 /*parses a line starting with L*/
-int	parse_light(char *line, t_light *light)
+int	full_parse_light(char *line, t_light *light)
 {
 	int		pos;
 	float	tmp;

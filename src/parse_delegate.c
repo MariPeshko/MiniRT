@@ -1,5 +1,32 @@
 #include "../inc/miniRT.h"
 
+int	parse_ambient(char *line, t_config *cf)
+{
+	if (cf->one_amb == true)
+		return(display_error(TOO_MANY_AMB));
+	else
+		cf->one_amb = true;
+	return (full_parse_ambient(line, &cf->amb));
+}
+
+int	parse_camera(char *line, t_config *cf)
+{
+	if (cf->one_cam == true)
+		return(display_error(TOO_MANY_CAM));
+	else
+		cf->one_cam = true;
+	return (full_parse_camera(line, &cf->cam));
+}
+
+int	parse_light(char *line, t_config *cf)
+{
+	if (cf->one_lit == true)
+		return(display_error(TOO_MANY_LIT));
+	else
+		cf->one_lit = true;
+	return (full_parse_light(line, &cf->light));
+}
+
 /*
 line: Input line starting with an Identifier.
 Function checks which identifier the line has
@@ -11,11 +38,11 @@ int	parse_delegate(char *line, t_config *cf)
 		return (SUCCESS);
 	whitespace_to_space(line);
 	if (ft_strncmp(line, "A", 1) == SUCCESS)
-		return (parse_ambient_lighting(line, &cf->amb));
+		return(parse_ambient(line, cf));
 	else if (ft_strncmp(line, "C", 1) == SUCCESS)
-		return (parse_camera(line, &cf->cam));
+		return(parse_camera(line, cf));
 	else if (ft_strncmp(line, "L", 1) == SUCCESS)
-		return (parse_light(line, &cf->light));
+		return(parse_light(line, cf));
 	else if (ft_strncmp(line, "pl", 2) == SUCCESS)
 		return (parse_plane(line, &cf->pl));
 	else if (ft_strncmp(line, "sp", 2) == SUCCESS)

@@ -95,10 +95,13 @@ typedef struct s_config
 	t_ambient	amb;
 	t_camera	cam;
 	t_light		light;
-	t_plane	*pl;
-	t_spher	*sp;
+	t_plane		*pl;
+	t_spher		*sp;
 	t_cys		*cy;
 	bool		valid;
+	bool		one_amb;
+	bool		one_cam;
+	bool		one_lit;
 }	t_config;
 
 typedef struct s_mini_rt

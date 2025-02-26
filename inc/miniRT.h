@@ -46,10 +46,9 @@ void	print_triplet(float *triplet);
 int		display_error(char *msg);
 
 //parse_objects.c
-int		parse_ambient_lighting(char *line, t_ambient *amb);
-int		parse_camera(char *line, t_camera *camera);
-int		parse_light(char *line, t_light *light);
-t_cys	*ft_lstlast_cy(t_cys *lst);
+int		full_parse_ambient(char *line, t_ambient *amb);
+int		full_parse_camera(char *line, t_camera *camera);
+int		full_parse_light(char *line, t_light *light);
 int		parse_cylinder(char *line, t_cys **cylinder);
 int		parse_plane(char *line, t_plane **plane);
 int		parse_sphere(char *line, t_spher **sphere);

@@ -60,6 +60,9 @@ void	init_config(t_config *cf)
     triplet[1] = 0.0;
     triplet[2] = 0.0;
 	cf->valid = true;
+	cf->one_amb = false;
+	cf->one_cam = false;
+	cf->one_lit = false;
 	cf->amb.lighting_ratio = 0;
 	init_col(&cf->amb.col, 0, 0, 0);
 	cf->cam.fov = 0;
@@ -71,6 +74,28 @@ void	init_config(t_config *cf)
 	cf->pl = NULL;
 	cf->sp = NULL;
 	cf->cy = NULL;
+}
+
+int	check_final_config(t_config *cf)
+{
+	if (cf->one_amb == false)
+	{
+		display_error(MUST_ONE_AMB);
+		cf->valid = false;
+	}
+	if (cf->one_cam == false)
+	{
+		display_error(MUST_ONE_CAM);
+		cf->valid = false;
+	}
+	if (cf->one_lit == false)
+	{
+		display_error(MUST_ONE_LIT);
+		cf->valid = false;
+	}
+	if (cf->valid == false)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 /*open a config file
@@ -100,7 +125,7 @@ int	open_config(char *config, t_config *cf)
 		line = get_next_line(fd_conf);
 	}
 	close(fd_conf);
-	if (cf->valid == true)
+	if (check_final_config(cf) == SUCCESS)
 	{
 		// assigning an id for each element.
 		// it might be convenient 
