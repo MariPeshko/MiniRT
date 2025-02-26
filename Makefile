@@ -27,7 +27,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		test_parse_delegate.c 	\
 		whitespaces.c 		\
 		cleanup.c 			\
-		unsorted.c 			)
+		unsorted.c 			\
+		lst_struct_cylinder.c )
 
 INCLUDES = inc/miniRT.h
 LIBFT_INC = libft/inc/get_next_line.h \

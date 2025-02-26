@@ -39,6 +39,27 @@ static void	print_vec(t_vector *vec, const char *msg)
 	printf("z: %.1f\n", vec->z);
 }
 
+void	printf_all_cylider(t_config *cf)
+{
+	t_cys	*curr;
+	int		i;
+
+	i = 1;
+	curr = cf->cy;
+	while (curr != NULL)
+	{
+		printf("\n%i CYLINDER\n", i);
+		print_point(&curr->point, "Cylinder");
+		print_vec(&curr->norm_vec, "Cylinder");
+		printf("Cylinder diameter: %.2f\n", curr->diam);
+		printf("Cylinder height: %.2f\n", curr->height);
+		print_col(&curr->col, "Cylinder");
+		curr = curr->next;
+		i++;
+	}
+}
+
+
 void	print_test_config(t_config *cf)
 {
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n");
@@ -59,15 +80,8 @@ void	print_test_config(t_config *cf)
 	printf("Sphere diameter: %.1f\n", cf->sp->diam);
 	print_col(&cf->sp->col, "Sphere");
 
-	print_point(&cf->cy->point, "Cylinder");
-	print_vec(&cf->cy->norm_vec, "Cylinder");
-	printf("Cylinder diameter: %.2f\n", cf->cy->diam);
-	printf("Cylinder height: %.2f\n", cf->cy->height);
-	print_col(&cf->cy->col, "Cyliner");
-
-	t_cys *last;
-	last = ft_lstlast_cy(cf->cy);
-	printf("id of the last CY: %d\n", last->id);
+	// MAKE A LOOOP to print multiple cylinders:
+	printf_all_cylider(cf);
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
 }
 

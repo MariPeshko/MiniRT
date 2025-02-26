@@ -102,6 +102,8 @@ int	open_config(char *config, t_config *cf)
 	close(fd_conf);
 	if (cf->valid == true)
 	{
+		// assigning an id for each element.
+		// it might be convenient 
 		print_test_config(cf);
 		return (SUCCESS);
 	}

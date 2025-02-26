@@ -71,6 +71,12 @@ void	ft_freestr(char **lst);
 void	trim_out_spaces(char **str);
 int		ft_spacetabchecker(char *input);
 
+// lst_struct_cylinder.c
+t_cys	*ft_lstnew_cy(t_cys *new);
+void	ft_lstadd_back_cy(t_cys **lst, t_cys *new);
+t_cys	*ft_lstlast_cy(t_cys *lst);
+t_cys	*get_ptr_lst_cyl(t_cys	**cylinder);
+
 //unsorted
 int		map_len(char **map);
 

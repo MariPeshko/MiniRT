@@ -125,95 +125,60 @@ int	parse_plane(char *line, t_planes **plane)
 	return (SUCCESS);
 }
 
-static void	ft_lstadd_back_cy(t_cys **lst, t_cys *new)
-{
-	t_cys	*temp;
-
-	temp = *lst;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		return ;
-	}
-	while (temp)
-	{
-		if (temp->next == NULL)
-			break ;
-		temp = temp->next;
-	}
-	temp->next = new;
-}
-
-t_cys	*ft_lstlast_cy(t_cys *lst)
-{
-	while (lst)
-	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
-}
-
-/*parses a line starting with cy*/
-int	parse_cylinder(char *line, t_cys **cylinder)
+int	assign_value_cyl(char *line, t_cys *cylinder)
 {
 	int		pos;
 	float	tmp;
-	int		nmb_args;
 
 	pos = 2;
-	nmb_args = calc_nmb_args(line);
-	if (nmb_args != 6)
-		return (display_error(INVALID_NBR_ARG_CY));
-
-	if(!*cylinder)
-	{
-		*cylinder = ft_calloc(1, sizeof(t_cys));
-		(*cylinder)->next = NULL;
-	}
-	else
-	{
-		t_cys	*new;
-		new = ft_calloc(1, sizeof(t_cys));
-		ft_lstadd_back_cy(cylinder, new);
-		t_cys	*last;
-		last = ft_lstlast_cy(*cylinder);
-		last->id = 3;
-	}
-	
 	//get Point (center of cylinder)
 	double	triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
-	init_point(&(*cylinder)->point, triplet);
+	init_point(&cylinder->point, triplet);
 	//get normalized vector
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (display_error(NV_SCOPE));
-	init_vec(&(*cylinder)->norm_vec, triplet);
+	init_vec(&cylinder->norm_vec, triplet);
 	//get cylinder diameter (float)
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	if (tmp <= 0)
 		return (display_error(CY_DIAMETER_SCOPE));
-	(*cylinder)->diam = tmp;
+	cylinder->diam = tmp;
 	//get cylinder height (float). can be negative or not?
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
-	(*cylinder)->height = tmp;
+	cylinder->height = tmp;
 	//get RGB color of cylinder
 	t_color	rgb;
 	if (get_RGB(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
-	assign_rgb(&(*cylinder)->col, rgb);
+	assign_rgb(&cylinder->col, rgb);
 	return (SUCCESS);
 }
 
-/*
-parses a line starting with sp
-*/
+/* parses a line starting with cy*/
+int	parse_cylinder(char *line, t_cys **cylinder)
+{
+	int		nmb_args;
+	t_cys	*lst_cyl;
+
+	lst_cyl = NULL;
+	nmb_args = calc_nmb_args(line);
+	if (nmb_args != 6)
+		return (display_error(INVALID_NBR_ARG_CY));
+	lst_cyl = get_ptr_lst_cyl(cylinder);
+	if (lst_cyl == NULL)
+		return(FAILURE);
+	if (assign_value_cyl(line, lst_cyl) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+/* parses a line starting with sp */
 int	parse_sphere(char *line, t_spheres **sphere)
 {
 	int		pos;
