@@ -1,26 +1,24 @@
 #include "../inc/miniRT.h"
 
 /* Getting a pointer to the last cylinder. */
-t_cys	*get_ptr_lst_cyl(t_cys **cylinder)
+t_plane	*get_ptr_lst_pl(t_plane **plane)
 {
-	t_cys	*new;
+	t_plane	*new;
 
 	new = NULL;
-	new = ft_lstnew_cy(new);
+	new = ft_lstnew_pl(new);
 	if (new == NULL)
 	{
 		display_error(MEMORY);
 		return (NULL);
 	}
-	ft_lstadd_back_cy(cylinder, new);
+	ft_lstadd_back_pl(plane, new);
 	return (new);
 }
 
-/* This function creates and returns a new node for
-the linked list. */  
-t_cys	*ft_lstnew_cy(t_cys *new)
+t_plane	*ft_lstnew_pl(t_plane *new)
 {
-	new = (t_cys *)malloc(sizeof(t_cys));
+	new = (t_plane *)malloc(sizeof(t_plane));
 	if (!new)
 		return (NULL);
 	new->next = NULL;
@@ -30,9 +28,9 @@ t_cys	*ft_lstnew_cy(t_cys *new)
 /* Adds the given element ‘new’ to the end of the linked list 
 pointed to by ‘lst’. If ‘lst’ is an empty list, ‘new’ becomes 
 the first element. */
-void	ft_lstadd_back_cy(t_cys **lst, t_cys *new)
+void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 {
-	t_cys	*temp;
+	t_plane	*temp;
 
 	temp = *lst;
 	if (*lst == NULL)
@@ -47,15 +45,4 @@ void	ft_lstadd_back_cy(t_cys **lst, t_cys *new)
 		temp = temp->next;
 	}
 	temp->next = new;
-}
-
-t_cys	*ft_lstlast_cy(t_cys *lst)
-{
-	while (lst)
-	{
-		if (lst->next == NULL)
-			return (lst);
-		lst = lst->next;
-	}
-	return (lst);
 }

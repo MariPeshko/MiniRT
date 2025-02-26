@@ -28,7 +28,9 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		whitespaces.c 		\
 		cleanup.c 			\
 		unsorted.c 			\
-		lst_struct_cylinder.c )
+		lst_struct_cylinder.c \
+		lst_struct_plane.c \
+		lst_struct_sphere.c )
 
 INCLUDES = inc/miniRT.h
 LIBFT_INC = libft/inc/get_next_line.h \

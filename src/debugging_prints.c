@@ -39,7 +39,43 @@ static void	print_vec(t_vector *vec, const char *msg)
 	printf("z: %.1f\n", vec->z);
 }
 
-void	printf_all_cylider(t_config *cf)
+void	print_all_planes(t_config *cf)
+{
+	t_plane	*curr;
+	int			i;
+
+	i = 1;
+	curr = cf->pl;
+	while (curr != NULL)
+	{
+		printf("\n%i PLANE\n", i);
+		print_point(&curr->point, "Plane");
+		print_vec(&curr->norm_vec, "Plane");
+		print_col(&curr->col, "Plane");
+		curr = curr->next;
+		i++;
+	}
+}
+
+void	print_all_spheres(t_config *cf)
+{
+	t_spher	*curr;
+	int		i;
+
+	i = 1;
+	curr = cf->sp;
+	while (curr != NULL)
+	{
+		printf("\n%i SPHERE\n", i);
+		print_point(&curr->point, "Sphere");
+		printf("Diameter %.2f\n", curr->diam);
+		print_col(&curr->col, "Sphere");
+		curr = curr->next;
+		i++;
+	}
+}
+
+void	print_all_cylider(t_config *cf)
 {
 	t_cys	*curr;
 	int		i;
@@ -59,7 +95,6 @@ void	printf_all_cylider(t_config *cf)
 	}
 }
 
-
 void	print_test_config(t_config *cf)
 {
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n");
@@ -72,16 +107,12 @@ void	print_test_config(t_config *cf)
 	printf("Light brightness %.1f\n", cf->light.bright);
 	print_col(&cf->light.col, "Light");
 
-	print_point(&cf->pl->point, "Plane");
-	print_vec(&cf->pl->norm_vec, "Plane");
-	print_col(&cf->pl->col, "Plane");
-
-	print_point(&cf->sp->point, "Sphere");
-	printf("Sphere diameter: %.1f\n", cf->sp->diam);
-	print_col(&cf->sp->col, "Sphere");
-
-	// MAKE A LOOOP to print multiple cylinders:
-	printf_all_cylider(cf);
+	// LOOP to print multiple planes:
+	print_all_planes(cf);
+	// LOOP to print multiple spheres:
+	print_all_spheres(cf);
+	// LOOP to print multiple cylinders:
+	print_all_cylider(cf);
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
 }
 

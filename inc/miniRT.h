@@ -51,8 +51,8 @@ int		parse_camera(char *line, t_camera *camera);
 int		parse_light(char *line, t_light *light);
 t_cys	*ft_lstlast_cy(t_cys *lst);
 int		parse_cylinder(char *line, t_cys **cylinder);
-int		parse_plane(char *line, t_planes **plane);
-int		parse_sphere(char *line, t_spheres **sphere);
+int		parse_plane(char *line, t_plane **plane);
+int		parse_sphere(char *line, t_spher **sphere);
 
 //parse_delegate.c
 int		parse_delegate(char *line, t_config *cf);
@@ -71,11 +71,22 @@ void	ft_freestr(char **lst);
 void	trim_out_spaces(char **str);
 int		ft_spacetabchecker(char *input);
 
+// lst_struct_plane.c
+t_plane	*get_ptr_lst_pl(t_plane **plane);
+t_plane	*ft_lstnew_pl(t_plane *new);
+void	ft_lstadd_back_pl(t_plane **lst, t_plane *new);
+
+// lst_struct_sphere.c
+t_spher	*get_ptr_lst_sph(t_spher **sphere);
+t_spher	*ft_lstnew_sph(t_spher *new);
+void	ft_lstadd_back_sph(t_spher **lst, t_spher *new);
+
 // lst_struct_cylinder.c
+t_cys	*get_ptr_lst_cyl(t_cys	**cylinder);
 t_cys	*ft_lstnew_cy(t_cys *new);
 void	ft_lstadd_back_cy(t_cys **lst, t_cys *new);
+// might be unused
 t_cys	*ft_lstlast_cy(t_cys *lst);
-t_cys	*get_ptr_lst_cyl(t_cys	**cylinder);
 
 //unsorted
 int		map_len(char **map);
@@ -86,6 +97,6 @@ bool	is_whitespace(char c);
 void	skip_whitespace(char *str, int *pos);
 
 //cleanup.c
-int	cleanup(t_config *cf);
+int		cleanup(t_config *cf);
 void	clean_exit(t_config *cf, char *er_msg);
 #endif
