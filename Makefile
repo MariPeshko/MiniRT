@@ -9,8 +9,12 @@ WHITE   = \033[0;37m
 RESET   = \033[0m
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -Iinc -I./minilibx-linux
 OPTIONS = -c
+
+MLX_DIR = ./minilibx-linux
+MLX_LIB = $(MLX_DIR)/libmlx_Linux.a
+MLX_FLAGS = -L/usr/lib/X11 -lXext -lX11
 
 SRC_DIR = ./src
 #add *.c files here
@@ -42,11 +46,11 @@ LIBFT_SRC = $(shell find $(LIBFT_DIR) -name "*.c")#is this allowed cause wildcar
 
 NAME = miniRT
 
-all:  $(NAME)
+all: $(MLX_LIB) $(NAME)
 
-$(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ) 
+$(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ) $(MLX_LIB)
 	@echo "$(GREEN)Compiling $(NAME)... $(RESET)"
-	@$(CC) $(FLAGS) $(OBJ) $(LIBFT_DIR)/$(LIBFT) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(MLX_LIB)  $(MLX_FLAGS) $(LIBFT_DIR)/$(LIBFT) -o $(NAME)
 
 $(LIBFT_DIR)/$(LIBFT): $(LIBFT_SRC) $(LIBFT_INC)
 	@echo "$(GREEN)Building $(LIBFT)... $(RESET)"
@@ -57,8 +61,12 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
 	@$(CC) -g $(FLAGS) $(OPTIONS) $< -o $@
 	@echo "$(BLUE)Compiling... $(CYAN)$<$(RESET)"
 
+$(MLX_LIB):
+	@make -C $(MLX_DIR)
+
 clean:
 	@printf "$(MAGENTA)"
+	@$(MAKE) -C $(MLX_DIR) clean
 	@make clean -s -C $(LIBFT_DIR)
 	@echo "$(RED)Deleting Objects... $(RESET)"
 	@rm -rf $(OBJ_DIR)
