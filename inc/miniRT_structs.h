@@ -98,12 +98,15 @@ typedef struct s_config
 	t_planes	*pl;
 	t_spheres	*sp;
 	t_cys		*cy;
+	void	*mlx;
+	void	*win;
 	// flags
 }	t_config;
 
 typedef struct s_mini_rt
 {
 	t_config	cf;
+	
 	// rest of the structs
 }	t_mini_rt;
 

@@ -18,6 +18,7 @@
 //libft, gnl and fr_printf by sgramsch
 # include "miniRT_error_macro.h"
 # include "miniRT_structs.h"
+#include <mlx.h>
 
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
