@@ -42,3 +42,13 @@
    fun:mlx_init
    fun:main
 }
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:mlx_init
+   fun:setup_mlx
+   fun:main
+}

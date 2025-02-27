@@ -18,7 +18,8 @@
 //libft, gnl and fr_printf by sgramsch
 # include "miniRT_error_macro.h"
 # include "miniRT_structs.h"
-#include <mlx.h>
+# include <mlx.h>//minilibx-linux
+# include <X11/keysym.h>//keysyms 
 
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
@@ -37,7 +38,7 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-
+# define ESC_KEY 65307  // Keycode for ESC key on Linux with MinilibX
 // Maryna's suggestion for return value convention
 #define TRUE 1
 #define FALSE 0
