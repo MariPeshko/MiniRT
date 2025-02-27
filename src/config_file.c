@@ -13,59 +13,12 @@ static int	fd_creator(char *filename)
 		display_error(strerror(errno));
 		exit(FAILURE);
 	}
-	if (is_empt_file(filename) == TRUE)
+	if (is_empt_file(filename) == true)
 	{
 		display_error(EMPTY_FILE);
 		exit(FAILURE);
 	}
 	return (fd);
-}
-
-static void	print_col(t_color *c, const char *msg)
-{
-	if (msg)
-		printf("%s RGB ", msg);
-	else
-		printf("Undefined element's RGB ");
-	printf("%i,", c->r);
-	printf("%i,", c->g);
-	printf("%i\n", c->b);
-}
-
-static void	print_point(t_point *p, const char *msg)
-{
-	if (msg)
-		printf("%s ", msg);
-	else
-		printf("Undefined element's point ");
-	printf("x: %f, ", p->x);
-	printf("y: %f, ", p->y);
-	printf("z: %f\n", p->y);
-}
-
-static void	print_vec(t_vector *vec, const char *msg)
-{
-	if (msg)
-		printf("%s ", msg);
-	else
-		printf("Undefined element's vector ");
-	printf("x: %f, ", vec->x);
-	printf("y: %f, ", vec->y);
-	printf("z: %f\n", vec->y);
-}
-
-static void	init_point(t_point *p, double x, double y, double z)
-{
-	p->x = x;
-	p->y = y;
-	p->z = z;
-}
-
-static void	init_vec(t_vector *vec, double x, double y, double z)
-{
-	vec->x = x;
-	vec->y = y;
-	vec->z = z;
 }
 
 static void	init_col(t_color *c, int r, int g, int b)
@@ -75,42 +28,79 @@ static void	init_col(t_color *c, int r, int g, int b)
 	c->b = b;
 }
 
+void	init_point(t_point *p, double *triplet)
+{
+    if (p != NULL)
+	{
+        p->x = triplet[0];
+        p->y = triplet[1];
+        p->z = triplet[2];
+    }
+}
+
+void	init_vec(t_vector *vec, double *triplet)
+{
+	if (vec != NULL)
+	{
+		vec->x = triplet[0];
+		vec->y = triplet[1];
+		vec->z = triplet[2];
+	}
+}
+
 /*It initialises all linked list to NULL.
 What about inisialising of int and double? (Maryna)
 Yes, valgrind complaining when I print uninitialised
 values (it is conditional jump or move) (S: thanks for the warning)*/
 void	init_config(t_config *cf)
 {
+	double triplet[3];
+
+    triplet[0] = 0.0;
+    triplet[1] = 0.0;
+    triplet[2] = 0.0;
+	cf->valid = true;
+	cf->one_amb = false;
+	cf->one_cam = false;
+	cf->one_lit = false;
 	cf->amb.lighting_ratio = 0;
 	init_col(&cf->amb.col, 0, 0, 0);
 	cf->cam.fov = 0;
-	init_vec(&cf->cam.norm_vec, 0, 0, 0);
-	init_point(&cf->cam.point, 0, 0, 0);
+	init_vec(&cf->cam.norm_vec,triplet);
+	init_point(&cf->cam.point, triplet);
 	cf->light.bright = 0;
 	init_col(&cf->light.col, 0, 0, 0);
-	init_point(&cf->light.point, 0, 0, 0);
+	init_point(&cf->light.point, triplet);
 	cf->pl = NULL;
 	cf->sp = NULL;
 	cf->cy = NULL;
 }
 
-static void	print_test_config(t_config *cf)
+int	check_final_config(t_config *cf)
 {
-	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n");
-	printf("Amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
-	print_col(&cf->amb.col, "Ambience");
-	print_vec(&cf->cam.norm_vec, "Camera norm vector");
-	printf("Camera fov: %.2f\n", cf->cam.fov);
-	print_point(&cf->cam.point, NULL);
-	print_col(&cf->light.col, "Light");
-	print_col(&cf->pl->col, "Plane");
-	print_col(&cf->sp->col, "Sphere");
-	print_col(&cf->cy->col, "Cyliner");
-}//to debugging prints
+	if (cf->one_amb == false)
+	{
+		display_error(MUST_ONE_AMB);
+		cf->valid = false;
+	}
+	if (cf->one_cam == false)
+	{
+		display_error(MUST_ONE_CAM);
+		cf->valid = false;
+	}
+	if (cf->one_lit == false)
+	{
+		display_error(MUST_ONE_LIT);
+		cf->valid = false;
+	}
+	if (cf->valid == false)
+		return (FAILURE);
+	return (SUCCESS);
+}
 
 /*open a config file
 a scene in format *.rt*/
-void	open_config(char *config, t_config *cf)
+int	open_config(char *config, t_config *cf)
 {
 	int		fd_conf;
 	char	*line;
@@ -123,20 +113,24 @@ void	open_config(char *config, t_config *cf)
 	{
 		if (ft_spacetabchecker(line))
 			trim_out_spaces(&line);
-		if (parse_delegate(line, cf) == SUCCESS)
-			printf("%s\n", line);
-		else//aka later: if (parse_delegate == FAILURE)
-		{
-			while (line != NULL)
-			{
-				free(line);
-				line = get_next_line(fd_conf);
-			}
-			clean_exit(cf, NULL);
+		if (parse_delegate(line, cf) == FAILURE)
+			cf->valid = false;
+		/* {
+			if (line[0] && (line[0] != '\n') && cf->valid == true)
+				printf("%s\n", line);
 		}
+		else */
+		//	cf->valid = false;
 		free(line);
 		line = get_next_line(fd_conf);
 	}
-	print_test_config(cf);
 	close(fd_conf);
+	if (check_final_config(cf) == SUCCESS)
+	{
+		// assigning an id for each element.
+		// it might be convenient 
+		print_test_config(cf);
+		return (SUCCESS);
+	}
+	return (FAILURE);
 }

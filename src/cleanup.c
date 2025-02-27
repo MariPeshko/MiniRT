@@ -17,10 +17,10 @@ void	*free_cys(t_cys *cys)
 	return (NULL);
 }//set cys to NULL
 
-void	*free_sps(t_spheres *sps)
+void	*free_sps(t_spher *sps)
 {
-	t_spheres	*tmp;
-	t_spheres	*tmp2;
+	t_spher	*tmp;
+	t_spher	*tmp2;
 
 	tmp = sps->next;
 	free(sps);
@@ -33,10 +33,10 @@ void	*free_sps(t_spheres *sps)
 	return (NULL);
 }
 
-void	*free_pls(t_planes *pls)
+void	*free_pls(t_plane *pls)
 {
-	t_planes	*tmp;
-	t_planes	*tmp2;
+	t_plane	*tmp;
+	t_plane	*tmp2;
 
 	tmp = pls->next;
 	free(pls);

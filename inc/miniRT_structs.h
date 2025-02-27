@@ -49,23 +49,23 @@ typedef struct s_light
 	t_color		col;
 }	t_light;
 
-typedef struct s_planes
+typedef struct s_plane
 {
 	t_point			point;
 	t_vector		norm_vec;
 	t_color			col;
 	int				id; // identifier
-	struct s_planes	*next;
-}	t_planes;
+	struct s_plane	*next;
+}	t_plane;
 
-typedef struct s_spheres
+typedef struct t_spher
 {
 	t_point				point;
 	double				diam;
 	t_color				col;
 	int					id; // identifier
-	struct s_spheres	*next;
-}	t_spheres;
+	struct t_spher	*next;
+}	t_spher;
 
 // Cylinder(s)
 typedef struct s_cys
@@ -95,12 +95,15 @@ typedef struct s_config
 	t_ambient	amb;
 	t_camera	cam;
 	t_light		light;
-	t_planes	*pl;
-	t_spheres	*sp;
+	t_plane		*pl;
+	t_spher		*sp;
 	t_cys		*cy;
 	void	*mlx;
 	void	*win;
-	// flags
+	bool		valid;
+	bool		one_amb;
+	bool		one_cam;
+	bool		one_lit;
 }	t_config;
 
 typedef struct s_mini_rt

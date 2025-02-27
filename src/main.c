@@ -46,7 +46,8 @@ int main(int argc, char **argv)
 	if (argc != 2)
 		arg_error(argc);
 
-	open_config(argv[1], &rt.cf);  // Load the configuration
+	if (open_config(argv[1], &rt.cf) == FAILURE)
+		clean_exit(&(rt.cf), NULL);  // Load the configuration
 
 	// Initialize mlx and window
 	setup_mlx(&rt);

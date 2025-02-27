@@ -26,22 +26,10 @@
 # define GREEN   "\033[1;32m"
 # define YELLOW  "\033[1;33m"
 
-/*typedef enum 
-{
-    NO_CONFIG_FILE = 1,
-    TOO_MANY_ARGS = 2,
-	EMPTY_STRING = 3,
-	WRONG_EXTEN = 4,
-    FILE_ERR = 5,
-    EMPTY_FILE = 6
-} error_type ;*/
-
 # define SUCCESS 0
 # define FAILURE 1
 # define ESC_KEY 65307  // Keycode for ESC key on Linux with MinilibX
-// Maryna's suggestion for return value convention
-#define TRUE 1
-#define FALSE 0
+
 
 // check_initial.c
 void	arg_error(int argc);
@@ -49,9 +37,12 @@ void	check_filename(char *config);
 int		is_empt_file(char *filename);
 
 // config_file.c
-void	open_config(char *config, t_config *cf);
+int		open_config(char *config, t_config *cf);
+void	init_point(t_point *p, double *triplet);
+void	init_vec(t_vector *vec, double *triplet);
 
 //debugging_prints.c
+void	print_test_config(t_config *cf);
 void	print_map(char **map);
 void	print_triplet(float *triplet);
 
@@ -59,28 +50,46 @@ void	print_triplet(float *triplet);
 int		display_error(char *msg);
 
 //parse_objects.c
-int		parse_ambient_lighting(char *line, t_ambient *amb);
-int		parse_camera(char *line, t_camera *camera);
-int		parse_light(char *line, t_light *light);
+int		full_parse_ambient(char *line, t_ambient *amb);
+int		full_parse_camera(char *line, t_camera *camera);
+int		full_parse_light(char *line, t_light *light);
 int		parse_cylinder(char *line, t_cys **cylinder);
-int		parse_plane(char *line, t_planes **plane);
-int		parse_sphere(char *line, t_spheres **sphere);
+int		parse_plane(char *line, t_plane **plane);
+int		parse_sphere(char *line, t_spher **sphere);
 
 //parse_delegate.c
 int		parse_delegate(char *line, t_config *cf);
+int		calc_nmb_args(char *line);
 
 //parse_helpers.c
 void	assign_rgb(t_color *in_struct, t_color result_rgb);
-int	get_int(char *line, int *pos, int *dest);
-int		triplet_in_scope(float *triplet, float min, float max);
+int		get_int(char *line, int *pos, int *dest);
+int		triplet_in_scope(double *triplet, double min, double max);
 int		get_float(char *line, int *pos, float *dest);
-int		get_three_floats(char *line, int *pos, float triplet[3]);
+int		get_three_floats(char *line, int *pos, double triplet[3]);
 int		get_RGB(char *line, int *pos, t_color *result_rgb);
 
 // str_utils.c
 void	ft_freestr(char **lst);
 void	trim_out_spaces(char **str);
 int		ft_spacetabchecker(char *input);
+
+// lst_struct_plane.c
+t_plane	*get_ptr_lst_pl(t_plane **plane);
+t_plane	*ft_lstnew_pl(t_plane *new);
+void	ft_lstadd_back_pl(t_plane **lst, t_plane *new);
+
+// lst_struct_sphere.c
+t_spher	*get_ptr_lst_sph(t_spher **sphere);
+t_spher	*ft_lstnew_sph(t_spher *new);
+void	ft_lstadd_back_sph(t_spher **lst, t_spher *new);
+
+// lst_struct_cylinder.c
+t_cys	*get_ptr_lst_cyl(t_cys	**cylinder);
+t_cys	*ft_lstnew_cy(t_cys *new);
+void	ft_lstadd_back_cy(t_cys **lst, t_cys *new);
+// might be unused
+t_cys	*ft_lstlast_cy(t_cys *lst);
 
 //unsorted
 int		map_len(char **map);
@@ -91,6 +100,6 @@ bool	is_whitespace(char c);
 void	skip_whitespace(char *str, int *pos);
 
 //cleanup.c
-int	cleanup(t_config *cf);
+int		cleanup(t_config *cf);
 void	clean_exit(t_config *cf, char *er_msg);
 #endif
