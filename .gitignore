@@ -8,3 +8,4 @@ a.out
 gpt_draft.c
 **/miniRT
 #the ** is short for "any subdirectory"
+**/.github
