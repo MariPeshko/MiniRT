@@ -10,7 +10,7 @@ int handle_keypress(int keycode, t_config *cf)
 {
 	if (keycode == ESC_KEY)
 		cleanup(cf);
-	return (0);
+	exit(SUCCESS);
 }
 
 void	setup_mlx(t_mini_rt *rt)
