@@ -1,6 +1,5 @@
 #include "../inc/miniRT.h"
 
-
 void	*free_cys(t_cys *cys)
 {
 	t_cys	*tmp;
