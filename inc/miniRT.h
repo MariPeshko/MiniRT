@@ -91,7 +91,12 @@ void	ft_lstadd_back_cy(t_cys **lst, t_cys *new);
 // might be unused
 t_cys	*ft_lstlast_cy(t_cys *lst);
 
+//mlx.c
+void	setup_mlx(t_mini_rt *rt);
+
 //unsorted
+int handle_close(t_config *cf);
+int handle_keypress(int keycode, t_config *cf);
 int		map_len(char **map);
 
 //whitespaces.c

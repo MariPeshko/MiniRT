@@ -34,6 +34,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		unsorted.c 			\
 		lst_struct_cylinder.c \
 		lst_struct_plane.c \
+		mlx.c 				\
 		lst_struct_sphere.c )
 
 INCLUDES = inc/miniRT.h
