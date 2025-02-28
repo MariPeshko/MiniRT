@@ -37,7 +37,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		mlx.c 				\
 		lst_struct_sphere.c )
 
-INCLUDES = inc/miniRT.h
+INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
 LIBFT_INC = libft/inc/get_next_line.h \
 	libft/inc/libft.h
 

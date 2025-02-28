@@ -8,6 +8,7 @@ typedef struct s_vector
 	double	z;
 }	t_vector;
 
+
 // x,y,z coordinates
 typedef struct s_point
 {

@@ -1,6 +1,7 @@
 #ifndef MINIRT_ERROR_MACRO_H
 # define MINIRT_ERROR_MACRO_H
 
+
 # define MEMORY "Memory allocation failed"
 # define INVALID_NBR_ARG "Invalid number of Arguments"
 # define INVALID_NBR_ARG_CY "Invalid number of Arguments in cylinder"
