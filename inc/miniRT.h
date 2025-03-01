@@ -18,6 +18,8 @@
 //libft, gnl and fr_printf by sgramsch
 # include "miniRT_error_macro.h"
 # include "miniRT_structs.h"
+# include <mlx.h>//minilibx-linux
+# include <X11/keysym.h>//keysyms 
 
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
@@ -26,6 +28,8 @@
 
 # define SUCCESS 0
 # define FAILURE 1
+# define ESC_KEY 65307  // Keycode for ESC key on Linux with MinilibX
+
 
 // check_initial.c
 void	arg_error(int argc);
@@ -89,7 +93,12 @@ void	ft_lstadd_back_cy(t_cys **lst, t_cys *new);
 // might be unused
 t_cys	*ft_lstlast_cy(t_cys *lst);
 
+//mlx.c
+void	setup_mlx(t_mini_rt *rt);
+
 //unsorted
+int handle_close(t_config *cf);
+int handle_keypress(int keycode, t_config *cf);
 int		map_len(char **map);
 
 //whitespaces.c

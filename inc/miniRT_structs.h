@@ -98,6 +98,8 @@ typedef struct s_config
 	t_plane		*pl;
 	t_spher		*sp;
 	t_cys		*cy;
+	void	*mlx;
+	void	*win;
 	bool		valid;
 	bool		one_amb;
 	bool		one_cam;
@@ -107,6 +109,7 @@ typedef struct s_config
 typedef struct s_mini_rt
 {
 	t_config	cf;
+	
 	// rest of the structs
 }	t_mini_rt;
 
