@@ -25,7 +25,7 @@ int	full_parse_ambient(char *line, t_ambient *amb)
 		//check if we actually need this.
 		display_error(WRONG_CHAR);
 	}*/
-	if (get_RGB(line, &pos, &rgb) == FAILURE)
+	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&amb->col, rgb);
 	return (SUCCESS);
@@ -86,7 +86,7 @@ int	full_parse_light(char *line, t_light *light)
 	light->bright = tmp;
 	//get RGB? (unused in mandatory, so require it or not?)
 	t_color	rgb;
-	if (get_RGB(line, &pos, &rgb) == FAILURE)
+	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&light->col, rgb);
 	return (SUCCESS);
@@ -110,7 +110,7 @@ int	assign_value_plane(char *line, t_plane *lst_pl)
 	init_vec(&lst_pl->norm_vec, triplet);
 	//get RGB color of plane
 	t_color	rgb;
-	if (get_RGB(line, &pos, &rgb) == FAILURE)
+	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&lst_pl->col, rgb);
 	return (SUCCESS);
@@ -163,7 +163,7 @@ int	assign_value_cyl(char *line, t_cys *cylinder)
 	cylinder->height = tmp;
 	//get RGB color of cylinder
 	t_color	rgb;
-	if (get_RGB(line, &pos, &rgb) == FAILURE)
+	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&cylinder->col, rgb);
 	return (SUCCESS);
@@ -206,7 +206,7 @@ int	assign_value_sphere(char *line, t_spher *lst_sph)
 	lst_sph->diam = tmp;
 	//get RGB color of sphere
 	t_color	rgb;
-	if (get_RGB(line, &pos, &rgb) == FAILURE)
+	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&lst_sph->col, rgb);
 	return (SUCCESS);
