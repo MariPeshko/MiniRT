@@ -29,7 +29,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 # define ESC_KEY 65307  // Keycode for ESC key on Linux with MinilibX
-
+# define DestroyNotify 17
 
 // check_initial.c
 void	arg_error(int argc);
