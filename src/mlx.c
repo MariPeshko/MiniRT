@@ -3,6 +3,7 @@
 int handle_close(t_config *cf)
 {
 	cleanup(cf);// Free resources and exit
+	exit(SUCCESS);
 	return (0);// Required return for mlx_hook callbacks
 }
 
