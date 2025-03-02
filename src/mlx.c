@@ -15,8 +15,6 @@ int handle_keypress(int keycode, t_config *cf)
 
 void	setup_mlx(t_mini_rt *rt)
 {
-	rt->cf.mlx = NULL;
-	rt->cf.win = NULL;
 	rt->cf.mlx = mlx_init();
 	if (!rt->cf.mlx)
 		clean_exit(&rt->cf, MEMORY);

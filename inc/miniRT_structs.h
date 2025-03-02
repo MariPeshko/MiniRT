@@ -8,7 +8,6 @@ typedef struct s_vector
 	double	z;
 }	t_vector;
 
-
 // x,y,z coordinates
 typedef struct s_point
 {
@@ -99,6 +98,7 @@ typedef struct s_config
 	t_plane		*pl;
 	t_spher		*sp;
 	t_cys		*cy;
+	t_vp	viewp;
 	void	*mlx;
 	void	*win;
 	bool		valid;
