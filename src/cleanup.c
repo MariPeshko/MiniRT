@@ -65,6 +65,7 @@ int	cleanup(t_config *cf)//rename cleanup and exit
 		mlx_destroy_window(cf->mlx, cf->win);// Free the window
 	if (cf->mlx)
 		mlx_destroy_display(cf->mlx);// Destroy the mlx display
+	free(cf->mlx);
 	return (SUCCESS);
 }
 

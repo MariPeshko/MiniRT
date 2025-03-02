@@ -62,12 +62,14 @@ int		parse_delegate(char *line, t_config *cf);
 int		calc_nmb_args(char *line);
 
 //parse_helpers.c
-void	assign_rgb(t_color *in_struct, t_color result_rgb);
 int		get_int(char *line, int *pos, int *dest);
 int		triplet_in_scope(double *triplet, double min, double max);
 int		get_float(char *line, int *pos, float *dest);
 int		get_three_floats(char *line, int *pos, double triplet[3]);
-int		get_RGB(char *line, int *pos, t_color *result_rgb);
+
+// parse_helpers.c
+int		get_rgb(char *line, int *pos, t_color *result_rgb);
+void	assign_rgb(t_color *in_struct, t_color result_rgb);
 
 // str_utils.c
 void	ft_freestr(char **lst);

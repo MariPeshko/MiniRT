@@ -26,6 +26,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		main.c				\
 		parse_delegate.c	\
 		parse_helpers.c 	\
+		parse_rgb.c			\
 		parse_objects.c 	\
 		str_utils.c			\
 		test_parse_delegate.c 	\

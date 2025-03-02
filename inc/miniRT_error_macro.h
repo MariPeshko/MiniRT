@@ -15,6 +15,7 @@
 # define MUST_ONE_LIT "There must be a lighting spot"
 # define WRONG_CHAR "unexpected character"
 # define RGB_WRONG_CHAR "unexpected character in RGB"
+# define RGB_NEG "RGB value must be a positive integer"
 # define RGB_SCOPE "RGB value out of scope"
 # define WRONG_IDENTIFIER "Invalid Identifier"
 # define A_SCOPE "Ambient light ratio out of scope"
