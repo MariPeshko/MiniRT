@@ -27,13 +27,13 @@ int	calculate_viewport_orientation(t_config *cf)
 	//this division makes the values smaller than what a double can represesnt,
 	//effectively making them 0.0.
 	//without the block: length = 1
-	/*horizontal.x *= cf->viewp.width / 1600;
-	horizontal.y *= cf->viewp.width / 1600;
-	horizontal.z *= cf->viewp.width / 1600;
+	horizontal.x *= cf->viewp.width / WIN_WIDTH;
+	horizontal.y *= cf->viewp.width / WIN_WIDTH;
+	horizontal.z *= cf->viewp.width / WIN_WIDTH;
 
-	vertical.x *= cf->viewp.height / 900;
-	vertical.y *= cf->viewp.height / 900;
-	vertical.z *= cf->viewp.height / 900;*/
+	vertical.x *= cf->viewp.height / WIN_HEIGHT;
+	vertical.y *= cf->viewp.height / WIN_HEIGHT;
+	vertical.z *= cf->viewp.height / WIN_HEIGHT;
 
 	// Store in viewport
 	cf->viewp.horizontal = horizontal;
@@ -87,13 +87,13 @@ int calculate_upper_left_corner(t_vp *viewp)
         return (FAILURE);
 
     // Calculate half vectors
-    half_horizontal.x = viewp->horizontal.x * 0.5 * viewp->width;
-    half_horizontal.y = viewp->horizontal.y * 0.5 * viewp->width;
-    half_horizontal.z = viewp->horizontal.z * 0.5 * viewp->width;
+    half_horizontal.x = viewp->horizontal.x * 0.5 * WIN_WIDTH;
+    half_horizontal.y = viewp->horizontal.y * 0.5 *  WIN_WIDTH;
+    half_horizontal.z = viewp->horizontal.z * 0.5 *  WIN_WIDTH;
 
-    half_vertical.x = viewp->vertical.x * 0.5 * viewp->height;
-    half_vertical.y = viewp->vertical.y * 0.5 * viewp->height;
-    half_vertical.z = viewp->vertical.z * 0.5 * viewp->height;
+    half_vertical.x = viewp->vertical.x * 0.5 * WIN_HEIGHT;
+    half_vertical.y = viewp->vertical.y * 0.5 * WIN_HEIGHT;
+    half_vertical.z = viewp->vertical.z * 0.5 * WIN_HEIGHT;
 
     // Upper left corner = center - half_horizontal + half_vertical
     viewp->point.x = viewp->c_point.x - half_horizontal.x + half_vertical.x;
