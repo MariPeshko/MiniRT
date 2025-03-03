@@ -2,6 +2,7 @@
 # define MINIRT_ERROR_MACRO_H
 
 # define VIEWPORT_RATIO (16.0 / 9.0)
+# define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
 
 # define MEMORY "Memory allocation failed"
 # define INVALID_NBR_ARG "Invalid number of Arguments"

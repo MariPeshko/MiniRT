@@ -42,38 +42,38 @@ int	calculate_viewport_orientation(t_config *cf)
 	return (SUCCESS);
 }
 
-int	calculate_height(t_config *cf)
-{
-	if (!cf)
-		return (FAILURE);
-
-	double fov_radians = cf->cam.fov * (M_PI / 180.0);
-	double height = 2.0 * tan(fov_radians / 2.0);
-
-	if (isnan(height) || height <= 0.0)
-	{
-		printf("Error calculating viewport height\n");
-		return (FAILURE);
-	}
-
-	cf->viewp.height = height;
-	return (SUCCESS);
-}
-
 int	calculate_width(t_config *cf)
 {
 	if (!cf)
 		return (FAILURE);
 
-	double width = cf->viewp.height * VIEWPORT_RATIO;
+	double fov_radians = cf->cam.fov * (M_PI / 180.0);
+	double width = 2.0 * tan(fov_radians / 2.0);
 
 	if (isnan(width) || width <= 0.0)
+	{
+		printf("Error calculating viewport height\n");
+		return (FAILURE);
+	}
+
+	cf->viewp.width = width;
+	return (SUCCESS);
+}
+
+int	calculate_height(t_config *cf)
+{
+	if (!cf)
+		return (FAILURE);
+
+	double height = cf->viewp.width * VIEWPORT_RATIO_REVERSE;
+
+	if (isnan(height) || height <= 0.0)
 	{
 		printf("Error calculating viewport width\n");
 		return (FAILURE);
 	}
 
-	cf->viewp.width = width;
+	cf->viewp.height = height;
 	return (SUCCESS);
 }
 
@@ -109,12 +109,12 @@ int	viewport_calculation(t_config *cf)
 	init_viewport(&cf->viewp);
 	//center view port
 	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.c_point) == FAILURE)
-		clean_exit(cf, VIEWP_C);
-	//height
-	if (calculate_height(cf) == FAILURE)
-		clean_exit(cf, NULL);
+	clean_exit(cf, VIEWP_C);
 	//width
 	if (calculate_width(cf) == FAILURE)
+		clean_exit(cf, NULL);
+	//height
+	if (calculate_height(cf) == FAILURE)
 		clean_exit(cf, NULL);
 	//horizontal and vertical vector
 	if (calculate_viewport_orientation(cf) == FAILURE)
