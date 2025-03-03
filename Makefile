@@ -36,6 +36,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		lst_struct_cylinder.c \
 		lst_struct_plane.c \
 		mlx.c 				\
+		viewport_calc.c 	\
+		vector_calc.c 		\
 		lst_struct_sphere.c )
 
 INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
@@ -55,7 +57,7 @@ all: $(MLX_LIB) $(NAME)
 
 $(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ) $(MLX_LIB)
 	@echo "$(GREEN)Compiling $(NAME)... $(RESET)"
-	@$(CC) $(FLAGS) $(OBJ) $(MLX_LIB)  $(MLX_FLAGS) $(LIBFT_DIR)/$(LIBFT) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(MLX_LIB) $(MLX_FLAGS) $(LIBFT_DIR)/$(LIBFT) -o $(NAME) -lm
 
 $(LIBFT_DIR)/$(LIBFT): $(LIBFT_SRC) $(LIBFT_INC)
 	@echo "$(GREEN)Building $(LIBFT)... $(RESET)"

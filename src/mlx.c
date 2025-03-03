@@ -20,7 +20,7 @@ void	setup_mlx(t_mini_rt *rt)
 	if (!rt->cf.mlx)
 		clean_exit(&rt->cf, MEMORY);
 
-	rt->cf.win = mlx_new_window(rt->cf.mlx, 800, 600, "42 MinilibX Window");
+	rt->cf.win = mlx_new_window(rt->cf.mlx, WIN_WIDTH, WIN_HEIGHT, "42 MinilibX Window");
 	if (!rt->cf.win)
 		clean_exit(&rt->cf, MEMORY);
 

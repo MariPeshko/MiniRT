@@ -1,12 +1,5 @@
 #include "../inc/miniRT.h"
 
-int	viewport_calculation(t_config *cf)
-{
-	if (cf)
-		return (SUCCESS);
-	return (SUCCESS);
-}
-
 int main(int argc, char **argv)
 {
 	t_mini_rt rt;
@@ -21,6 +14,7 @@ int main(int argc, char **argv)
 	setup_mlx(&rt);
 
 	//calculate picture
+	printf("hi\n");
 	if (viewport_calculation(&rt.cf) == FAILURE)
 		clean_exit(&(rt.cf), NULL);
 	//display_picture

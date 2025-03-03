@@ -1,6 +1,7 @@
 #ifndef MINIRT_ERROR_MACRO_H
 # define MINIRT_ERROR_MACRO_H
 
+# define VIEWPORT_RATIO (16.0 / 9.0)
 
 # define MEMORY "Memory allocation failed"
 # define INVALID_NBR_ARG "Invalid number of Arguments"
@@ -34,5 +35,7 @@ name of the configuration file"
 # define FILE_ERR "Error opening file"
 # define EMPTY_FILE "Configuration file is empty"
 # define FOV_SCOPE "Field of View out of scope [0, 180]"
+
+# define VIEWP_C "Viewport Center calculation failed."
 
 #endif

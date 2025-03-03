@@ -54,7 +54,7 @@ typedef struct s_plane
 	t_point			point;
 	t_vector		norm_vec;
 	t_color			col;
-	int				id; // identifier
+	int				id;// identifier
 	struct s_plane	*next;
 }	t_plane;
 
@@ -63,7 +63,7 @@ typedef struct t_spher
 	t_point				point;
 	double				diam;
 	t_color				col;
-	int					id; // identifier
+	int					id;// identifier
 	struct t_spher	*next;
 }	t_spher;
 
@@ -81,11 +81,11 @@ typedef struct s_cys
 
 typedef struct s_vp//view port
 {
-	t_point	point;
-	t_vector	horizontal;
-	t_vector	vertical;
-	int			width;
-	int			height;//both in pixel
+	t_point		point;//upper-left corner aka first pixel
+	t_vector	horizontal;//from one pixel to next in row
+	t_vector	vertical;//from one pixel to next in column
+	double			width;//in 3D space
+	double			height;//in 3D space
 	t_point		c_point;//easier access to C point?
 }	t_vp;
 
@@ -98,9 +98,9 @@ typedef struct s_config
 	t_plane		*pl;
 	t_spher		*sp;
 	t_cys		*cy;
-	t_vp	viewp;
-	void	*mlx;
-	void	*win;
+	t_vp		viewp;
+	void		*mlx;
+	void		*win;
 	bool		valid;
 	bool		one_amb;
 	bool		one_cam;

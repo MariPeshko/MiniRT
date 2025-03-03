@@ -137,3 +137,25 @@ void	print_triplet(float *triplet)
 {
 	printf("%f , %f , %f\n", triplet[0], triplet[1], triplet[2]);
 }
+
+
+void	print_viewport(t_vp *vp)
+{
+	if (!vp)
+	{
+		printf("Viewport is NULL\n");
+		return;
+	}
+
+	printf("\nVIEWPORT\n");
+
+	print_point(&vp->point, "VP Origin");
+
+	print_vec(&vp->horizontal, "VP Horizontal");
+	print_vec(&vp->vertical, "VP Vertical");
+
+	printf("VP Width: %f in 3D space\n", vp->width);
+	printf("VP Height: %f in 3D space\n", vp->height);
+
+	print_point(&vp->c_point, "VP C-Point");
+}

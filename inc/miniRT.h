@@ -5,6 +5,7 @@
 # include "../libft/inc/libft.h"
 # include "../libft/inc/get_next_line.h"
 
+# include <float.h>  // For DBL_MAX and DBL_MIN. these are macros, no functions, and therefor allowed
 # include <stdio.h>
 # include <fcntl.h> // open
 # include <stdlib.h>
@@ -28,8 +29,9 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-# define ESC_KEY 65307  // Keycode for ESC key on Linux with MinilibX
-
+# define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 450
 
 // check_initial.c
 void	arg_error(int argc);
@@ -45,6 +47,7 @@ void	init_vec(t_vector *vec, double *triplet);
 void	print_test_config(t_config *cf);
 void	print_map(char **map);
 void	print_triplet(float *triplet);
+void	print_viewport(t_vp *vp);
 
 //error_handling.c
 int		display_error(char *msg);
@@ -95,11 +98,25 @@ t_cys	*ft_lstlast_cy(t_cys *lst);
 
 //mlx.c
 void	setup_mlx(t_mini_rt *rt);
-
-//unsorted
 int handle_close(t_config *cf);
 int handle_keypress(int keycode, t_config *cf);
+
+//unsorted
 int		map_len(char **map);
+void	init_viewport(t_vp *vp);
+
+//vector_calc.c
+int	cross_product(t_vector *a, t_vector *b, t_vector *result);
+int	normalize_vector(t_vector *v);
+int	point_plus_vector(t_point *point, t_vector *vector, double factor, t_point *result);
+
+//viewport_calc.c
+int	calculate_viewport_orientation(t_config *cf);
+int	calculate_height(t_config *cf);
+int	calculate_width(t_config *cf);
+int calculate_upper_left_corner(t_vp *viewp);
+int	viewport_calculation(t_config *cf);
+
 
 //whitespaces.c
 void	whitespace_to_space(char *line);
