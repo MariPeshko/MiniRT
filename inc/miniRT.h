@@ -33,6 +33,9 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 450
 
+void	print_vec(t_vector *vec, const char *msg);
+
+
 // check_initial.c
 void	arg_error(int argc);
 void	check_filename(char *config);

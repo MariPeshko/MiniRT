@@ -14,7 +14,6 @@ int main(int argc, char **argv)
 	setup_mlx(&rt);
 
 	//calculate picture
-	printf("hi\n");
 	if (viewport_calculation(&rt.cf) == FAILURE)
 		clean_exit(&(rt.cf), NULL);
 	//display_picture

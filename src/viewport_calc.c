@@ -1,5 +1,21 @@
 #include "../inc/miniRT.h"
 
+void	get_up_vector(t_config *cf, t_vector *up)
+{
+	if (cf->cam.norm_vec.x == 0 && cf->cam.norm_vec.y == 0 && cf->cam.norm_vec.z != 0)
+	{
+		up->x = 1;
+		up->y = 0;
+		up->z = 0;
+	}
+	else
+	{
+		up->x = 0;
+		up->y = 0;
+		up->z = 1;
+	}
+}
+
 int	calculate_viewport_orientation(t_config *cf)
 {
 	t_vector	up;
@@ -7,25 +23,23 @@ int	calculate_viewport_orientation(t_config *cf)
 	t_vector	vertical;
 
 	// Define "world up" vector
-	up.x = 0;
-	up.y = 1;
-	up.z = 0;
+	//check this !
+	get_up_vector(cf, &up);
 
 	// Horizontal = cross(world_up, forward)
-	if (cross_product(&up, &cf->cam.norm_vec, &horizontal) == FAILURE)
+	if (cross_product(&cf->cam.norm_vec, &up, &horizontal) == FAILURE)
 		return (FAILURE);
+	print_vec(&horizontal, "horizontal");
 	if (normalize_vector(&horizontal) == FAILURE)
 		return (FAILURE);
 
+	
 	// Vertical = cross(forward, horizontal)
-	if (cross_product(&cf->cam.norm_vec, &horizontal, &vertical) == FAILURE)
+	if (cross_product(&horizontal, &cf->cam.norm_vec, &vertical) == FAILURE)
 		return (FAILURE);
 	if (normalize_vector(&vertical) == FAILURE)
 		return (FAILURE);
-
 	// Scale horizontal & vertical to match pixel spacing
-	//this division makes the values smaller than what a double can represesnt,
-	//effectively making them 0.0.
 	//without the block: length = 1
 	horizontal.x *= cf->viewp.width / WIN_WIDTH;
 	horizontal.y *= cf->viewp.width / WIN_WIDTH;
@@ -77,6 +91,8 @@ int	calculate_height(t_config *cf)
 	return (SUCCESS);
 }
 
+/*calculate upper left corner point.
+later this is the first pixel*/
 int calculate_upper_left_corner(t_vp *viewp)
 {
     t_vector half_horizontal;
@@ -109,7 +125,7 @@ int	viewport_calculation(t_config *cf)
 	init_viewport(&cf->viewp);
 	//center view port
 	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.c_point) == FAILURE)
-	clean_exit(cf, VIEWP_C);
+		clean_exit(cf, VIEWP_C);
 	//width
 	if (calculate_width(cf) == FAILURE)
 		clean_exit(cf, NULL);

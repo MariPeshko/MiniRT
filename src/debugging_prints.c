@@ -28,7 +28,7 @@ static void	print_point(t_point *p, const char *msg)
 	printf("z: %.10f\n", p->z);
 }
 
-static void	print_vec(t_vector *vec, const char *msg)
+void	print_vec(t_vector *vec, const char *msg)
 {
 	if (msg)
 		printf("%s vector ", msg);
