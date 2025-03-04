@@ -32,6 +32,8 @@
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 450
+# define VIEWPORT_RATIO (16.0 / 9.0)
+# define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
 
 void	print_vec(t_vector *vec, const char *msg);
 

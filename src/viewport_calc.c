@@ -23,24 +23,19 @@ int	calculate_viewport_orientation(t_config *cf)
 	t_vector	vertical;
 
 	// Define "world up" vector
-	//check this !
 	get_up_vector(cf, &up);
 
-	// Horizontal = cross(world_up, forward)
+	// Horizontal = cross(forward, up)
 	if (cross_product(&cf->cam.norm_vec, &up, &horizontal) == FAILURE)
 		return (FAILURE);
-	print_vec(&horizontal, "horizontal");
 	if (normalize_vector(&horizontal) == FAILURE)
 		return (FAILURE);
-
-	
 	// Vertical = cross(forward, horizontal)
-	if (cross_product(&horizontal, &cf->cam.norm_vec, &vertical) == FAILURE)
+	if (cross_product(&cf->cam.norm_vec, &horizontal, &vertical) == FAILURE)
 		return (FAILURE);
 	if (normalize_vector(&vertical) == FAILURE)
 		return (FAILURE);
 	// Scale horizontal & vertical to match pixel spacing
-	//without the block: length = 1
 	horizontal.x *= cf->viewp.width / WIN_WIDTH;
 	horizontal.y *= cf->viewp.width / WIN_WIDTH;
 	horizontal.z *= cf->viewp.width / WIN_WIDTH;
@@ -52,7 +47,6 @@ int	calculate_viewport_orientation(t_config *cf)
 	// Store in viewport
 	cf->viewp.horizontal = horizontal;
 	cf->viewp.vertical = vertical;
-
 	return (SUCCESS);
 }
 
@@ -112,9 +106,9 @@ int calculate_upper_left_corner(t_vp *viewp)
     half_vertical.z = viewp->vertical.z * 0.5 * WIN_HEIGHT;
 
     // Upper left corner = center - half_horizontal + half_vertical
-    viewp->point.x = viewp->c_point.x - half_horizontal.x + half_vertical.x;
-    viewp->point.y = viewp->c_point.y - half_horizontal.y + half_vertical.y;
-    viewp->point.z = viewp->c_point.z - half_horizontal.z + half_vertical.z;
+    viewp->point.x = viewp->c_point.x - half_horizontal.x - half_vertical.x;
+    viewp->point.y = viewp->c_point.y - half_horizontal.y - half_vertical.y;
+    viewp->point.z = viewp->c_point.z - half_horizontal.z - half_vertical.z;
 
     return (SUCCESS);
 }
