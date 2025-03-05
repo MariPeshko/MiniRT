@@ -64,8 +64,10 @@ int	cleanup(t_config *cf)//rename cleanup and exit
 	if (cf->win)
 		mlx_destroy_window(cf->mlx, cf->win);// Free the window
 	if (cf->mlx)
+	{
 		mlx_destroy_display(cf->mlx);// Destroy the mlx display
-	free(cf->mlx);
+		free(cf->mlx);
+	}
 	return (SUCCESS);
 }
 
@@ -77,6 +79,7 @@ void	clean_exit(t_config *cf, char *er_msg)
 	exit(FAILURE);
 }
 
+// Why do we need this function? 
 void	clean_exit_from_parsing(t_config *cf, char *er_msg, char *line)
 {
 	if (line)
