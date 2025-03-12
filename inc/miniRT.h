@@ -35,6 +35,11 @@
 # define VIEWPORT_RATIO (16.0 / 9.0)
 # define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
 
+# define NONE "NONE"
+# define PLANE "PLANE"
+# define SPHERE "SPHERE"
+# define CYLINDER "CYLINDER"
+
 void	print_vec(t_vector *vec, const char *msg);
 
 
@@ -42,6 +47,18 @@ void	print_vec(t_vector *vec, const char *msg);
 void	arg_error(int argc);
 void	check_filename(char *config);
 int		is_empt_file(char *filename);
+
+//check_cylinders_hit.c
+int	get_hit_cys(t_cys *cy, t_hit *got, t_ray *ray);
+void	check_cys_hit(t_config *cf, t_col *calc, t_ray *ray);
+
+//check_sphere_hit.c
+int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
+void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
+
+//check_plane_hit.c
+int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
+void	check_plane_hit(t_config *cf, t_col *calc, t_ray *ray);
 
 // config_file.c
 int		open_config(char *config, t_config *cf);
@@ -53,9 +70,14 @@ void	print_test_config(t_config *cf);
 void	print_map(char **map);
 void	print_triplet(float *triplet);
 void	print_viewport(t_vp *vp);
+void	print_collision(t_col calc);
 
 //error_handling.c
 int		display_error(char *msg);
+
+//get_hit.c
+int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+int	rays_loop(t_mini_rt *rt);
 
 //parse_objects.c
 int		full_parse_ambient(char *line, t_ambient *amb);
@@ -83,6 +105,10 @@ void	assign_rgb(t_color *in_struct, t_color result_rgb);
 void	ft_freestr(char **lst);
 void	trim_out_spaces(char **str);
 int		ft_spacetabchecker(char *input);
+
+//lst_hit.c
+void	init_hit(t_hit *hit);
+void	update_min(t_hit *min, t_hit *got);
 
 // lst_struct_plane.c
 t_plane	*get_ptr_lst_pl(t_plane **plane);

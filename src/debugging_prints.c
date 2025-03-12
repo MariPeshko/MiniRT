@@ -159,3 +159,12 @@ void	print_viewport(t_vp *vp)
 
 	print_point(&vp->c_point, "VP C-Point");
 }
+
+void	print_collision(t_col calc)
+{
+	printf("Closest collision for \n");
+	print_point(&calc.pixel, "Pixel at: ");
+	printf("hit object of TYPE: %s\n", calc.min.type);
+	print_point(&calc.min.point, "at: ");
+	printf("Distance to camera: %10f\n\n", calc.min.distance);
+}

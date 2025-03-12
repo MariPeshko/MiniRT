@@ -116,10 +116,12 @@ int calculate_upper_left_corner(t_vp *viewp)
 /*delegates viewport calculations*/
 int	viewport_calculation(t_config *cf)
 {
+	printf("meewo\n");
 	init_viewport(&cf->viewp);
 	//center view port
 	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.c_point) == FAILURE)
 		clean_exit(cf, VIEWP_C);
+	printf("meewo\n");
 	//width
 	if (calculate_width(cf) == FAILURE)
 		clean_exit(cf, NULL);
@@ -129,6 +131,7 @@ int	viewport_calculation(t_config *cf)
 	//horizontal and vertical vector
 	if (calculate_viewport_orientation(cf) == FAILURE)
 		clean_exit(cf, NULL);
+	printf("meewo\n");
 	//corner
 	if (calculate_upper_left_corner(&cf->viewp) == FAILURE)
 		clean_exit(cf, NULL);

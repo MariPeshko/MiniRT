@@ -20,6 +20,11 @@ SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
 		check_initial.c		\
+		check_cylinders.c 	\
+		check_plane_hit.c 	\
+		check_sphere_hits.c \
+		get_hit.c 			\
+		lst_hit.c 			\
 		config_file.c		\
 		debugging_prints.c	\
 		error_handling.c 	\

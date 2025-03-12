@@ -107,10 +107,39 @@ typedef struct s_config
 	bool		one_lit;
 }	t_config;
 
+typedef struct s_hit
+{
+	char	*type;//NONE, PLANE, CYLINDER, SPHERE
+	double	distance;
+	t_point	point;
+}	t_hit;
+
+typedef struct s_ray
+{
+	t_vector v_dir;
+	t_point c;//camera
+}	t_ray;
+
+typedef struct s_col
+{
+	t_hit	min;
+	t_hit	got;
+	t_ray	ray;
+	t_point	pixel;
+}	t_col;//col = collisions calculations
+
+typedef struct s_visual
+{
+	void		*mlx;
+	void		*win;
+	//t_viewp 	vp?
+}	t_visual;
+
 typedef struct s_mini_rt
 {
 	t_config	cf;
-	
+	t_col		calc;
+	t_visual	visual;
 	// rest of the structs
 }	t_mini_rt;
 
