@@ -23,20 +23,20 @@ static void	print_point(t_point *p, const char *msg)
 		printf("%s point ", msg);
 	else
 		printf("Undefined element's point ");
-	printf("x: %.1f, ", p->x);
-	printf("y: %.1f, ", p->y);
-	printf("z: %.1f\n", p->z);
+	printf("x: %.10f, ", p->x);
+	printf("y: %.10f, ", p->y);
+	printf("z: %.10f\n", p->z);
 }
 
-static void	print_vec(t_vector *vec, const char *msg)
+void	print_vec(t_vector *vec, const char *msg)
 {
 	if (msg)
-		printf("%s norm vector ", msg);
+		printf("%s vector ", msg);
 	else
 		printf("Undefined element's vector ");
-	printf("x: %.1f, ", vec->x);
-	printf("y: %.1f, ", vec->y);
-	printf("z: %.1f\n", vec->z);
+	printf("x: %.10f, ", vec->x);
+	printf("y: %.10f, ", vec->y);
+	printf("z: %.10f\n", vec->z);
 }
 
 void	print_all_planes(t_config *cf)
@@ -50,7 +50,7 @@ void	print_all_planes(t_config *cf)
 	{
 		printf("\n%i PLANE\n", i);
 		print_point(&curr->point, "Plane");
-		print_vec(&curr->norm_vec, "Plane");
+		print_vec(&curr->norm_vec, "Plane norm");
 		print_col(&curr->col, "Plane");
 		curr = curr->next;
 		i++;
@@ -86,7 +86,7 @@ void	print_all_cylider(t_config *cf)
 	{
 		printf("\n%i CYLINDER\n", i);
 		print_point(&curr->point, "Cylinder");
-		print_vec(&curr->norm_vec, "Cylinder");
+		print_vec(&curr->norm_vec, "Cylinder norm");
 		printf("Cylinder diameter: %.2f\n", curr->diam);
 		printf("Cylinder height: %.2f\n", curr->height);
 		print_col(&curr->col, "Cylinder");
@@ -136,4 +136,35 @@ void    print_map(char **map)
 void	print_triplet(float *triplet)
 {
 	printf("%f , %f , %f\n", triplet[0], triplet[1], triplet[2]);
+}
+
+
+void	print_viewport(t_vp *vp)
+{
+	if (!vp)
+	{
+		printf("Viewport is NULL\n");
+		return;
+	}
+
+	printf("\nVIEWPORT\n");
+
+	print_point(&vp->point, "VP Origin");
+
+	print_vec(&vp->horizontal, "VP Horizontal");
+	print_vec(&vp->vertical, "VP Vertical");
+
+	printf("VP Width: %f in 3D space\n", vp->width);
+	printf("VP Height: %f in 3D space\n", vp->height);
+
+	print_point(&vp->c_point, "VP C-Point");
+}
+
+void	print_collision(t_col calc)
+{
+	printf("Closest collision for \n");
+	print_point(&calc.pixel, "Pixel at: ");
+	printf("hit object of TYPE: %s\n", calc.min.type);
+	print_point(&calc.min.point, "at: ");
+	printf("Distance to camera: %10f\n\n", calc.min.distance);
 }

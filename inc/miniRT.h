@@ -5,6 +5,7 @@
 # include "../libft/inc/libft.h"
 # include "../libft/inc/get_next_line.h"
 
+# include <float.h>  // For DBL_MAX and DBL_MIN. these are macros, no functions, and therefor allowed
 # include <stdio.h>
 # include <fcntl.h> // open
 # include <stdlib.h>
@@ -28,13 +29,36 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-# define ESC_KEY 65307  // Keycode for ESC key on Linux with MinilibX
+# define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 450
+# define VIEWPORT_RATIO (16.0 / 9.0)
+# define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
+
+# define NONE "NONE"
+# define PLANE "PLANE"
+# define SPHERE "SPHERE"
+# define CYLINDER "CYLINDER"
+
+void	print_vec(t_vector *vec, const char *msg);
 # define DestroyNotify 17
 
 // check_initial.c
 void	arg_error(int argc);
 void	check_filename(char *config);
 int		is_empt_file(char *filename);
+
+//check_cylinders_hit.c
+int	get_hit_cys(t_cys *cy, t_hit *got, t_ray *ray);
+void	check_cys_hit(t_config *cf, t_col *calc, t_ray *ray);
+
+//check_sphere_hit.c
+int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
+void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
+
+//check_plane_hit.c
+int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
+void	check_plane_hit(t_config *cf, t_col *calc, t_ray *ray);
 
 // config_file.c
 int		open_config(char *config, t_config *cf);
@@ -45,9 +69,15 @@ void	init_vec(t_vector *vec, double *triplet);
 void	print_test_config(t_config *cf);
 void	print_map(char **map);
 void	print_triplet(float *triplet);
+void	print_viewport(t_vp *vp);
+void	print_collision(t_col calc);
 
 //error_handling.c
 int		display_error(char *msg);
+
+//get_hit.c
+int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+int	rays_loop(t_mini_rt *rt);
 
 //parse_objects.c
 int		full_parse_ambient(char *line, t_ambient *amb);
@@ -76,6 +106,10 @@ void	ft_freestr(char **lst);
 void	trim_out_spaces(char **str);
 int		ft_spacetabchecker(char *input);
 
+//lst_hit.c
+void	init_hit(t_hit *hit);
+void	update_min(t_hit *min, t_hit *got);
+
 // lst_struct_plane.c
 t_plane	*get_ptr_lst_pl(t_plane **plane);
 t_plane	*ft_lstnew_pl(t_plane *new);
@@ -95,11 +129,25 @@ t_cys	*ft_lstlast_cy(t_cys *lst);
 
 //mlx.c
 void	setup_mlx(t_mini_rt *rt);
-
-//unsorted
 int handle_close(t_config *cf);
 int handle_keypress(int keycode, t_config *cf);
+
+//unsorted
 int		map_len(char **map);
+void	init_viewport(t_vp *vp);
+
+//vector_calc.c
+int	cross_product(t_vector *a, t_vector *b, t_vector *result);
+int	normalize_vector(t_vector *v);
+int	point_plus_vector(t_point *point, t_vector *vector, double factor, t_point *result);
+
+//viewport_calc.c
+int	calculate_viewport_orientation(t_config *cf);
+int	calculate_height(t_config *cf);
+int	calculate_width(t_config *cf);
+int calculate_upper_left_corner(t_vp *viewp);
+int	viewport_calculation(t_config *cf);
+
 
 //whitespaces.c
 void	whitespace_to_space(char *line);

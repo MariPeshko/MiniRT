@@ -74,6 +74,8 @@ void	init_config(t_config *cf)
 	cf->pl = NULL;
 	cf->sp = NULL;
 	cf->cy = NULL;
+	cf->mlx = NULL;
+	cf->win = NULL;
 }
 
 int	check_final_config(t_config *cf)

@@ -20,6 +20,11 @@ SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
 		check_initial.c		\
+		check_cylinders.c 	\
+		check_plane_hit.c 	\
+		check_sphere_hits.c \
+		get_hit.c 			\
+		lst_hit.c 			\
 		config_file.c		\
 		debugging_prints.c	\
 		error_handling.c 	\
@@ -36,9 +41,11 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		lst_struct_cylinder.c \
 		lst_struct_plane.c \
 		mlx.c 				\
+		viewport_calc.c 	\
+		vector_calc.c 		\
 		lst_struct_sphere.c )
 
-INCLUDES = inc/miniRT.h
+INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
 LIBFT_INC = libft/inc/get_next_line.h \
 	libft/inc/libft.h
 
@@ -55,7 +62,7 @@ all: $(MLX_LIB) $(NAME)
 
 $(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ) $(MLX_LIB)
 	@echo "$(GREEN)Compiling $(NAME)... $(RESET)"
-	@$(CC) $(FLAGS) $(OBJ) $(MLX_LIB)  $(MLX_FLAGS) $(LIBFT_DIR)/$(LIBFT) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJ) $(MLX_LIB) $(MLX_FLAGS) $(LIBFT_DIR)/$(LIBFT) -o $(NAME) -lm
 
 $(LIBFT_DIR)/$(LIBFT): $(LIBFT_SRC) $(LIBFT_INC)
 	@echo "$(GREEN)Building $(LIBFT)... $(RESET)"

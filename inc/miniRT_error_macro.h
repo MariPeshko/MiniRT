@@ -34,4 +34,6 @@ name of the configuration file"
 # define EMPTY_FILE "Configuration file is empty"
 # define FOV_SCOPE "Field of View out of scope [0, 180]"
 
+# define VIEWP_C "Viewport Center calculation failed."
+
 #endif
