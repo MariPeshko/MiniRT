@@ -86,7 +86,7 @@ typedef struct s_vp//view port
 	t_vector	vertical;//from one pixel to next in column
 	double			width;//in 3D space
 	double			height;//in 3D space
-	t_point		c_point;//easier access to C point?
+	t_point		c_point;// NEW NAME vp_center? easier access to Camera point?
 }	t_vp;
 
 // Structure to store all information from a config file .rt

@@ -26,7 +26,8 @@ int	normalize_vector(t_vector *v)
 	return (SUCCESS);
 }
 
-/*calcualtes a point result based on
+/* !!! RENAME "factor" to "scalar"?
+calcualtes a point result based on
 result = point + vector * factor (german: Skalar) */
 int	point_plus_vector(t_point *point, t_vector *vector, double factor, t_point *result)
 {

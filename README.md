@@ -52,4 +52,39 @@ In 3D space, the viewport is a rectangular plane defined by:
 
 Essentially, the viewport acts as a bridge between the 3D scene and the 2D image we render.
 
+## Set Up the Viewport
+
+Key Components:
+* Camera Position (C): The location of the camera in 3D space.
+* Orientation Vector (o): A normalized vector (length of 1) that indicates the direction the camera is facing.
+* Field of View (FOV): The angle that defines the extent of the camera's view. A wider FOV means a broader view.
+
+**Calculate the Center of the Viewport**
+
+VPc = C + o
+
+This finds the point directly in front of the camera, at a distance of 1 unit in the direction of the orientation vector. This point is the center of the viewport plane.
+
+**Determine the Viewport Planee**
+The viewport plane is perpendicular to the orientation vector (o) and passes through the Viewport Center (VPc).
+
+**Calculate Viewport Dimensions (Width and Height in 3D Space)**
+
+Key Components:
+* M_PI is a constant that represents the mathematical value of π (pi).
+* Radians are a unit of angular measurement. Many programming languages and graphics libraries use radians for their trigonometric functions.
+
+[ ... ]
+
+**Find the Upper-Left Corner of the Viewport**
+
+To find the corners of the viewport, you need to create two orthogonal vectors that are perpendicular to the orientation vector. These vectors will define the "up" and "right" directions of the viewport.
+
+[ ... ]
+
+## How to use the Viewport
+
+Now that we have the Viewport and its Total width and height, we can calculate the position of each individual Pixel in this 3D space by dividing the width with the total number of Pixels in a row and the height with those in a column. 
+
+Instead of fixed positions, you can also calculate each vector to move horizontally and vertically to access each pixel by scaling the vectors with full numbers. 
 ---
