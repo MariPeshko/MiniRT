@@ -37,4 +37,19 @@ In this example, a default size of 800 pixels wide and 600 pixels high is used. 
 * **Ubuntu (Linux):** As students at 42Berlin, we primarily develop and test our programs on Ubuntu Linux. In this environment, MiniLibX is readily available, and the window creation process should function seamlessly without requiring any additional software installations.
 * **Windows 10 (WSL2):** It is also possible to run our program on Windows 10 using Windows Subsystem for Linux 2 (WSL2). However, to display the graphical window, you will need to install an X server, such as "Xming X Server for Windows". For detailed instructions on setting up an X server on Windows 10 (WSL2), please refer to the following tutorial: [Getting a screen on Windows 10 (WSL2)](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#getting-a-screen-on-windows-10-wsl2).
 
+## Viewport Definition
+
+In our 3D raytracing scene, the viewport acts as the 2D window through which we visualize the 3D world. Unlike objects within the scene, the viewport's parameters are derived from the camera's properties.
+
+Think of the viewport as the "canvas" we'll later display using minilibx. It mirrors the aspect ratio of our output window, and the width of this canvas is determined by the FOV.
+
+In 3D space, the viewport is a rectangular plane defined by:
+
+* **A center point:** This anchors the viewport's position.
+* **two vectors:** ??????
+* **Width and height:** These dimensions are crucial for determining which points fall within the viewport's boundaries, distinguishing them from the infinite expanse of a general 3D plane.
+* **Field of View (FOV):** This angle determines the horizontal extent of the visible scene, directly influencing the viewport's width.
+
+Essentially, the viewport acts as a bridge between the 3D scene and the 2D image we render.
+
 ---
