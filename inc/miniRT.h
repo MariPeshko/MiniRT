@@ -24,6 +24,7 @@
 
 #ifndef M_PI
 #    define M_PI 3.14159265358979323846
+#endif
 
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
