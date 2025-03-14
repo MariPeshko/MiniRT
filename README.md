@@ -61,20 +61,58 @@ Key Components:
 
 **Calculate the Center of the Viewport**
 
-VPc = C + o
+`VPc = C + o`
 
 This finds the point directly in front of the camera, at a distance of 1 unit in the direction of the orientation vector. This point is the center of the viewport plane.
 
-**Determine the Viewport Planee**
+**Determine the Viewport Plane**
+
 The viewport plane is perpendicular to the orientation vector (o) and passes through the Viewport Center (VPc).
 
 **Calculate Viewport Dimensions (Width and Height in 3D Space)**
 
 Key Components:
-* M_PI is a constant that represents the mathematical value of π (pi).
-* Radians are a unit of angular measurement. Many programming languages and graphics libraries use radians for their trigonometric functions.
+* `M_PI` is a constant that represents the mathematical value of π (pi).
+* `Radians` are a unit of angular measurement. Many programming languages and graphics libraries use radians for their trigonometric functions.
+* `isnan` - floating-point classification macro. It checks whether a floating-point number (width in case of calculationg width) is NaN (Not a Number). In C, NaN (Not a Number) is a special floating-point value that represents an invalid or undefined mathematical result.
+* `Radian_FOV` - The camera’s horizontal field of view in degrees (converted to radians).
+
+The viewport size depends on the horizontal field of view (FOV) and the chosen distance:
+
+`Viewport_Width = 2 * (Viewport_Distance * tan(Radian_FOV / 2))`
+
+To maintain the correct aspect ratio, the viewport height is calculated as:
+
+`Viewport_Height = Viewport_Width / Aspect_Ratio`
+
+**Basis Vectors (right and up) for Viewport Orientation**
+
+When we say "basis vectors", we are referring to a special set of vectors that define the orientation and coordinate system for the viewport in 3D space.
+
+To correctly place the viewport, we need two perpendicular vectors that define the viewport’s plane.
+
+Why Do We Need Basis Vectors for the Viewport?
+
+Your camera doesn’t necessarily align with the world’s x, y, and z axes. Instead, we need a local coordinate system for the viewport, defined by three new basis vectors:
+
+* Forward vector (camera direction) → "z-axis"
+
+This is the normalized direction the camera is looking at.
+
+* Right vector (horizontal axis) → "x-axis"
+
+This is perpendicular to the forward vector and usually computed using the cross product.
+
+* Up vector (vertical axis) → "y-axis"
+
+This is perpendicular to both the forward and right vectors.
 
 [ ... ]
+
+These three vectors together form a new basis for the viewport's orientation.
+
+Key Components:
+* `world up vector` is a fixed reference vector that defines the upward direction in the global (world) coordinate system. In most cases we use `Z axis` as a world up vector.
 
 **Find the Upper-Left Corner of the Viewport**
 
@@ -87,4 +125,5 @@ To find the corners of the viewport, you need to create two orthogonal vectors t
 Now that we have the Viewport and its Total width and height, we can calculate the position of each individual Pixel in this 3D space by dividing the width with the total number of Pixels in a row and the height with those in a column. 
 
 Instead of fixed positions, you can also calculate each vector to move horizontally and vertically to access each pixel by scaling the vectors with full numbers. 
+
 ---

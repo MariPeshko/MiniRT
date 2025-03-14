@@ -1,8 +1,21 @@
 #include "../inc/miniRT.h"
 
+/**
+ * Define "world up" vector
+ *
+ * If the camera is looking straight up or down (aligned with 
+ * the Z-axis), it sets up = (1,0,0), meaning the world up 
+ * vector is along the X-axis. This avoids the issue where 
+ * the standard up (0,1,0) could be parallel to the camera 
+ * direction.
+ * 
+ * In all other cases it sets up = (0,0,1), meaning the 
+ * world up vector is along the Z-axis.
+*/
 void	get_up_vector(t_config *cf, t_vector *up)
 {
-	if (cf->cam.norm_vec.x == 0 && cf->cam.norm_vec.y == 0 && cf->cam.norm_vec.z != 0)
+	if (cf->cam.norm_vec.x == 0 && cf->cam.norm_vec.y == 0 && 
+			cf->cam.norm_vec.z != 0)
 	{
 		up->x = 1;
 		up->y = 0;
@@ -80,17 +93,16 @@ int	calculate_width(t_config *cf)
 
 int	calculate_height(t_config *cf)
 {
+	double	height;
+
 	if (!cf)
 		return (FAILURE);
-
-	double height = cf->viewp.width * VIEWPORT_RATIO_REVERSE;
-
+	height = cf->viewp.width * VIEWPORT_RATIO_REVERSE;
 	if (isnan(height) || height <= 0.0)
 	{
 		printf("Error calculating viewport width\n");
 		return (FAILURE);
 	}
-
 	cf->viewp.height = height;
 	return (SUCCESS);
 }
@@ -123,19 +135,26 @@ int calculate_upper_left_corner(t_vp *viewp)
     return (SUCCESS);
 }
 
+static int	calc_center_viewport(t_config *cf, double scalar)
+{
+	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, scalar, &cf->viewp.vp_center) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 /*delegates viewport calculations*/
 int	viewport_calculation(t_config *cf)
 {
 	printf("meewo\n");
 	init_viewport(&cf->viewp);
 	//center view port
-	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.vp_center) == FAILURE)
+	//if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec,
+		// 1, &cf->viewp.vp_center) == FAILURE)
+	if (calc_center_viewport(cf, 1) == FAILURE)
 		clean_exit(cf, VIEWP_C);
 	printf("meewo\n");
-	//width
 	if (calculate_width(cf) == FAILURE)
 		clean_exit(cf, NULL);
-	//height
 	if (calculate_height(cf) == FAILURE)
 		clean_exit(cf, NULL);
 	//horizontal and vertical vector
