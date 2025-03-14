@@ -11,18 +11,22 @@ int	map_len(char **map)
 	return (pos);
 }
 
-/*initialized viewport struct*/
+/**
+ * initialized viewport struct
+ * @param point - upper-left corner aka first pixel.
+ * @param c_point - easier access to Camera point?
+ * @param horizontal - from one pixel to next in row.
+ * @param vertical - from one pixel to next in column
+*/
 void	init_viewport(t_vp *vp)
 {
-	double triplet[3];
+	double	triplet[3];
 
     triplet[0] = 0.0;
     triplet[1] = 0.0;
     triplet[2] = 0.0;
-
 	if (!vp)
-		return;
-
+		return ;
 	// Initialize the corner point and c_point to (0, 0, 0)
 	init_point(&vp->point, triplet);
 	init_point(&vp->vp_center, triplet);

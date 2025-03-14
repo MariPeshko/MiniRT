@@ -22,6 +22,10 @@
 # include <mlx.h>//minilibx-linux
 # include <X11/keysym.h>//keysyms 
 
+// IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA
+// #ifndef M_PI
+// #    define M_PI 3.14159265358979323846
+
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
 # define GREEN   "\033[1;32m"
@@ -30,6 +34,7 @@
 # define SUCCESS 0
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
+# define DestroyNotify 17
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 450
 # define VIEWPORT_RATIO (16.0 / 9.0)
@@ -41,7 +46,7 @@
 # define CYLINDER "CYLINDER"
 
 void	print_vec(t_vector *vec, const char *msg);
-
+# define DestroyNotify 17
 
 // check_initial.c
 void	arg_error(int argc);

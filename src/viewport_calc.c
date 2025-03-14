@@ -50,20 +50,30 @@ int	calculate_viewport_orientation(t_config *cf)
 	return (SUCCESS);
 }
 
+/**
+ * Calculating the width of the viewport at a distance 
+ * of 1 unit from the camera.
+ * 
+ * 1. It converts the camera's field of view (FOV) from degrees 
+ * to radians. It multiplies the FOV in degrees by π/180.
+ * 2. It calculates the width of the viewport. The tan() function
+ * calculates the tangent of half the FOV in radians. Then it 
+ * is multiplied by 2.
+*/
 int	calculate_width(t_config *cf)
 {
+	double	fov_radians;
+	double	width;
+
 	if (!cf)
 		return (FAILURE);
-
-	double fov_radians = cf->cam.fov * (M_PI / 180.0);
-	double width = 2.0 * tan(fov_radians / 2.0);
-
+	fov_radians = cf->cam.fov * (M_PI / 180.0);
+	width = 2.0 * tan(fov_radians / 2.0);
 	if (isnan(width) || width <= 0.0)
 	{
 		printf("Error calculating viewport height\n");
 		return (FAILURE);
 	}
-
 	cf->viewp.width = width;
 	return (SUCCESS);
 }
