@@ -22,9 +22,8 @@
 # include <mlx.h>//minilibx-linux
 # include <X11/keysym.h>//keysyms 
 
-// IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA IDEA
-// #ifndef M_PI
-// #    define M_PI 3.14159265358979323846
+#ifndef M_PI
+#    define M_PI 3.14159265358979323846
 
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
