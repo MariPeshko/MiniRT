@@ -27,8 +27,8 @@ int	normalize_vector(t_vector *v)
 }
 
 /*calcualtes a point result based on
-result = point + vector * factor (german: Skalar) */
-int	point_plus_vector(t_point *point, t_vector *vector, double factor, t_point *result)
+result = point + vector * scalar (german: Skalar) */
+int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result)
 {
 	double new_x, new_y, new_z;
 
@@ -36,9 +36,9 @@ int	point_plus_vector(t_point *point, t_vector *vector, double factor, t_point *
 		return (FAILURE);
 
 	// Calculate the new coordinates
-	new_x = point->x + factor * vector->x;
-	new_y = point->y + factor * vector->y;
-	new_z = point->z + factor * vector->z;
+	new_x = point->x + scalar * vector->x;
+	new_y = point->y + scalar * vector->y;
+	new_z = point->z + scalar * vector->z;
 
 	// Check for overflow/underflow or invalid results (math.h functions)
 	if (isnan(new_x) || isnan(new_y) || isnan(new_z) ||

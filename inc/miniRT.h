@@ -139,7 +139,7 @@ void	init_viewport(t_vp *vp);
 //vector_calc.c
 int	cross_product(t_vector *a, t_vector *b, t_vector *result);
 int	normalize_vector(t_vector *v);
-int	point_plus_vector(t_point *point, t_vector *vector, double factor, t_point *result);
+int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result);
 
 //viewport_calc.c
 int	calculate_viewport_orientation(t_config *cf);

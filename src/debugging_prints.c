@@ -157,7 +157,7 @@ void	print_viewport(t_vp *vp)
 	printf("VP Width: %f in 3D space\n", vp->width);
 	printf("VP Height: %f in 3D space\n", vp->height);
 
-	print_point(&vp->c_point, "VP C-Point");
+	print_point(&vp->vp_center, "VP C-Point");
 }
 
 void	print_collision(t_col calc)

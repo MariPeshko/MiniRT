@@ -106,9 +106,9 @@ int calculate_upper_left_corner(t_vp *viewp)
     half_vertical.z = viewp->vertical.z * 0.5 * WIN_HEIGHT;
 
     // Upper left corner = center - half_horizontal + half_vertical
-    viewp->point.x = viewp->c_point.x - half_horizontal.x - half_vertical.x;
-    viewp->point.y = viewp->c_point.y - half_horizontal.y - half_vertical.y;
-    viewp->point.z = viewp->c_point.z - half_horizontal.z - half_vertical.z;
+    viewp->point.x = viewp->vp_center.x - half_horizontal.x - half_vertical.x;
+    viewp->point.y = viewp->vp_center.y - half_horizontal.y - half_vertical.y;
+    viewp->point.z = viewp->vp_center.z - half_horizontal.z - half_vertical.z;
 
     return (SUCCESS);
 }
@@ -119,7 +119,7 @@ int	viewport_calculation(t_config *cf)
 	printf("meewo\n");
 	init_viewport(&cf->viewp);
 	//center view port
-	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.c_point) == FAILURE)
+	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.vp_center) == FAILURE)
 		clean_exit(cf, VIEWP_C);
 	printf("meewo\n");
 	//width

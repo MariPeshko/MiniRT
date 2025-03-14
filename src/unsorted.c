@@ -25,7 +25,7 @@ void	init_viewport(t_vp *vp)
 
 	// Initialize the corner point and c_point to (0, 0, 0)
 	init_point(&vp->point, triplet);
-	init_point(&vp->c_point, triplet);
+	init_point(&vp->vp_center, triplet);
 
 	// Initialize the horizontal and vertical vectors to (0, 0, 0)
 	init_vec(&vp->horizontal, triplet);
