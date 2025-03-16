@@ -1,6 +1,5 @@
 #include "../inc/miniRT.h"
 
-
 int main(int argc, char **argv)
 {
 	t_mini_rt rt;

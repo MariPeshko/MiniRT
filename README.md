@@ -46,7 +46,7 @@ Think of the viewport as the "canvas" we'll later display using minilibx. It mir
 In 3D space, the viewport is a rectangular plane defined by:
 
 * **A center point:** This anchors the viewport's position.
-* **two vectors:** ??????
+* **two vectors:** Two perpendicular vectors that define the viewport’s plane. 
 * **Width and height:** These dimensions are crucial for determining which points fall within the viewport's boundaries, distinguishing them from the infinite expanse of a general 3D plane.
 * **Field of View (FOV):** This angle determines the horizontal extent of the visible scene, directly influencing the viewport's width.
 
@@ -86,10 +86,11 @@ To maintain the correct aspect ratio, the viewport height is calculated as:
 `Viewport_Height = Viewport_Width / Aspect_Ratio`
 
 **Basis Vectors (right and up) for Viewport Orientation**
+**Calculate the Horizontal and Vertical Step Vectors for Pixels**
 
 When we say "basis vectors", we are referring to a special set of vectors that define the orientation and coordinate system for the viewport in 3D space.
 
-To correctly place the viewport, we need two perpendicular vectors that define the viewport’s plane.
+To correctly place the viewport, we need two perpendicular vectors that define the viewport’s plane. The magnitude of the VPs Horizontal and Vertical vectors are the difference between two pixels in that direction.
 
 Why Do We Need Basis Vectors for the Viewport?
 
@@ -107,8 +108,6 @@ This is perpendicular to the forward vector and usually computed using the cross
 
 This is perpendicular to both the forward and right vectors.
 
-[ ... ]
-
 These three vectors together form a new basis for the viewport's orientation.
 
 Key Components:
@@ -116,14 +115,18 @@ Key Components:
 
 **Find the Upper-Left Corner of the Viewport**
 
-To find the corners of the viewport, you need to create two orthogonal vectors that are perpendicular to the orientation vector. These vectors will define the "up" and "right" directions of the viewport.
-
-[ ... ]
+The viewport corners are calculated based on the viewport center, width, height, and the basis vectors.
 
 ## How to use the Viewport
 
 Now that we have the Viewport and its Total width and height, we can calculate the position of each individual Pixel in this 3D space by dividing the width with the total number of Pixels in a row and the height with those in a column. 
 
 Instead of fixed positions, you can also calculate each vector to move horizontally and vertically to access each pixel by scaling the vectors with full numbers. 
+
+## Pixel Step Calculation
+
+## Pixel Position Calculation
+
+## Ray Direction Calculation
 
 ---
