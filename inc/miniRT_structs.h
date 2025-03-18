@@ -107,9 +107,14 @@ typedef struct s_config
 	bool		one_lit;
 }	t_config;
 
-typedef struct s_hit
+/*
+type: Object type (e.g., "NONE", "PLANE", "CYLINDER", "SPHERE")
+distance: Distance from the ray origin to the intersection point
+point: Coordinates of the intersection point
+*/
+typedef struct	s_hit
 {
-	char	*type;//NONE, PLANE, CYLINDER, SPHERE
+	char	*type;
 	double	distance;
 	t_point	point;
 }	t_hit;

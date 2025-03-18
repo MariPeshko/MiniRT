@@ -123,10 +123,16 @@ Now that we have the Viewport and its Total width and height, we can calculate t
 
 Instead of fixed positions, you can also calculate each vector to move horizontally and vertically to access each pixel by scaling the vectors with full numbers. 
 
-## Pixel Step Calculation
+## Ray Generation (Rendering Phase)
 
-## Pixel Position Calculation
+**Pixel Step Calculation**
 
-## Ray Direction Calculation
+**Pixel Position Calculation**
+
+**Ray Direction Calculation**
+
+Each ray starts from the camera position and points toward the pixel:
+
+`Ray_Direction = Normalize(Pixel_Position - Camera_Position)`
 
 ---
