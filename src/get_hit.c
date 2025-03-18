@@ -44,7 +44,6 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 	return ;
 }
 
-
 /*gets the coordinates of a pixel*/
 void	get_pixel(t_vp vp, int h, int w, t_point *pixel)
 {
@@ -53,7 +52,7 @@ void	get_pixel(t_vp vp, int h, int w, t_point *pixel)
 	pixel->z = vp.point.z + h * vp.vertical.z + w * vp.horizontal.z;
 }
 
-/*moves through pixels and delegates colouring it.
+/*moves through pixels and delegates coloring it.
 at the end: displayable picture*/
 int	rays_loop(t_mini_rt *rt)
 {
@@ -77,7 +76,7 @@ int	rays_loop(t_mini_rt *rt)
 				get_color();
 			else
 				get_ambient();
-			w ++;
+			w++;
 		}
 		h++;
 	}

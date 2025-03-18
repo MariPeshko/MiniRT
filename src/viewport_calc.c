@@ -29,9 +29,10 @@ void	get_up_vector(t_config *cf, t_vector *up)
 	}
 }
 
-/** Calculate viewport orientation.
- * - Define "world up" vector.
- * ...
+/** Calculate viewport orientation and pixel step calculation.
+ * - Defines "world up" vector.
+ * - Finds Basis Vectors for Viewport Orientation.
+ * pixel step calculation:
  * - Scale horizontal & vertical vectors to match pixel spacing.
 */
 int	calculate_viewport_orientation(t_config *cf)
@@ -51,6 +52,7 @@ int	calculate_viewport_orientation(t_config *cf)
 		return (FAILURE);
 	if (normalize_vector(&vertical) == FAILURE)
 		return (FAILURE);
+	// pixel step calculation
 	horizontal.x *= cf->viewp.width / WIN_WIDTH;
 	horizontal.y *= cf->viewp.width / WIN_WIDTH;
 	horizontal.z *= cf->viewp.width / WIN_WIDTH;

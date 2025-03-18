@@ -86,7 +86,6 @@ To maintain the correct aspect ratio, the viewport height is calculated as:
 `Viewport_Height = Viewport_Width / Aspect_Ratio`
 
 **Basis Vectors (right and up) for Viewport Orientation**
-**Calculate the Horizontal and Vertical Step Vectors for Pixels**
 
 When we say "basis vectors", we are referring to a special set of vectors that define the orientation and coordinate system for the viewport in 3D space.
 
@@ -113,6 +112,17 @@ These three vectors together form a new basis for the viewport's orientation.
 Key Components:
 * `world up vector` is a fixed reference vector that defines the upward direction in the global (world) coordinate system. In most cases we use `Z axis` as a world up vector.
 
+**Calculate the Horizontal and Vertical Step Vectors for Pixels**
+
+Each pixel in the final image corresponds to a small area in the viewport. We need to know how much to move in the horizontal and vertical directions when tracing rays.
+
+To determine the position of each pixel, we calculate step vectors for horizontal and vertical movement:
+
+`Pixel_Step_Horizontal = (Viewport_Width / Image_Width) * Right_Vector`
+`Pixel_Step_Vertical = (Viewport_Height / Image_Height) * (-Up_Vector)`
+
+(The negative sign in the vertical step ensures the image is oriented correctly.)
+
 **Find the Upper-Left Corner of the Viewport**
 
 The viewport corners are calculated based on the viewport center, width, height, and the basis vectors.
@@ -125,9 +135,11 @@ Instead of fixed positions, you can also calculate each vector to move horizonta
 
 ## Ray Generation (Rendering Phase)
 
-**Pixel Step Calculation**
+
 
 **Pixel Position Calculation**
+
+[ ... ]
 
 **Ray Direction Calculation**
 

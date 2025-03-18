@@ -109,8 +109,8 @@ typedef struct s_config
 
 /*
 type: Object type (e.g., "NONE", "PLANE", "CYLINDER", "SPHERE")
-distance: Distance from the ray origin to the intersection point
-point: Coordinates of the intersection point
+distance: Distance from the ray origin to the intersection point.
+point: Coordinates of the intersection point.
 */
 typedef struct	s_hit
 {
@@ -119,19 +119,22 @@ typedef struct	s_hit
 	t_point	point;
 }	t_hit;
 
+// c - camera
 typedef struct s_ray
 {
 	t_vector v_dir;
-	t_point c;//camera
+	t_point c;
 }	t_ray;
 
+//col = collisions calculations
+// min - is it a closest hit point to the camera?
 typedef struct s_col
 {
 	t_hit	min;
 	t_hit	got;
 	t_ray	ray;
 	t_point	pixel;
-}	t_col;//col = collisions calculations
+}	t_col;
 
 typedef struct s_visual
 {
