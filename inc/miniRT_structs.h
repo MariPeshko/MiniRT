@@ -79,13 +79,16 @@ typedef struct s_cys
 	struct s_cys	*next;
 }	t_cys;
 
+/**
+ * @param point - upper-left corner aka first pixel
+*/
 typedef struct s_vp//view port
 {
-	t_point		point;//upper-left corner aka first pixel
+	t_point		point;
 	t_vector	horizontal;//from one pixel to next in row
 	t_vector	vertical;//from one pixel to next in column
-	double			width;//in 3D space
-	double			height;//in 3D space
+	double		width;//in 3D space
+	double		height;//in 3D space
 	t_point		vp_center;//easier access to C point?
 }	t_vp;
 
@@ -108,6 +111,7 @@ typedef struct s_config
 }	t_config;
 
 /*
+struct that saves a single instance of a collision (intersection).
 type: Object type (e.g., "NONE", "PLANE", "CYLINDER", "SPHERE")
 distance: Distance from the ray origin to the intersection point.
 point: Coordinates of the intersection point.
@@ -119,15 +123,22 @@ typedef struct	s_hit
 	t_point	point;
 }	t_hit;
 
-// c - camera
+// c - camera position as the origin of the ray
 typedef struct s_ray
 {
-	t_vector v_dir;
-	t_point c;
+	t_vector	v_dir;
+	t_point		c;
 }	t_ray;
 
-//col = collisions calculations
-// min - is it a closest hit point to the camera?
+// This struct tracks the intersection data for a single ray.
+// Col refers to the collision calculations
+//
+// min - The closest intersection (hit) found so far. At 
+// 		  the end of calculations,the one that is visible 
+//		  at this pixel.
+// got - Current intersection being processed. This is 
+// 		 a temporary variable used to compare intersections.
+// pixel - Pixel on the screen corresponding to this ray
 typedef struct s_col
 {
 	t_hit	min;

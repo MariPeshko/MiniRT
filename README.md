@@ -135,16 +135,19 @@ Instead of fixed positions, you can also calculate each vector to move horizonta
 
 ## Ray Generation (Rendering Phase)
 
-
-
 **Pixel Position Calculation**
 
-[ ... ]
+For a pixel at row i, column j, its position in 3D space is:
+
+`Pixel_Position = Top_Left_Corner + j * Pixel_Step_Horizontal + i * Pixel_Step_Vertical`
 
 **Ray Direction Calculation**
 
-Each ray starts from the camera position and points toward the pixel:
+Each ray starts from the camera position and points toward the pixel. Normalization ensures all rays have the same step size.
+Note: we’ve already normalized the basis vectors when 
+setting up the viewport, you don't need to normalize 
+the ray direction again when calculating each ray.
 
-`Ray_Direction = Normalize(Pixel_Position - Camera_Position)`
+`Ray direction = (Pixel position - Camera position)`
 
 ---

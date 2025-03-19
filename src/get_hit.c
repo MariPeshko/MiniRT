@@ -30,16 +30,22 @@ void	get_ambient()
 	return ;
 }
 
+/**
+ * 1. Compute the Direction Vector.
+ * 2. Store the Ray Origin (camera).
+ * 3. Initialize the Ray Direction Vector.
+ * Note: we’ve already normalized the basis vectors when 
+ * setting up the viewport, you don't need to normalize 
+ * the ray direction again when calculating each ray.
+*/
 void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 {
 	/*calculates a ray*/
-	double triplet[3];
+	double	triplet[3];
 	triplet[0] = pixel.x - camera.x;
 	triplet[1] = pixel.y - camera.y;
 	triplet[2] = pixel.z - camera.z;
-
 	rt->calc.ray.c = camera;
-	//check for 0 vector
 	init_vec(&rt->calc.ray.v_dir, triplet);
 	return ;
 }
