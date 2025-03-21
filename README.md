@@ -150,4 +150,7 @@ the ray direction again when calculating each ray.
 
 `Ray direction = (Pixel position - Camera position)`
 
+
+## display_picture - function man 3 mlx_pixel_put()
+
 ---

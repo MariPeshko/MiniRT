@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
 	//calculate picture
 	rays_loop(&rt);
-	//display_picture
+	//display_picture - function man 3 mlx_pixel_put()
 	// Start the event loop
 	mlx_loop(rt.cf.mlx);
 
