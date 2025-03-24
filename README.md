@@ -143,12 +143,31 @@ For a pixel at row i, column j, its position in 3D space is:
 
 **Ray Direction Calculation**
 
+"In the real world, light comes from a light source (the Sun, a light bulb, and so on), bounces off several objects, and then finally reaches our eyes.
+
+Instead, we’ll consider the rays of light “in reverse”; we’ll start with a ray originating from the camera, going through a point in the viewport, and tracing its path until it hits some object in the scene. This object is what the camera “sees” through that point of the viewport." 
+(c) https://www.gabrielgambetta.com/computer-graphics-from-scratch/02-basic-raytracing.html
+
 Each ray starts from the camera position and points toward the pixel. Normalization ensures all rays have the same step size.
 Note: we’ve already normalized the basis vectors when 
 setting up the viewport, you don't need to normalize 
 the ray direction again when calculating each ray.
 
 `Ray direction = (Pixel position - Camera position)`
+
+## The Ray Equation
+
+Key Components:
+* O - the origin point (the camera position).
+* V - the point on the viewport (the representation of the pixel).
+* t  - is any real number.
+
+We can express any point P in the ray as:
+
+`P = O + t(V−O)`
+
+## The Sphere Equation
+
 
 
 ## display_picture - function man 3 mlx_pixel_put()
