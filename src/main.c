@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 		clean_exit(&(rt.cf), NULL);  // Load the configuration
 
 	// Initialize mlx and window
-	setup_mlx(&rt);
+	//setup_mlx(&rt);
 
 	//calculate viewport
 	//printf("hi\n");
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	rays_loop(&rt);
 	//display_picture
 	// Start the event loop
-	mlx_loop(rt.cf.mlx);
+	//mlx_loop(rt.cf.mlx);
 
 	// Cleanup resources before exit
 	cleanup(&rt.cf);
