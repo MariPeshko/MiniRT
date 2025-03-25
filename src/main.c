@@ -15,6 +15,7 @@ int main(int argc, char **argv)
 	setup_mlx(&rt);
 
 	//calculate viewport
+	//printf("hi\n");
 	if (viewport_calculation(&rt.cf) == FAILURE)
 		clean_exit(&(rt.cf), NULL);
 

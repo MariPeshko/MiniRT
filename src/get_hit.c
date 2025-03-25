@@ -7,9 +7,9 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	t_hit got;
 	
 	init_hit(&got);
-	check_plane_hit(cf, &rt->calc, ray);
+	//check_plane_hit(cf, &rt->calc, ray);
 	//check_sphere_hit(cf, &rt->calc, ray);
-	//check_cys_hit(cf, &rt->calc, ray);
+	check_cys_hit(cf, &rt->calc, ray);
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
 	{
 		print_collision(rt->calc);
@@ -21,12 +21,14 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 /*claculates color of pixel based on hit*/
 void	get_color()
 {
+	//printf("Here I would figure out the color to put into pixel\n");
 	return ;
 }
 
 /*sets pixel color to ambient due to no hit*/
 void	get_ambient()
 {
+//	printf("Here I would get ambient color to put into pixel\n");
 	return ;
 }
 
@@ -65,9 +67,11 @@ int	rays_loop(t_mini_rt *rt)
 	while (h < WIN_HEIGHT)//for each row
 	{
 		w = 0;
+		if (h % 10 == 0)
+			printf("rays loop h = %d\n", h);
 		while (w < WIN_WIDTH)//for each column
 		{
-			printf("[%d][%d]\n", h, w);
+			//printf("[%d][%d]\n", h, w);
 			//calculate pixel
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
 			//calculate ray (Pixel - camera)
