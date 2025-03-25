@@ -145,6 +145,9 @@ void	init_viewport(t_vp *vp);
 int	cross_product(t_vector *a, t_vector *b, t_vector *result);
 int	normalize_vector(t_vector *v);
 int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result);
+int	scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result);
+int	vector_multiply_vector(t_vector *a, t_vector *b, double *result);
+int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 
 //viewport_calc.c
 int	calculate_viewport_orientation(t_config *cf);
@@ -162,4 +165,8 @@ void	skip_whitespace(char *str, int *pos);
 //cleanup.c
 int		cleanup(t_config *cf);
 void	clean_exit(t_config *cf, char *er_msg);
+
+//quadratic_equation.c
+int	discriminant_check(double A, double B, double C);
+
 #endif
