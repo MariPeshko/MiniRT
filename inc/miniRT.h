@@ -148,6 +148,7 @@ int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *
 int	scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result);
 int	vector_multiply_vector(t_vector *a, t_vector *b, double *result);
 int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
+int	point_minus_point(t_point *a, t_point *b, t_vector *result);
 
 //viewport_calc.c
 int	calculate_viewport_orientation(t_config *cf);
@@ -167,6 +168,16 @@ int		cleanup(t_config *cf);
 void	clean_exit(t_config *cf, char *er_msg);
 
 //quadratic_equation.c
+int	quadratic_formula_minus(double *args, double *solution);
+int	quadratic_formula_plus(double *args, double *solution);
 int	discriminant_check(double A, double B, double C);
+int get_positive_min(double a, double b, double *c);
+
+//quadratic_cys_helpers.c
+int	get_A_cylinder(t_vector *d_vertical, double *A);
+int	get_B_cylinder(t_vector *OC_vertical, t_vector *d_vertical, double *B);
+int	get_C_cylinder(t_vector *OC_vertical, double radius, double *C);
+int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray);
+int	calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray);
 
 #endif
