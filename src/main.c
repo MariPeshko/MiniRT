@@ -16,12 +16,13 @@ int main(int argc, char **argv)
 
 	//calculate viewport
 	if (viewport_calculation(&rt.cf) == FAILURE)
-		clean_exit(&(rt.cf), NULL);
-
+	clean_exit(&(rt.cf), NULL);
+	
 	//calculate picture
 	rays_loop(&rt);
 	//display_picture
 	// Start the event loop
+	printf("hi\n");
 	mlx_loop(rt.cf.mlx);
 
 	// Cleanup resources before exit

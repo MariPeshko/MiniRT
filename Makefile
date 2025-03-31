@@ -43,6 +43,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		mlx.c 				\
 		viewport_calc.c 	\
 		vector_calc.c 		\
+		quadratic_equation.c \
+		cys_quadratic_helpers.c\
 		lst_struct_sphere.c )
 
 INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
