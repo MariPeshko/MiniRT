@@ -3,6 +3,8 @@
 /*sets min to got, if got is closer than min*/
 void	update_min(t_hit *min, t_hit *got)
 {
+	if (!min || ! got)
+		return ;
 	if (got->distance < min->distance)
 		min = got;
 }
