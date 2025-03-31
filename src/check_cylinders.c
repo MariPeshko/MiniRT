@@ -33,6 +33,8 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 {
 	t_hit new;
+
+	init_hit(&new);
 	if (get_cys_wall_collision(rt, cy, &new, ray) == SUCCESS)
 		update_min(&rt->calc.got, &new);
 	/*if (get_cys_top_collision(cy, &new, ray) == SUCCESS)

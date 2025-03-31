@@ -1,6 +1,5 @@
 #include "../inc/miniRT.h"
 
-
 int main(int argc, char **argv)
 {
 	t_mini_rt rt;
@@ -22,7 +21,7 @@ int main(int argc, char **argv)
 	rays_loop(&rt);
 	//display_picture
 	// Start the event loop
-	printf("hi\n");
+	//printf("hi\n");
 	mlx_loop(rt.cf.mlx);
 
 	// Cleanup resources before exit
