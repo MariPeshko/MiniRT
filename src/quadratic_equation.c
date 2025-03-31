@@ -28,6 +28,7 @@ int	discriminant_check(double A, double B, double C)
 {
 	/*discriminant = sqrt(B^2 - 4AC)*/
 	double	discriminant;
+	
 	discriminant = B * B - 4 * A*C;
 	if (discriminant < 0)
 		return (0);
@@ -41,21 +42,21 @@ assigns the lowest positive vlaue of a and b to c.
 returns failure if a and b are negative.*/
 int get_positive_min(double a, double b, double *c)
 {
-    if (c == NULL)
-        return (FAILURE); // Handle null pointer case
-    if (a < 0 && b < 0)
+	if (c == NULL)
+		return (FAILURE); // Handle null pointer case
+	if (a < 0 && b < 0)
 		return (FAILURE);
-    if (a < 0 || b < 0)
+	if (a < 0 || b < 0)
 	{
 		if (a > b)
 			*c = a;
 		else
 			*c = b;
-        return (SUCCESS);
-    }
+		return (SUCCESS);
+	}
 	if (a < b)
 		*c = a;
 	else
 		*c = b;
-    return (SUCCESS);
+	return (SUCCESS);
 }

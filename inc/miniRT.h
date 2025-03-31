@@ -45,25 +45,30 @@
 # define SPHERE "SPHERE"
 # define CYLINDER "CYLINDER"
 
-void	print_vec(t_vector *vec, const char *msg);
 # define DestroyNotify 17
+
+//check_cylinders_hit.c
+int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
+int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
+void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
 // check_initial.c
 void	arg_error(int argc);
 void	check_filename(char *config);
 int		is_empt_file(char *filename);
 
-//check_cylinders_hit.c
-int	get_hit_cys(t_cys *cy, t_hit *got, t_ray *ray);
-void	check_cys_hit(t_config *cf, t_col *calc, t_ray *ray);
+//check_plane_hit.c
+int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
+void	check_plane_hit(t_config *cf, t_col *calc, t_ray *ray);
 
 //check_sphere_hit.c
 int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
 void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
 
-//check_plane_hit.c
-int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
-void	check_plane_hit(t_config *cf, t_col *calc, t_ray *ray);
+
+//cleanup.c
+int		cleanup(t_config *cf);
+void	clean_exit(t_config *cf, char *er_msg);
 
 // config_file.c
 int		open_config(char *config, t_config *cf);
@@ -76,6 +81,7 @@ void	print_map(char **map);
 void	print_triplet(float *triplet);
 void	print_viewport(t_vp *vp);
 void	print_collision(t_col calc);
+void	print_vec(t_vector *vec, const char *msg);
 
 //error_handling.c
 int		display_error(char *msg);
@@ -114,6 +120,7 @@ int		ft_spacetabchecker(char *input);
 //lst_hit.c
 void	init_hit(t_hit *hit);
 void	update_min(t_hit *min, t_hit *got);
+void	fill_hit(char	*object, double t, t_ray *ray, t_hit *hit);
 
 // lst_struct_plane.c
 t_plane	*get_ptr_lst_pl(t_plane **plane);
@@ -163,9 +170,6 @@ void	whitespace_to_space(char *line);
 bool	is_whitespace(char c);
 void	skip_whitespace(char *str, int *pos);
 
-//cleanup.c
-int		cleanup(t_config *cf);
-void	clean_exit(t_config *cf, char *er_msg);
 
 //quadratic_equation.c
 int	quadratic_formula_minus(double *args, double *solution);
