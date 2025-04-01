@@ -170,6 +170,15 @@ We can express any point P in the ray as:
 
 
 
-## display_picture - function man 3 mlx_pixel_put()
+## display_picture
+
+function mlx_new_image()
+
+mlx_get_data_addr()
+
+function mlx_put_image_to_window() 
+Puts your image to the screen at the given coordinates.
+
+mlx_destroy_image()
 
 ---
