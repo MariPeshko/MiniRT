@@ -72,8 +72,8 @@ int	rays_loop(t_mini_rt *rt)
 	while (h < WIN_HEIGHT)//for each row
 	{
 		w = 0;
-		if (h % 10 == 0)
-			printf("rays loop h = %d\n", h);
+		/* if (h % 10 == 0)
+			printf("rays loop h = %d\n", h); */
 		while (w < WIN_WIDTH)//for each column
 		{
 			//printf("[%d][%d]\n", h, w);
