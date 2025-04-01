@@ -12,6 +12,17 @@ int	cross_product(t_vector *a, t_vector *b, t_vector *result)
 	return (SUCCESS);
 }
 
+/*calculates a vector from b to a*/
+int	point_minus_point(t_point *a, t_point *b, t_vector *result)
+{
+	if (!a || !b || !result)
+		return (FAILURE);
+	result->x = a->x - b->x;
+	result->y = a->y - b->y;
+	result->z = a->z - b->z;
+	return (SUCCESS);
+}
+
 /*normalizes v to have length 1*/
 int	normalize_vector(t_vector *v)
 {

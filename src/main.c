@@ -14,14 +14,14 @@ int main(int argc, char **argv)
 	setup_mlx(&rt);
 
 	//calculate viewport
-	//printf("hi\n");
 	if (viewport_calculation(&rt.cf) == FAILURE)
-		clean_exit(&(rt.cf), NULL);
-
+	clean_exit(&(rt.cf), NULL);
+	
 	//calculate picture
 	rays_loop(&rt);
 	//display_picture - function man 3 mlx_pixel_put()
 	// Start the event loop
+	//printf("hi\n");
 	mlx_loop(rt.cf.mlx);
 
 	// Cleanup resources before exit

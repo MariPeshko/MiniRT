@@ -145,7 +145,8 @@ typedef struct s_col
 	t_hit	got;
 	t_ray	ray;
 	t_point	pixel;
-}	t_col;
+	double	quadratic_args[3];
+}	t_col;//col = collisions calculations
 
 typedef struct s_visual
 {

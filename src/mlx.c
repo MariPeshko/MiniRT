@@ -10,8 +10,11 @@ int	handle_close(t_config *cf)
 int	handle_keypress(int keycode, t_config *cf)
 {
 	if (keycode == ESC_KEY)
+	{
 		cleanup(cf);
-	exit(SUCCESS);
+		exit(SUCCESS);
+	}
+	return (0);
 }
 
 /**
