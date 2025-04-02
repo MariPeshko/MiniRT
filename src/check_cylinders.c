@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:45 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/02 11:46:47 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:00:06 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 saves closest visible one  in rt->calc->min*/
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {
-	t_cys *cy;
+	t_cys	*cy;
 
 	cy = cf->cy;
 	while (cy)
