@@ -35,8 +35,10 @@
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define DestroyNotify 17
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 160
+# define WIN_HEIGHT 90
+/* # define WIN_WIDTH 1280
+# define WIN_HEIGHT 720 */
 # define VIEWPORT_RATIO (16.0 / 9.0)
 # define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
 
@@ -59,7 +61,7 @@ int		is_empt_file(char *filename);
 
 //check_plane_hit.c
 int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
-void	check_plane_hit(t_config *cf, t_col *calc, t_ray *ray);
+void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
 //check_sphere_hit.c
 int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
@@ -154,8 +156,10 @@ int	normalize_vector(t_vector *v);
 int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result);
 int	scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result);
 int	vector_multiply_vector(t_vector *a, t_vector *b, double *result);
+int	dot_product(t_vector *a, t_vector *b, double *result); // shorter version of a function above
 int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int	point_minus_point(t_point *a, t_point *b, t_vector *result);
+int	get_normal(t_vector *v, t_vector *n);
 
 //viewport_calc.c
 int	calculate_viewport_orientation(t_config *cf);

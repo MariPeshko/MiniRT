@@ -94,11 +94,13 @@ int	full_parse_light(char *line, t_light *light)
 
 int	assign_value_plane(char *line, t_plane *lst_pl)
 {
-	int	pos;
+	int			pos;
+	//get Point in the plane
+	double		triplet[3];
+	t_vector	normal;
+	t_color		rgb;
 
 	pos = 2;
-	//get Point in the plane
-	double triplet[3];
 	if (get_three_floats(line, &pos, triplet) == FAILURE)
 		return (FAILURE);
 	init_point(&lst_pl->point, triplet);
@@ -107,9 +109,10 @@ int	assign_value_plane(char *line, t_plane *lst_pl)
 		return (FAILURE);
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (FAILURE);
-	init_vec(&lst_pl->norm_vec, triplet);
+	init_vec(&lst_pl->pl_vec, triplet);
+	get_normal(&lst_pl->pl_vec, &normal);
+	lst_pl->pl_normal = normal;
 	//get RGB color of plane
-	t_color	rgb;
 	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&lst_pl->col, rgb);

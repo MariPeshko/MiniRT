@@ -50,7 +50,8 @@ void	print_all_planes(t_config *cf)
 	{
 		printf("\n%i PLANE\n", i);
 		print_point(&curr->point, "Plane");
-		print_vec(&curr->norm_vec, "Plane norm");
+		print_vec(&curr->pl_vec, "Plane vec");
+		print_vec(&curr->pl_normal, "Plane norm");
 		print_col(&curr->col, "Plane");
 		curr = curr->next;
 		i++;

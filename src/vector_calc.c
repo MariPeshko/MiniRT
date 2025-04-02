@@ -93,6 +93,43 @@ int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result)
 	return (SUCCESS);
 }
 
+/** The function calculates the normal(perpendicular vector for vector v) */
+int	get_normal(t_vector *v, t_vector *n)
+{
+	if (!v || !n)
+		return (FAILURE);
+	// If v is along X-axis, pick (0,1,0) as a normal
+	if (v->x != 0 || v->y != 0)
+	{
+		n->x = -v->y;
+		n->y = v->x;
+		n->z = 0;
+	}
+	else // If v is purely along Z-axis, pick a perpendicular in X-Y plane
+	{
+		n->x = 1;
+		n->y = 0;
+		n->z = 0;
+	}
+	if (normalize_vector(n) == FAILURE)
+	{
+		printf("FAILURE plane get_normal() and normilise_vector()");
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int	dot_product(t_vector *a, t_vector *b, double *result)
+{
+	if (!a || !b || !result)
+		return (FAILURE);
+	*result = (a->x * b->x) + (a->y * b->y) + (a->z * b->z);
+	if (isnan(*result) || isinf(*result))
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+/** dot product or scalar product */
 int	vector_multiply_vector(t_vector *a, t_vector *b, double *result)
 {
 	double	new_x;

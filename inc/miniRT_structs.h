@@ -49,10 +49,12 @@ typedef struct s_light
 	t_color		col;
 }	t_light;
 
+// Plane Normal is a vector that is perpendicular to the entire plane 
 typedef struct s_plane
 {
 	t_point			point;
-	t_vector		norm_vec;
+	t_vector		pl_vec;
+	t_vector		pl_normal; // normal of a plane
 	t_color			col;
 	int				id;// identifier
 	struct s_plane	*next;

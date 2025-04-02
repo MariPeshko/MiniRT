@@ -7,7 +7,7 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
 
-	check_plane_hit(cf, &rt->calc, ray);
+	check_plane_hit(cf, rt, ray);
 	//check_sphere_hit(cf, &rt->calc, ray);
 	//check_cys_hit(cf, rt, ray);
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
@@ -69,18 +69,20 @@ int	rays_loop(t_mini_rt *rt)
 
 	h = 0;
 	init_hit(&rt->calc.min);
-	while (h < WIN_HEIGHT)//for each row
+	while (h < 5)//for each row WIN_HEIGHT
 	{
 		w = 0;
 		/* if (h % 10 == 0)
 			printf("rays loop h = %d\n", h); */
-		while (w < WIN_WIDTH)//for each column
+		while (w < 5)//for each column WIN_WIDTH
 		{
 			//printf("[%d][%d]\n", h, w);
 			//calculate pixel
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
 			//calculate ray (Pixel - camera)
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
+			t_ray ryy = rt->calc.ray;
+			printf("ray: %lf %lf %lf\n", ryy.v_dir.x, ryy.v_dir.y, ryy.v_dir.z);
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
@@ -89,8 +91,8 @@ int	rays_loop(t_mini_rt *rt)
 			}
 			else
 			{
-				if(w % 200 == 0 && h % 200 == 0)
-					printf("get_hit NOT succes for %d w %d h\n", w, h);
+				/* if(w % 200 == 0 && h % 200 == 0)
+					printf("get_hit NOT succes for %d w %d h\n", w, h); */
 				get_ambient();
 			}
 			w++;
