@@ -10,6 +10,8 @@ int main(int argc, char **argv)
 	if (open_config(argv[1], &rt.cf) == FAILURE)
 		clean_exit_rt(&rt, NULL);  // Load the configuration
 
+	rt.visual.mlx = NULL;
+	rt.visual.win = NULL;
 	// Initialize mlx and window
 	setup_mlx(&rt);
 
