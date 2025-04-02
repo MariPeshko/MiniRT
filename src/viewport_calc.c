@@ -151,18 +151,18 @@ static int	calc_center_viewport(t_config *cf, double scalar)
 */
 int	viewport_calculation(t_config *cf)
 {
-	printf("meewo\n");
+	//printf("meewo\n");
 	init_viewport(&cf->viewp);
 	if (calc_center_viewport(cf, 1) == FAILURE)
 		clean_exit(cf, VIEWP_C);
-	printf("meewo\n");
+	//printf("meewo\n");
 	if (calculate_width(cf) == FAILURE)
 		clean_exit(cf, NULL);
 	if (calculate_height(cf) == FAILURE)
 		clean_exit(cf, NULL);
 	if (calculate_viewport_orientation(cf) == FAILURE)
 		clean_exit(cf, NULL);
-	printf("meewo\n");
+	//printf("meewo\n");
 	if (calculate_upper_left_corner(&cf->viewp) == FAILURE)
 		clean_exit(cf, NULL);
 	print_viewport(&cf->viewp);

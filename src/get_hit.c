@@ -7,9 +7,9 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
 
-	//check_plane_hit(cf, &rt->calc, ray);
+	check_plane_hit(cf, &rt->calc, ray);
 	//check_sphere_hit(cf, &rt->calc, ray);
-	check_cys_hit(cf, rt, ray);
+	//check_cys_hit(cf, rt, ray);
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
 	{
 		print_collision(rt->calc);
@@ -83,9 +83,16 @@ int	rays_loop(t_mini_rt *rt)
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
+			{
+				printf("get_hit succes\n");
 				get_color();
+			}
 			else
+			{
+				if(w % 200 == 0 && h % 200 == 0)
+					printf("get_hit NOT succes for %d w %d h\n", w, h);
 				get_ambient();
+			}
 			w++;
 		}
 		h++;

@@ -45,7 +45,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		vector_calc.c 		\
 		quadratic_equation.c \
 		cys_quadratic_helpers.c\
-		lst_struct_sphere.c )
+		lst_struct_sphere.c \
+		/image/image.c )
 
 INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
 LIBFT_INC = libft/inc/get_next_line.h \
@@ -71,9 +72,20 @@ $(LIBFT_DIR)/$(LIBFT): $(LIBFT_SRC) $(LIBFT_INC)
 	@make -s -C $(LIBFT_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
-	@mkdir -p $(OBJ_DIR)
+# Ensure the directory exists
+# $(dir $@) extracts the directory part of the 
+# target (obj/image/ in this case).
+	@mkdir -p $(dir $@) 
 	@$(CC) -g $(FLAGS) $(OPTIONS) $< -o $@
 	@echo "$(BLUE)Compiling... $(CYAN)$<$(RESET)"
+
+# The mkdir -p $(OBJ_DIR) command in your Makefile only 
+# creates the obj/ directory, but not its subdirectories.
+
+#$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
+#	@mkdir -p $(OBJ_DIR)
+#	@$(CC) -g $(FLAGS) $(OPTIONS) $< -o $@
+#	@echo "$(BLUE)Compiling... $(CYAN)$<$(RESET)"
 
 $(MLX_LIB):
 	@make -C $(MLX_DIR)

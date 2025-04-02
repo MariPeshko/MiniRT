@@ -131,7 +131,7 @@ int	open_config(char *config, t_config *cf)
 	{
 		// assigning an id for each element.
 		// it might be convenient 
-		print_test_config(cf);
+		//print_test_config(cf);
 		return (SUCCESS);
 	}
 	return (FAILURE);

@@ -164,12 +164,10 @@ int	calculate_width(t_config *cf);
 int calculate_upper_left_corner(t_vp *viewp);
 int	viewport_calculation(t_config *cf);
 
-
 //whitespaces.c
 void	whitespace_to_space(char *line);
 bool	is_whitespace(char c);
 void	skip_whitespace(char *str, int *pos);
-
 
 //quadratic_equation.c
 int	quadratic_formula_minus(double *args, double *solution);
@@ -183,5 +181,8 @@ int	get_B_cylinder(t_vector *OC_vertical, t_vector *d_vertical, double *B);
 int	get_C_cylinder(t_vector *OC_vertical, double radius, double *C);
 int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray);
 int	calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray);
+
+//image/image.c
+int	color_map_1(t_config *cf, int w, int h);
 
 #endif
