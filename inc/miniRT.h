@@ -67,7 +67,8 @@ void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
 
 
 //cleanup.c
-int		cleanup(t_config *cf);
+int		cleanup_cf(t_config *cf);
+int		cleanup_mlx(t_mini_rt *rt);
 void	clean_exit(t_config *cf, char *er_msg);
 void	clean_exit_rt(t_mini_rt *rt, char *er_msg);
 
@@ -142,8 +143,8 @@ t_cys	*ft_lstlast_cy(t_cys *lst);
 
 //mlx.c
 void	setup_mlx(t_mini_rt *rt);
-int handle_close(t_config *cf);
-int handle_keypress(int keycode, t_config *cf);
+int handle_close(t_mini_rt *rt);
+int handle_keypress(int keycode, t_mini_rt *rt);
 
 //unsorted
 int		map_len(char **map);
@@ -163,7 +164,7 @@ int	calculate_viewport_orientation(t_config *cf);
 int	calculate_height(t_config *cf);
 int	calculate_width(t_config *cf);
 int calculate_upper_left_corner(t_vp *viewp);
-int	viewport_calculation(t_config *cf);
+int	viewport_calculation(t_config *cf, t_mini_rt *rt);
 
 
 //whitespaces.c

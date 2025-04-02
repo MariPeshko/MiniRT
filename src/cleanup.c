@@ -53,7 +53,7 @@ displays error macro
 frees all heap memory
 exits
 */
-int	cleanup(t_config *cf)//rename cleanup and exit
+int	cleanup_cf(t_config *cf)//rename cleanup and exit
 {
 	if (cf->cy)
 		cf->cy = free_cys(cf->cy);
@@ -61,19 +61,24 @@ int	cleanup(t_config *cf)//rename cleanup and exit
 		cf->sp = free_sps(cf->sp);
 	if (cf->pl)
 		cf->pl = free_pls(cf->pl);
-	if (cf->win)
-		mlx_destroy_window(cf->mlx, cf->win);// Free the window
-	if (cf->mlx)
+	return (SUCCESS);
+}
+
+int cleanup_mlx(t_mini_rt *rt)
+{
+	if (rt->cf.win)
+		mlx_destroy_window(rt->cf.mlx, rt->cf.win);// Free the window
+	if (rt->cf.mlx)
 	{
-		mlx_destroy_display(cf->mlx);// Destroy the mlx display
-		free(cf->mlx);
+		mlx_destroy_display(rt->cf.mlx);// Destroy the mlx display
+		free(rt->cf.mlx);
 	}
 	return (SUCCESS);
 }
 
 void	clean_exit(t_config *cf, char *er_msg)
 {
-	cleanup(cf);
+	cleanup_cf(cf);
 	if (er_msg)
 		display_error(er_msg);
 	exit(FAILURE);
@@ -81,16 +86,17 @@ void	clean_exit(t_config *cf, char *er_msg)
 
 void	clean_exit_rt(t_mini_rt *rt, char *er_msg)
 {
-	cleanup(&rt->cf);
+	cleanup_cf(&rt->cf);
+	cleanup_mlx(rt);
 	if (er_msg)
 		display_error(er_msg);
 	exit(FAILURE);
 }
 
 // Why do we need this function? 
-void	clean_exit_from_parsing(t_config *cf, char *er_msg, char *line)
+/*void	clean_exit_from_parsing(t_config *cf, char *er_msg, char *line)
 {
 	if (line)
 		free(line);
 	clean_exit(cf, er_msg);
-}
+}*/
