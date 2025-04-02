@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vector_calc.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 11:53:47 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/04/02 11:54:12 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 /*calculates the cross product of a and b
@@ -29,7 +41,7 @@ int	normalize_vector(t_vector *v)
 	double	length;
 
 	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
-	if (length == 0)
+	if (isnan(length) || isinf(length) || length == 0)
 		return (FAILURE);
 	v->x /= length;
 	v->y /= length;
@@ -52,7 +64,7 @@ int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *
 	new_z = point->z + scalar * vector->z;
 
 	// Check for overflow/underflow or invalid results (math.h functions)
-	if (isnan(new_x) || isnan(new_y) || isnan(new_z) ||
+	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
@@ -79,7 +91,7 @@ int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result)
 	new_z = a->z - b->z;
 
 	// Check for overflow/underflow or invalid results (math.h functions)
-	if (isnan(new_x) || isnan(new_y) || isnan(new_z) ||
+	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
@@ -107,7 +119,7 @@ int	vector_multiply_vector(t_vector *a, t_vector *b, double *result)
 	new_z = a->z * b->z;
 
 	// Check for overflow/underflow or invalid results (math.h functions)
-	if (isnan(new_x) || isnan(new_y) || isnan(new_z) ||
+	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
@@ -134,7 +146,7 @@ int	scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result)
 	new_z = scalar * vector->z;
 
 	// Check for overflow/underflow or invalid results (math.h functions)
-	if (isnan(new_x) || isnan(new_y) || isnan(new_z) ||
+	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);

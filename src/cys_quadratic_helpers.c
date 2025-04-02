@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:47:27 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/02 11:49:28 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:57:12 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,27 @@ int	get_C_cylinder(t_vector *OC_vertical, double radius,
 int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical,
 		t_cys *cy, t_ray *ray, t_mini_rt *rt)
 {
-	double tmp;
+	double		tmp;
 	t_vector	v_tmp;
 	t_vector	CO;
-	//d_vertical
+
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC);
-	scalar_multiply_vector(tmp, &cy->norm_vec, &v_tmp);
-	subtract_vectors(&ray->v_dir, &v_tmp, &v_tmp);
+	if (scalar_multiply_vector(tmp, &cy->norm_vec, &v_tmp) == FAILURE)
+		clean_exit_rt(rt, CALC);
+	if (subtract_vectors(&ray->v_dir, &v_tmp, &v_tmp) == FAILURE)
+		clean_exit_rt(rt, CALC);
 	d_vertical->x = v_tmp.x;
 	d_vertical->y = v_tmp.y;
 	d_vertical->z = v_tmp.z;
-	//OC_vertical
-	point_minus_point(&ray->c, &cy->point, &CO);
+	if (point_minus_point(&ray->c, &cy->point, &CO) == FAILURE)
+		clean_exit_rt(rt, CALC);
 	if (vector_multiply_vector(&CO, &cy->norm_vec, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC);
-	scalar_multiply_vector(tmp, &cy->norm_vec, &v_tmp);
-	subtract_vectors(&CO, &v_tmp, &v_tmp);
+	if (scalar_multiply_vector(tmp, &cy->norm_vec, &v_tmp) == FAILURE)
+		clean_exit_rt(rt, CALC);
+	if (subtract_vectors(&CO, &v_tmp, &v_tmp) == FAILURE)
+		clean_exit_rt(rt, CALC);
 	OC_vertical->x = v_tmp.x;
 	OC_vertical->y = v_tmp.y;
 	OC_vertical->z = v_tmp.z;
