@@ -69,6 +69,7 @@ void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
 //cleanup.c
 int		cleanup(t_config *cf);
 void	clean_exit(t_config *cf, char *er_msg);
+void	clean_exit_rt(t_mini_rt *rt, char *er_msg);
 
 // config_file.c
 int		open_config(char *config, t_config *cf);
@@ -172,16 +173,16 @@ void	skip_whitespace(char *str, int *pos);
 
 
 //quadratic_equation.c
-int	quadratic_formula_minus(double *args, double *solution);
-int	quadratic_formula_plus(double *args, double *solution);
-int	discriminant_check(double A, double B, double C);
+int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
+int	quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt);
+int	discriminant_check(double A, double B, double C, t_mini_rt *rt);
 int get_positive_min(double a, double b, double *c);
 
 //quadratic_cys_helpers.c
-int	get_A_cylinder(t_vector *d_vertical, double *A);
-int	get_B_cylinder(t_vector *OC_vertical, t_vector *d_vertical, double *B);
-int	get_C_cylinder(t_vector *OC_vertical, double radius, double *C);
-int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray);
-int	calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray);
+int get_A_cylinder(t_vector *d_vertical, double *A, t_mini_rt *rt);
+int get_B_cylinder(t_vector *OC_vertical, t_vector *d_vertical, double *B, t_mini_rt *rt);
+int get_C_cylinder(t_vector *OC_vertical, double radius, double *C, t_mini_rt *rt);
+int get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
 #endif

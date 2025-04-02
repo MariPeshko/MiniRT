@@ -23,6 +23,7 @@
 # define SP_DIAMETER_SCOPE "Sphere diameter out of scope"
 # define CY_DIAMETER_SCOPE "Cylinder diameter out of scope"
 # define CALLOC "Calloc: Memory allocation error"
+# define CALC "Calculations failed."//over and underflow, isnan and isinf. 
 
 # define NO_CONFIG_FILE "Run a program with a configuration \
 file as follows:\n./miniRT [name_of_the_file].rt"

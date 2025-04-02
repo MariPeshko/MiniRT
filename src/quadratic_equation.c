@@ -1,35 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quadratic_equation.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 11:25:24 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/04/02 11:25:25 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
-int	quadratic_formula_plus(double *args, double *solution)
+int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt)
 {
 	double	discriminant;
 	double	res;
 
 	discriminant = args[1] * args[1] - 4 * args[0]*args[2];
+	if (isnan(discriminant) || isinf(discriminant))
+		clean_exit_rt(rt, CALC);
 	res = -1 * args[1] + sqrt(discriminant);
 	res /= 2*args[0];
+	if (isnan(res) || isinf(res))
+		clean_exit_rt(rt, CALC);
 	*solution = res;
 	return (SUCCESS);
 }
 
-int	quadratic_formula_minus(double *args, double *solution)
+int	quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt)
 {
 	double	discriminant;
 	double	res;
 
 	discriminant = args[1] * args[1] - 4 * args[0]*args[2];
+	if (isnan(discriminant) || isinf(discriminant))
+		clean_exit_rt(rt, CALC);
 	res = -1 * args[1] - sqrt(discriminant);
 	res /= 2*args[0];
+	if (isnan(res) || isinf(res))
+		clean_exit_rt(rt, CALC);
 	*solution = res;
 	return (SUCCESS);
 }
 
-int	discriminant_check(double A, double B, double C)
+int	discriminant_check(double A, double B, double C, t_mini_rt *rt)
 {
 	/*discriminant = sqrt(B^2 - 4AC)*/
 	double	discriminant;
 	
 	discriminant = B * B - 4 * A*C;
+	if (isnan(discriminant) || isinf(discriminant))
+		clean_exit_rt(rt, CALC);
 	if (discriminant < 0)
 		return (0);
 	if (discriminant == 0)
