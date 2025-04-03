@@ -53,8 +53,7 @@ typedef struct s_light
 typedef struct s_plane
 {
 	t_point			point;
-	t_vector		pl_vec;
-	t_vector		pl_normal; // normal of a plane
+	t_vector		pl_normal;
 	t_color			col;
 	int				id;// identifier
 	struct s_plane	*next;

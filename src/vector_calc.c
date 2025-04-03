@@ -122,10 +122,14 @@ int	get_normal(t_vector *v, t_vector *n)
 int	dot_product(t_vector *a, t_vector *b, double *result)
 {
 	if (!a || !b || !result)
+	{
 		return (FAILURE);
+	}
 	*result = (a->x * b->x) + (a->y * b->y) + (a->z * b->z);
 	if (isnan(*result) || isinf(*result))
+	{
 		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
