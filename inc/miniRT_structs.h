@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT_structs.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/04/02 11:07:53 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_STRUCTS_H
 # define MINIRT_STRUCTS_H
 
@@ -147,6 +159,8 @@ typedef struct s_col
 	t_ray	ray;
 	t_point	pixel;
 	double	quadratic_args[3];
+	double	t1;
+	double	t2;
 }	t_col;//col = collisions calculations
 
 typedef struct s_visual

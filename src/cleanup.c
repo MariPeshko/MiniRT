@@ -79,6 +79,14 @@ void	clean_exit(t_config *cf, char *er_msg)
 	exit(FAILURE);
 }
 
+void	clean_exit_rt(t_mini_rt *rt, char *er_msg)
+{
+	cleanup(&rt->cf);
+	if (er_msg)
+		display_error(er_msg);
+	exit(FAILURE);
+}
+
 // Why do we need this function? 
 void	clean_exit_from_parsing(t_config *cf, char *er_msg, char *line)
 {
