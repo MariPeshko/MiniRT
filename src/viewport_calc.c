@@ -165,6 +165,6 @@ int	viewport_calculation(t_config *cf)
 	//printf("meewo\n");
 	if (calculate_upper_left_corner(&cf->viewp) == FAILURE)
 		clean_exit(cf, NULL);
-	print_viewport(&cf->viewp);
+	//print_viewport(&cf->viewp);
 	return (SUCCESS);
 }

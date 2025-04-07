@@ -17,15 +17,15 @@ static void	print_col(t_color *c, const char *msg)
 	printf("%i\n", c->b);
 }
 
-static void	print_point(t_point *p, const char *msg)
+void	print_point(t_point *p, const char *msg)
 {
 	if (msg)
 		printf("%s point ", msg);
 	else
 		printf("Undefined element's point ");
-	printf("x: %.10f, ", p->x);
-	printf("y: %.10f, ", p->y);
-	printf("z: %.10f\n", p->z);
+	printf("x: %.4f, ", p->x);
+	printf("y: %.4f, ", p->y);
+	printf("z: %.4f\n", p->z);
 }
 
 void	print_vec(t_vector *vec, const char *msg)

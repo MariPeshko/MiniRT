@@ -35,8 +35,8 @@
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define DestroyNotify 17
-# define WIN_WIDTH 160
-# define WIN_HEIGHT 90
+# define WIN_WIDTH 80
+# define WIN_HEIGHT 45
 /* # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720 */
 # define VIEWPORT_RATIO (16.0 / 9.0)
@@ -85,6 +85,7 @@ void	print_triplet(float *triplet);
 void	print_viewport(t_vp *vp);
 void	print_collision(t_col calc);
 void	print_vec(t_vector *vec, const char *msg);
+void	print_point(t_point *p, const char *msg);
 
 //error_handling.c
 int		display_error(char *msg);
@@ -144,8 +145,8 @@ t_cys	*ft_lstlast_cy(t_cys *lst);
 
 //mlx.c
 void	setup_mlx(t_mini_rt *rt);
-int handle_close(t_config *cf);
-int handle_keypress(int keycode, t_config *cf);
+int		handle_close(t_config *cf);
+int		handle_keypress(int keycode, t_config *cf);
 
 //unsorted
 int		map_len(char **map);

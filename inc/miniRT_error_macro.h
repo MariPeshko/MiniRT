@@ -1,6 +1,12 @@
 #ifndef MINIRT_ERROR_MACRO_H
 # define MINIRT_ERROR_MACRO_H
 
+// calculation
+# define CALC "Calculations failed."//over and underflow, isnan and isinf. 
+# define CAM_ON_PLANE "Camera is embedded in the plane."
+# define CAM_DIR_ON_PLANE "Warning! The camera's direction \
+is exactly in the plane."
+
 # define MEMORY "Memory allocation failed"
 # define INVALID_NBR_ARG "Invalid number of Arguments"
 # define INVALID_NBR_ARG_CY "Invalid number of Arguments in cylinder"
@@ -23,7 +29,6 @@
 # define SP_DIAMETER_SCOPE "Sphere diameter out of scope"
 # define CY_DIAMETER_SCOPE "Cylinder diameter out of scope"
 # define CALLOC "Calloc: Memory allocation error"
-# define CALC "Calculations failed."//over and underflow, isnan and isinf. 
 
 # define NO_CONFIG_FILE "Run a program with a configuration \
 file as follows:\n./miniRT [name_of_the_file].rt"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/02 11:07:53 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:07:09 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct s_config
 struct that saves a single instance of a collision (intersection).
 type: Object type (e.g., "NONE", "PLANE", "CYLINDER", "SPHERE")
 distance: Distance from the ray origin to the intersection point.
+Purpose: Finding the closest intersection and not only this.
 point: Coordinates of the intersection point.
 */
 typedef struct	s_hit
