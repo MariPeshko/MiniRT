@@ -16,13 +16,13 @@ static int	get_intcolor_print_color(t_color color)
 }
 
 // 14126375 (decimal) = 0xD76167 (hex)
-int	color_map_1(t_config *cf, int w, int h)
+int	color_map_1(t_visual *vis, t_config *cf, int w, int h)
 {
 	int	x;
 	int	y;
 	int	color;
-	void *win = cf->win;
-	void *mlx = cf->mlx;
+	void *win = vis->win;
+	void *mlx = vis->mlx;
 
 	printf(" => Function to print color in HEX and DECIMAL ...\n");
 	// get_the_color_of_the_plane

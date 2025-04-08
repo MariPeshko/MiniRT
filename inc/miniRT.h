@@ -94,19 +94,22 @@ t_cys	*ft_lstlast_cy(t_cys *lst);
 //image/
 //image/mlx.c
 void	setup_mlx(t_mini_rt *rt);
-int		handle_close(t_config *cf);
-int		handle_keypress(int keycode, t_config *cf);
-//image/image.c
-int	color_map_1(t_config *cf, int w, int h);
+int handle_close(t_mini_rt *rt);
+int handle_keypress(int keycode, t_mini_rt *rt);
 //image/viewport_00.c
-int 	viewport_calculation(t_config *cf);
-void	init_viewport(t_vp *vp);
-int     calculate_width(t_config *cf);
-int     calculate_height(t_config *cf);
+int     viewport_calculation(t_config *cf, t_mini_rt *rt);
+void    init_viewport(t_vp *vp);
+int	calculate_height(t_config *cf);
+int	calculate_width(t_config *cf);
 //image/viewport_01.c
-int	calculate_viewport_orientation(t_config *cf);
-int calculate_upper_left_corner(t_vp *viewp);
-int	viewport_calculation(t_config *cf);
+int     calculate_viewport_orientation(t_config *cf);
+int     calculate_upper_left_corner(t_vp *viewp);
+void	get_up_vector(t_config *cf, t_vector *up);
+//image/image.c
+int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
+
+//unsorted
+int		map_len(char **map);
 
 //hit/
 //get_hit.c
@@ -116,8 +119,8 @@ int	rays_loop(t_mini_rt *rt);
 int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 //check_sphere_hit.c
-int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
-void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
+int		get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
+void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 //check_cylinders_hit.c
 int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
 int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
@@ -138,6 +141,11 @@ int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int	point_minus_point(t_point *a, t_point *b, t_vector *result);
 int	get_normal(t_vector *v, t_vector *n);
 
+//whitespaces.c
+void	whitespace_to_space(char *line);
+bool	is_whitespace(char c);
+void	skip_whitespace(char *str, int *pos);
+
 //quadratic_equation.c
 int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
 int	quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt);
@@ -149,32 +157,33 @@ int get_A_cylinder(t_vector *d_vertical, double *A, t_mini_rt *rt);
 int get_B_cylinder(t_vector *OC_vertical, t_vector *d_vertical, double *B, t_mini_rt *rt);
 int get_C_cylinder(t_vector *OC_vertical, double radius, double *C, t_mini_rt *rt);
 int get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
-int calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int cy_calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
 //utils
 //utils/cleanup.c
-int		cleanup(t_config *cf);
 void	clean_exit(t_config *cf, char *er_msg);
 void	clean_exit_rt(t_mini_rt *rt, char *er_msg);
+int     cleanup_mlx(t_mini_rt *rt);
+int     cleanup_cf(t_config *cf);
+void	*free_pls(t_plane *pls);
+void	*free_sps(t_spher *sps);
+void	*free_cys(t_cys *cys);
+//utils/error_handling.c
+int	display_error(char *msg);
 //utils/debugging_prints.c
-void	print_test_config(t_config *cf);
-void	print_map(char **map);
 void	print_triplet(float *triplet);
-void	print_viewport(t_vp *vp);
-void	print_collision(t_col calc);
 void	print_vec(t_vector *vec, const char *msg);
 void	print_point(t_point *p, const char *msg);
-//utils/error_handling.c
-int		display_error(char *msg);
+void    print_map(char **map);
+void	print_test_config(t_config *cf);
+void	print_all_cylider(t_config *cf);
+void	print_all_spheres(t_config *cf);
+void	print_all_planes(t_config *cf);
+void	print_collision(t_col calc);
+void	print_viewport(t_vp *vp);
 //utils/str_utils.c
 void	ft_freestr(char **lst);
-void	trim_out_spaces(char **str);
 int		ft_spacetabchecker(char *input);
-//utils/array_utils.c
-int		map_len(char **map);
-//utils/whitespaces.c
-void	whitespace_to_space(char *line);
-bool	is_whitespace(char c);
-void	skip_whitespace(char *str, int *pos);
+void	trim_out_spaces(char **str);
 
 #endif

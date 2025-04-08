@@ -39,6 +39,12 @@ void	print_vec(t_vector *vec, const char *msg)
 	printf("z: %.10f\n", vec->z);
 }
 
+/*prints out a triplet of floats*/
+void	print_triplet(float *triplet)
+{
+	printf("%f , %f , %f\n", triplet[0], triplet[1], triplet[2]);
+}
+
 void	print_all_planes(t_config *cf)
 {
 	t_plane	*curr;
@@ -131,13 +137,6 @@ void    print_map(char **map)
     }
     printf("\n");
 }
-
-/*prints out a triplet of floats*/
-void	print_triplet(float *triplet)
-{
-	printf("%f , %f , %f\n", triplet[0], triplet[1], triplet[2]);
-}
-
 
 void	print_viewport(t_vp *vp)
 {

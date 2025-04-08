@@ -44,13 +44,14 @@ int	calculate_width(t_config *cf)
 	return (SUCCESS);
 }
 
-static int	calc_center_viewport(t_config *cf, double scalar)
+// deleted????
+/* static int	calc_center_viewport(t_config *cf, double scalar)
 {
 	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec,
 			scalar, &cf->viewp.vp_center) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
-}
+} */
 
 /**
  * initialized viewport struct
@@ -81,25 +82,28 @@ void	init_viewport(t_vp *vp)
 	vp->height = 0;
 }
 
-/** delegates viewport calculations
- * - calculate the center view port
- * - calculate the width and the height
- * - calculate the viewport orientation, horizontal and vertical vectors
- * - calculate the upper left corner
-*/
-int	viewport_calculation(t_config *cf)
+/*delegates viewport calculations*/
+int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 {
+	printf("meewo\n");
 	init_viewport(&cf->viewp);
-	if (calc_center_viewport(cf, 1) == FAILURE)
-		clean_exit(cf, VIEWP_C);
+	//center view port
+	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.vp_center) == FAILURE)
+		clean_exit_rt(rt, VIEWP_C);
+	printf("meewo\n");
+	//width
 	if (calculate_width(cf) == FAILURE)
-		clean_exit(cf, NULL);
+		clean_exit_rt(rt, NULL);
+	//height
 	if (calculate_height(cf) == FAILURE)
-		clean_exit(cf, NULL);
+		clean_exit_rt(rt, NULL);
+	//horizontal and vertical vector
 	if (calculate_viewport_orientation(cf) == FAILURE)
-		clean_exit(cf, NULL);
+		clean_exit_rt(rt, NULL);
+	printf("meewo\n");
+	//corner
 	if (calculate_upper_left_corner(&cf->viewp) == FAILURE)
-		clean_exit(cf, NULL);
-	//print_viewport(&cf->viewp);
+		clean_exit_rt(rt, NULL);
+	print_viewport(&cf->viewp);
 	return (SUCCESS);
 }

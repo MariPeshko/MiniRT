@@ -20,12 +20,6 @@ SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
 		main.c				\
-		check_cylinders.c 	\
-		check_plane_hit.c 	\
-		check_sphere_hits.c \
-		vector_calc.c 		\
-		quadratic_equation.c \
-		cys_quadratic_helpers.c\
 		/parsing/check_initial.c \
 		/parsing/config_file.c \
 		/parsing/parse_delegate.c	\
@@ -48,6 +42,12 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/utils/debugging_prints.c \
 		/utils/error_handling.c \
 		/utils/array_utils.c \
+		check_cylinders.c 	\
+		check_plane_hit.c 	\
+		check_sphere_hits.c \
+		vector_calc.c 		\
+		quadratic_equation.c \
+		cys_quadratic_helpers.c\
 		)
 
 INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
@@ -55,11 +55,23 @@ LIBFT_INC = libft/inc/get_next_line.h \
 	libft/inc/libft.h
 
 OBJ_DIR = ./obj
-OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
+OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
 
 LIBFT_DIR = libft
+LIBFT_SRC_DIR = libft/src
 LIBFT = libft.a
-LIBFT_SRC = $(shell find $(LIBFT_DIR) -name "*.c")#is this allowed cause wildcard?
+LIBFT_SRC = $(addprefix $(LIBFT_SRC_DIR)/, \
+	libft/ft_atoi.c libft/ft_bzero.c libft/ft_calloc.c libft/ft_isalnum.c libft/ft_isalpha.c libft/ft_isascii.c \
+	libft/ft_isdigit.c libft/ft_isprint.c libft/ft_itoa.c libft/ft_memchr.c libft/ft_memcmp.c libft/ft_memcpy.c \
+	libft/ft_memmove.c libft/ft_memset.c libft/ft_putchar_fd.c libft/ft_putendl_fd.c libft/ft_putstr_fd.c \
+	libft/ft_putnbr_fd.c libft/ft_split.c libft/ft_strchr.c libft/ft_strdup.c libft/ft_strjoin.c libft/ft_strlcat.c \
+	libft/ft_strlcpy.c libft/ft_strlen.c libft/ft_strmapi.c libft/ft_strncmp.c libft/ft_strnstr.c libft/ft_strrchr.c \
+	libft/ft_striteri.c libft/ft_strtrim.c libft/ft_substr.c libft/ft_tolower.c libft/ft_toupper.c \
+	libft/ft_lstnew_bonus.c libft/ft_lstadd_front_bonus.c libft/ft_lstsize_bonus.c libft/ft_lstlast_bonus.c \
+	libft/ft_lstadd_back_bonus.c libft/ft_lstdelone_bonus.c libft/ft_lstclear_bonus.c \
+	libft/ft_lstiter_bonus.c libft/ft_lstmap_bonus.c \
+	get_next_line/get_next_line.c get_next_line/get_next_line_utils.c)
+
 
 NAME = miniRT
 
@@ -73,11 +85,8 @@ $(LIBFT_DIR)/$(LIBFT): $(LIBFT_SRC) $(LIBFT_INC)
 	@echo "$(GREEN)Building $(LIBFT)... $(RESET)"
 	@make -s -C $(LIBFT_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES)
-# Ensure the directory exists
-# $(dir $@) extracts the directory part of the 
-# target (obj/image/ in this case).
-	@mkdir -p $(dir $@) 
+$(OBJ_DIR)/%.o: src/%.c $(INCLUDES)
+	@mkdir -p $(dir $@)
 	@$(CC) -g $(FLAGS) $(OPTIONS) $< -o $@
 	@echo "$(BLUE)Compiling... $(CYAN)$<$(RESET)"
 

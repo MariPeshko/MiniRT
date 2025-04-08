@@ -115,8 +115,8 @@ typedef struct s_config
 	t_spher		*sp;
 	t_cys		*cy;
 	t_vp		viewp;
-	void		*mlx;
-	void		*win;
+	//void		*mlx;
+	//void		*win;
 	bool		valid;
 	bool		one_amb;
 	bool		one_cam;

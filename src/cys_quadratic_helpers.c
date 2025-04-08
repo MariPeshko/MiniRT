@@ -76,7 +76,7 @@ int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical,
 	return (SUCCESS);
 }
 
-int	calculate_quadratic_arguments(double *args, t_cys *cy,
+int	cy_calculate_quadratic_arguments(double *args, t_cys *cy,
 	t_ray *ray, t_mini_rt *rt)
 {
 	t_vector	d_vertical;
