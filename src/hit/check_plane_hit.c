@@ -88,21 +88,18 @@ int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray)
 /**
  * Check if the camera is positioned on the plane.
 */
-int	camera_on_the_plane(t_config *cf, t_plane *pl)
+static int	camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt)
 {
-	t_vector camera_to_plane;
-	if(point_minus_point(&cf->cam.point, &pl->point, &camera_to_plane) == FAILURE)
-	{
-		printf("Camera on plane FAILURE\n");
-		return(FAILURE);
-	}
+	t_vector	camera_to_plane;
+	if (point_minus_point(&cf->cam.point, &pl->point, &camera_to_plane) == FAILURE)
+		clean_exit_rt(rt, CALC);
 	double	result;
 	if (vector_multiply_vector(&pl->pl_normal, &camera_to_plane, &result) == FAILURE)
 	{
 		printf("dot_product plane normal and camera_to_plane FAILURE\n");
 		return(FAILURE);
 	}
-	if(result == 0)
+	if (result == 0)
 		return(SUCCESS);
 	return(FAILURE);
 }
@@ -137,7 +134,7 @@ void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	pl = cf->pl;
 	while (pl)
 	{
-		if (camera_on_the_plane(cf, pl) == SUCCESS)
+		if (camera_on_the_plane(cf, pl, rt) == SUCCESS)
 		{
 			display_error(CAM_ON_PLANE);
 			camera_direction_in_plane(cf->cam.norm_vec, pl->pl_normal);

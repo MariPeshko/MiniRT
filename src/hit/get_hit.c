@@ -15,7 +15,7 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 		//print_collision(rt->calc);
 		return (SUCCESS);
 	}
-	return (FAILURE);//so no collisions
+	return (FAILURE);
 }
 
 /*claculates color of pixel based on hit*/
