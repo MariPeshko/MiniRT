@@ -32,6 +32,9 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/parsing/lst_struct_cylinder.c \
 		/hit/get_hit.c	\
 		/hit/lst_hit.c	\
+		/hit/check_cylinders.c 	\
+		/hit/check_plane_hit.c 	\
+		/hit/check_sphere_hits.c \
 		/image/image.c	\
 		/image/mlx.c \
 		/image/viewport_00.c \
@@ -42,9 +45,6 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/utils/debugging_prints.c \
 		/utils/error_handling.c \
 		/utils/array_utils.c \
-		check_cylinders.c 	\
-		check_plane_hit.c 	\
-		check_sphere_hits.c \
 		vector_calc.c 		\
 		quadratic_equation.c \
 		cys_quadratic_helpers.c\

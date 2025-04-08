@@ -108,27 +108,26 @@ void	get_up_vector(t_config *cf, t_vector *up);
 //image/image.c
 int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
 
-//unsorted
-int		map_len(char **map);
+
 
 //hit/
-//get_hit.c
+//hit/get_hit.c
 int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 int	rays_loop(t_mini_rt *rt);
-//check_plane_hit.c
-int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
-void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-//check_sphere_hit.c
-int		get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
-void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-//check_cylinders_hit.c
-int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
-int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
-void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-//lst_hit.c
+//hit/lst_hit.c
 void	init_hit(t_hit *hit);
 void	update_min(t_hit *min, t_hit *got);
 void	fill_hit(char	*object, double t, t_ray *ray, t_hit *hit);
+//hit/check_plane_hit.c
+int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
+void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+//hit/check_sphere_hit.c
+int		get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
+void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+//hit/check_cylinders_hit.c
+int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
+int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
+void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
 //vector_calc.c
 int	cross_product(t_vector *a, t_vector *b, t_vector *result);
@@ -140,11 +139,6 @@ int	dot_product(t_vector *a, t_vector *b, double *result); // shorter version of
 int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int	point_minus_point(t_point *a, t_point *b, t_vector *result);
 int	get_normal(t_vector *v, t_vector *n);
-
-//whitespaces.c
-void	whitespace_to_space(char *line);
-bool	is_whitespace(char c);
-void	skip_whitespace(char *str, int *pos);
 
 //quadratic_equation.c
 int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
@@ -185,5 +179,11 @@ void	print_viewport(t_vp *vp);
 void	ft_freestr(char **lst);
 int		ft_spacetabchecker(char *input);
 void	trim_out_spaces(char **str);
+//utils//whitespaces.c
+void	whitespace_to_space(char *line);
+bool	is_whitespace(char c);
+void	skip_whitespace(char *str, int *pos);
+//utils/array_utils.c
+int		map_len(char **map);
 
 #endif
