@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/07 21:07:09 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/08 19:01:29 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_plane
 	t_point			point;
 	t_vector		pl_normal;
 	t_color			col;
-	int				id;// identifier
+	int				id;
 	struct s_plane	*next;
 }	t_plane;
 

@@ -18,11 +18,13 @@ void	init_hit(t_hit *hit)
 }
 
 /*fills hit struct with data*/
-void	fill_hit(char	*object, double t, t_ray *ray, t_hit *hit)
+int	fill_hit(char *object, double t, t_ray *ray, t_hit *hit)
 {
 	if (!object || !ray || !hit)
-		return ;
+		return (FAILURE);
 	hit->type = object;
 	hit->distance = t;
-	point_plus_vector(&ray->c, &ray->v_dir, t, &hit->point);
+	if (point_plus_vector(&ray->c, &ray->v_dir, t, &hit->point) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }

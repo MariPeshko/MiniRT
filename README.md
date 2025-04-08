@@ -1,4 +1,7 @@
 # MiniRT
+
+Let's ray-trace some light into this project! ✨
+
 Maryna and Stephanie's MiniRT, a 42 school project written in C language that uses the ray tracing technique for CGI.
 
 The goal of this program is to generate images using the Raytracing protocol.Those computer-generated images will each represent a scene, as seen from a specific angle and position, defined by simple geometric objects, and each with its own lighting system.
@@ -180,5 +183,12 @@ function mlx_put_image_to_window()
 Puts your image to the screen at the given coordinates.
 
 mlx_destroy_image()
+
+## Unsorted
+
+EPSILON instead of zero in calculation
+
+Floating-point numbers can be very slightly off, even when they’re theoretically zero. We use an epsilon. Otherwise, it may fail to detect the camera on the plane due to tiny floating-point errors.
+Also we use EPSILON in plane calculations.
 
 ---

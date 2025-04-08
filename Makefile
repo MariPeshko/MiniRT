@@ -33,7 +33,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/hit/get_hit.c	\
 		/hit/lst_hit.c	\
 		/hit/check_cylinders.c 	\
-		/hit/check_plane_hit.c 	\
+		/hit/check_plane_00.c 	\
+		/hit/check_plane_01.c 	\
 		/hit/check_sphere_hits.c \
 		/image/image.c	\
 		/image/mlx.c \

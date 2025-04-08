@@ -25,6 +25,7 @@
 #ifndef M_PI
 #    define M_PI 3.14159265358979323846
 #endif
+# define EPSILON 1e-6
 
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
@@ -108,8 +109,6 @@ void	get_up_vector(t_config *cf, t_vector *up);
 //image/image.c
 int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
 
-
-
 //hit/
 //hit/get_hit.c
 int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
@@ -117,12 +116,14 @@ int	rays_loop(t_mini_rt *rt);
 //hit/lst_hit.c
 void	init_hit(t_hit *hit);
 void	update_min(t_hit *min, t_hit *got);
-void	fill_hit(char	*object, double t, t_ray *ray, t_hit *hit);
-//hit/check_plane_hit.c
-int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
+int		fill_hit(char *object, double t, t_ray *ray, t_hit *hit);
+//hit/check_plane_00.c
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+int	ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, t_mini_rt *rt);
+//hit/check_plane_01.c
+int	camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt);
+int	cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal);
 //hit/check_sphere_hit.c
-int		get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
 void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 //hit/check_cylinders_hit.c
 int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
