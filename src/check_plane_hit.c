@@ -21,8 +21,8 @@ int	ray_parallel_to_plane(t_ray *ray, t_plane *pl, double *divisor)
 	dot_product(&ray->v_dir, &pl->pl_normal, &result);
 	if (fabs(result) < DBL_EPSILON)
 	{
-		printf("Plane. Dot product of d * n is 0\n");
-		printf("So this ray is parallel to the Plane\n");
+		/* printf("Plane. Dot product of d * n is 0\n");
+		printf("So this ray is parallel to the Plane\n"); */
 		return(true);
 	}
 	else
@@ -78,9 +78,8 @@ int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray)
 		//print_point(&got->point, "plane");
 		return (SUCCESS);
 	}
-	if (t < 0)
+	else if (t < 0)
 	{
-		printf("Plane's %d intersection is behind the camera\n", pl->id);
 		return (FAILURE);
 	}
 	return (FAILURE);

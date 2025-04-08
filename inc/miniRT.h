@@ -35,8 +35,8 @@
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define DestroyNotify 17
-# define WIN_WIDTH 80
-# define WIN_HEIGHT 45
+# define WIN_WIDTH 160
+# define WIN_HEIGHT 90
 /* # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720 */
 # define VIEWPORT_RATIO (16.0 / 9.0)

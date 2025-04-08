@@ -7,13 +7,10 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 		arg_error(argc);
-
 	if (open_config(argv[1], &rt.cf) == FAILURE)
-		clean_exit(&(rt.cf), NULL);  // Load the configuration
-
+		clean_exit(&(rt.cf), NULL);
 	// Initialize mlx and window
 	setup_mlx(&rt);
-
 	//calculate viewport
 	if (viewport_calculation(&rt.cf) == FAILURE)
 		clean_exit(&(rt.cf), NULL);
@@ -25,8 +22,8 @@ int main(int argc, char **argv)
 	// mlx_put_image_to_window(), mlx_destroy_image()
 	// instruction in minilibx/test/main.c
 	// Start the event loop
-	printf(" => Colormap sans event ...\n");
-  	color_map_1(&rt.cf, WIN_WIDTH, WIN_HEIGHT);
+	/* printf(" => Colormap sans event ...\n");
+  	color_map_1(&rt.cf, WIN_WIDTH, WIN_HEIGHT); */
 	
 	mlx_loop(rt.cf.mlx);
 	// Cleanup resources before exit
