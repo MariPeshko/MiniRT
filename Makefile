@@ -19,34 +19,36 @@ MLX_FLAGS = -L/usr/lib/X11 -lXext -lX11
 SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
-		check_initial.c		\
 		check_cylinders.c 	\
 		check_plane_hit.c 	\
 		check_sphere_hits.c \
-		get_hit.c 			\
-		lst_hit.c 			\
-		config_file.c		\
-		debugging_prints.c	\
-		error_handling.c 	\
 		main.c				\
-		parse_delegate.c	\
-		parse_helpers.c 	\
-		parse_rgb.c			\
-		parse_objects.c 	\
-		str_utils.c			\
-		test_parse_delegate.c 	\
-		whitespaces.c 		\
-		cleanup.c 			\
-		unsorted.c 			\
-		lst_struct_cylinder.c \
-		lst_struct_plane.c \
-		mlx.c 				\
-		viewport_calc.c 	\
 		vector_calc.c 		\
 		quadratic_equation.c \
 		cys_quadratic_helpers.c\
-		lst_struct_sphere.c \
-		/image/image.c )
+		/parsing/check_initial.c \
+		/parsing/lst_struct_plane.c \
+		/parsing/config_file.c \
+		/parsing/parse_delegate.c	\
+		/parsing/parse_objects.c 	\
+		/parsing/parse_rgb.c	\
+		/parsing/parse_helpers.c 	\
+		/parsing/test_parse_delegate.c 	\
+		/parsing/lst_struct_sphere.c \
+		/parsing/lst_struct_cylinder.c \
+		/hit/get_hit.c	\
+		/hit/lst_hit.c	\
+		/image/image.c	\
+		/image/mlx.c \
+		/image/viewport_00.c \
+		/image/viewport_01.c \
+		/utils/cleanup.c \
+		/utils/str_utils.c	\
+		/utils/whitespaces.c	\
+		/utils/debugging_prints.c \
+		/utils/error_handling.c \
+		/utils/array_utils.c \
+		)
 
 INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
 LIBFT_INC = libft/inc/get_next_line.h \

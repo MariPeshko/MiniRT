@@ -67,7 +67,6 @@ void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
 void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
 
-
 //cleanup.c
 int		cleanup(t_config *cf);
 void	clean_exit(t_config *cf, char *er_msg);
@@ -148,10 +147,6 @@ void	setup_mlx(t_mini_rt *rt);
 int		handle_close(t_config *cf);
 int		handle_keypress(int keycode, t_config *cf);
 
-//unsorted
-int		map_len(char **map);
-void	init_viewport(t_vp *vp);
-
 //vector_calc.c
 int	cross_product(t_vector *a, t_vector *b, t_vector *result);
 int	normalize_vector(t_vector *v);
@@ -162,13 +157,6 @@ int	dot_product(t_vector *a, t_vector *b, double *result); // shorter version of
 int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int	point_minus_point(t_point *a, t_point *b, t_vector *result);
 int	get_normal(t_vector *v, t_vector *n);
-
-//viewport_calc.c
-int	calculate_viewport_orientation(t_config *cf);
-int	calculate_height(t_config *cf);
-int	calculate_width(t_config *cf);
-int calculate_upper_left_corner(t_vp *viewp);
-int	viewport_calculation(t_config *cf);
 
 //whitespaces.c
 void	whitespace_to_space(char *line);
@@ -190,5 +178,19 @@ int calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt
 
 //image/image.c
 int	color_map_1(t_config *cf, int w, int h);
+
+//image/viewport_00.c
+int 	viewport_calculation(t_config *cf);
+void	init_viewport(t_vp *vp);
+int     calculate_width(t_config *cf);
+int     calculate_height(t_config *cf);
+
+//image/viewport_01.c
+int	calculate_viewport_orientation(t_config *cf);
+int calculate_upper_left_corner(t_vp *viewp);
+int	viewport_calculation(t_config *cf);
+
+//utils/array_utils.c
+int		map_len(char **map);
 
 #endif
