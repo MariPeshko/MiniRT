@@ -62,9 +62,8 @@ int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
 void	check_plane_hit(t_config *cf, t_col *calc, t_ray *ray);
 
 //check_sphere_hit.c
-int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
-void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
-
+int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
+void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
 //cleanup.c
 int		cleanup_cf(t_config *cf);
@@ -184,6 +183,6 @@ int get_A_cylinder(t_vector *d_vertical, double *A, t_mini_rt *rt);
 int get_B_cylinder(t_vector *OC_vertical, t_vector *d_vertical, double *B, t_mini_rt *rt);
 int get_C_cylinder(t_vector *OC_vertical, double radius, double *C, t_mini_rt *rt);
 int get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
-int calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int cy_calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
 #endif
