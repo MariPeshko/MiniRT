@@ -31,18 +31,22 @@ the first element. */
 void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 {
 	t_plane	*temp;
+	int	id = 1;
 
 	temp = *lst;
 	if (*lst == NULL)
 	{
+		new->id = id;
 		*lst = new;
 		return ;
 	}
 	while (temp)
 	{
+		id++;
 		if (temp->next == NULL)
 			break ;
 		temp = temp->next;
 	}
+	new->id = id;
 	temp->next = new;
 }

@@ -20,7 +20,7 @@ static void	print_col(t_color *c, const char *msg)
 void	print_point(t_point *p, const char *msg)
 {
 	if (msg)
-		printf("%s point ", msg);
+		printf("%spoint ", msg);
 	else
 		printf("Undefined element's point ");
 	printf("x: %.4f, ", p->x);
@@ -162,8 +162,8 @@ void	print_viewport(t_vp *vp)
 
 void	print_collision(t_col calc)
 {
-	printf("Closest collision for \n");
-	print_point(&calc.pixel, "Pixel at: ");
+	printf("Closest collision for ");
+	print_point(&calc.pixel, "pixel at\n");
 	printf("hit object of TYPE: %s\n", calc.min.type);
 	print_point(&calc.min.point, "at: ");
 	printf("Distance to camera: %10f\n\n", calc.min.distance);

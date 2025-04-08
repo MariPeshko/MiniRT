@@ -81,12 +81,14 @@ int	rays_loop(t_mini_rt *rt)
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
 			//calculate ray (Pixel - camera)
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
-			t_ray ryy = rt->calc.ray;
-			printf("ray: %lf %lf %lf\n", ryy.v_dir.x, ryy.v_dir.y, ryy.v_dir.z);
+			
+			//t_ray ryy = rt->calc.ray;
+			//printf("ray: %lf %lf %lf\n", ryy.v_dir.x, ryy.v_dir.y, ryy.v_dir.z);
+			
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				printf("get_hit succes\n");
+				//printf("get_hit succes\n");
 				get_color();
 			}
 			else
