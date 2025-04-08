@@ -19,21 +19,21 @@ MLX_FLAGS = -L/usr/lib/X11 -lXext -lX11
 SRC_DIR = ./src
 #add *.c files here
 SRC = $(addprefix $(SRC_DIR)/,\
+		main.c				\
 		check_cylinders.c 	\
 		check_plane_hit.c 	\
 		check_sphere_hits.c \
-		main.c				\
 		vector_calc.c 		\
 		quadratic_equation.c \
 		cys_quadratic_helpers.c\
 		/parsing/check_initial.c \
-		/parsing/lst_struct_plane.c \
 		/parsing/config_file.c \
 		/parsing/parse_delegate.c	\
 		/parsing/parse_objects.c 	\
 		/parsing/parse_rgb.c	\
 		/parsing/parse_helpers.c 	\
 		/parsing/test_parse_delegate.c 	\
+		/parsing/lst_struct_plane.c \
 		/parsing/lst_struct_sphere.c \
 		/parsing/lst_struct_cylinder.c \
 		/hit/get_hit.c	\

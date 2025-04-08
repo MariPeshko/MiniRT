@@ -49,103 +49,83 @@
 
 # define DestroyNotify 17
 
-//check_cylinders_hit.c
-int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
-int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
-void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-
-// check_initial.c
+//parsing
+//parsing/check_initial.c
 void	arg_error(int argc);
 void	check_filename(char *config);
 int		is_empt_file(char *filename);
-
-//check_plane_hit.c
-int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
-void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-
-//check_sphere_hit.c
-int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
-void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
-
-//cleanup.c
-int		cleanup(t_config *cf);
-void	clean_exit(t_config *cf, char *er_msg);
-void	clean_exit_rt(t_mini_rt *rt, char *er_msg);
-
-// config_file.c
+//parsing/config_file.c
 int		open_config(char *config, t_config *cf);
 void	init_point(t_point *p, double *triplet);
 void	init_vec(t_vector *vec, double *triplet);
-
-//debugging_prints.c
-void	print_test_config(t_config *cf);
-void	print_map(char **map);
-void	print_triplet(float *triplet);
-void	print_viewport(t_vp *vp);
-void	print_collision(t_col calc);
-void	print_vec(t_vector *vec, const char *msg);
-void	print_point(t_point *p, const char *msg);
-
-//error_handling.c
-int		display_error(char *msg);
-
-//get_hit.c
-int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-int	rays_loop(t_mini_rt *rt);
-
-//parse_objects.c
+//parsing/parse_delegate.c
+int		parse_delegate(char *line, t_config *cf);
+int		calc_nmb_args(char *line);
+//parsing/parse_objects.c
 int		full_parse_ambient(char *line, t_ambient *amb);
 int		full_parse_camera(char *line, t_camera *camera);
 int		full_parse_light(char *line, t_light *light);
 int		parse_cylinder(char *line, t_cys **cylinder);
 int		parse_plane(char *line, t_plane **plane);
 int		parse_sphere(char *line, t_spher **sphere);
-
-//parse_delegate.c
-int		parse_delegate(char *line, t_config *cf);
-int		calc_nmb_args(char *line);
-
-//parse_helpers.c
+//parsing/parse_rgb.c
+int		get_rgb(char *line, int *pos, t_color *result_rgb);
+void	assign_rgb(t_color *in_struct, t_color result_rgb);
+//parsing/parse_helpers.c
 int		get_int(char *line, int *pos, int *dest);
 int		triplet_in_scope(double *triplet, double min, double max);
 int		get_float(char *line, int *pos, float *dest);
 int		get_three_floats(char *line, int *pos, double triplet[3]);
-
-// parse_helpers.c
-int		get_rgb(char *line, int *pos, t_color *result_rgb);
-void	assign_rgb(t_color *in_struct, t_color result_rgb);
-
-// str_utils.c
-void	ft_freestr(char **lst);
-void	trim_out_spaces(char **str);
-int		ft_spacetabchecker(char *input);
-
-//lst_hit.c
-void	init_hit(t_hit *hit);
-void	update_min(t_hit *min, t_hit *got);
-void	fill_hit(char	*object, double t, t_ray *ray, t_hit *hit);
-
-// lst_struct_plane.c
+//parsing/test_parse_delegate.c
 t_plane	*get_ptr_lst_pl(t_plane **plane);
 t_plane	*ft_lstnew_pl(t_plane *new);
 void	ft_lstadd_back_pl(t_plane **lst, t_plane *new);
-
-// lst_struct_sphere.c
+//parsing/lst_struct_sphere.c
 t_spher	*get_ptr_lst_sph(t_spher **sphere);
 t_spher	*ft_lstnew_sph(t_spher *new);
 void	ft_lstadd_back_sph(t_spher **lst, t_spher *new);
-
-// lst_struct_cylinder.c
+//parsing/lst_struct_cylinder.c
 t_cys	*get_ptr_lst_cyl(t_cys	**cylinder);
 t_cys	*ft_lstnew_cy(t_cys *new);
 void	ft_lstadd_back_cy(t_cys **lst, t_cys *new);
 // might be unused
 t_cys	*ft_lstlast_cy(t_cys *lst);
 
-//mlx.c
+//image/
+//image/mlx.c
 void	setup_mlx(t_mini_rt *rt);
 int		handle_close(t_config *cf);
 int		handle_keypress(int keycode, t_config *cf);
+//image/image.c
+int	color_map_1(t_config *cf, int w, int h);
+//image/viewport_00.c
+int 	viewport_calculation(t_config *cf);
+void	init_viewport(t_vp *vp);
+int     calculate_width(t_config *cf);
+int     calculate_height(t_config *cf);
+//image/viewport_01.c
+int	calculate_viewport_orientation(t_config *cf);
+int calculate_upper_left_corner(t_vp *viewp);
+int	viewport_calculation(t_config *cf);
+
+//hit/
+//get_hit.c
+int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+int	rays_loop(t_mini_rt *rt);
+//check_plane_hit.c
+int	get_hit_plane(t_plane *pl, t_hit *got, t_ray *ray);
+void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+//check_sphere_hit.c
+int	get_hit_sphere(t_spher *sp, t_hit *got, t_ray *ray);
+void	check_sphere_hit(t_config *cf, t_col *calc, t_ray *ray);
+//check_cylinders_hit.c
+int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
+int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
+void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+//lst_hit.c
+void	init_hit(t_hit *hit);
+void	update_min(t_hit *min, t_hit *got);
+void	fill_hit(char	*object, double t, t_ray *ray, t_hit *hit);
 
 //vector_calc.c
 int	cross_product(t_vector *a, t_vector *b, t_vector *result);
@@ -157,11 +137,6 @@ int	dot_product(t_vector *a, t_vector *b, double *result); // shorter version of
 int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int	point_minus_point(t_point *a, t_point *b, t_vector *result);
 int	get_normal(t_vector *v, t_vector *n);
-
-//whitespaces.c
-void	whitespace_to_space(char *line);
-bool	is_whitespace(char c);
-void	skip_whitespace(char *str, int *pos);
 
 //quadratic_equation.c
 int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
@@ -176,21 +151,30 @@ int get_C_cylinder(t_vector *OC_vertical, double radius, double *C, t_mini_rt *r
 int get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 int calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
-//image/image.c
-int	color_map_1(t_config *cf, int w, int h);
-
-//image/viewport_00.c
-int 	viewport_calculation(t_config *cf);
-void	init_viewport(t_vp *vp);
-int     calculate_width(t_config *cf);
-int     calculate_height(t_config *cf);
-
-//image/viewport_01.c
-int	calculate_viewport_orientation(t_config *cf);
-int calculate_upper_left_corner(t_vp *viewp);
-int	viewport_calculation(t_config *cf);
-
+//utils
+//utils/cleanup.c
+int		cleanup(t_config *cf);
+void	clean_exit(t_config *cf, char *er_msg);
+void	clean_exit_rt(t_mini_rt *rt, char *er_msg);
+//utils/debugging_prints.c
+void	print_test_config(t_config *cf);
+void	print_map(char **map);
+void	print_triplet(float *triplet);
+void	print_viewport(t_vp *vp);
+void	print_collision(t_col calc);
+void	print_vec(t_vector *vec, const char *msg);
+void	print_point(t_point *p, const char *msg);
+//utils/error_handling.c
+int		display_error(char *msg);
+//utils/str_utils.c
+void	ft_freestr(char **lst);
+void	trim_out_spaces(char **str);
+int		ft_spacetabchecker(char *input);
 //utils/array_utils.c
 int		map_len(char **map);
+//utils/whitespaces.c
+void	whitespace_to_space(char *line);
+bool	is_whitespace(char c);
+void	skip_whitespace(char *str, int *pos);
 
 #endif
