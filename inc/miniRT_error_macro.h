@@ -8,6 +8,9 @@
 is exactly in the plane."
 
 # define MEMORY "Memory allocation failed"
+# define MLX_INIT "Mlx init failed"
+# define MLX_WIN_INIT "Mlx window init failed"
+# define MLX_IMG_INIT "Mlx image init failed"
 # define INVALID_NBR_ARG "Invalid number of Arguments"
 # define INVALID_NBR_ARG_CY "Invalid number of Arguments in cylinder"
 # define INVALID_NBR_ARG_PL "Invalid number of Arguments in plane"

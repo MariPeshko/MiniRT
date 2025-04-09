@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/09 19:04:38 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/09 22:44:04 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ int	handle_keypress(int keycode, void *param)
 	return (0);
 }
 
+static int	setup_img(t_mini_rt *rt)
+{
+	t_img *image;
+
+	image = rt->visual.img;
+	image->img_ptr = mlx_new_image(rt->visual.mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!image->img_ptr)
+		return (FAILURE);
+	image->data = mlx_get_data_addr(image->img_ptr, &image->bpp, \
+									&image->line_len, &image->endian);
+	if (!image->data)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 /**
  * @brief 
  * 
@@ -55,11 +70,13 @@ void	setup_mlx(t_mini_rt *rt)
 {
 	rt->visual.mlx = mlx_init();
 	if (!rt->visual.mlx)
-		clean_exit_rt(rt, MEMORY);
+		clean_exit_rt(rt, MLX_INIT);
 	rt->visual.win = mlx_new_window(rt->visual.mlx, WIN_WIDTH, \
 								WIN_HEIGHT, "42MiniRT");
 	if (!rt->visual.win)
-		clean_exit_rt(rt, MEMORY);
+		clean_exit_rt(rt, MLX_WIN_INIT);
+	if (setup_img(rt) == FAILURE)
+		clean_exit_rt(rt, MLX_IMG_INIT);
 	mlx_hook(rt->visual.win, DestroyNotify, 0, handle_close, rt);
 	mlx_key_hook(rt->visual.win, handle_keypress, rt);
 }
