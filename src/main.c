@@ -1,5 +1,9 @@
 #include "../inc/miniRT.h"
 
+/* static void	display_image(t_mini_rt *rt)
+{
+	mlx_put_image_to_window(&rt->visual.mlx, &rt->visual.win, NULL, 0, 0);
+} */
 
 int main(int argc, char **argv)
 {
@@ -24,7 +28,9 @@ int main(int argc, char **argv)
 	// mlx_put_image_to_window(), mlx_destroy_image()
 	// instruction in minilibx/test/main.c
 
-	color_map_1(&rt.visual, &rt.cf, WIN_WIDTH, WIN_HEIGHT);
+	//color_map_1(&rt.visual, &rt.cf, WIN_WIDTH, WIN_HEIGHT);
+
+	//display_image(&rt);
 
 	// Start the event loop
 	//printf("hi\n");

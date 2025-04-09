@@ -1,15 +1,19 @@
 #include "../inc/miniRT.h"
 
-int	handle_close(t_mini_rt *rt)
+int	handle_close(void *param)
 {
+	t_mini_rt *rt = (t_mini_rt *)param;
+
 	cleanup_cf(&rt->cf);
-	cleanup_mlx(rt);// Free resources and exit
+	cleanup_mlx(rt);
 	exit(SUCCESS);
-	return (0);// Required return for mlx_hook callbacks
+	return (0);
 }
 
-int	handle_keypress(int keycode, t_mini_rt *rt)
+int	handle_keypress(int keycode, void *param)
 {
+	t_mini_rt *rt = (t_mini_rt *)param;
+
 	if (keycode == ESC_KEY)
 	{
 		cleanup_cf(&rt->cf);
@@ -32,11 +36,6 @@ int	handle_keypress(int keycode, t_mini_rt *rt)
  * 
  * mlx_key_hook() registers a function (handle_keypress) to be called 
  * when a key is released.
- * @cite int (*)(int, t_config *) is a function pointer type.
- * @cite int (*funct)() — a pointer to a function that takes unspecified 
- * parameters and returns an int.
- * @param (int (*)(int, t_config *))handle_keypress — this casts handle_keypress
- *  to match the expected function pointer type.
 */
 void	setup_mlx(t_mini_rt *rt)
 {
@@ -48,9 +47,6 @@ void	setup_mlx(t_mini_rt *rt)
 	rt->visual.win = mlx_new_window(rt->visual.mlx, WIN_WIDTH, WIN_HEIGHT, "42 MinilibX Window");
 	if (!rt->visual.win)
 		clean_exit_rt(rt, MEMORY);
-	// Correctly pass rt.cf into the hook, do NOT call handle_close directly
-	mlx_hook(rt->visual.win, DestroyNotify, 0, \
-		(int (*)(void *))handle_close, rt);
-	mlx_key_hook(rt->visual.win, (int (*)(int, t_config *))handle_keypress, \
-		rt);
+	mlx_hook(rt->visual.win, DestroyNotify, 0, handle_close, rt);
+	mlx_key_hook(rt->visual.win, handle_keypress, rt);
 }

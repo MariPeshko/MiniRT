@@ -96,7 +96,7 @@ t_cys	*ft_lstlast_cy(t_cys *lst);
 //image/mlx.c
 void	setup_mlx(t_mini_rt *rt);
 int handle_close(t_mini_rt *rt);
-int handle_keypress(int keycode, t_mini_rt *rt);
+int	handle_keypress(int keycode, void *param);
 //image/viewport_00.c
 int     viewport_calculation(t_config *cf, t_mini_rt *rt);
 void    init_viewport(t_vp *vp);

@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/08 19:01:29 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:33:35 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,32 @@ typedef struct s_col
 	double	t2;
 }	t_col;//col = collisions calculations
 
+// a pointer to the image (returned by mlx_new_image)
+// a pointer to the image data buffer (from mlx_get_data_addr)
+// some metadata to help you access pixels properly 
+// (like bits per pixel, endian, line size)
+// line_len - size of a line in bytes, Each row of image 
+// memory may have padding, 
+// this tells you the actual byte width.
+// endian - Controls how to write multi-byte colors correctly.
+// 0: little endian, 1: big endian
+// width and height (to help your raytracer with resolution)
+typedef struct s_img
+{
+	void	*img_ptr;   // pointer to MLX image (from mlx_new_image)
+	char	*data;      // address of image data (from mlx_get_data_addr)
+	int		width;      // image width
+	int		height;     // image height
+	int		bpp;        // bits per pixel. Needed to calculate how to write a pixel.
+	int		line_len;   // 
+	int		endian;
+}	t_img;
+
 typedef struct s_visual
 {
 	void		*mlx;
 	void		*win;
+	t_img		*img;
 	//t_viewp 	vp?
 }	t_visual;
 
