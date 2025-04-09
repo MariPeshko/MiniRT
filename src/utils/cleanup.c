@@ -73,6 +73,8 @@ int	cleanup_mlx(t_mini_rt *rt)
 		mlx_destroy_display(rt->visual.mlx);// Destroy the mlx display
 		free(rt->visual.mlx);
 	}
+	if(rt->visual.img)
+		free(rt->visual.img);
 	return (SUCCESS);
 }
 
