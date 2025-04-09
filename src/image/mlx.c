@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/09 22:53:26 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/09 23:00:41 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static int	setup_img(t_mini_rt *rt)
 		return (FAILURE);
 	image->data = mlx_get_data_addr(image->img_ptr, &image->bpp, \
 									&image->line_len, &image->endian);
-	if (!image->data)
-		return (FAILURE);
 	return (SUCCESS);
 }
 

@@ -74,7 +74,10 @@ int	cleanup_mlx(t_mini_rt *rt)
 		free(rt->visual.mlx);
 	}
 	if(rt->visual.img)
+	{
+		// if(rt->visual.img->img_ptr) ??
 		free(rt->visual.img);
+	}
 	return (SUCCESS);
 }
 
