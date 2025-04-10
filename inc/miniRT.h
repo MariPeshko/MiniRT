@@ -36,8 +36,8 @@
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define DestroyNotify 17
-# define WIN_WIDTH 160
-# define WIN_HEIGHT 90
+# define WIN_WIDTH 320
+# define WIN_HEIGHT 180
 /* # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720 */
 # define VIEWPORT_RATIO (16.0 / 9.0)
@@ -107,6 +107,7 @@ int     calculate_viewport_orientation(t_config *cf);
 int     calculate_upper_left_corner(t_vp *viewp);
 void	get_up_vector(t_config *cf, t_vector *up);
 //image/image.c
+void	put_pixel(t_img *img, int x, int y, t_color rgb_color);
 int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
 
 //hit/

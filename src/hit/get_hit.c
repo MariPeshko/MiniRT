@@ -74,26 +74,25 @@ int	rays_loop(t_mini_rt *rt)
 		w = 0;
 		while (w < WIN_WIDTH)//for each column WIN_WIDTH
 		{
-			//calculate pixel
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
-			//calculate ray (Pixel - camera)
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				/* if(w % 20 == 0 && h % 20 == 0)
-					printf("get_hit success for %d w %d h\n", w, h); */
 				get_color();
+				put_pixel(&rt->visual.img, w, h, rt->cf.pl->col);
 			}
 			else
-			{
-				/* if(w % 20 == 0 && h % 20 == 0)
-					printf("get_hit NOT succes for %d w %d h\n", w, h); */
-				get_ambient();
-			}
+				put_pixel(&rt->visual.img, w, h, rt->cf.amb.adjusted);
 			w++;
 		}
 		h++;
 	}
 	return (SUCCESS);
 }
+
+// HEY STEFFI THIS IS the test for correct width and height
+// if (w == WIN_WIDTH / 2)
+// 	put_pixel(&rt->visual.img, w, h, (t_color){255, 0, 0}); // red vertical line
+// if (h == WIN_HEIGHT / 2)
+// 	put_pixel(&rt->visual.img, w, h, (t_color){0, 255, 0}); // green horizontal line

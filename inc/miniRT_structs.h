@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/09 18:33:35 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/10 15:06:32 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_ambient
 {
 	double	lighting_ratio;
 	t_color	col;
+	t_color	adjusted;
 }	t_ambient;
 
 /*the light brightness ratio in range [0.0,1.0]
@@ -181,7 +182,7 @@ typedef struct s_img
 	int		width;      // image width
 	int		height;     // image height
 	int		bpp;        // bits per pixel. Needed to calculate how to write a pixel.
-	int		line_len;   // 
+	int		line_len;
 	int		endian;
 }	t_img;
 
@@ -189,7 +190,7 @@ typedef struct s_visual
 {
 	void		*mlx;
 	void		*win;
-	t_img		*img;
+	t_img		img;
 	//t_viewp 	vp?
 }	t_visual;
 

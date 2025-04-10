@@ -1,5 +1,15 @@
 #include "../inc/miniRT.h"
 
+void	apply_ambient_light(t_ambient *amb)
+{
+	t_color	result;
+
+	result.r = (int)(amb->col.r * amb->lighting_ratio);
+	result.g = (int)(amb->col.g * amb->lighting_ratio);
+	result.b = (int)(amb->col.b * amb->lighting_ratio);
+	amb->adjusted = result;
+}
+
 /* potentially later split up into parse lights (A and L)
 parse View (C) and parse objects (cy, pl, sp)*/
 /*parses a line starting with A*/
@@ -14,7 +24,6 @@ int	full_parse_ambient(char *line, t_ambient *amb)
 	nmb_args = calc_nmb_args(line);
 	if (nmb_args != 3)
 		return (display_error(INVALID_NBR_ARG));
-	//print_map(arguments);
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	if (tmp < 0.0 || tmp > 1.0)
@@ -28,6 +37,7 @@ int	full_parse_ambient(char *line, t_ambient *amb)
 	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
 	assign_rgb(&amb->col, rgb);
+	apply_ambient_light(amb);
 	return (SUCCESS);
 }
 

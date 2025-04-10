@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/09 23:00:41 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/10 14:53:17 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ static int	setup_img(t_mini_rt *rt)
 {
 	t_img *image;
 
-	rt->visual.img = ft_calloc(1, sizeof(t_img));
-	if (!rt->visual.img)
-		return (FAILURE);
-	image = rt->visual.img;
+	// &(rt->visual.img) = ft_calloc(1, sizeof(t_img));
+	// if (!rt->visual.img)
+	// 	return (FAILURE);
+	image = &rt->visual.img;
+	image->width = WIN_WIDTH;
+	image->bpp = WIN_HEIGHT;
 	image->img_ptr = mlx_new_image(rt->visual.mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!image->img_ptr)
 		return (FAILURE);
@@ -69,6 +71,8 @@ static int	setup_img(t_mini_rt *rt)
 */
 void	setup_mlx(t_mini_rt *rt)
 {
+	rt->visual.mlx = NULL;
+	rt->visual.win = NULL;
 	rt->visual.mlx = mlx_init();
 	if (!rt->visual.mlx)
 		clean_exit_rt(rt, MLX_INIT);

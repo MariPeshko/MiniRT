@@ -66,17 +66,14 @@ int	cleanup_cf(t_config *cf)//rename cleanup and exit
 
 int	cleanup_mlx(t_mini_rt *rt)
 {
+	if (rt->visual.img.img_ptr)
+		mlx_destroy_image(rt->visual.mlx, rt->visual.img.img_ptr);
 	if (rt->visual.win)
 		mlx_destroy_window(rt->visual.mlx, rt->visual.win);// Free the window
 	if (rt->visual.mlx)
 	{
 		mlx_destroy_display(rt->visual.mlx);// Destroy the mlx display
 		free(rt->visual.mlx);
-	}
-	if(rt->visual.img)
-	{
-		// if(rt->visual.img->img_ptr) ??
-		free(rt->visual.img);
 	}
 	return (SUCCESS);
 }
