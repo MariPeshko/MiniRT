@@ -52,12 +52,20 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 	return ;
 }
 
-/*gets the coordinates of a pixel*/
+// gpt
+/* void	get_pixel(t_vp vp, int x, int y, t_point *pixel)
+{
+	pixel->x = vp.point.x + x * vp.horizontal.x + y * vp.vertical.x;
+	pixel->y = vp.point.y + x * vp.horizontal.y + y * vp.vertical.y;
+	pixel->z = vp.point.z + x * vp.horizontal.z + y * vp.vertical.z;
+} */
+
+//gets the coordinates of a pixel
 void	get_pixel(t_vp vp, int h, int w, t_point *pixel)
 {
-	pixel->x = vp.point.x + h * vp.vertical.x + w * vp.horizontal.x;
-	pixel->y = vp.point.y + h * vp.vertical.y + w * vp.horizontal.y;
-	pixel->z = vp.point.z + h * vp.vertical.z + w * vp.horizontal.z;
+	pixel->x = vp.upperleft.x + h * vp.vertical.x + w * vp.horizontal.x;
+	pixel->y = vp.upperleft.y + h * vp.vertical.y + w * vp.horizontal.y;
+	pixel->z = vp.upperleft.z + h * vp.vertical.z + w * vp.horizontal.z;
 }
 
 /*moves through pixels and delegates coloring it.
@@ -75,12 +83,13 @@ int	rays_loop(t_mini_rt *rt)
 		while (w < WIN_WIDTH)//for each column WIN_WIDTH
 		{
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
+			//get_pixel(rt->cf.viewp, w, h, &rt->calc.pixel);
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				get_color();
-				put_pixel(&rt->visual.img, w, h, rt->cf.pl->col);
+				//get_color(&rt->calc);
+				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else
 				put_pixel(&rt->visual.img, w, h, rt->cf.amb.adjusted);
@@ -90,6 +99,8 @@ int	rays_loop(t_mini_rt *rt)
 	}
 	return (SUCCESS);
 }
+
+
 
 // HEY STEFFI THIS IS the test for correct width and height
 // if (w == WIN_WIDTH / 2)

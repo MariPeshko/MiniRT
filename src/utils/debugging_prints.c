@@ -17,12 +17,8 @@ static void	print_col(t_color *c, const char *msg)
 	printf("%i\n", c->b);
 }
 
-void	print_point(t_point *p, const char *msg)
+void	print_point(t_point *p)
 {
-	if (msg)
-		printf("%spoint ", msg);
-	else
-		printf("Undefined element's point ");
 	printf("x: %.4f, ", p->x);
 	printf("y: %.4f, ", p->y);
 	printf("z: %.4f\n", p->z);
@@ -55,7 +51,7 @@ void	print_all_planes(t_config *cf)
 	while (curr != NULL)
 	{
 		printf("\n%i PLANE\n", i);
-		print_point(&curr->point, "Plane");
+		print_point(&curr->point);
 		print_vec(&curr->pl_normal, "Plane normal");
 		print_col(&curr->col, "Plane");
 		curr = curr->next;
@@ -73,7 +69,7 @@ void	print_all_spheres(t_config *cf)
 	while (curr != NULL)
 	{
 		printf("\n%i SPHERE\n", i);
-		print_point(&curr->point, "Sphere");
+		print_point(&curr->point);
 		printf("Diameter %.2f\n", curr->diam);
 		print_col(&curr->col, "Sphere");
 		curr = curr->next;
@@ -91,7 +87,7 @@ void	print_all_cylider(t_config *cf)
 	while (curr != NULL)
 	{
 		printf("\n%i CYLINDER\n", i);
-		print_point(&curr->point, "Cylinder");
+		print_point(&curr->point);
 		print_vec(&curr->norm_vec, "Cylinder norm");
 		printf("Cylinder diameter: %.2f\n", curr->diam);
 		printf("Cylinder height: %.2f\n", curr->height);
@@ -107,9 +103,9 @@ void	print_test_config(t_config *cf)
 	printf("Amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
 	print_col(&cf->amb.col, "Ambience");
 	print_vec(&cf->cam.norm_vec, "Camera norm");
-	print_point(&cf->cam.point, "Camera");
+	print_point(&cf->cam.point);
 	printf("Camera fov: %.2f\n", cf->cam.fov);
-	print_point(&cf->light.point, "Light");
+	print_point(&cf->light.point);
 	printf("Light brightness %.1f\n", cf->light.bright);
 	print_col(&cf->light.col, "Light");
 
@@ -148,22 +144,22 @@ void	print_viewport(t_vp *vp)
 
 	printf("\nVIEWPORT\n");
 
-	print_point(&vp->point, "VP Origin");
+	printf("VP Width: %f in 3D space\n", vp->width);
+	printf("VP Height: %f in 3D space\n", vp->height);
+	printf("VP upperleft point: \n");
+	print_point(&vp->upperleft);
 
 	print_vec(&vp->horizontal, "VP Horizontal");
 	print_vec(&vp->vertical, "VP Vertical");
-
-	printf("VP Width: %f in 3D space\n", vp->width);
-	printf("VP Height: %f in 3D space\n", vp->height);
-
-	print_point(&vp->vp_center, "VP C-Point");
+	printf("VP C-Point:\n");
+	print_point(&vp->vp_center);
 }
 
 void	print_collision(t_col calc)
 {
 	printf("Closest collision for ");
-	print_point(&calc.pixel, "pixel at\n");
+	print_point(&calc.pixel);
 	printf("hit object of TYPE: %s\n", calc.min.type);
-	print_point(&calc.min.point, "at: ");
+	print_point(&calc.min.point);
 	printf("Distance to camera: %10f\n\n", calc.min.distance);
 }

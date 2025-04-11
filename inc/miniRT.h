@@ -36,10 +36,8 @@
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define DestroyNotify 17
-# define WIN_WIDTH 320
-# define WIN_HEIGHT 180
-/* # define WIN_WIDTH 1280
-# define WIN_HEIGHT 720 */
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 800
 # define VIEWPORT_RATIO (16.0 / 9.0)
 # define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
 
@@ -169,7 +167,7 @@ int	display_error(char *msg);
 //utils/debugging_prints.c
 void	print_triplet(float *triplet);
 void	print_vec(t_vector *vec, const char *msg);
-void	print_point(t_point *p, const char *msg);
+void	print_point(t_point *p);
 void    print_map(char **map);
 void	print_test_config(t_config *cf);
 void	print_all_cylider(t_config *cf);
