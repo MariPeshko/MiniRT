@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/11 19:01:30 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:27:25 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,7 @@ static int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 	return (FAILURE);
 }
 
-void	save_color(t_col *calc, t_color col)
-{
-	calc->hit_color.r = col.r;
-	calc->hit_color.g = col.g;
-	calc->hit_color.b = col.b;
-	
-}
+
 
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {

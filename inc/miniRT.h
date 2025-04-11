@@ -112,6 +112,7 @@ int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
 //hit/get_hit.c
 int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 int	rays_loop(t_mini_rt *rt);
+void	save_color(t_col *calc, t_color col);
 //hit/lst_hit.c
 void	init_hit(t_hit *hit);
 void	update_min(t_hit *min, t_hit *got);
@@ -166,7 +167,7 @@ void	*free_cys(t_cys *cys);
 int	display_error(char *msg);
 //utils/debugging_prints.c
 void	print_triplet(float *triplet);
-void	print_vec(t_vector *vec, const char *msg);
+void	print_vec(t_vector *vec);
 void	print_point(t_point *p);
 void    print_map(char **map);
 void	print_test_config(t_config *cf);

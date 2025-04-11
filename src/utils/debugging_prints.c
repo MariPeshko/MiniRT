@@ -24,12 +24,8 @@ void	print_point(t_point *p)
 	printf("z: %.4f\n", p->z);
 }
 
-void	print_vec(t_vector *vec, const char *msg)
+void	print_vec(t_vector *vec)
 {
-	if (msg)
-		printf("%s vector ", msg);
-	else
-		printf("Undefined element's vector ");
 	printf("x: %.10f, ", vec->x);
 	printf("y: %.10f, ", vec->y);
 	printf("z: %.10f\n", vec->z);
@@ -52,7 +48,7 @@ void	print_all_planes(t_config *cf)
 	{
 		printf("\n%i PLANE\n", i);
 		print_point(&curr->point);
-		print_vec(&curr->pl_normal, "Plane normal");
+		print_vec(&curr->pl_normal);
 		print_col(&curr->col, "Plane");
 		curr = curr->next;
 		i++;
@@ -88,7 +84,7 @@ void	print_all_cylider(t_config *cf)
 	{
 		printf("\n%i CYLINDER\n", i);
 		print_point(&curr->point);
-		print_vec(&curr->norm_vec, "Cylinder norm");
+		print_vec(&curr->norm_vec);
 		printf("Cylinder diameter: %.2f\n", curr->diam);
 		printf("Cylinder height: %.2f\n", curr->height);
 		print_col(&curr->col, "Cylinder");
@@ -102,7 +98,9 @@ void	print_test_config(t_config *cf)
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n");
 	printf("Amb.lighting_ratio: %.1f\n", cf->amb.lighting_ratio);
 	print_col(&cf->amb.col, "Ambience");
-	print_vec(&cf->cam.norm_vec, "Camera norm");
+	printf("Camera norm vector:\n");
+	print_vec(&cf->cam.norm_vec);
+	printf("Camera point:\n");
 	print_point(&cf->cam.point);
 	printf("Camera fov: %.2f\n", cf->cam.fov);
 	print_point(&cf->light.point);
@@ -110,11 +108,11 @@ void	print_test_config(t_config *cf)
 	print_col(&cf->light.col, "Light");
 
 	// LOOP to print multiple planes:
-	print_all_planes(cf);
+	//print_all_planes(cf);
 	// LOOP to print multiple spheres:
-	print_all_spheres(cf);
+	//print_all_spheres(cf);
 	// LOOP to print multiple cylinders:
-	print_all_cylider(cf);
+	//print_all_cylider(cf);
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
 }
 
@@ -148,9 +146,10 @@ void	print_viewport(t_vp *vp)
 	printf("VP Height: %f in 3D space\n", vp->height);
 	printf("VP upperleft point: \n");
 	print_point(&vp->upperleft);
-
-	print_vec(&vp->horizontal, "VP Horizontal");
-	print_vec(&vp->vertical, "VP Vertical");
+	printf("VP horizontal:\n");
+	print_vec(&vp->horizontal);
+	printf("VP vertical:\n");
+	print_vec(&vp->vertical);
 	printf("VP C-Point:\n");
 	print_point(&vp->vp_center);
 }

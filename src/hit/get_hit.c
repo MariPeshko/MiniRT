@@ -8,7 +8,7 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.min);
 
 	check_plane_hit(cf, rt, ray);
-	//check_sphere_hit(cf, &rt->calc, ray);
+	check_sphere_hit(cf, rt, ray);;
 	//check_cys_hit(cf, rt, ray);
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
 	{
@@ -100,7 +100,12 @@ int	rays_loop(t_mini_rt *rt)
 	return (SUCCESS);
 }
 
-
+void	save_color(t_col *calc, t_color col)
+{
+	calc->hit_color.r = col.r;
+	calc->hit_color.g = col.g;
+	calc->hit_color.b = col.b;
+}
 
 // HEY STEFFI THIS IS the test for correct width and height
 // if (w == WIN_WIDTH / 2)

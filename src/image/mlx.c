@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/10 14:53:17 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:43:35 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,25 @@ static int	setup_img(t_mini_rt *rt)
 */
 void	setup_mlx(t_mini_rt *rt)
 {
+	int	x;
+	int	y;
+	
 	rt->visual.mlx = NULL;
-	rt->visual.win = NULL;
 	rt->visual.mlx = mlx_init();
 	if (!rt->visual.mlx)
 		clean_exit_rt(rt, MLX_INIT);
+	mlx_get_screen_size(rt->visual.mlx, &x, &y);
+	if (x > 0 && y > 0)
+	{
+		rt->visual.width = x * 0.8;
+		rt->visual.height = y * 0.8;
+	}
+	else
+	{
+		rt->visual.width = WIN_WIDTH;
+		rt->visual.height = WIN_HEIGHT;
+	}
+	rt->visual.win = NULL;
 	rt->visual.win = mlx_new_window(rt->visual.mlx, WIN_WIDTH, \
 								WIN_HEIGHT, "42MiniRT");
 	if (!rt->visual.win)

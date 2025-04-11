@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/11 19:34:29 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/11 22:39:46 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,8 @@ typedef struct s_visual
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	int		width;
+	int		height;
 	//t_viewp 	vp?
 }	t_visual;
 
@@ -202,6 +204,8 @@ typedef struct s_mini_rt
 	t_config	cf;
 	t_col		calc;
 	t_visual	visual;
+	
+
 	// rest of the structs
 }	t_mini_rt;
 
