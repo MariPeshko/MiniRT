@@ -32,45 +32,13 @@ void	get_up_vector(t_config *cf, t_vector *up)
 	}
 }
 
-// gpt
-/* int	calculate_viewport_orientation(t_config *cf)
-{
-	t_vector	up;
-	t_vector	right;
-	t_vector	vertical;
-
-	get_up_vector(cf, &up);
-	//Right (horizontal direction) = cross(forward, up)
-	if (cross_product(&cf->cam.norm_vec, &up, &right) == FAILURE)
-		return (FAILURE);
-	if (normalize_vector(&right) == FAILURE)
-		return (FAILURE);
-	// True Up (vertical) = cross(right, forward)
-	if (cross_product(&right, &cf->cam.norm_vec, &vertical) == FAILURE)
-		return (FAILURE);
-	if (normalize_vector(&vertical) == FAILURE)
-		return (FAILURE);
-	// Scale vectors to match pixel size
-	// pixel step calculation
-	right.x *= cf->viewp.width / WIN_WIDTH;
-	right.y *= cf->viewp.width / WIN_WIDTH;
-	right.z *= cf->viewp.width / WIN_WIDTH;
-	vertical.x *= cf->viewp.height / WIN_HEIGHT;
-	vertical.y *= cf->viewp.height / WIN_HEIGHT;
-	vertical.z *= cf->viewp.height / WIN_HEIGHT;
-	// Save to viewport
-	cf->viewp.horizontal = right;
-	cf->viewp.vertical = vertical;
-	return (SUCCESS);
-} */
-
 /** Calculate viewport orientation and pixel step calculation.
  * - Defines "world up" vector.
  * - Finds Basis Vectors for Viewport Orientation.
  * pixel step calculation:
  * - Scale horizontal & vertical vectors to match pixel spacing.
 */
-int	calculate_viewport_orientation(t_config *cf)
+int	calculate_viewport_orientation(t_config *cf, t_img img)
 {
 	t_vector	up;
 	t_vector	horizontal;
@@ -88,12 +56,12 @@ int	calculate_viewport_orientation(t_config *cf)
 	if (normalize_vector(&vertical) == FAILURE)
 		return (FAILURE);
 	// pixel step calculation
-	horizontal.x *= cf->viewp.width / WIN_WIDTH;
-	horizontal.y *= cf->viewp.width / WIN_WIDTH;
-	horizontal.z *= cf->viewp.width / WIN_WIDTH;
-	vertical.x *= cf->viewp.height / WIN_HEIGHT;
-	vertical.y *= cf->viewp.height / WIN_HEIGHT;
-	vertical.z *= cf->viewp.height / WIN_HEIGHT;
+	horizontal.x *= cf->viewp.width / img.width; // WIN_WIDTH
+	horizontal.y *= cf->viewp.width / img.width; 
+	horizontal.z *= cf->viewp.width / img.width;
+	vertical.x *= cf->viewp.height / img.height; // WIN_HEIGHT
+	vertical.y *= cf->viewp.height / img.height; 
+	vertical.z *= cf->viewp.height / img.height;
 
 	cf->viewp.horizontal = horizontal;
 	cf->viewp.vertical = vertical;
@@ -107,19 +75,19 @@ int	calculate_viewport_orientation(t_config *cf)
  * + half_vertical.
  * @param upperleft - the upper left corner
 */
-int	calculate_upper_left_corner(t_vp *viewp)
+int	calculate_upper_left_corner(t_vp *viewp, t_img img)
 {
 	t_vector	half_horizontal;
 	t_vector	half_vertical;
 
 	if (!viewp)
 		return (FAILURE);
-	half_horizontal.x = viewp->horizontal.x * 0.5 * WIN_WIDTH;
-	half_horizontal.y = viewp->horizontal.y * 0.5 * WIN_WIDTH;
-	half_horizontal.z = viewp->horizontal.z * 0.5 * WIN_WIDTH;
-	half_vertical.x = viewp->vertical.x * 0.5 * WIN_HEIGHT;
-	half_vertical.y = viewp->vertical.y * 0.5 * WIN_HEIGHT;
-	half_vertical.z = viewp->vertical.z * 0.5 * WIN_HEIGHT;
+	half_horizontal.x = viewp->horizontal.x * 0.5 * img.width; // WIN_WIDTH
+	half_horizontal.y = viewp->horizontal.y * 0.5 * img.width;
+	half_horizontal.z = viewp->horizontal.z * 0.5 * img.width;
+	half_vertical.x = viewp->vertical.x * 0.5 * img.height;
+	half_vertical.y = viewp->vertical.y * 0.5 * img.height;
+	half_vertical.z = viewp->vertical.z * 0.5 * img.height;
 	viewp->upperleft.x = viewp->vp_center.x - half_horizontal.x - half_vertical.x;
 	viewp->upperleft.y = viewp->vp_center.y - half_horizontal.y - half_vertical.y;
 	viewp->upperleft.z = viewp->vp_center.z - half_horizontal.z - half_vertical.z;
@@ -152,22 +120,3 @@ int	point_minus_vector(t_point *point, t_vector *vector, double scalar, t_point 
 
 	return (SUCCESS);
 }
-
-/// gpt
-/* 
-int	calculate_upper_left_corner(t_vp *vp)
-{
-	t_vector	h_half;
-	t_vector	v_half;
-
-	scalar_multiply_vector(WIN_WIDTH / 2.0, &vp->horizontal, &h_half);
-	scalar_multiply_vector(WIN_HEIGHT / 2.0, &vp->vertical, &v_half);
-
-	// point = vp_center - horizontal_half + vertical_half
-	if (point_minus_vector(&vp->vp_center, &h_half, 1, &vp->point) == FAILURE)
-		return (FAILURE);
-	if (point_plus_vector(&vp->point, &v_half, 1, &vp->point) == FAILURE) // subtract vertical
-		return (FAILURE);
-	return (SUCCESS);
-} */
-

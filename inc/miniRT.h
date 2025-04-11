@@ -102,8 +102,10 @@ void    init_viewport(t_vp *vp);
 int	calculate_height(t_config *cf);
 int	calculate_width(t_config *cf);
 //image/viewport_01.c
-int     calculate_viewport_orientation(t_config *cf);
-int     calculate_upper_left_corner(t_vp *viewp);
+/* int     calculate_viewport_orientation(t_config *cf); */
+int	calculate_viewport_orientation(t_config *cf, t_img img);
+/* int     calculate_upper_left_corner(t_vp *viewp); */
+int	calculate_upper_left_corner(t_vp *viewp, t_img img);
 void	get_up_vector(t_config *cf, t_vector *up);
 //image/image.c
 void	put_pixel(t_img *img, int x, int y, t_color rgb_color);

@@ -98,11 +98,11 @@ int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 	if (calculate_height(cf) == FAILURE)
 		clean_exit_rt(rt, NULL);
 	//horizontal and vertical vector
-	if (calculate_viewport_orientation(cf) == FAILURE)
+	if (calculate_viewport_orientation(cf, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL);
 	printf("meewo\n");
 	//corner
-	if (calculate_upper_left_corner(&cf->viewp) == FAILURE)
+	if (calculate_upper_left_corner(&cf->viewp, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL);
 	print_viewport(&cf->viewp);
 	return (SUCCESS);

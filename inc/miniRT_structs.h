@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/11 22:39:46 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/11 23:02:57 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,8 +204,6 @@ typedef struct s_mini_rt
 	t_config	cf;
 	t_col		calc;
 	t_visual	visual;
-	
-
 	// rest of the structs
 }	t_mini_rt;
 
