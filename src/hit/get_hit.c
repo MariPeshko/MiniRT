@@ -77,10 +77,10 @@ int	rays_loop(t_mini_rt *rt)
 
 	h = 0;
 	init_hit(&rt->calc.min);
-	while (h < WIN_HEIGHT)//for each row WIN_HEIGHT
+	while (h < rt->visual.img.height)//for each row WIN_HEIGHT
 	{
 		w = 0;
-		while (w < WIN_WIDTH)//for each column WIN_WIDTH
+		while (w < rt->visual.img.width)//for each column WIN_WIDTH
 		{
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
 			//get_pixel(rt->cf.viewp, w, h, &rt->calc.pixel);

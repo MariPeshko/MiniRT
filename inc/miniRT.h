@@ -40,6 +40,7 @@
 # define WIN_HEIGHT 800
 # define VIEWPORT_RATIO (16.0 / 9.0)
 # define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
+# define MAN false
 
 # define NONE "NONE"
 # define PLANE "PLANE"
