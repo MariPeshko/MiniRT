@@ -93,7 +93,8 @@ int	rays_loop(t_mini_rt *rt)
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				//get_color(&rt->calc);
+				if(w % 100 == 0 && h % 100 == 0)
+					printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
 				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else

@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/12 14:25:41 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/12 16:27:32 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,6 @@ static int	get_plane_numerator(t_plane *pl, t_ray *ray, double *numerator)
 		return (FAILURE);
 	return (SUCCESS);
 }
-
-/* static int	fill_hit_plane(char *object, double t, t_ray *ray, t_col *calc)
-{
-	
-	if (!object || !ray || !calc)
-		return (FAILURE);
-	// hit got
-	//hit->type = object;
-	calc->got.type = object;
-	calc->got.distance = t;
-	if (point_plus_vector(&ray->c, &ray->v_dir, t, \
-						&calc->got.point) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
-} */
 
 /**
  * Compute t: distance along the ray where it 

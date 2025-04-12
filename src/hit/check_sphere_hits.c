@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 10:43:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 14:32:32 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/12 16:45:15 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,25 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 	if (rt->calc.t1 == 0)
 		clean_exit_rt(rt, C_IN_SP);
 	//lowest positive is now in rt->calc.t1
-	fill_hit(SPHERE, &rt->calc, -1, &rt->calc.got);
+	fill_hit(SPHERE, &rt->calc, sp->id, &rt->calc.got);
 	return (SUCCESS);
+}
+
+/*sets min to got, if got is closer than min*/
+void update_min_sph(t_hit *min, t_hit *got, t_spher	*sp, t_col *calc)
+{
+	if (!min || !got)
+		return ;
+	if (min->distance == -1 && got->distance > 0)
+	{
+		*min = *got;
+		save_color(calc, sp->col);
+	}
+	else if (got->distance < min->distance)
+	{
+		*min = *got;
+		save_color(calc, sp->col);
+	}
 }
 
 /*delegates collision check for all cylinders.
@@ -75,14 +92,16 @@ saves closest visible one  in rt->calc->min*/
 void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {
 	t_spher	*sp;
+	t_col	*calc;
 
+	calc = &rt->calc;
 	sp = cf->sp;
 	while (sp)
 	{
 		if (get_hit_sphere(rt, sp, ray) == SUCCESS)
 		{
-			update_min(&rt->calc.min, &rt->calc.got);
-			save_color(&rt->calc, sp->col);
+			//update_min(&rt->calc.min, &rt->calc.got);
+			update_min_sph(&calc->min, &calc->got, sp, calc);
 		}
 		sp = sp->next;
 	}

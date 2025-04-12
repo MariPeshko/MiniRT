@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:45 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 14:31:26 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/12 16:47:41 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	if (rt->calc.t1 == 0)
 		clean_exit_rt(rt, C_IN_CY_W);
 	//lowest positive is now in rt->calc.t1
-	fill_hit(CYLINDER, &rt->calc, -1, new);
+	fill_hit(CYLINDER, &rt->calc, cy->id, new);
 	return (SUCCESS);
 }
 
@@ -82,17 +82,39 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	return (SUCCESS);
 }
 
+/*sets min to got, if got is closer than min*/
+void update_min_cy(t_hit *min, t_hit *got, t_cys *cy, t_col *calc)
+{
+	if (!min || !got)
+		return ;
+	if (min->distance == -1 && got->distance > 0)
+	{
+		*min = *got;
+		save_color(calc, cy->col);
+	}
+	else if (got->distance < min->distance)
+	{
+		*min = *got;
+		save_color(calc, cy->col);
+	}
+}
+
 /*delegates collision check for all cylinders.
 saves closest visible one  in rt->calc->min*/
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {
 	t_cys	*cy;
+	t_col	*calc;
 
+	calc = &rt->calc;
 	cy = cf->cy;
 	while (cy)
 	{
 		if (get_hit_cys(rt, cy, ray) == SUCCESS)
-			update_min(&rt->calc.min, &rt->calc.got);
+		{
+			//update_min(&rt->calc.min, &rt->calc.got);
+			update_min_cy(&calc->min, &calc->got, cy, calc);
+		}
 		cy = cy->next;
 	}
 }
