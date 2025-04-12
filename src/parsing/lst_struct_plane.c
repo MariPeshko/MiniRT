@@ -31,8 +31,9 @@ the first element. */
 void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 {
 	t_plane	*temp;
-	int	id = 1;
-
+	int		id;
+	
+	id = 1;
 	temp = *lst;
 	if (*lst == NULL)
 	{

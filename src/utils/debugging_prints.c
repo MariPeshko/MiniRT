@@ -64,7 +64,7 @@ void	print_all_spheres(t_config *cf)
 	curr = cf->sp;
 	while (curr != NULL)
 	{
-		printf("\n%i SPHERE\n", i);
+		printf("\n%i SPHERE id:%i\n", i, curr->id);
 		print_point(&curr->point);
 		printf("Diameter %.2f\n", curr->diam);
 		print_col(&curr->col, "Sphere");
@@ -82,7 +82,7 @@ void	print_all_cylider(t_config *cf)
 	curr = cf->cy;
 	while (curr != NULL)
 	{
-		printf("\n%i CYLINDER\n", i);
+		printf("\n%i CYLINDER id:%i\n", i, curr->id);
 		print_point(&curr->point);
 		print_vec(&curr->norm_vec);
 		printf("Cylinder diameter: %.2f\n", curr->diam);
@@ -112,7 +112,7 @@ void	print_test_config(t_config *cf)
 	// LOOP to print multiple spheres:
 	//print_all_spheres(cf);
 	// LOOP to print multiple cylinders:
-	//print_all_cylider(cf);
+	print_all_cylider(cf);
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
 }
 

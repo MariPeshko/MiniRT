@@ -33,19 +33,24 @@ the first element. */
 void	ft_lstadd_back_cy(t_cys **lst, t_cys *new)
 {
 	t_cys	*temp;
-
+	int		id;
+	
+	id = 1;
 	temp = *lst;
 	if (*lst == NULL)
 	{
+		new->id = id;
 		*lst = new;
 		return ;
 	}
 	while (temp)
 	{
+		id++;
 		if (temp->next == NULL)
 			break ;
 		temp = temp->next;
 	}
+	new->id = id;
 	temp->next = new;
 }
 

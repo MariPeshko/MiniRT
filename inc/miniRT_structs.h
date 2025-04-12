@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 14:11:19 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/12 16:17:04 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_light
 }	t_light;
 
 // Plane Normal is a vector that is perpendicular to the entire plane 
+// id strts from 1
 typedef struct s_plane
 {
 	t_point			point;
@@ -72,16 +73,19 @@ typedef struct s_plane
 	struct s_plane	*next;
 }	t_plane;
 
+// Sphere(s)
+// id strts from 1
 typedef struct t_spher
 {
 	t_point				point;
 	double				diam;
 	t_color				col;
-	int					id;// identifier
+	int					id;
 	struct t_spher	*next;
 }	t_spher;
 
 // Cylinder(s)
+// id strts from 1
 typedef struct s_cys
 {
 	t_point			point;
@@ -89,7 +93,7 @@ typedef struct s_cys
 	double			diam;
 	double			height;
 	t_color			col;
-	int				id; // identifier
+	int				id;
 	struct s_cys	*next;
 }	t_cys;
 
