@@ -18,12 +18,53 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	return (FAILURE);
 }
 
-/*claculates color of pixel based on hit*/
-void	get_color()
+/*void	get_color_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 {
-	//printf("Here I would figure out the color to put into pixel\n");
+	//pointers to existing structs for less . and ->
+	t_spher sp;
+	t_ambient A;
+	t_light L;
+	double angle;
+	sp = rt->calc.min.sphere;
+	A = rt->cf.amb;
+	L = rt->cf.light;
+	ambient->r = sp.col.r * A->col.r * A->lighting_ratio;
+	ambient->g = sp.col.g * A->col.g * A->lighting_ratio;
+	ambient->b = sp.col.b * A->col.b * A->lighting_ratio;
+
+	if (light_blocked(rt) == false)
+	{
+		if (vector_multiply_vector(hit_normal, L_ray, &angle) == FAILURE)
+			clean_exit_rt(rt, CALC);
+		diffuse->r = sp.col.r * L.bright * L.col.r * max(0, angle);
+		diffuse->g = sp.col.g * L.bright * L.col.g * max(0, angle);
+		diffuse->b = sp.col.b * L.bright * L.col.b * max(0, angle);
+	}
+}*/
+
+/*claculates color of pixel based on hit*/
+/*void	get_color(t_mini_rt *rt, t_color *color)
+{
+	t_color	ambient;
+	t_color	diffuse;
+
+	diffuse.r = 0;
+	diffuse.g = 0;
+	diffuse.b = 0;
+	if (rt->calc.min.type == PLANE)
+		get_colors_plane(rt, &ambient, &diffuse);
+	else if (rt->calc.min.type == SPHERE)
+		get_colors_sphere(rt, &ambient, &diffuse);
+	else if (rt->calc.min.type == CYLINDER)
+		get_colors_cylinder(rt, &ambient, &diffuse);
+	ambient.r += diffuse.r;
+	ambient.g += diffuse.g;
+	ambient.b += diffuse.b;
+	color->r = min(255, max(0, ambient.r));
+	color->g = min(255, max(0, ambient.g));
+	color->b = min(255, max(0, ambient.b));
 	return ;
-}
+}*/
 
 /*sets pixel color to ambient due to no hit*/
 void	get_ambient()
@@ -79,7 +120,7 @@ int	rays_loop(t_mini_rt *rt)
 {
 	int	h;
 	int	w;
-
+	t_color color;
 	h = 0;
 	init_hit(&rt->calc.min);
 	while (h < rt->visual.img.height)//for each row WIN_HEIGHT
@@ -93,7 +134,7 @@ int	rays_loop(t_mini_rt *rt)
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				//get_color(&rt->calc);
+				//get_color(rt, &color);
 				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else
