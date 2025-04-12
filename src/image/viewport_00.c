@@ -90,7 +90,6 @@ int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, \
 						&cf->viewp.vp_center) == FAILURE)
 		clean_exit_rt(rt, VIEWP_C);
-	printf("meewo\n");
 	//width
 	if (calculate_width(cf) == FAILURE)
 		clean_exit_rt(rt, NULL);
@@ -100,7 +99,6 @@ int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 	//horizontal and vertical vector
 	if (calculate_viewport_orientation(cf, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL);
-	printf("meewo\n");
 	//corner
 	if (calculate_upper_left_corner(&cf->viewp, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL);
