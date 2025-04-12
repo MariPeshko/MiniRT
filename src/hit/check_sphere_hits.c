@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_sphere_hits.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 10:43:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 11:21:27 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:32:32 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 	if (rt->calc.t1 == 0)
 		clean_exit_rt(rt, C_IN_SP);
 	//lowest positive is now in rt->calc.t1
-	fill_hit(SPHERE, rt->calc.t1, ray, &rt->calc.got);
+	fill_hit(SPHERE, &rt->calc, -1, &rt->calc.got);
 	return (SUCCESS);
 }
 

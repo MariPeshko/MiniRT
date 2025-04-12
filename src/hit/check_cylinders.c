@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cylinders.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:45 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 11:21:16 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:31:26 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	if (rt->calc.t1 == 0)
 		clean_exit_rt(rt, C_IN_CY_W);
 	//lowest positive is now in rt->calc.t1
-	fill_hit(CYLINDER, rt->calc.t1, ray, new);
+	fill_hit(CYLINDER, &rt->calc, -1, new);
 	return (SUCCESS);
 }
 

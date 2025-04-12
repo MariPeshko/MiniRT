@@ -119,7 +119,7 @@ void	save_color(t_col *calc, t_color col);
 //hit/lst_hit.c
 void	init_hit(t_hit *hit);
 void	update_min(t_hit *min, t_hit *got);
-int		fill_hit(char *object, double t, t_ray *ray, t_hit *hit);
+int		fill_hit(char *object, t_col *calc, int id, t_hit *got);
 //hit/check_plane_00.c
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 int	ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, t_mini_rt *rt);

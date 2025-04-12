@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 12:24:13 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:11:19 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_ambient
 {
 	double	lighting_ratio;
 	t_color	col;
-	t_color	adjusted;
+	t_color	adjusted; // color * light_ratio
 }	t_ambient;
 
 /*the light brightness ratio in range [0.0,1.0]
@@ -136,6 +136,7 @@ point: Coordinates of the intersection point.
 typedef struct	s_hit
 {
 	char	*type;
+	int		id;
 	double	distance;
 	t_point	point;
 }	t_hit;
@@ -156,6 +157,8 @@ typedef struct s_ray
 // got - Current intersection being processed. This is 
 // 		 a temporary variable used to compare intersections.
 // pixel - Pixel on the screen corresponding to this ray
+// t1 	 - the closest distance from cam to a hit
+// t2    - same for second hit (spheres, cylinders)
 typedef struct s_col
 {
 	t_hit	min;

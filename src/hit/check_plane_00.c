@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_plane_00.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/12 11:43:44 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/12 14:25:41 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ static int	get_plane_numerator(t_plane *pl, t_ray *ray, double *numerator)
 	return (SUCCESS);
 }
 
-static int	fill_hit_plane(char *object, double t, t_ray *ray, t_col *calc)
+/* static int	fill_hit_plane(char *object, double t, t_ray *ray, t_col *calc)
 {
+	
 	if (!object || !ray || !calc)
 		return (FAILURE);
 	// hit got
@@ -54,7 +55,7 @@ static int	fill_hit_plane(char *object, double t, t_ray *ray, t_col *calc)
 						&calc->got.point) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
-}
+} */
 
 /**
  * Compute t: distance along the ray where it 
@@ -74,10 +75,10 @@ static int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 	if (get_plane_numerator(pl, ray, &numerator) == FAILURE)
 		clean_exit_rt(rt, CALC);
 	t = numerator / denominator;
-	t_col *calc = &rt->calc;
+	rt->calc.t1 = t;
 	if (t > EPSILON)
 	{
-		if (fill_hit_plane(PLANE, t, ray, calc) == FAILURE)
+		if (fill_hit(PLANE, &rt->calc, pl->id, &rt->calc.got) == FAILURE)
 			clean_exit_rt(rt, CALC);
 		return (SUCCESS);
 	}

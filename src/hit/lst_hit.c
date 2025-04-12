@@ -15,16 +15,22 @@ void	init_hit(t_hit *hit)
 {
 	hit->type = NONE;
 	hit->distance = -1;
+	hit->id = -1;
 }
 
-/*fills hit struct with data*/
-int	fill_hit(char *object, double t, t_ray *ray, t_hit *hit)
+/* fills hit struct with data with a got hit, got means current hit.
+- type of the object
+- distanse from camera to a hit point
+- id of the objects (starts from 1) */
+int	fill_hit(char *object, t_col *calc, int id, t_hit *got)
 {
-	if (!object || !ray || !hit)
-		return (FAILURE);
-	hit->type = object;
-	hit->distance = t;
-	if (point_plus_vector(&ray->c, &ray->v_dir, t, &hit->point) == FAILURE)
+	t_ray	*ray;
+
+	ray = &calc->ray;
+	got->type = object;
+	got->distance = calc->t1;
+	got->id = id;
+	if (point_plus_vector(&ray->c, &ray->v_dir, got->distance, &got->point) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
