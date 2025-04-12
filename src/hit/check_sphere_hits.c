@@ -80,7 +80,10 @@ void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	while (sp)
 	{
 		if (get_hit_sphere(rt, sp, ray) == SUCCESS)
+		{
 			update_min(&rt->calc.min, &rt->calc.got);
+			save_color(&rt->calc, sp->col);
+		}
 		sp = sp->next;
 	}
 }

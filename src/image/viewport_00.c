@@ -55,7 +55,7 @@ int	calculate_width(t_config *cf)
 
 /**
  * initialized viewport struct
- * @param point - upper-left corner aka first pixel.
+ * @param upperleft - upper-left corner aka first pixel.
  * @param c_point - easier access to Camera point?
  * @param horizontal - from one pixel to next in row.
  * @param vertical - from one pixel to next in column
@@ -70,7 +70,7 @@ void	init_viewport(t_vp *vp)
 	if (!vp)
 		return ;
 	// Initialize the corner point and c_point to (0, 0, 0)
-	init_point(&vp->point, triplet);
+	init_point(&vp->upperleft, triplet);
 	init_point(&vp->vp_center, triplet);
 
 	// Initialize the horizontal and vertical vectors to (0, 0, 0)
@@ -85,10 +85,10 @@ void	init_viewport(t_vp *vp)
 /*delegates viewport calculations*/
 int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 {
-	printf("meewo\n");
 	init_viewport(&cf->viewp);
 	//center view port
-	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, &cf->viewp.vp_center) == FAILURE)
+	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, \
+						&cf->viewp.vp_center) == FAILURE)
 		clean_exit_rt(rt, VIEWP_C);
 	printf("meewo\n");
 	//width
@@ -98,11 +98,11 @@ int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 	if (calculate_height(cf) == FAILURE)
 		clean_exit_rt(rt, NULL);
 	//horizontal and vertical vector
-	if (calculate_viewport_orientation(cf) == FAILURE)
+	if (calculate_viewport_orientation(cf, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL);
 	printf("meewo\n");
 	//corner
-	if (calculate_upper_left_corner(&cf->viewp) == FAILURE)
+	if (calculate_upper_left_corner(&cf->viewp, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL);
 	print_viewport(&cf->viewp);
 	return (SUCCESS);

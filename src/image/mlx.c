@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/10 14:53:17 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/11 23:02:19 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static int	setup_img(t_mini_rt *rt)
 	// if (!rt->visual.img)
 	// 	return (FAILURE);
 	image = &rt->visual.img;
-	image->width = WIN_WIDTH;
-	image->bpp = WIN_HEIGHT;
-	image->img_ptr = mlx_new_image(rt->visual.mlx, WIN_WIDTH, WIN_HEIGHT);
+	image->width = rt->visual.width;
+	image->height = rt->visual.height;
+	image->img_ptr = mlx_new_image(rt->visual.mlx, image->width, image->height);
 	if (!image->img_ptr)
 		return (FAILURE);
 	image->data = mlx_get_data_addr(image->img_ptr, &image->bpp, \
@@ -71,13 +71,27 @@ static int	setup_img(t_mini_rt *rt)
 */
 void	setup_mlx(t_mini_rt *rt)
 {
+	int	x;
+	int	y;
+	
 	rt->visual.mlx = NULL;
-	rt->visual.win = NULL;
 	rt->visual.mlx = mlx_init();
 	if (!rt->visual.mlx)
 		clean_exit_rt(rt, MLX_INIT);
-	rt->visual.win = mlx_new_window(rt->visual.mlx, WIN_WIDTH, \
-								WIN_HEIGHT, "42MiniRT");
+	mlx_get_screen_size(rt->visual.mlx, &x, &y);
+	if (x > 0 && y > 0 && MAN == false)
+	{
+		rt->visual.width = x * 0.8;
+		rt->visual.height = y * 0.8;
+	}
+	else
+	{
+		rt->visual.width = WIN_WIDTH;
+		rt->visual.height = WIN_HEIGHT;
+	}
+	rt->visual.win = NULL;
+	rt->visual.win = mlx_new_window(rt->visual.mlx, rt->visual.width, \
+								rt->visual.height, "42MiniRT");
 	if (!rt->visual.win)
 		clean_exit_rt(rt, MLX_WIN_INIT);
 	if (setup_img(rt) == FAILURE)

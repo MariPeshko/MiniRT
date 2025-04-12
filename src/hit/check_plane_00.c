@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/12 11:31:10 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:33:07 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ static int	get_plane_numerator(t_plane *pl, t_ray *ray, double *numerator)
 	return (SUCCESS);
 }
 
+static int	fill_hit_plane(char *object, double t, t_ray *ray, t_col *calc)
+{
+	if (!object || !ray || !calc)
+		return (FAILURE);
+	// hit got
+	//hit->type = object;
+	calc->got.type = object;
+	calc->got.distance = t;
+	if (point_plus_vector(&ray->c, &ray->v_dir, t, \
+						&calc->got.point) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 /**
  * Compute t: distance along the ray where it 
  * hits the plane.
@@ -71,13 +85,31 @@ static int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 		clean_exit_rt(rt, CALC);
 	//numerator and demoninator used unitialized if previous if is false. 
 	t = numerator / denominator;
+	t_col *calc = &rt->calc;
 	if (t > EPSILON)
 	{
-		if (fill_hit(PLANE, t, ray, &rt->calc.got) == FAILURE)
+		if (fill_hit_plane(PLANE, t, ray, calc) == FAILURE)
 			clean_exit_rt(rt, CALC);
 		return (SUCCESS);
 	}
 	return (FAILURE);
+}
+
+/*sets min to got, if got is closer than min*/
+void update_min_plane(t_hit *min, t_hit *got, t_plane *pl, t_col *calc)
+{
+	if (!min || !got)
+		return ;
+	if (min->distance == -1 && got->distance > 0)
+	{
+		*min = *got;
+		save_color(calc, pl->col);
+	}
+	else if (got->distance < min->distance)
+	{
+		*min = *got;
+		save_color(calc, pl->col);
+	}
 }
 
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
@@ -97,7 +129,10 @@ void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 			clean_exit_rt(rt, CALC);
 		}
 		if (get_hit_plane(pl, ray, rt) == SUCCESS)
-			update_min(&calc->min, &calc->got);
+		{
+			update_min_plane(&calc->min, &calc->got, pl, calc);
+			
+		}
 		pl = pl->next;
 	}
 }

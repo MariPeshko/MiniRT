@@ -8,7 +8,7 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.min);
 
 	check_plane_hit(cf, rt, ray);
-	//check_sphere_hit(cf, &rt->calc, ray);
+	check_sphere_hit(cf, rt, ray);;
 	//check_cys_hit(cf, rt, ray);
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
 	{
@@ -57,12 +57,20 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 	return ;
 }
 
-/*gets the coordinates of a pixel*/
+// gpt
+/* void	get_pixel(t_vp vp, int x, int y, t_point *pixel)
+{
+	pixel->x = vp.point.x + x * vp.horizontal.x + y * vp.vertical.x;
+	pixel->y = vp.point.y + x * vp.horizontal.y + y * vp.vertical.y;
+	pixel->z = vp.point.z + x * vp.horizontal.z + y * vp.vertical.z;
+} */
+
+//gets the coordinates of a pixel
 void	get_pixel(t_vp vp, int h, int w, t_point *pixel)
 {
-	pixel->x = vp.point.x + h * vp.vertical.x + w * vp.horizontal.x;
-	pixel->y = vp.point.y + h * vp.vertical.y + w * vp.horizontal.y;
-	pixel->z = vp.point.z + h * vp.vertical.z + w * vp.horizontal.z;
+	pixel->x = vp.upperleft.x + h * vp.vertical.x + w * vp.horizontal.x;
+	pixel->y = vp.upperleft.y + h * vp.vertical.y + w * vp.horizontal.y;
+	pixel->z = vp.upperleft.z + h * vp.vertical.z + w * vp.horizontal.z;
 }
 
 /*moves through pixels and delegates coloring it.
@@ -74,18 +82,19 @@ int	rays_loop(t_mini_rt *rt)
 
 	h = 0;
 	init_hit(&rt->calc.min);
-	while (h < WIN_HEIGHT)//for each row WIN_HEIGHT
+	while (h < rt->visual.img.height)//for each row WIN_HEIGHT
 	{
 		w = 0;
-		while (w < WIN_WIDTH)//for each column WIN_WIDTH
+		while (w < rt->visual.img.width)//for each column WIN_WIDTH
 		{
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
+			//get_pixel(rt->cf.viewp, w, h, &rt->calc.pixel);
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				get_color();
-				put_pixel(&rt->visual.img, w, h, rt->cf.pl->col);
+				//get_color(&rt->calc);
+				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else
 				put_pixel(&rt->visual.img, w, h, rt->cf.amb.adjusted);
@@ -94,6 +103,13 @@ int	rays_loop(t_mini_rt *rt)
 		h++;
 	}
 	return (SUCCESS);
+}
+
+void	save_color(t_col *calc, t_color col)
+{
+	calc->hit_color.r = col.r;
+	calc->hit_color.g = col.g;
+	calc->hit_color.b = col.b;
 }
 
 // HEY STEFFI THIS IS the test for correct width and height

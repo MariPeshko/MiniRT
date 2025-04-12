@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/10 15:06:32 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/11 23:02:57 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,18 @@ typedef struct s_cys
 }	t_cys;
 
 /**
- * @param point - upper-left corner aka first pixel
+ * view port
+ * horizontal - pointing right from the camera's perspective
+ * @param upperleft - upper-left corner aka first pixel
 */
-typedef struct s_vp//view port
+typedef struct s_vp
 {
-	t_point		point;
+	t_point		upperleft;
 	t_vector	horizontal;//from one pixel to next in row
 	t_vector	vertical;//from one pixel to next in column
-	double		width;//in 3D space
-	double		height;//in 3D space
-	t_point		vp_center;//easier access to C point?
+	double		width;
+	double		height;
+	t_point		vp_center;
 }	t_vp;
 
 // Structure to store all information from a config file .rt
@@ -163,6 +165,7 @@ typedef struct s_col
 	double	quadratic_args[3];
 	double	t1;
 	double	t2;
+	t_color	hit_color;
 }	t_col;//col = collisions calculations
 
 // a pointer to the image (returned by mlx_new_image)
@@ -191,6 +194,8 @@ typedef struct s_visual
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	int		width;
+	int		height;
 	//t_viewp 	vp?
 }	t_visual;
 

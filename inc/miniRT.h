@@ -36,12 +36,11 @@
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define DestroyNotify 17
-# define WIN_WIDTH 320
-# define WIN_HEIGHT 180
-/* # define WIN_WIDTH 1280
-# define WIN_HEIGHT 720 */
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 800
 # define VIEWPORT_RATIO (16.0 / 9.0)
 # define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
+# define MAN false
 
 # define NONE "NONE"
 # define PLANE "PLANE"
@@ -103,8 +102,10 @@ void    init_viewport(t_vp *vp);
 int	calculate_height(t_config *cf);
 int	calculate_width(t_config *cf);
 //image/viewport_01.c
-int     calculate_viewport_orientation(t_config *cf);
-int     calculate_upper_left_corner(t_vp *viewp);
+/* int     calculate_viewport_orientation(t_config *cf); */
+int	calculate_viewport_orientation(t_config *cf, t_img img);
+/* int     calculate_upper_left_corner(t_vp *viewp); */
+int	calculate_upper_left_corner(t_vp *viewp, t_img img);
 void	get_up_vector(t_config *cf, t_vector *up);
 //image/image.c
 void	put_pixel(t_img *img, int x, int y, t_color rgb_color);
@@ -114,6 +115,7 @@ int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
 //hit/get_hit.c
 int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 int	rays_loop(t_mini_rt *rt);
+void	save_color(t_col *calc, t_color col);
 //hit/lst_hit.c
 void	init_hit(t_hit *hit);
 void	update_min(t_hit *min, t_hit *got);
@@ -168,8 +170,8 @@ void	*free_cys(t_cys *cys);
 int	display_error(char *msg);
 //utils/debugging_prints.c
 void	print_triplet(float *triplet);
-void	print_vec(t_vector *vec, const char *msg);
-void	print_point(t_point *p, const char *msg);
+void	print_vec(t_vector *vec);
+void	print_point(t_point *p);
 void    print_map(char **map);
 void	print_test_config(t_config *cf);
 void	print_all_cylider(t_config *cf);
