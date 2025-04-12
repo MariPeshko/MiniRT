@@ -47,6 +47,11 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 	triplet[0] = pixel.x - camera.x;
 	triplet[1] = pixel.y - camera.y;
 	triplet[2] = pixel.z - camera.z;
+	if (isnan(triplet[0]) || isnan(triplet[1]) || isnan(triplet[2]) || 
+		isinf(triplet[0]) || isinf(triplet[1]) || isinf(triplet[2]))
+	{
+		clean_exit_rt(rt, CALC);
+	}
 	rt->calc.ray.c = camera;
 	init_vec(&rt->calc.ray.v_dir, triplet);
 	return ;

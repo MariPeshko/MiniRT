@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_cylinders.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:45 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/08 19:32:29 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/12 11:21:16 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	check_height(rt, ray, cy);
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);
+	//catch camera on cys wall
+	if (rt->calc.t1 == 0)
+		clean_exit_rt(rt, C_IN_CY_W);
 	//lowest positive is now in rt->calc.t1
 	fill_hit(CYLINDER, rt->calc.t1, ray, new);
 	return (SUCCESS);
@@ -74,6 +77,8 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	if (get_cys_bottom_collision(cy, &new, ray) == SUCCESS)
 		update_min(&rt->calc.got, &new);*/
 	//now got should contain the cloesst collision within the cylinder
+	if (rt->calc.got.distance == 0)
+		clean_exit_rt(rt, C_IN_CY);
 	return (SUCCESS);
 }
 

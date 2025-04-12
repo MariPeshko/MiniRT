@@ -1,38 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT_error_macro.h                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/12 11:15:50 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/04/12 11:20:34 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_ERROR_MACRO_H
 # define MINIRT_ERROR_MACRO_H
 
-// calculation
-# define CALC "Calculations failed."//over and underflow, isnan and isinf. 
-# define CAM_ON_PLANE "Camera is embedded in the plane."
-# define CAM_DIR_ON_PLANE "Warning! The camera's direction \
-is exactly in the plane."
-
+//memory
 # define MEMORY "Memory allocation failed"
+# define CALLOC "Calloc: Memory allocation error"
+
+//MLX related
 # define MLX_INIT "Mlx init failed"
 # define MLX_WIN_INIT "Mlx window init failed"
 # define MLX_IMG_INIT "Mlx image init failed"
-# define INVALID_NBR_ARG "Invalid number of Arguments"
-# define INVALID_NBR_ARG_CY "Invalid number of Arguments in cylinder"
-# define INVALID_NBR_ARG_PL "Invalid number of Arguments in plane"
-# define INVALID_NBR_ARG_SP "Invalid number of Arguments in sphere"
-# define TOO_MANY_AMB "Must be maximum one ambient light"
-# define TOO_MANY_CAM "Must be maximum one camera"
-# define TOO_MANY_LIT "Must be maximum one light spot in mandatory part"
-# define MUST_ONE_AMB "There must be an ambient light"
-# define MUST_ONE_CAM "There must be a camera"
-# define MUST_ONE_LIT "There must be a lighting spot"
-# define WRONG_CHAR "unexpected character"
-# define RGB_WRONG_CHAR "unexpected character in RGB"
-# define RGB_NEG "RGB value must be a positive integer"
-# define RGB_SCOPE "RGB value out of scope"
-# define WRONG_IDENTIFIER "Invalid Identifier"
-# define A_SCOPE "Ambient light ratio out of scope"
-# define NV_SCOPE "Normalized Vector out of Scope [0.0, 1.0]"
-# define NV_ZEROS "A direction vector cannot be 0,0,0"
-# define SP_DIAMETER_SCOPE "Sphere diameter out of scope"
-# define CY_DIAMETER_SCOPE "Cylinder diameter out of scope"
-# define CALLOC "Calloc: Memory allocation error"
 
+//config file given
 # define NO_CONFIG_FILE "Run a program with a configuration \
 file as follows:\n./miniRT [name_of_the_file].rt"
 # define TOO_MANY_ARGS "Too many arguments"
@@ -40,9 +30,43 @@ file as follows:\n./miniRT [name_of_the_file].rt"
 name of the configuration file"
 # define WRONG_EXTEN "Wrong extention. File must be in .rt format"
 # define FILE_ERR "Error opening file"
+
+//config file content
 # define EMPTY_FILE "Configuration file is empty"
+
+# define TOO_MANY_AMB "Must be maximum one ambient light"
+# define TOO_MANY_CAM "Must be maximum one camera"
+# define TOO_MANY_LIT "Must be maximum one light spot in mandatory part"
+# define MUST_ONE_AMB "There must be an ambient light"
+# define MUST_ONE_CAM "There must be a camera"
+# define MUST_ONE_LIT "There must be a lighting spot"
+# define WRONG_IDENTIFIER "Invalid Identifier"
+
+# define INVALID_NBR_ARG "Invalid number of Arguments"
+# define INVALID_NBR_ARG_CY "Invalid number of Arguments in cylinder"
+# define INVALID_NBR_ARG_PL "Invalid number of Arguments in plane"
+# define INVALID_NBR_ARG_SP "Invalid number of Arguments in sphere"
+
+# define WRONG_CHAR "unexpected character"
+# define RGB_WRONG_CHAR "unexpected character in RGB"
+# define RGB_NEG "RGB value must be a positive integer"
+# define RGB_SCOPE "RGB value out of scope"
+# define A_SCOPE "Ambient light ratio out of scope"
+# define NV_SCOPE "Normalized Vector out of Scope [0.0, 1.0]"
+# define NV_ZEROS "A direction vector cannot be 0,0,0"
+# define SP_DIAMETER_SCOPE "Sphere diameter out of scope"
+# define CY_DIAMETER_SCOPE "Cylinder diameter out of scope"
 # define FOV_SCOPE "Field of View out of scope [0, 180]"
 
+// calculation
+# define CALC "Calculations failed."//over and underflow, isnan and isinf. 
 # define VIEWP_C "Viewport Center calculation failed."
 
+//errors for camera at invalid position
+# define C_IN_SP "Camera in the surphace of a Sphere."
+# define C_IN_CY_W "Camera in the Wall of a Cylinder."
+# define C_IN_CY "Camera in the surphace of a Cylinder."
+# define CAM_ON_PLANE "Camera is embedded in the plane."
+# define CAM_DIR_ON_PLANE "Warning! The camera's direction \
+is exactly in the plane."
 #endif

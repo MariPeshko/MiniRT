@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_sphere_hits.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/12 10:43:40 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/04/12 11:21:27 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 /*calcualtes collision of raz and rounded wall of a single cylinder*/
@@ -50,6 +62,9 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);
+	//catch camera in sphere surface
+	if (rt->calc.t1 == 0)
+		clean_exit_rt(rt, C_IN_SP);
 	//lowest positive is now in rt->calc.t1
 	fill_hit(SPHERE, rt->calc.t1, ray, &rt->calc.got);
 	return (SUCCESS);
