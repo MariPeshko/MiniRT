@@ -128,6 +128,7 @@ int	camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt);
 int	cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal);
 //hit/check_sphere_hit.c
 void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+void	reset_calc(t_col *calc);
 //hit/check_cylinders_hit.c
 int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
 int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
