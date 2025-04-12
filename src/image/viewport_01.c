@@ -17,6 +17,8 @@ void	get_up_vector(t_config *cf, t_vector *up)
 	if (cf->cam.norm_vec.x == 0 && cf->cam.norm_vec.y == 0
 		&& cf->cam.norm_vec.z != 0)
 	{
+
+		
 		up->x = 0;
 		up->y = -1;
 		up->z = 0;

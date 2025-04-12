@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_structs.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/11 23:02:57 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/12 12:24:13 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,8 @@ typedef struct s_visual
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	int		width;
-	int		height;
+	int			width;
+	int			height;
 	//t_viewp 	vp?
 }	t_visual;
 

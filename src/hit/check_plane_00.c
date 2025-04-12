@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/12 11:33:07 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:43:44 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,12 @@ static int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 	double	numerator;
 	double	t;
 
-	//this block is the original that caused compiling errors. 
-	/*if (pl != NULL && ray != NULL)
-	{
-		if (ray_paral_plane(ray, pl, &denominator, rt) == true)
-			return (FAILURE);
-		if (get_plane_numerator(pl, ray, &numerator) == FAILURE)
-			clean_exit_rt(rt, CALC);
-	}*/
-
-	//my change to avoid the compiling errors until next comment:
 	if (pl == NULL || ray == NULL)
 		clean_exit_rt(rt, CALC);
 	if (ray_paral_plane(ray, pl, &denominator, rt) == true)
 		return (FAILURE);
 	if (get_plane_numerator(pl, ray, &numerator) == FAILURE)
 		clean_exit_rt(rt, CALC);
-	//numerator and demoninator used unitialized if previous if is false. 
 	t = numerator / denominator;
 	t_col *calc = &rt->calc;
 	if (t > EPSILON)
@@ -131,7 +120,6 @@ void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 		if (get_hit_plane(pl, ray, rt) == SUCCESS)
 		{
 			update_min_plane(&calc->min, &calc->got, pl, calc);
-			
 		}
 		pl = pl->next;
 	}
