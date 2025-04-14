@@ -47,7 +47,7 @@ static int	get_plane_numerator(t_plane *pl, t_ray *ray, double *numerator)
  * hits the plane.
  * t = dot(P0 - ray_origin, plane_normal) / dot(ray_direction, plane_normal)
  */
-static int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
+int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 {
 	double	denominator;
 	double	numerator;
