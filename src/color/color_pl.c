@@ -85,7 +85,7 @@ void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 			clean_exit_rt(rt, CALC);
 	}
 	//now we have a normal in the right direction
-	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.L_v, &rt->coca.tmp) == FAILURE)
+	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir, &rt->coca.tmp) == FAILURE)
 		clean_exit_rt(rt, CALC);
 	diffuse->r = rt->coca.pl->col.r * rt->coca.L.bright * rt->coca.L.col.r * d_max(0, rt->coca.tmp);
 	diffuse->g = rt->coca.pl->col.g * rt->coca.L.bright * rt->coca.L.col.g * d_max(0, rt->coca.tmp);

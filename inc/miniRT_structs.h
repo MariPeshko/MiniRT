@@ -203,7 +203,6 @@ typedef struct s_color_calc
 	t_cys	*cy;
 	t_ambient	A;
 	t_light	L;
-	t_vector	L_v;
 	t_vector	hit_n;
 	t_ray	r_shadow;
 	double		tmp;
