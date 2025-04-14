@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_sphere_hits.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 10:43:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 16:45:15 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/14 13:37:40 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ void	reset_calc(t_col *calc)
 int	block_relevant(t_mini_rt *rt, t_spher *sp)
 {
 	double	min;
+	//printf("t1 t2 %10f   %10f\n", rt->calc.t1, rt->calc.t2);
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &min) == FAILURE)
 		return (FAILURE);
-	if (min == 0 && sp->id == rt->coca.sp->id)
+	if (fabs(min) < EPSILON && sp->id == rt->coca.sp->id)
 		return (FAILURE);
+	//printf("min %10f\n", min);
 	return (SUCCESS);
 }
 
