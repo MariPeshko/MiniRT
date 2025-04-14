@@ -95,7 +95,7 @@ void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 	ambient->r = rt->coca.sp->col.r * rt->coca.A.col.r * rt->coca.A.lighting_ratio;
 	ambient->g = rt->coca.sp->col.g * rt->coca.A.col.g * rt->coca.A.lighting_ratio;
 	ambient->b = rt->coca.sp->col.b * rt->coca.A.col.b * rt->coca.A.lighting_ratio;
-	printf("rgb amb %d, %d, %d\n", ambient->r, ambient->g, ambient->b);
+	// printf("rgb amb %d, %d, %d\n", ambient->r, ambient->g, ambient->b);
 
 	//collisons licht-collision vector with all objects. ausgenommen eigenes objekt mit t = 0
 	if (in_light(rt, &rt->coca) == false)

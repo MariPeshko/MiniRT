@@ -117,7 +117,7 @@ int	rays_loop(t_mini_rt *rt)
 			{
 				//if(w % 100 == 0 && h % 100 == 0)
 				//	printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
-				//get_color(rt, &rt->calc.hit_color);
+				get_color(rt, &rt->calc.hit_color);
 				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else
