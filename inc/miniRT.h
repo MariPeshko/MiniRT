@@ -199,4 +199,7 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera);
 double	d_max(double a, double b);
 double	d_min(double a, double b);
 int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt);
+bool	in_light(t_mini_rt *rt, t_color_calc *coca);
+bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca);
+int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
 #endif

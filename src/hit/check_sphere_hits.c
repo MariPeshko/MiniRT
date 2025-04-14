@@ -46,6 +46,16 @@ void	reset_calc(t_col *calc)
 	calc->quadratic_args[2] = 0;
 }
 
+int	block_relevant(t_mini_rt *rt, t_spher *sp)
+{
+	double	min;
+	if (get_positive_min(rt->calc.t1, rt->calc.t2, &min) == FAILURE)
+		return (FAILURE);
+	if (min == 0 && sp->id == rt->coca.sp->id)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 {
 	int		solutions;
@@ -60,6 +70,8 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 	quadratic_formula_plus(rt->calc.quadratic_args, &rt->calc.t1, rt);
 	if (solutions == 2)
 		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
+	if (rt->coca.sp != NULL)
+		return (block_relevant(rt, sp));
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);
 	//catch camera in sphere surface

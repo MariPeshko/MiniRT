@@ -90,6 +90,13 @@ void	get_pixel(t_vp vp, int h, int w, t_point *pixel)
 	pixel->z = vp.upperleft.z + h * vp.vertical.z + w * vp.horizontal.z;
 }
 
+void	init_coca(t_color_calc *coca)
+{
+	coca->pl = NULL;
+	coca->sp = NULL;
+	coca->cy = NULL;
+}
+
 /*moves through pixels and delegates coloring it.
 at the end: displayable picture*/
 int	rays_loop(t_mini_rt *rt)
@@ -104,6 +111,7 @@ int	rays_loop(t_mini_rt *rt)
 		w = 0;
 		while (w < rt->visual.img.width)//for each column WIN_WIDTH
 		{
+			init_coca(&rt->coca);
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
 			//get_pixel(rt->cf.viewp, w, h, &rt->calc.pixel);
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);

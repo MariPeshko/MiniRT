@@ -30,22 +30,6 @@ bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 	return (false);
 }
 
-bool	in_light(t_mini_rt *rt, t_color_calc *coca)
-{
-	if (vector_multiply_vector(&coca->r_shadow.v_dir, &coca->hit_n, &coca->tmp) == FAILURE)
-		clean_exit_rt(rt, CALC);
-	if (coca->tmp < 0)
-		return (false);
-	if (plane_blocks_light(rt, coca) == true)
-		return (false);
-	/*if (sphere_blocks_light(rt, coca) == true)
-		return (false);
-	if (cylinder_blocks_light(rt, coca) == true)
-		return (false);*/
-	
-	return (true);
-}
-
 t_plane	*get_plane_pointer(t_mini_rt *rt, t_hit *min)
 {
 	t_plane *pl;
