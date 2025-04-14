@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadratic_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:25:24 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/14 15:16:56 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:48:49 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ int	discriminant_check(double A, double B, double C, t_mini_rt *rt)
 	discriminant = B * B - 4 * A * C;
 	if (isnan(discriminant) || isinf(discriminant))
 		clean_exit_rt(rt, CALC_CYL_DIS);
-		
+
 	if (discriminant < 0)
+		return (0);
+	if (A == 0)
 		return (0);
 	if (discriminant == 0)
 		return (1);
