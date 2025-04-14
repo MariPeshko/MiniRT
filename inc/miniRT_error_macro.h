@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_error_macro.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:15:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 11:20:34 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:58:20 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ name of the configuration file"
 
 // calculation
 # define CALC "Calculations failed."//over and underflow, isnan and isinf. 
+# define CALC_CYL_PMP "Cylinder calculation failed. Point minus point."
+# define CALC_CYL_PPV "Cylinder calculation failed. Point plus vector."
+# define CALC_CYL_VMV "Cylinder calculation failed. Vector multiply vector."
+# define CALC_CYL_QU "Cylinder calculation failed. Calculate_quadratic_arguments()."
+# define CALC_CYL_DIS "Cylinder calculation failed. Discriminant()."
+# define CALC_CYL_QFP "Cylinder calculation failed. Quadratic_formula_plus. line: isnan(res) || isinf(res)"
 # define VIEWP_C "Viewport Center calculation failed."
 
 //errors for camera at invalid position

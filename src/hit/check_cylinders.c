@@ -38,6 +38,8 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 			rt->calc.quadratic_args[1], rt->calc.quadratic_args[2], rt);
 	if (solutions == 0)
 		return (FAILURE);
+	/* if (quadratic_formula_plus(rt->calc.quadratic_args, &rt->calc.t1, rt) == FAILURE)
+		return (FAILURE); */
 	quadratic_formula_plus(rt->calc.quadratic_args, &rt->calc.t1, rt);
 	if (solutions == 2)
 		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
@@ -107,7 +109,7 @@ int	get_cys_bottom_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	t_vector tmp;
 
 	if (point_plus_vector(&cy->point, &cy->norm_vec, (cy->height / 2) * -1, &center) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_PPV);
 	//d*v
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
 		clean_exit_rt(rt, CALC);
@@ -119,9 +121,9 @@ int	get_cys_bottom_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 		return (FAILURE);
 	//fraction upper part
 	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_PMP);
 	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_VMV);
 
 	//t = ((c-o) * v) / (d*v) 
 	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
@@ -130,7 +132,7 @@ int	get_cys_bottom_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	fill_hit(CYLINDER, &rt->calc, cy->id, new);
 	//check collision point is relevant
 	if (point_minus_point(&new->point, &cy->point, &tmp) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_PMP);
 	//cy diameter must be > 0 due to parsing rules so
 	if (vector_length(&tmp, rt) > (cy->diam / 2))
 		return (FAILURE);
@@ -144,6 +146,8 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	t_hit	new;
 
 	init_hit(&new);
+	//printf("Start get_hit_cys() ...");
+	// Error here get_cys_wall_collision
 	if (get_cys_wall_collision(rt, cy, &new, ray) == SUCCESS)
 		update_min(&rt->calc.got, &new);
 	reset_calc(&rt->calc);
@@ -155,6 +159,7 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	reset_calc(&rt->calc);
 	if (rt->calc.got.distance == 0)
 		clean_exit_rt(rt, C_IN_CY);
+	//printf("get_hit_cys() is finished\n");
 	return (SUCCESS);
 }
 
@@ -186,11 +191,13 @@ void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	cy = cf->cy;
 	while (cy)
 	{
+		//printf("Before get_hit_cys()\n");
 		if (get_hit_cys(rt, cy, ray) == SUCCESS)
 		{
 			//update_min(&rt->calc.min, &rt->calc.got);
 			update_min_cy(&calc->min, &calc->got, cy, calc);
 		}
+		//printf("After get_hit_cys()\n");
 		cy = cy->next;
 	}
 }
