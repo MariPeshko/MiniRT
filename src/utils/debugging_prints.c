@@ -112,7 +112,7 @@ void	print_test_config(t_config *cf)
 	// LOOP to print multiple spheres:
 	//print_all_spheres(cf);
 	// LOOP to print multiple cylinders:
-	print_all_cylider(cf);
+	//print_all_cylider(cf);
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
 }
 
