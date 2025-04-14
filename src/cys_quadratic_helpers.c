@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cys_quadratic_helpers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:47:27 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/02 11:57:12 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:44:29 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,17 @@ int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical,
 int	cy_calculate_quadratic_arguments(double *args, t_cys *cy,
 	t_ray *ray, t_mini_rt *rt)
 {
+
 	t_vector	d_vertical;
 	t_vector	OC_vertical;
 
 	if (get_vertical_parts(&d_vertical, &OC_vertical, cy, ray, rt) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_QU);
 	if (get_A_cylinder(&d_vertical, &args[0], rt) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_QU);
 	if (get_B_cylinder(&OC_vertical, &d_vertical, &args[1], rt) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_QU);
 	if (get_C_cylinder(&OC_vertical, cy->diam / 2, &args[2], rt) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC_CYL_QU);
 	return (SUCCESS);
 }
