@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/12 16:27:32 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/14 13:21:09 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 /*sets min to got, if got is closer than min*/
 void update_min_plane(t_hit *min, t_hit *got, t_plane *pl, t_col *calc)
 {
+
 	if (!min || !got)
 		return ;
 	if (min->distance == -1 && got->distance > 0)
@@ -89,6 +90,7 @@ void update_min_plane(t_hit *min, t_hit *got, t_plane *pl, t_col *calc)
 
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {
+	
 	t_col	*calc;
 	t_plane	*pl;
 

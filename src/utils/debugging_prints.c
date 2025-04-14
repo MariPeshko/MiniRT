@@ -26,9 +26,9 @@ void	print_point(t_point *p)
 
 void	print_vec(t_vector *vec)
 {
-	printf("x: %.10f, ", vec->x);
-	printf("y: %.10f, ", vec->y);
-	printf("z: %.10f\n", vec->z);
+	printf("x: %.8f, ", vec->x);
+	printf("y: %.8f, ", vec->y);
+	printf("z: %.8f\n", vec->z);
 }
 
 /*prints out a triplet of floats*/
@@ -112,7 +112,7 @@ void	print_test_config(t_config *cf)
 	// LOOP to print multiple spheres:
 	//print_all_spheres(cf);
 	// LOOP to print multiple cylinders:
-	print_all_cylider(cf);
+	//print_all_cylider(cf);
 	printf("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n");
 }
 

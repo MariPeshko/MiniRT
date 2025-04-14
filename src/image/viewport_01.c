@@ -47,14 +47,35 @@ int	calculate_viewport_orientation(t_config *cf, t_img img)
 	t_vector	vertical;
 
 	get_up_vector(cf, &up);
-	// Horizontal = cross(forward, up)
-	if (cross_product(&cf->cam.norm_vec, &up, &horizontal) == FAILURE)
-		return (FAILURE);
+
+	if (up.y == -1)
+	{
+		// Horizontal = cross(forward, up)
+		if (cross_product(&cf->cam.norm_vec, &up, &horizontal) == FAILURE)
+			return (FAILURE);
+	}
+	else if (up.z == 1)
+	{
+		t_vector	tmp;
+		if (cross_product(&cf->cam.norm_vec, &up, &tmp) == FAILURE)
+			return (FAILURE);
+		scalar_multiply_vector(-1, &tmp, &horizontal);
+	}
 	if (normalize_vector(&horizontal) == FAILURE)
 		return (FAILURE);
-	// Vertical = cross(forward, horizontal)
-	if (cross_product(&cf->cam.norm_vec, &horizontal, &vertical) == FAILURE)
-		return (FAILURE);
+	if (up.y == -1)
+	{
+		// Vertical = cross(forward, horizontal)
+		if (cross_product(&cf->cam.norm_vec, &horizontal, &vertical) == FAILURE)
+			return (FAILURE);
+	}
+	else if (up.z == 1)
+	{
+		t_vector	tmp_v;
+		if (cross_product(&cf->cam.norm_vec, &horizontal, &tmp_v) == FAILURE)
+			return (FAILURE);
+		scalar_multiply_vector(-1, &tmp_v, &vertical);
+	}
 	if (normalize_vector(&vertical) == FAILURE)
 		return (FAILURE);
 	// pixel step calculation
