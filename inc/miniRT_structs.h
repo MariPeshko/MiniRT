@@ -196,6 +196,18 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
+typedef struct s_color_calc
+{
+	t_plane *pl;
+	t_spher *sp;
+	t_cys	*cy;
+	t_ambient	A;
+	t_light	L;
+	t_vector	hit_n;
+	t_ray	r_shadow;
+	double		tmp;
+}	t_color_calc;
+
 typedef struct s_visual
 {
 	void		*mlx;
@@ -210,6 +222,7 @@ typedef struct s_mini_rt
 {
 	t_config	cf;
 	t_col		calc;
+	t_color_calc coca;
 	t_visual	visual;
 	// rest of the structs
 }	t_mini_rt;

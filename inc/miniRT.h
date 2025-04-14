@@ -192,4 +192,12 @@ void	skip_whitespace(char *str, int *pos);
 //utils/array_utils.c
 int		map_len(char **map);
 
+
+//to be sorted
+void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse);
+void	get_color(t_mini_rt *rt, t_color *color);
+void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera);
+double	d_max(double a, double b);
+double	d_min(double a, double b);
+int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt);
 #endif

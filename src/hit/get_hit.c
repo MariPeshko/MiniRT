@@ -37,30 +37,6 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	}
 }*/
 
-/*claculates color of pixel based on hit*/
-/*void	get_color(t_mini_rt *rt, t_color *color)
-{
-	t_color	ambient;
-	t_color	diffuse;
-
-	diffuse.r = 0;
-	diffuse.g = 0;
-	diffuse.b = 0;
-	if (rt->calc.min.type == PLANE)
-		get_colors_plane(rt, &ambient, &diffuse);
-	else if (rt->calc.min.type == SPHERE)
-		get_colors_sphere(rt, &ambient, &diffuse);
-	else if (rt->calc.min.type == CYLINDER)
-		get_colors_cylinder(rt, &ambient, &diffuse);
-	ambient.r += diffuse.r;
-	ambient.g += diffuse.g;
-	ambient.b += diffuse.b;
-	color->r = min(255, max(0, ambient.r));
-	color->g = min(255, max(0, ambient.g));
-	color->b = min(255, max(0, ambient.b));
-	return ;
-}*/
-
 /*sets pixel color to ambient due to no hit*/
 void	get_ambient()
 {
@@ -129,8 +105,9 @@ int	rays_loop(t_mini_rt *rt)
 			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				if(w % 100 == 0 && h % 100 == 0)
-					printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
+				//if(w % 100 == 0 && h % 100 == 0)
+				//	printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
+				get_color(rt, &rt->calc.hit_color);
 				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else
