@@ -42,25 +42,23 @@ In this example, a default size of 800 pixels wide and 600 pixels high is used. 
 
 ## Viewport Definition
 
-In our 3D raytracing scene, the viewport acts as the 2D window through which we visualize the 3D world. Unlike objects within the scene, the viewport's parameters are derived from the camera's properties.
+In our 3D raytracing scene, the viewport acts as the 2D window through which we visualize the 3D world.
 
 Think of the viewport as the "canvas" we'll later display using minilibx. It mirrors the aspect ratio of our output window, and the width of this canvas is determined by the FOV.
 
+Essentially, the viewport acts as a bridge between the 3D scene and the 2D image we render.
+
 In 3D space, the viewport is a rectangular plane defined by:
 
-* **A center point:** This anchors the viewport's position.
-* **two vectors:** Two perpendicular vectors that define the viewport’s plane. 
-* **Width and height:** These dimensions are crucial for determining which points fall within the viewport's boundaries, distinguishing them from the infinite expanse of a general 3D plane.
+* Camera Position (C): The location of the camera in 3D space.
+* Orientation Vector (o): A normalized vector (length of 1) that indicates the direction the camera is facing.
 * **Field of View (FOV):** This angle determines the horizontal extent of the visible scene, directly influencing the viewport's width.
-
-Essentially, the viewport acts as a bridge between the 3D scene and the 2D image we render.
 
 ## Set Up the Viewport
 
-Key Components:
-* Camera Position (C): The location of the camera in 3D space.
-* Orientation Vector (o): A normalized vector (length of 1) that indicates the direction the camera is facing.
-* Field of View (FOV): The angle that defines the extent of the camera's view. A wider FOV means a broader view.
+* **A center point:** This anchors the viewport's position.
+* **Width and height:** These dimensions are crucial for determining which points fall within the viewport's boundaries, distinguishing them from the infinite expanse of a general 3D plane.
+* **Two vectors:** Two perpendicular vectors that define the viewport’s plane. 
 
 **Calculate the Center of the Viewport**
 

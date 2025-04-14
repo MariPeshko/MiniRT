@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:53:47 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/07 15:45:36 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/14 14:07:01 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,3 +198,4 @@ int	scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result)
 	result->z = new_z;
 	return (SUCCESS);
 }
+

@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/11 23:02:19 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/12 17:04:49 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	setup_mlx(t_mini_rt *rt)
 	mlx_get_screen_size(rt->visual.mlx, &x, &y);
 	if (x > 0 && y > 0 && MAN == false)
 	{
-		rt->visual.width = x * 0.8;
-		rt->visual.height = y * 0.8;
+		rt->visual.width = x * RATIO;
+		rt->visual.height = y * RATIO;
 	}
 	else
 	{

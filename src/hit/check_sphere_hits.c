@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 10:43:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/14 13:37:40 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:19:07 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 /*sets min to got, if got is closer than min*/
 void update_min_sph(t_hit *min, t_hit *got, t_spher	*sp, t_col *calc)
 {
+	
 	if (!min || !got)
 		return ;
 	if (min->distance == -1 && got->distance > 0)

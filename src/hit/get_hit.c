@@ -7,9 +7,9 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
 
+	check_cys_hit(cf, rt, ray);
 	check_plane_hit(cf, rt, ray);
 	check_sphere_hit(cf, rt, ray);;
-	check_cys_hit(cf, rt, ray);
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
 	{
 		//print_collision(rt->calc);
@@ -27,12 +27,7 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	double angle;
 	sp = rt->calc.min.sphere;
 	A = rt->cf.amb;
-	L = rt->cf.light;
-	ambient->r = sp.col.r * A->col.r * A->lighting_ratio;
-	ambient->g = sp.col.g * A->col.g * A->lighting_ratio;
-	ambient->b = sp.col.b * A->col.b * A->lighting_ratio;
-
-	if (light_blocked(rt) == false)
+	L = rt->cf.light;CYLINDER
 	{
 		if (vector_multiply_vector(hit_normal, L_ray, &angle) == FAILURE)
 			clean_exit_rt(rt, CALC);
