@@ -20,6 +20,8 @@ void	get_up_vector(t_config *cf, t_vector *up)
 		up->x = -1;
 		up->y = 0;
 		up->z = 0;
+		if (cf->cam.norm_vec.z > 0)
+			up->x = 1;
 	}
 	else
 	{
