@@ -78,9 +78,9 @@ LIBFT_SRC = $(addprefix $(LIBFT_SRC_DIR)/, \
 
 NAME = miniRT
 
-all: $(MLX_LIB) $(NAME)
+all: $(MLX_LIB) $(NAME) 
 
-$(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ) $(MLX_LIB)
+$(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ) $(MLX_LIB) $(INCLUDES)
 	@echo "$(GREEN)Compiling $(NAME)... $(RESET)"
 	@$(CC) $(FLAGS) $(OBJ) $(MLX_LIB) $(MLX_FLAGS) $(LIBFT_DIR)/$(LIBFT) -o $(NAME) -lm
 
