@@ -48,14 +48,17 @@ int	discriminant_check(double A, double B, double C, t_mini_rt *rt)
 {
 	double	discriminant;
 
-	discriminant = B * B - 4 * A * C;
+	discriminant = (B * B) - (4 * A * C);
 	if (isnan(discriminant) || isinf(discriminant))
 		clean_exit_rt(rt, CALC_CYL_DIS);
-
+	//printf("discriminant = %10f\n", discriminant);
 	if (discriminant < 0)
 		return (0);
 	if (A == 0)
+	{
+		//printf("A 0\n");
 		return (0);
+	}
 	if (discriminant == 0)
 		return (1);
 	return (2);

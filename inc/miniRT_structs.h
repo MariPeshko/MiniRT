@@ -205,6 +205,7 @@ typedef struct s_color_calc
 	t_light	L;
 	t_vector	hit_n;
 	t_ray	r_shadow;
+	double	L_distance;
 	double		tmp;
 }	t_color_calc;
 

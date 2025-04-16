@@ -21,10 +21,18 @@ bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 	pl = rt->cf.pl;
 	while (pl)
 	{
-		if (collision_on_plane(&rt->calc.min.point, pl, rt) == true && pl->id != coca->pl->id)
+		if (coca->pl != 00 && pl->id == coca->pl->id)
+		{
+			pl = pl->next;
+			continue ;
+		}
+		if (collision_on_plane(&rt->calc.min.point, pl, rt) == true)
 			return (true);
 		if (get_hit_plane(pl, &coca->r_shadow, rt) == SUCCESS)
-			return (true);
+		{
+			if (rt->calc.got.distance < coca->L_distance)
+				return (true);
+		}
 		pl = pl->next;
 	}
 	return (false);
@@ -71,6 +79,7 @@ void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 	//now we have a normal in the right direction
 	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir, &rt->coca.tmp) == FAILURE)
 		clean_exit_rt(rt, CALC);
+	//printf("tmp = %10f \n", rt->coca.tmp);
 	diffuse->r = rt->coca.pl->col.r * rt->coca.L.bright * rt->coca.L.col.r * d_max(0, rt->coca.tmp);
 	diffuse->g = rt->coca.pl->col.g * rt->coca.L.bright * rt->coca.L.col.g * d_max(0, rt->coca.tmp);
 	diffuse->b = rt->coca.pl->col.b * rt->coca.L.bright * rt->coca.L.col.b * d_max(0, rt->coca.tmp);	

@@ -36,12 +36,12 @@
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
 # define DestroyNotify 17
-# define WIN_WIDTH 1200
-# define WIN_HEIGHT 800
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 450
 # define RATIO 0.8
 # define VIEWPORT_RATIO (16.0 / 9.0)
 # define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
-# define MAN false
+# define MAN true
 
 # define NONE "NONE"
 # define PLANE "PLANE"
@@ -203,4 +203,7 @@ int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt);
 bool	in_light(t_mini_rt *rt, t_color_calc *coca);
 bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca);
 int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
+void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse);
+double	vector_length(t_vector *v, t_mini_rt *rt);
+bool	sphere_blocks_light(t_mini_rt *rt, t_color_calc *coca);
 #endif

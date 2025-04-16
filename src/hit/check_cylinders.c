@@ -54,7 +54,7 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	return (SUCCESS);
 }
 
-double	vector_length(t_vector *v, t_mini_rt *rt)
+double	vector_length_cy(t_vector *v, t_mini_rt *rt)
 {
 	double	length;
 
@@ -96,7 +96,7 @@ int	get_cys_top_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	if (point_minus_point(&new->point, &cy->point, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC);
 	//cy diameter must be > 0 due to parsing rules so
-	if (vector_length(&tmp, rt) > (cy->diam / 2))
+	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
 		return (FAILURE);
 	//fill the hit with it.
 	return (SUCCESS);

@@ -35,6 +35,16 @@ int	point_minus_point(t_point *a, t_point *b, t_vector *result)
 	return (SUCCESS);
 }
 
+double	vector_length(t_vector *v, t_mini_rt *rt)
+{
+	double	length;
+
+	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
+	if (isnan(length) || isinf(length) || length == 0)
+		clean_exit_rt(rt, CALC);
+	return (length);
+}
+
 /*normalizes v to have length 1*/
 int	normalize_vector(t_vector *v)
 {

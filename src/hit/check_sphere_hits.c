@@ -48,13 +48,18 @@ void	reset_calc(t_col *calc)
 
 int	block_relevant(t_mini_rt *rt, t_spher *sp)
 {
+	//printf("block\n");
 	double	min;
-	//printf("t1 t2 %10f   %10f\n", rt->calc.t1, rt->calc.t2);
+
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &min) == FAILURE)
 		return (FAILURE);
-	if (fabs(min) < EPSILON && sp->id == rt->coca.sp->id)
+	
+	if (rt->coca.sp && sp->id != rt->coca.sp->id)
+		return (SUCCESS);
+	if (rt->coca.sp && rt->coca.sp->diam > min)
 		return (FAILURE);
-	//printf("min %10f\n", min);
+	if (min > (rt->coca.L_distance - EPSILON))
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -67,12 +72,13 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 	sp_calculate_quadratic_arguments(rt->calc.quadratic_args, sp, ray, rt);
 	solutions = discriminant_check(rt->calc.quadratic_args[0],
 			rt->calc.quadratic_args[1], rt->calc.quadratic_args[2], rt);
+	//printf("solutions = %d\n", solutions);
 	if (solutions == 0)
 		return (FAILURE);
 	quadratic_formula_plus(rt->calc.quadratic_args, &rt->calc.t1, rt);
 	if (solutions == 2)
 		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
-	if (rt->coca.sp != NULL)
+	if (rt->coca.L_distance != -1)
 		return (block_relevant(rt, sp));
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);
@@ -115,6 +121,7 @@ void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	{
 		if (get_hit_sphere(rt, sp, ray) == SUCCESS)
 		{
+			//printf("sphere_hit_found\n");
 			//update_min(&rt->calc.min, &rt->calc.got);
 			update_min_sph(&calc->min, &calc->got, sp, calc);
 		}
