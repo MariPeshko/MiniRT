@@ -38,6 +38,8 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/hit/check_sphere_hits.c \
 		/color/color.c \
 		/color/color_pl.c\
+		/color/color_sp.c\
+		/color/color_helpers.c\
 		/image/image.c	\
 		/image/mlx.c \
 		/image/viewport_00.c \
