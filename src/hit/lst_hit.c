@@ -16,6 +16,8 @@ void	init_hit(t_hit *hit)
 	hit->type = NONE;
 	hit->distance = -1;
 	hit->id = -1;
+	hit->cy_bottom = 0;
+	hit->cy_top = 0;
 }
 
 /* fills hit struct with data with a got hit, got means current hit.

@@ -143,6 +143,8 @@ typedef struct	s_hit
 	int		id;
 	double	distance;
 	t_point	point;
+	int	cy_top;
+	int	cy_bottom;
 }	t_hit;
 
 // c - camera position as the origin of the ray

@@ -152,10 +152,16 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 		update_min(&rt->calc.got, &new);
 	reset_calc(&rt->calc);
 	if (get_cys_top_collision(rt, cy, &new, ray) == SUCCESS)
+	{
+		new.cy_top = 1;
 		update_min(&rt->calc.got, &new);
+	}
 	reset_calc(&rt->calc);
 	if (get_cys_bottom_collision(rt, cy, &new, ray) == SUCCESS)
+	{
+		new.cy_bottom = 1;
 		update_min(&rt->calc.got, &new);
+	}
 	reset_calc(&rt->calc);
 	if (rt->calc.got.distance == 0)
 		clean_exit_rt(rt, C_IN_CY);
