@@ -75,4 +75,30 @@ name of the configuration file"
 # define CAM_ON_PLANE "Camera is embedded in the plane."
 # define CAM_DIR_ON_PLANE "Warning! The camera's direction \
 is exactly in the plane."
+
+//new
+# define CALC_CB "Cylinder Bottom Hit calculation failed."
+# define CALC_CT "Cylinder top Hit calculation failed."
+# define CALC_CW "Cylinder WALL Hit calculation failed."
+
+//Places
+# define V_L_CY "vector_length_cy"
+# define P_P_V "point_plus_vector"
+# define V_M_V "vector_multiply_vector"
+# define P_M_P "point_minus_point"
+# define G_H_C "get_hit_cys"
+# define D_P "dot_product"
+# define G_H_P "get_hit_plane"
+# define G_P_N "get_plane_numerator"
+# define F_H "fill_hit"
+# define C_P_H "check_plane_hit"
+# define G_H_S "get_hit_sphere"
+# define G_R "get_ray"
+# define C_O_P "collision_on_plane"
+# define G_C_P "get_colors_plane"
+# define G_C_S "get_colors_sphere"
+# define G_C_C "get_colors_cylinder"
+# define I_L "in_light"
+# define G_R_C "get_ray_color"
+# define C_H_N "calculate_hit_normal"
 #endif

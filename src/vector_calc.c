@@ -41,7 +41,7 @@ double	vector_length(t_vector *v, t_mini_rt *rt)
 
 	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
 	if (isnan(length) || isinf(length) || length == 0)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	return (length);
 }
 

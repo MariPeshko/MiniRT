@@ -77,7 +77,7 @@ void	setup_mlx(t_mini_rt *rt)
 	rt->visual.mlx = NULL;
 	rt->visual.mlx = mlx_init();
 	if (!rt->visual.mlx)
-		clean_exit_rt(rt, MLX_INIT);
+		clean_exit_rt(rt, MLX_INIT, NULL);
 	mlx_get_screen_size(rt->visual.mlx, &x, &y);
 	if (x > 0 && y > 0 && MAN == false)
 	{
@@ -93,9 +93,9 @@ void	setup_mlx(t_mini_rt *rt)
 	rt->visual.win = mlx_new_window(rt->visual.mlx, rt->visual.width, \
 								rt->visual.height, "42MiniRT");
 	if (!rt->visual.win)
-		clean_exit_rt(rt, MLX_WIN_INIT);
+		clean_exit_rt(rt, MLX_WIN_INIT, NULL);
 	if (setup_img(rt) == FAILURE)
-		clean_exit_rt(rt, MLX_IMG_INIT);
+		clean_exit_rt(rt, MLX_IMG_INIT, NULL);
 	mlx_hook(rt->visual.win, DestroyNotify, 0, handle_close, rt);
 	mlx_key_hook(rt->visual.win, handle_keypress, rt);
 }

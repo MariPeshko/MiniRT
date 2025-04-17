@@ -161,4 +161,5 @@ void	print_collision(t_col calc)
 	printf("hit object of TYPE: %s\n", calc.min.type);
 	print_point(&calc.min.point);
 	printf("Distance to camera: %10f\n\n", calc.min.distance);
+	printf("cy top / bottom = %d, %d\n", calc.min.cy_top, calc.min.cy_bottom);
 }

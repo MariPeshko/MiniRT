@@ -162,7 +162,7 @@ int cy_calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini
 //utils
 //utils/cleanup.c
 void	clean_exit(t_config *cf, char *er_msg);
-void	clean_exit_rt(t_mini_rt *rt, char *er_msg);
+void	clean_exit_rt(t_mini_rt *rt, char *er_msg, char *place);
 int     cleanup_mlx(t_mini_rt *rt);
 int     cleanup_cf(t_config *cf);
 void	*free_pls(t_plane *pls);

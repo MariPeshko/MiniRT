@@ -36,9 +36,9 @@ int	camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt)
 	double		dot_prod;
 
 	if (point_minus_point(&cf->cam.point, &pl->point, &cam_to_plane) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	if (dot_product(&pl->pl_normal, &cam_to_plane, &dot_prod) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	if (fabs(dot_prod) < EPSILON)
 		return (SUCCESS);
 	return (FAILURE);

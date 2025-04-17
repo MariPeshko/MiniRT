@@ -7,7 +7,7 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
 
-	//check_cys_hit(cf, rt, ray);
+	check_cys_hit(cf, rt, ray);
 	check_sphere_hit(cf, rt, ray);
 	check_plane_hit(cf, rt, ray);
 	//printf("get_hit_done\n");
@@ -18,25 +18,6 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	}
 	return (FAILURE);
 }
-
-/*void	get_color_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
-{
-	//pointers to existing structs for less . and ->
-	t_spher sp;
-	t_ambient A;
-	t_light L;
-	double angle;
-	sp = rt->calc.min.sphere;
-	A = rt->cf.amb;
-	L = rt->cf.light;CYLINDER
-	{
-		if (vector_multiply_vector(hit_normal, L_ray, &angle) == FAILURE)
-			clean_exit_rt(rt, CALC);
-		diffuse->r = sp.col.r * L.bright * L.col.r * max(0, angle);
-		diffuse->g = sp.col.g * L.bright * L.col.g * max(0, angle);
-		diffuse->b = sp.col.b * L.bright * L.col.b * max(0, angle);
-	}
-}*/
 
 /*sets pixel color to ambient due to no hit*/
 void	get_ambient()
@@ -63,7 +44,7 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 	if (isnan(triplet[0]) || isnan(triplet[1]) || isnan(triplet[2]) || 
 		isinf(triplet[0]) || isinf(triplet[1]) || isinf(triplet[2]))
 	{
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, G_R);
 	}
 	rt->calc.ray.c = camera;
 	init_vec(&rt->calc.ray.v_dir, triplet);

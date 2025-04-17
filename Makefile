@@ -36,6 +36,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/hit/check_plane_00.c 	\
 		/hit/check_plane_01.c 	\
 		/hit/check_sphere_hits.c \
+		/hit/cylinder_wall.c\
 		/color/color.c \
 		/color/color_pl.c\
 		/color/color_sp.c\

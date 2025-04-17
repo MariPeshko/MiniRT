@@ -19,21 +19,21 @@ int	sp_calculate_quadratic_arguments(double *args, t_spher *sp, t_ray *ray, t_mi
 
 	//A = ray direction vector ^2
 	if (vector_multiply_vector(&ray->v_dir, &ray->v_dir, &args[0]) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	//B = 2 * (Camera-center) * ray direction vector
 	if (point_minus_point(&ray->c, &sp->point, &v) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	if (vector_multiply_vector(&v, &ray->v_dir, &args[1]) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	args[1] *= 2;
 	if (isnan(args[1]) || isinf(args[1]))
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	//C = (Camera-center)^2 - radius^2
 	if (vector_multiply_vector(&v, &v, &args[2]) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	args[2] -= (sp->diam/2) * (sp->diam/2);
 	if (isnan(args[2]) || isinf(args[2]))
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, NULL);
 	return (SUCCESS);
 }
 
@@ -53,7 +53,6 @@ int	block_relevant(t_mini_rt *rt, t_spher *sp)
 
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &min) == FAILURE)
 		return (FAILURE);
-	
 	if (rt->coca.sp && sp->id != rt->coca.sp->id)
 		return (SUCCESS);
 	if (rt->coca.sp && rt->coca.sp->diam > min)
@@ -84,7 +83,7 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 		return (FAILURE);
 	//catch camera in sphere surface
 	if (rt->calc.t1 == 0)
-		clean_exit_rt(rt, C_IN_SP);
+		clean_exit_rt(rt, C_IN_SP, G_H_S);
 	//lowest positive is now in rt->calc.t1
 	fill_hit(SPHERE, &rt->calc, sp->id, &rt->calc.got);
 	return (SUCCESS);

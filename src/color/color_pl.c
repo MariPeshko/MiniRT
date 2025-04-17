@@ -6,9 +6,9 @@ bool	collision_on_plane(t_point *p, t_plane *pl, t_mini_rt *rt)
 	double		dot_prod;
 
 	if (point_minus_point(p, &pl->point, &p_to_plane) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, C_O_P);
 	if (dot_product(&pl->pl_normal, &p_to_plane, &dot_prod) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, C_O_P);
 	if (fabs(dot_prod) < EPSILON)
 		return (true);
 	return (false);
@@ -70,15 +70,15 @@ void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 		return ;
 	//if norm vector * ray vector >0, norm vector + -1
 	if (vector_multiply_vector(&rt->calc.ray.v_dir, &rt->coca.hit_n, &rt->coca.tmp) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, G_C_P);
 	if (rt->coca.tmp > 0)
 	{
 		if (scalar_multiply_vector(-1, &rt->coca.hit_n, &rt->coca.hit_n) == FAILURE)
-			clean_exit_rt(rt, CALC);
+			clean_exit_rt(rt, CALC, G_C_P);
 	}
 	//now we have a normal in the right direction
 	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir, &rt->coca.tmp) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, G_C_P);
 	//printf("tmp = %10f \n", rt->coca.tmp);
 	diffuse->r = rt->coca.pl->col.r * rt->coca.L.bright * rt->coca.L.col.r * d_max(0, rt->coca.tmp);
 	diffuse->g = rt->coca.pl->col.g * rt->coca.L.bright * rt->coca.L.col.g * d_max(0, rt->coca.tmp);

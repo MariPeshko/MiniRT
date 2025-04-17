@@ -19,7 +19,7 @@ int	ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, t_mini_rt *rt)
 	double	dot_prod;
 
 	if (dot_product(&ray->v_dir, &pl->pl_normal, &dot_prod) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, D_P);
 	if (fabs(dot_prod) < EPSILON)
 	{
 		/* printf("Plane. Dot product of d * n is 0\n");
@@ -54,17 +54,17 @@ int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 	double	t;
 
 	if (pl == NULL || ray == NULL)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, G_H_P);
 	if (ray_paral_plane(ray, pl, &denominator, rt) == true)
 		return (FAILURE);
 	if (get_plane_numerator(pl, ray, &numerator) == FAILURE)
-		clean_exit_rt(rt, CALC);
+		clean_exit_rt(rt, CALC, G_P_N);
 	t = numerator / denominator;
 	rt->calc.t1 = t;
 	if (t > EPSILON)
 	{
 		if (fill_hit(PLANE, &rt->calc, pl->id, &rt->calc.got) == FAILURE)
-			clean_exit_rt(rt, CALC);
+			clean_exit_rt(rt, CALC, F_H);
 		return (SUCCESS);
 	}
 	return (FAILURE);
@@ -102,8 +102,8 @@ void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 		{
 			display_error(CAM_ON_PLANE);
 			if (cam_dir_in_plane(cf->cam.norm_vec, pl->pl_normal) == FAILURE)
-				clean_exit_rt(rt, CALC);
-			clean_exit_rt(rt, CALC);
+				clean_exit_rt(rt, CALC, C_P_H);
+			clean_exit_rt(rt, CALC, C_P_H);
 		}
 		if (get_hit_plane(pl, ray, rt) == SUCCESS)
 		{
