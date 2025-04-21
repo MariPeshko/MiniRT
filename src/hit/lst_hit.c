@@ -8,7 +8,10 @@ void update_min(t_hit *min, t_hit *got)
 	if (min->distance == -1 && got->distance > 0)
 		*min = *got;
 	else if (got->distance < min->distance)
+	{
+		printf("got distance %10f < %10f new distance\n", min->distance, got->distance);
 		*min = *got;
+	}
 }
 
 void	init_hit(t_hit *hit)

@@ -31,8 +31,6 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 {
 	int		solutions;
 
-	rt->calc.t1 = -1;
-	rt->calc.t2 = -1;
 	cy_calculate_quadratic_arguments(rt->calc.quadratic_args, cy, ray, rt);
 	solutions = discriminant_check(rt->calc.quadratic_args[0],
 			rt->calc.quadratic_args[1], rt->calc.quadratic_args[2], rt);

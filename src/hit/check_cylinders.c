@@ -97,25 +97,28 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	// Error here get_cys_wall_collision
 	if (get_cys_wall_collision(rt, cy, &new, ray) == SUCCESS)
 		update_min(&rt->calc.got, &new);
-	reset_calc(&rt->calc);
-	if (get_cys_top_collision(rt, cy, &new, ray) == SUCCESS)
+	/*if (rt->calc.got.distance != -1)
+		printf("top / bottom = %d, %d\n", rt->calc.got.cy_top, rt->calc.got.cy_bottom);*/
+	//reset_calc(&rt->calc);
+	//init_hit(&new);
+
+	/*if (get_cys_top_collision(rt, cy, &new, ray) == SUCCESS)
 	{
-		//it gets here
-	//	printf("top detected\n");
 		new.cy_top = 1;
 		update_min(&rt->calc.got, &new);
 	}
 	reset_calc(&rt->calc);
+	init_hit(&new);
 	if (get_cys_bottom_collision(rt, cy, &new, ray) == SUCCESS)
 	{
-		//printf("bottom detected\n");
 		new.cy_bottom = 1;
 		update_min(&rt->calc.got, &new);
-	}
-	reset_calc(&rt->calc);
+	}*/
+	//reset_calc(&rt->calc);
 	if (rt->calc.got.distance == 0)
 		clean_exit_rt(rt, C_IN_CY, G_H_C);
-	//printf("top / bottom = %d, %d\n", rt->calc.got.cy_top, rt->calc.got.cy_bottom);
+	/*if (rt->calc.got.distance != -1)
+		printf("top / bottom = %d, %d\n", rt->calc.got.cy_top, rt->calc.got.cy_bottom);*/
 	//printf("get_hit_cys() is finished\n");
 	return (SUCCESS);
 }
@@ -148,6 +151,7 @@ void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	cy = cf->cy;
 	while (cy)
 	{
+		init_hit(&calc->got);
 		//printf("Before get_hit_cys()\n");
 		if (get_hit_cys(rt, cy, ray) == SUCCESS)
 		{

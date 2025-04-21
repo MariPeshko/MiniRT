@@ -13,6 +13,8 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	//printf("get_hit_done\n");
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
 	{
+		printf(RED "top / bottom = %d, %d\n" RESET, rt->calc.min.cy_top, rt->calc.min.cy_bottom);
+
 		//print_collision(rt->calc);
 		return (SUCCESS);
 	}
@@ -100,7 +102,7 @@ int	rays_loop(t_mini_rt *rt)
 			{
 				//if(w % 100 == 0 && h % 100 == 0)
 					//printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
-				get_color(rt, &rt->calc.hit_color);
+				//get_color(rt, &rt->calc.hit_color);
 				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else

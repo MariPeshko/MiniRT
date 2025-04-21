@@ -32,8 +32,6 @@ bool	in_light(t_mini_rt *rt, t_color_calc *coca)
 		return (false);
 	if (cylinder_blocks_light(rt, coca) == true)
 		return (false);
-	/*if (cylinder_blocks_light(rt, coca) == true)
-		return (false);*/
 	
 	return (true);
 }
