@@ -7,13 +7,13 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
 
+	//check_plane_hit(cf, rt, ray);
+	//check_sphere_hit(cf, rt, ray);
 	check_cys_hit(cf, rt, ray);
-	check_sphere_hit(cf, rt, ray);
-	check_plane_hit(cf, rt, ray);
 	//printf("get_hit_done\n");
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
 	{
-		printf(RED "top / bottom = %d, %d\n" RESET, rt->calc.min.cy_top, rt->calc.min.cy_bottom);
+		//printf(RED "top / bottom = %d, %d\n" RESET, rt->calc.min.cy_top, rt->calc.min.cy_bottom);
 
 		//print_collision(rt->calc);
 		return (SUCCESS);
@@ -84,6 +84,11 @@ int	rays_loop(t_mini_rt *rt)
 	int	h;
 	int	w;
 	
+	t_color c;
+
+	c.r = 255; 
+	c.g = 255;
+	c.b = 255;
 	h = 0;
 	init_hit(&rt->calc.min);
 	while (h < rt->visual.img.height)//for each row WIN_HEIGHT
@@ -107,6 +112,12 @@ int	rays_loop(t_mini_rt *rt)
 			}
 			else
 				put_pixel(&rt->visual.img, w, h, rt->cf.amb.adjusted);
+			if (w == 400 && h == 145)
+			{
+				printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
+				//put_pixel(&rt->visual.img, w, h, c);
+				//close(STDOUT_FILENO);
+			}
 			w++;
 		}
 		h++;

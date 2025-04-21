@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:25:24 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/14 15:48:49 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:40:08 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int get_positive_min(double a, double b, double *c)
 	if (a < 0 || b < 0)
 	{
 		if (a > b)
+			*c = a;
+		else
+			*c = b;
 		return (SUCCESS);
 	}
 	if (a < b)

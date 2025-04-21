@@ -6,16 +6,23 @@ void	check_height_two(t_mini_rt *rt, t_ray *ray, t_cys *cy, double *t)
 	double		vertical;
 	t_vector	v;
 
+	//get collision point
 	if (point_plus_vector(&ray->c, &ray->v_dir, *t, &p) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
-	if (point_minus_point(&p, &cy->point, &v) == FAILURE)
+	//vector cetner to collision
+	if (point_minus_point(&cy->point, &p, &v) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
-	if (vector_multiply_vector(&v, &cy->norm_vec, &vertical) == FAILURE)
+	if (vector_multiply_vector(&cy->norm_vec, &v, &vertical) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
 	if (vertical < 0)
 		vertical *= -1;
-	if (vertical > (cy->height / 2) + EPSILON)
+	printf("\nvertical = %10f with t = %10f\n", vertical, *t);
+	if (vertical > ((cy->height / 2) + EPSILON))
+	{
+		printf("SET\n");
 		*t = -1;
+	}
+	printf("t = %10f\n", *t);
 }
 
 void	check_height(t_mini_rt *rt, t_ray *ray, t_cys *cy)
@@ -40,13 +47,17 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	if (solutions == 2)
 		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
 	check_height(rt, ray, cy);
+	printf("t1 / t2 after height check = %10f  %10f\n", rt->calc.t1, rt->calc.t2);
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);
+	printf("t1 after get min = %10f\n", rt->calc.t1);
+	
 	//catch camera on cys wall
 	if (rt->calc.t1 == 0)
 		clean_exit_rt(rt, C_IN_CY_W, NULL);
 	//lowest positive is now in rt->calc.t1
 	fill_hit(CYLINDER, &rt->calc, cy->id, new);
+	printf("new type = %s distance %10f\n", new->type, new->distance);
 	return (SUCCESS);
 }
 
