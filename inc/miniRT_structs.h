@@ -31,17 +31,10 @@ typedef struct s_point
 // R,G,B colors in range [0-255]: 255, 255, 255
 typedef struct s_color
 {
-	int	r;
-	int	g;
-	int	b;
-}	t_color;
-
-typedef struct s_d_color
-{
 	double	r;
 	double	g;
 	double	b;
-}	t_d_color;
+}	t_color;
 
 // Second parameter - 3d normalized orientation vector.
 // In range [-1,1] for each x,y,z axis.

@@ -12,9 +12,9 @@ static void	print_col(t_color *c, const char *msg)
 		printf("%s RGB ", msg);
 	else
 		printf("Undefined element's RGB ");
-	printf("%i,", c->r);
-	printf("%i,", c->g);
-	printf("%i\n", c->b);
+	printf("%10f,", c->r);
+	printf("%10f,", c->g);
+	printf("%10f\n", c->b);
 }
 
 void	print_point(t_point *p)

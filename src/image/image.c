@@ -4,7 +4,14 @@
 static int	get_intcolor_print_color(t_color color)
 {
 	// Convert RGB to a single integer (0xRRGGBB)
-	int color_int = (color.r << 16) | (color.g << 8) | color.b;
+	int	r;
+	int	g;
+	int	b;
+
+	r = color.r * 255;
+	g = color.r * 255;
+	b = color.r * 255;
+	int color_int = (r << 16) | (g << 8) | b;
 
 	// Print HEX representation
 	//printf("Hex: #%06X\n", color_int);

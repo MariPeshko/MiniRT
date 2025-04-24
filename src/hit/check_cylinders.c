@@ -150,7 +150,7 @@ void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 		if (get_hit_cys(rt, cy, ray) == SUCCESS)
 		{
 			update_min_cy(&calc->min, &calc->got, cy, calc);
-			printf("got / min id %d / %d\n", calc->got.id, calc->min.id);
+			//printf("got / min id %d / %d\n", calc->got.id, calc->min.id);
 		}
 			
 		cy = cy->next;
