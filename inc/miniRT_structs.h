@@ -36,6 +36,13 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
+typedef struct s_d_color
+{
+	double	r;
+	double	g;
+	double	b;
+}	t_d_color;
+
 // Second parameter - 3d normalized orientation vector.
 // In range [-1,1] for each x,y,z axis.
 typedef struct s_camera

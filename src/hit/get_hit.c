@@ -7,8 +7,8 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
 
-	//check_plane_hit(cf, rt, ray);
-	//check_sphere_hit(cf, rt, ray);
+	check_plane_hit(cf, rt, ray);
+	check_sphere_hit(cf, rt, ray);
 	check_cys_hit(cf, rt, ray);
 	//printf("get_hit_done\n");
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
@@ -84,40 +84,24 @@ int	rays_loop(t_mini_rt *rt)
 	int	h;
 	int	w;
 	
-	t_color c;
-
-	c.r = 255; 
-	c.g = 255;
-	c.b = 255;
 	h = 0;
-	init_hit(&rt->calc.min);
 	while (h < rt->visual.img.height)//for each row WIN_HEIGHT
 	{
 		w = 0;
 		while (w < rt->visual.img.width)//for each column WIN_WIDTH
 		{
 			init_coca(&rt->coca);
-			init_hit(&rt->calc.min);
-			init_hit(&rt->calc.got);
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
-			//get_pixel(rt->cf.viewp, w, h, &rt->calc.pixel);
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
-			//check for hits and fill pixel color
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
 				//if(w % 100 == 0 && h % 100 == 0)
 					//printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
-				//get_color(rt, &rt->calc.hit_color);
+				get_color(rt, &rt->calc.hit_color);
 				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
 			else
 				put_pixel(&rt->visual.img, w, h, rt->cf.amb.adjusted);
-			if (w == 400 && h == 145)
-			{
-				printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
-				//put_pixel(&rt->visual.img, w, h, c);
-				//close(STDOUT_FILENO);
-			}
 			w++;
 		}
 		h++;

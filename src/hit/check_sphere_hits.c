@@ -95,6 +95,8 @@ void update_min_sph(t_hit *min, t_hit *got, t_spher	*sp, t_col *calc)
 	
 	if (!min || !got)
 		return ;
+	if (got->distance == -1)
+		return ;
 	if (min->distance == -1 && got->distance > 0)
 	{
 		*min = *got;

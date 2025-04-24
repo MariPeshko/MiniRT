@@ -162,6 +162,8 @@ int	assign_value_cyl(char *line, t_cys *cylinder)
 		return (FAILURE);
 	init_vec(&cylinder->norm_vec, triplet);
 	//get cylinder diameter (float)
+	if (normalize_vector(&cylinder->norm_vec) == FAILURE)
+		return (FAILURE);
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	if (tmp <= 0)
