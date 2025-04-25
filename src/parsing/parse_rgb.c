@@ -17,6 +17,8 @@ void	assign_rgb(t_color *in_struct, t_color result_rgb)
 	in_struct->r = result_rgb.r / 255.0f;
 	in_struct->g = result_rgb.g / 255.0f;
 	in_struct->b = result_rgb.b / 255.0f;
+	if (in_struct->r > 2 || in_struct->g > 2 || in_struct->b > 2)
+		printf("RGB HIGH\n");
 }
 
 // 0 - r, 1 - g, 2 - b

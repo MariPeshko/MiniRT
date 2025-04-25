@@ -170,13 +170,16 @@ void	get_color(t_mini_rt *rt, t_color *color)
 	ambient.r += diffuse.r;
 	ambient.g += diffuse.g;
 	ambient.b += diffuse.b;
-	// ambient.r = powf(ambient.r, 1.0f / 2.2f);
-	// ambient.g = powf(ambient.g, 1.0f / 2.2f);
-	// ambient.b = powf(ambient.b, 1.0f / 2.2f);
+	ambient.r = powf(ambient.r, 1.0f / 2.2f);
+	ambient.g = powf(ambient.g, 1.0f / 2.2f);
+	ambient.b = powf(ambient.b, 1.0f / 2.2f);
 	color->r = d_min(1.0, d_max(0, ambient.r));
 	color->g = d_min(1.0, d_max(0, ambient.g));
 	color->b = d_min(1.0, d_max(0, ambient.b));
-	//printf("rgb end %d, %d, %d\n", color->r, color->g, color->b);
+	/*color->r = (int) (color->r * 255);
+	color->g = (int) (color->g * 255);
+	color->b = (int) (color->b * 255);*/
+	//printf("rgb end %10f, %10f, %10f\n", color->r, color->g, color->b);
 
 	return ;
 }

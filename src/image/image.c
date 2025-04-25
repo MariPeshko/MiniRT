@@ -9,8 +9,8 @@ static int	get_intcolor_print_color(t_color color)
 	int	b;
 
 	r = color.r * 255;
-	g = color.r * 255;
-	b = color.r * 255;
+	g = color.g * 255;
+	b = color.b * 255;
 	int color_int = (r << 16) | (g << 8) | b;
 
 	// Print HEX representation
