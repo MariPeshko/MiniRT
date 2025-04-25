@@ -206,4 +206,6 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
 void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse);
 double	vector_length(t_vector *v, t_mini_rt *rt);
 bool	sphere_blocks_light(t_mini_rt *rt, t_color_calc *coca);
+void	get_colors_cylinder(t_mini_rt *rt, t_color *ambient, t_color *diffuse);
+bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca);
 #endif

@@ -41,6 +41,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/color/color_pl.c\
 		/color/color_sp.c\
 		/color/color_helpers.c\
+		/color/color_cy.c\
 		/image/image.c	\
 		/image/mlx.c \
 		/image/viewport_00.c \
