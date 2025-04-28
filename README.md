@@ -190,7 +190,8 @@ File: camera_on_plane.rt
 Error: Warning! The camera's direction is exactly in the plane.
 File: camera_dir_on_plane.rt
 
-3. Camera inside a sphere
+3. Message: Camera inside a sphere
+File: inside_sphere.rt
 
 
 ## Unsorted
