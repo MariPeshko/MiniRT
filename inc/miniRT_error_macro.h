@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:15:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/14 14:58:20 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:39:32 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ is exactly in the plane."
 # define G_H_P "get_hit_plane"
 # define G_P_N "get_plane_numerator"
 # define F_H "fill_hit"
-# define C_P_H "check_plane_hit"
+# define C_P_H ""
 # define G_H_S "get_hit_sphere"
 # define G_R "get_ray"
 # define C_O_P "collision_on_plane"

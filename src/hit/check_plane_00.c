@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/14 13:21:09 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/28 18:08:59 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 		{
 			display_error(CAM_ON_PLANE);
 			if (cam_dir_in_plane(cf->cam.norm_vec, pl->pl_normal) == FAILURE)
-				clean_exit_rt(rt, CALC, C_P_H);
+				clean_exit_rt(rt, NULL, NULL);
 			clean_exit_rt(rt, CALC, C_P_H);
 		}
 		if (get_hit_plane(pl, ray, rt) == SUCCESS)

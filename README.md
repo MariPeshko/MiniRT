@@ -145,7 +145,6 @@ For a pixel at row i, column j, its position in 3D space is:
 **Ray Direction Calculation**
 
 "In the real world, light comes from a light source (the Sun, a light bulb, and so on), bounces off several objects, and then finally reaches our eyes.
-
 Instead, we’ll consider the rays of light “in reverse”; we’ll start with a ray originating from the camera, going through a point in the viewport, and tracing its path until it hits some object in the scene. This object is what the camera “sees” through that point of the viewport." 
 (c) https://www.gabrielgambetta.com/computer-graphics-from-scratch/02-basic-raytracing.html
 
@@ -181,6 +180,18 @@ function mlx_put_image_to_window()
 Puts your image to the screen at the given coordinates.
 
 mlx_destroy_image()
+
+## Edge cases that we handled
+
+1. Error: Camera is embedded in the plane.
+File: camera_on_plane.rt
+
+2. Error: Camera is embedded in the plane.
+Error: Warning! The camera's direction is exactly in the plane.
+File: camera_dir_on_plane.rt
+
+3. Camera inside a sphere
+
 
 ## Unsorted
 

@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:07 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/08 20:41:13 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/28 18:07:45 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal)
 		return (FAILURE);
 	}
 	if (fabs(dot_prod) < EPSILON)
+	{
 		display_error(CAM_DIR_ON_PLANE);
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
