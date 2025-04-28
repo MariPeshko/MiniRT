@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/12 16:17:04 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/28 14:59:02 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,6 @@ typedef struct s_config
 	t_spher		*sp;
 	t_cys		*cy;
 	t_vp		viewp;
-	//void		*mlx;
-	//void		*win;
 	bool		valid;
 	bool		one_amb;
 	bool		one_cam;

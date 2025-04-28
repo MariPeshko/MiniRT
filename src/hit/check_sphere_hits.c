@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_sphere_hits.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 10:43:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/14 14:19:07 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:20:09 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 /*sets min to got, if got is closer than min*/
 void update_min_sph(t_hit *min, t_hit *got, t_spher	*sp, t_col *calc)
 {
-	
 	if (!min || !got)
 		return ;
 	if (got->distance == -1)
@@ -118,6 +117,8 @@ void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 
 	calc = &rt->calc;
 	sp = cf->sp;
+	//check_camera_inside_sphere(rt->cf.cam.point, sp->point, sp->diam);
+
 	while (sp)
 	{
 		if (get_hit_sphere(rt, sp, ray) == SUCCESS)

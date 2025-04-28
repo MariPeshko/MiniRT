@@ -98,6 +98,34 @@ int	check_final_config(t_config *cf)
 	return (SUCCESS);
 }
 
+static void check_camera_inside_sphere(t_point camera_pos, t_point sphere_center, double diametr)
+{
+	double radius;
+
+	radius = diametr / 2;
+    double dx = camera_pos.x - sphere_center.x;
+    double dy = camera_pos.y - sphere_center.y;
+    double dz = camera_pos.z - sphere_center.z;
+    double distance_squared = dx * dx + dy * dy + dz * dz;
+    if (distance_squared < radius * radius)
+	{
+		printf(GREEN "Message: " RESET);
+        printf("Camera is inside the sphere!\n");
+	}
+}
+
+static void cam_inside_sphere(t_config *cf)
+{
+	t_spher	*sp;
+
+	sp = cf->sp;
+	while (sp)
+	{
+		check_camera_inside_sphere(cf->cam.point, sp->point, sp->diam);
+		sp = sp->next;
+	}
+}
+
 /*open a config file
 a scene in format *.rt*/
 int	open_config(char *config, t_config *cf)
@@ -125,6 +153,7 @@ int	open_config(char *config, t_config *cf)
 		line = get_next_line(fd_conf);
 	}
 	close(fd_conf);
+	cam_inside_sphere(cf);
 	if (check_final_config(cf) == SUCCESS)
 	{
 		// assigning an id for each element.
