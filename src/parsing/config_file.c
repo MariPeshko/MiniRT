@@ -126,6 +126,66 @@ static void cam_inside_sphere(t_config *cf)
 	}
 }
 
+double vec3_dot(t_vector a, t_vector b)
+{
+    return (a.x * b.x + a.y * b.y + a.z * b.z);
+}
+
+t_point vec3_sub(t_vector a, t_point b)
+{
+    t_point result;
+
+    result.x = a.x - b.x;
+    result.y = a.y - b.y;
+    result.z = a.z - b.z;
+    return (result);
+}
+
+int check_camera_inside_cylinder(t_point camera_pos, t_cys cyl)
+{
+    t_vector v;
+	double radius = cyl.diam / 2;
+	
+	point_minus_point(&camera_pos, &cyl.point, &v);
+    double projection_length; // = vec3_dot(v, cyl.norm_vec);
+	dot_product(&v, &cyl.norm_vec, &projection_length);
+    
+    // Projected vector along the cylinder axis
+    t_vector proj;
+
+    proj.x = projection_length * cyl.norm_vec.x;
+    proj.y = projection_length * cyl.norm_vec.y;
+    proj.z = projection_length * cyl.norm_vec.z;
+    
+    // Perpendicular vector
+    t_vector v_perp; // = vec3_sub(v, proj);
+	subtract_vectors(&v, &proj, &v_perp);
+
+    double distance_squared = vec3_dot(v_perp, v_perp);
+
+    if (distance_squared < radius * radius)
+		return (FAILURE);
+	return (SUCCESS);
+        printf("Cyl inside\n");
+}
+
+static int cam_inside_cyl(t_config *cf)
+{
+	t_cys	*cy;
+
+	cy = cf->cy;
+	while (cy)
+	{
+		if (check_camera_inside_cylinder(cf->cam.point, *cy) == FAILURE)
+		{
+			display_error(CAM_INS_CY);
+			return (FAILURE);
+		}
+		cy = cy->next;
+	}
+	return (SUCCESS);
+}
+
 /*open a config file
 a scene in format *.rt*/
 int	open_config(char *config, t_config *cf)
@@ -154,6 +214,8 @@ int	open_config(char *config, t_config *cf)
 	}
 	close(fd_conf);
 	cam_inside_sphere(cf);
+	if (cam_inside_cyl(cf) == FAILURE)
+		return (FAILURE);
 	if (check_final_config(cf) == SUCCESS)
 	{
 		// assigning an id for each element.

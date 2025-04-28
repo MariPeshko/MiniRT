@@ -193,6 +193,15 @@ File: camera_dir_on_plane.rt
 3. Message: Camera inside a sphere
 File: inside_sphere.rt
 
+4. Camera inside a cylinder
+Error: "Camera inside a Cylinder."
+
+5. Light inside an object...
+
+6. Light and camera same position... ?
+
+.....
+
 
 ## Unsorted
 

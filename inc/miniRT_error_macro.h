@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:15:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/28 14:39:32 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/04/28 20:21:25 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,12 @@ name of the configuration file"
 
 //errors for camera at invalid position
 # define C_IN_SP "Camera in the surphace of a Sphere."
-# define C_IN_CY_W "Camera in the Wall of a Cylinder."
-# define C_IN_CY "Camera in the surphace of a Cylinder."
 # define CAM_ON_PLANE "Camera is embedded in the plane."
 # define CAM_DIR_ON_PLANE "Warning! The camera's direction \
 is exactly in the plane."
+# define CAM_INS_CY "Camera inside a Cylinder."
+# define C_IN_CY_W "Camera in the Wall of a Cylinder."
+# define C_IN_CY "Camera in the surphace of a Cylinder."
 
 //new
 # define CALC_CB "Cylinder Bottom Hit calculation failed."
