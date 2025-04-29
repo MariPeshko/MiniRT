@@ -45,6 +45,7 @@ int	get_cys_top_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	//print_vec(&tmp);
 	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
 		return (FAILURE);
+	//printf("TOP detected\n");
 	//fill the hit with it.
 	return (SUCCESS);
 }
@@ -95,15 +96,14 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	init_hit(&new);
 	reset_calc(&rt->calc);
 	if (get_cys_wall_collision(rt, cy, &new, ray) == SUCCESS)
-	{
 		update_min(&rt->calc.got, &new);
-		//printf("got type = %s\n", rt->calc.got.type);
-	}
+	init_hit(&new);
 	if (get_cys_top_collision(rt, cy, &new, ray) == SUCCESS)
 	{
 		new.cy_top = 1;
 		update_min(&rt->calc.got, &new);
 	}
+	init_hit(&new);
 	if (get_cys_bottom_collision(rt, cy, &new, ray) == SUCCESS)
 	{
 		new.cy_bottom = 1;
