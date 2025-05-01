@@ -38,7 +38,7 @@
 # define DestroyNotify 17
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
-# define RATIO 0.8
+# define RATIO 0.5
 # define VIEWPORT_RATIO (16.0 / 9.0)
 # define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
 # define MAN false

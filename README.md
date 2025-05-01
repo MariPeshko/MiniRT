@@ -202,6 +202,14 @@ Error: "Camera inside a Cylinder."
 
 .....
 
+## Configuration file
+
+[ To copy from subject ]
+Camera, light, ambient light and objects format.
+
+Error and exit when the configuration file is misconfigured or the filename doesn't end with the `.rt` extention. Also the program displays proper message in case there is no read permission or no such file or directory.
+
+Files for these tests in `rt_files/invalid_config/`
 
 ## Unsorted
 
@@ -209,5 +217,7 @@ EPSILON instead of zero in calculation
 
 Floating-point numbers can be very slightly off, even when they’re theoretically zero. We use an epsilon. Otherwise, it may fail to detect the camera on the plane due to tiny floating-point errors.
 Also we use EPSILON in plane calculations.
+
+
 
 ---

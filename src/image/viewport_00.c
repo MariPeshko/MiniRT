@@ -102,6 +102,6 @@ int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 	//corner
 	if (calculate_upper_left_corner(&cf->viewp, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL, NULL);
-	print_viewport(&cf->viewp);
+	//print_viewport(&cf->viewp);
 	return (SUCCESS);
 }
