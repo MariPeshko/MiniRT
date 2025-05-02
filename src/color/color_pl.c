@@ -27,7 +27,7 @@ bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 			continue ;
 		}
 		if (collision_on_plane(&rt->calc.min.point, pl, rt) == true)
-			return (true);
+			return (false);
 		if (get_hit_plane(pl, &coca->r_shadow, rt) == SUCCESS)
 		{
 			if (rt->calc.got.distance < coca->L_distance)

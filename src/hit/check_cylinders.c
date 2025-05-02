@@ -106,8 +106,15 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	init_hit(&new);
 	if (get_cys_bottom_collision(rt, cy, &new, ray) == SUCCESS)
 	{
+		if (rt->coca.pl || rt->coca.sp || rt->coca.cy)
+			return (SUCCESS);
 		new.cy_bottom = 1;
 		update_min(&rt->calc.got, &new);
+	}
+	if (rt->coca.pl && new.cy_bottom == 1)
+	{
+		printf("new top / bottom distance %d / %d %10f\n", new.cy_top, new.cy_bottom, new.distance);
+		printf("got top / bottom distance %d / %d %10f\n", rt->calc.got.cy_top, rt->calc.got.cy_bottom, rt->calc.got.distance);
 	}
 	if (rt->calc.got.distance == 0)
 		clean_exit_rt(rt, C_IN_CY, G_H_C);

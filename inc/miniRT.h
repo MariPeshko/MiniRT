@@ -208,4 +208,7 @@ double	vector_length(t_vector *v, t_mini_rt *rt);
 bool	sphere_blocks_light(t_mini_rt *rt, t_color_calc *coca);
 void	get_colors_cylinder(t_mini_rt *rt, t_color *ambient, t_color *diffuse);
 bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca);
+void	check_height(t_mini_rt *rt, t_ray *ray, t_cys *cy);
+void	check_height_two(t_mini_rt *rt, t_ray *ray, t_cys *cy, double *t);
+double	vector_length_cy(t_vector *v, t_mini_rt *rt);
 #endif

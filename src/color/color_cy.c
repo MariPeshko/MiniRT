@@ -1,5 +1,140 @@
 #include "../inc/miniRT.h"
 
+int	fill_hit_shadow(char *object, t_col *calc, t_ray *ray, t_hit *got)
+{
+	got->type = object;
+	got->distance = calc->t1;
+	if (point_plus_vector(&ray->c, &ray->v_dir, got->distance, &got->point) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+int	get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
+{
+	//get top center point
+	t_point center;
+	t_vector tmp;
+
+	if (point_plus_vector(&cy->point, &cy->norm_vec, cy->height / 2, &center) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, P_P_V);
+	//d*v
+	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, V_M_V);
+	/*if ray is parallel to plane, we have either 0 hits, so return failure. 
+	or we have ray in plane. but ray in plane in this case means that we found the closest 
+	collision on the cylinder top on the wall already, so we can ignore this case, right?*/
+	//check d*v isnt 0
+	if (rt->calc.t2 == 0)
+	{
+		printf("ray parallel to cap\n");
+		return (FAILURE);
+	}
+	//fraction upper part
+	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, P_M_P);
+	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, V_M_V);
+
+	//t = ((c-o) * v) / (d*v) 
+	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
+	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
+		clean_exit_rt(rt, CALC_CT, NULL);
+	if (rt->calc.t1 > rt->coca.L_distance)
+		return (FAILURE);
+	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
+	//check collision point is relevant
+	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, P_M_P);
+	//cy diameter must be > 0 due to parsing rules so
+	//print_vec(&tmp);
+	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
+		return (FAILURE);
+	//printf("TOP detected\n");
+	//fill the hit with it.
+	return (SUCCESS);
+}
+
+int	get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
+{
+	//get top center point
+	t_point center;
+	t_vector tmp;
+
+	if (point_plus_vector(&cy->point, &cy->norm_vec, ((cy->height / 2) * -1), &center) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, P_P_V);
+	//d*v
+	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, V_M_V);
+	/*if ray is parallel to plane, we have either 0 hits, so return failure. 
+	or we have ray in plane. but ray in plane in this case means that we found the closest 
+	collision on the cylinder top on the wall already, so we can ignore this case, right?*/
+	//check d*v isnt 0
+	if (rt->calc.t2 == 0)
+	{
+		printf("ray parallel to cap\n");
+		return (FAILURE);
+	}
+	//fraction upper part
+	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, P_M_P);
+	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, V_M_V);
+
+	//t = ((c-o) * v) / (d*v) 
+	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
+	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
+		clean_exit_rt(rt, CALC_CT, NULL);
+	if (rt->calc.t1 > rt->coca.L_distance)
+		return (FAILURE);
+	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
+	//check collision point is relevant
+	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, P_M_P);
+	//cy diameter must be > 0 due to parsing rules so
+	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
+		return (FAILURE);
+	
+	//fill the hit with it.
+	return (SUCCESS);
+}
+
+int	get_cys_wall_shadow(t_mini_rt *rt, t_cys *cy, t_ray *ray)
+{
+	int		solutions;
+
+	cy_calculate_quadratic_arguments(rt->calc.quadratic_args, cy, ray, rt);
+	solutions = discriminant_check(rt->calc.quadratic_args[0],
+			rt->calc.quadratic_args[1], rt->calc.quadratic_args[2], rt);
+	if (solutions == 0)
+		return (FAILURE);
+	quadratic_formula_plus(rt->calc.quadratic_args, &rt->calc.t1, rt);
+	if (solutions == 2)
+		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
+	check_height(rt, ray, cy);
+	//printf("t1 / t2 after height check = %10f  %10f\n", rt->calc.t1, rt->calc.t2);
+	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
+		return (FAILURE);
+	if (rt->calc.t1 > rt->coca.L_distance)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+int	cys_shadow_check(t_mini_rt *rt, t_cys *cy, t_ray *ray)
+{
+	t_hit	new;
+
+	init_hit(&new);
+	reset_calc(&rt->calc);
+	if (get_cys_wall_shadow(rt, cy, ray) == SUCCESS)
+		return (SUCCESS);
+	if (get_cys_top_shadow(rt, cy, &new, ray) == SUCCESS)
+		return (SUCCESS);
+	init_hit(&new);
+	if (get_cys_bottom_shadow(rt, cy, &new, ray) == SUCCESS)
+		return (SUCCESS);
+	return (FAILURE);
+}
+
 bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 {
 	t_cys	*cy;
@@ -14,7 +149,7 @@ bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 			cy = cy->next;
 			continue ;
 		}
-		if (get_hit_cys(rt, cy, &coca->r_shadow) == SUCCESS)
+		if (cys_shadow_check(rt, cy, &coca->r_shadow) == SUCCESS)
 		{
 			//printf("cylinder %d blocks light\n", cy->id);
 			return (true);

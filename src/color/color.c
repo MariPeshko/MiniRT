@@ -2,18 +2,17 @@
 
 bool	in_light(t_mini_rt *rt, t_color_calc *coca)
 {
-	if (vector_multiply_vector(&coca->r_shadow.v_dir, &coca->hit_n, &coca->tmp) == FAILURE)
+	if (vector_multiply_vector(&coca->r_shadow.v_dir,
+			&coca->hit_n, &coca->tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, I_L);
 	if (coca->tmp < 0)
 		return (false);
-	//printf("tmp = %10f\n", coca->tmp);
 	if (plane_blocks_light(rt, coca) == true)
 		return (false);
 	if (sphere_blocks_light(rt, coca) == true)
 		return (false);
 	if (cylinder_blocks_light(rt, coca) == true)
 		return (false);
-	
 	return (true);
 }
 
@@ -30,7 +29,6 @@ void	get_ray_color(t_mini_rt *rt, t_point light, t_point hit_p)
 	{
 		clean_exit_rt(rt, CALC, G_R_C);
 	}
-	
 	rt->coca.r_shadow.c = hit_p;
 	init_vec(&rt->coca.r_shadow.v_dir, triplet);
 	rt->coca.L_distance = vector_length(&rt->coca.r_shadow.v_dir, rt);
