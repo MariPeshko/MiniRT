@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:14:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:15:35 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:37:46 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ bool	sphere_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 			sp = sp->next;
 			continue ;
 		}
-		if (get_hit_sphere(rt, sp, &coca->r_shadow) == SUCCESS)
+		if (get_hit_sphere(rt, sp, &coca->r_shadow) == SUCCESS
+			&& rt->calc.t1 > EPSILON)
 			return (true);
 		sp = sp->next;
 	}
