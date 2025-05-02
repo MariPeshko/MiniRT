@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_cylinders.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 12:51:14 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/05/02 12:51:15 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 double	vector_length_cy(t_vector *v, t_mini_rt *rt)
@@ -12,79 +24,57 @@ double	vector_length_cy(t_vector *v, t_mini_rt *rt)
 
 int	get_cys_top_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 {
-	//get top center point
-	t_point center;
-	t_vector tmp;
+	t_point		center;
+	t_vector	tmp;
 
-	if (point_plus_vector(&cy->point, &cy->norm_vec, cy->height / 2, &center) == FAILURE)
+	if (point_plus_vector(&cy->point, &cy->norm_vec,
+			cy->height / 2, &center) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_P_V);
-	//d*v
-	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
+	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec,
+			&rt->calc.t2) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-	/*if ray is parallel to plane, we have either 0 hits, so return failure. 
-	or we have ray in plane. but ray in plane in this case means that we found the closest 
-	collision on the cylinder top on the wall already, so we can ignore this case, right?*/
-	//check d*v isnt 0
 	if (rt->calc.t2 == 0)
 		return (FAILURE);
-	//fraction upper part
 	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
 	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-
-	//t = ((c-o) * v) / (d*v) 
 	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
 	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
 		clean_exit_rt(rt, CALC_CT, NULL);
 	fill_hit(CYLINDER, &rt->calc, cy->id, new);
-	//check collision point is relevant
 	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
-	//cy diameter must be > 0 due to parsing rules so
-	//print_vec(&tmp);
 	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
 		return (FAILURE);
-	//printf("TOP detected\n");
-	//fill the hit with it.
 	return (SUCCESS);
 }
 
 int	get_cys_bottom_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 {
-	//get top center point
-	t_point center;
-	t_vector tmp;
+	t_point		center;
+	t_vector	tmp;
 
-	if (point_plus_vector(&cy->point, &cy->norm_vec, ((cy->height / 2) * -1), &center) == FAILURE)
+	if (point_plus_vector(&cy->point, &cy->norm_vec,
+			((cy->height / 2) * -1), &center) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_P_V);
-	//d*v
-	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
+	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec,
+			&rt->calc.t2) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-	/*if ray is parallel to plane, we have either 0 hits, so return failure. 
-	or we have ray in plane. but ray in plane in this case means that we found the closest 
-	collision on the cylinder top on the wall already, so we can ignore this case, right?*/
-	//check d*v isnt 0
 	if (rt->calc.t2 == 0)
 		return (FAILURE);
-	//fraction upper part
 	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
 	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-
-	//t = ((c-o) * v) / (d*v) 
 	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
 	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
 		clean_exit_rt(rt, CALC_CT, NULL);
 	fill_hit(CYLINDER, &rt->calc, cy->id, new);
-	//check collision point is relevant
 	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
-	//cy diameter must be > 0 due to parsing rules so
 	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
 		return (FAILURE);
-	//fill the hit with it.
 	return (SUCCESS);
 }
 
@@ -110,11 +100,6 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 			return (SUCCESS);
 		new.cy_bottom = 1;
 		update_min(&rt->calc.got, &new);
-	}
-	if (rt->coca.pl && new.cy_bottom == 1)
-	{
-		printf("new top / bottom distance %d / %d %10f\n", new.cy_top, new.cy_bottom, new.distance);
-		printf("got top / bottom distance %d / %d %10f\n", rt->calc.got.cy_top, rt->calc.got.cy_bottom, rt->calc.got.distance);
 	}
 	if (rt->calc.got.distance == 0)
 		clean_exit_rt(rt, C_IN_CY, G_H_C);
@@ -155,11 +140,7 @@ void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 	{
 		init_hit(&calc->got);
 		if (get_hit_cys(rt, cy, ray) == SUCCESS)
-		{
 			update_min_cy(&calc->min, &calc->got, cy, calc);
-			//printf("got / min id %d / %d\n", calc->got.id, calc->min.id);
-		}
-			
 		cy = cy->next;
 	}
 }
