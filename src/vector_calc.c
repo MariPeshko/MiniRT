@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_calc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:53:47 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/14 14:07:01 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/02 12:54:27 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,55 +63,45 @@ int	normalize_vector(t_vector *v)
 result = point + vector * scalar (german: Skalar) */
 int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result)
 {
-	double new_x, new_y, new_z;
+	double	new_x;
+	double	new_y;
+	double	new_z;
 
 	if (!point || !vector || !result)
 		return (FAILURE);
-
-	// Calculate the new coordinates
 	new_x = point->x + scalar * vector->x;
 	new_y = point->y + scalar * vector->y;
 	new_z = point->z + scalar * vector->z;
-
-	// Check for overflow/underflow or invalid results (math.h functions)
 	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
 	}
-
-	// Assign the result if everything is fine
 	result->x = new_x;
 	result->y = new_y;
 	result->z = new_z;
-
 	return (SUCCESS);
 }
 
 int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result)
 {
-	double new_x, new_y, new_z;
+	double	new_x;
+	double	new_y;
+	double	new_z;
 
 	if (!a || !b || !result)
 		return (FAILURE);
-
-	// Calculate the new coordinates
 	new_x = a->x - b->x;
 	new_y = a->y - b->y;
 	new_z = a->z - b->z;
-
-	// Check for overflow/underflow or invalid results (math.h functions)
 	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
 	}
-
-	// Assign the result if everything is fine
 	result->x = new_x;
 	result->y = new_y;
 	result->z = new_z;
-
 	return (SUCCESS);
 }
 
@@ -120,14 +110,13 @@ int	get_normal(t_vector *v, t_vector *n)
 {
 	if (!v || !n)
 		return (FAILURE);
-	// If v is along X-axis, pick (0,1,0) as a normal
 	if (v->x != 0 || v->y != 0)
 	{
 		n->x = -v->y;
 		n->y = v->x;
 		n->z = 0;
 	}
-	else // If v is purely along Z-axis, pick a perpendicular in X-Y plane
+	else
 	{
 		n->x = 1;
 		n->y = 0;
@@ -164,18 +153,14 @@ int	vector_multiply_vector(t_vector *a, t_vector *b, double *result)
 
 	if (!a || !b || !result)
 		return (FAILURE);
-	// Calculate the new coordinates
 	new_x = a->x * b->x;
 	new_y = a->y * b->y;
 	new_z = a->z * b->z;
-
-	// Check for overflow/underflow or invalid results (math.h functions)
 	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
 	}
-	// Assign the result if everything is fine
 	new_x += new_y + new_z;
 	if (isnan(new_x) || isinf(new_x))
 		return (FAILURE);
@@ -191,18 +176,14 @@ int	scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result)
 
 	if (!vector || !result)
 		return (FAILURE);
-	// Calculate the new coordinates
 	new_x = scalar * vector->x;
 	new_y = scalar * vector->y;
 	new_z = scalar * vector->z;
-
-	// Check for overflow/underflow or invalid results (math.h functions)
 	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
 		isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
 	}
-	// Assign the result if everything is fine
 	result->x = new_x;
 	result->y = new_y;
 	result->z = new_z;

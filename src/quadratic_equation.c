@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:25:24 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/21 13:40:08 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 12:54:45 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,10 @@ int	discriminant_check(double A, double B, double C, t_mini_rt *rt)
 	discriminant = (B * B) - (4 * A * C);
 	if (isnan(discriminant) || isinf(discriminant))
 		clean_exit_rt(rt, CALC_CYL_DIS, NULL);
-	//printf("discriminant = %10f\n", discriminant);
 	if (discriminant < 0)
 		return (0);
 	if (A == 0)
-	{
-		//printf("A 0\n");
 		return (0);
-	}
 	if (discriminant == 0)
 		return (1);
 	return (2);
