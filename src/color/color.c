@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 12:15:58 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/05/02 12:32:31 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 bool	in_light(t_mini_rt *rt, t_color_calc *coca)
@@ -19,8 +31,8 @@ bool	in_light(t_mini_rt *rt, t_color_calc *coca)
 
 void	get_ray_color(t_mini_rt *rt, t_point light, t_point hit_p)
 {
-	/*calculates a ray*/
 	double	triplet[3];
+
 	triplet[0] = light.x - hit_p.x;
 	triplet[1] = light.y - hit_p.y;
 	triplet[2] = light.z - hit_p.z;
@@ -39,7 +51,6 @@ void	get_ray_color(t_mini_rt *rt, t_point light, t_point hit_p)
 /*claculates color of pixel based on hit*/
 void	get_color(t_mini_rt *rt, t_color *color)
 {
-	//printf("get Color hi\n");
 	t_color	ambient;
 	t_color	diffuse;
 
@@ -47,7 +58,6 @@ void	get_color(t_mini_rt *rt, t_color *color)
 	diffuse.g = 0;
 	diffuse.b = 0;
 	get_ray_color(rt, rt->cf.light.point, rt->calc.min.point);
-	//save distance to light, so objects behind the light do not count as shadow. 
 	if (ft_strncmp(rt->calc.min.type, PLANE, 5) == SUCCESS)
 		get_colors_plane(rt, &ambient, &diffuse);
 	else if (ft_strncmp(rt->calc.min.type, SPHERE, 6) == SUCCESS)
@@ -63,10 +73,5 @@ void	get_color(t_mini_rt *rt, t_color *color)
 	color->r = d_min(1.0, d_max(0, ambient.r));
 	color->g = d_min(1.0, d_max(0, ambient.g));
 	color->b = d_min(1.0, d_max(0, ambient.b));
-	/*color->r = (int) (color->r * 255);
-	color->g = (int) (color->g * 255);
-	color->b = (int) (color->b * 255);*/
-	//printf("rgb end %10f, %10f, %10f\n", color->r, color->g, color->b);
-
 	return ;
 }

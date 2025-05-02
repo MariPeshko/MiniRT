@@ -1,100 +1,80 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color_cy.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 12:09:44 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/05/02 12:13:11 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 int	fill_hit_shadow(char *object, t_col *calc, t_ray *ray, t_hit *got)
 {
 	got->type = object;
 	got->distance = calc->t1;
-	if (point_plus_vector(&ray->c, &ray->v_dir, got->distance, &got->point) == FAILURE)
+	if (point_plus_vector(&ray->c, &ray->v_dir, got->distance,
+			&got->point) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
 int	get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 {
-	//get top center point
-	t_point center;
-	t_vector tmp;
+	t_point		center;
+	t_vector	tmp;
 
 	if (point_plus_vector(&cy->point, &cy->norm_vec, cy->height / 2, &center) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_P_V);
-	//d*v
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-	/*if ray is parallel to plane, we have either 0 hits, so return failure. 
-	or we have ray in plane. but ray in plane in this case means that we found the closest 
-	collision on the cylinder top on the wall already, so we can ignore this case, right?*/
-	//check d*v isnt 0
 	if (rt->calc.t2 == 0)
-	{
-		printf("ray parallel to cap\n");
 		return (FAILURE);
-	}
-	//fraction upper part
 	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
 	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-
-	//t = ((c-o) * v) / (d*v) 
 	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
 	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
 		clean_exit_rt(rt, CALC_CT, NULL);
 	if (rt->calc.t1 > rt->coca.L_distance)
 		return (FAILURE);
 	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
-	//check collision point is relevant
 	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
-	//cy diameter must be > 0 due to parsing rules so
-	//print_vec(&tmp);
 	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
 		return (FAILURE);
-	//printf("TOP detected\n");
-	//fill the hit with it.
 	return (SUCCESS);
 }
 
 int	get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 {
-	//get top center point
-	t_point center;
-	t_vector tmp;
+	t_point		center;
+	t_vector	tmp;
 
 	if (point_plus_vector(&cy->point, &cy->norm_vec, ((cy->height / 2) * -1), &center) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_P_V);
-	//d*v
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-	/*if ray is parallel to plane, we have either 0 hits, so return failure. 
-	or we have ray in plane. but ray in plane in this case means that we found the closest 
-	collision on the cylinder top on the wall already, so we can ignore this case, right?*/
-	//check d*v isnt 0
 	if (rt->calc.t2 == 0)
-	{
-		printf("ray parallel to cap\n");
 		return (FAILURE);
-	}
-	//fraction upper part
 	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
 	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
-
-	//t = ((c-o) * v) / (d*v) 
 	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
 	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
 		clean_exit_rt(rt, CALC_CT, NULL);
 	if (rt->calc.t1 > rt->coca.L_distance)
 		return (FAILURE);
 	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
-	//check collision point is relevant
 	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC_CT, P_M_P);
-	//cy diameter must be > 0 due to parsing rules so
 	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
 		return (FAILURE);
-	
-	//fill the hit with it.
 	return (SUCCESS);
 }
 
@@ -111,7 +91,6 @@ int	get_cys_wall_shadow(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	if (solutions == 2)
 		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
 	check_height(rt, ray, cy);
-	//printf("t1 / t2 after height check = %10f  %10f\n", rt->calc.t1, rt->calc.t2);
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);
 	if (rt->calc.t1 > rt->coca.L_distance)
@@ -145,15 +124,11 @@ bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 		init_hit(&rt->calc.got);
 		if (coca->cy != NULL && cy->id == coca->cy->id)
 		{
-			//printf("skipped cy id = %d\n", cy->id);
 			cy = cy->next;
 			continue ;
 		}
 		if (cys_shadow_check(rt, cy, &coca->r_shadow) == SUCCESS)
-		{
-			//printf("cylinder %d blocks light\n", cy->id);
 			return (true);
-		}
 		cy = cy->next;
 	}
 	return (false);
@@ -161,8 +136,8 @@ bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 
 t_cys	*get_cylinder_pointer(t_mini_rt *rt, t_hit *min)
 {
-	t_cys *cy;
-	int i;
+	t_cys	*cy;
+	int		i;
 
 	cy = rt->cf.cy;
 	i = 1; 
@@ -182,18 +157,21 @@ void	calculate_hit_normal(t_mini_rt *rt, t_color_calc *coca)
 		coca->hit_n = coca->cy->norm_vec;
 	else if (rt->calc.min.cy_bottom == 1)
 	{
-		if (scalar_multiply_vector(-1, &coca->cy->norm_vec, &coca->hit_n) == FAILURE)
+		if (scalar_multiply_vector(-1, &coca->cy->norm_vec, &coca->hit_n)
+			== FAILURE)
 			clean_exit_rt(rt, CALC, C_H_N);
 	}
 	else
 	{
-		if (point_minus_point(&rt->calc.min.point, &coca->cy->point, &coca->hit_n) == FAILURE)
+		if (point_minus_point(&rt->calc.min.point, &coca->cy->point,
+				&coca->hit_n) == FAILURE)
 			clean_exit_rt(rt, CALC, C_H_N);
-		if (vector_multiply_vector(&coca->hit_n, &coca->cy->norm_vec, &coca->tmp) == FAILURE)
+		if (vector_multiply_vector(&coca->hit_n, &coca->cy->norm_vec,
+				&coca->tmp) == FAILURE)
 			clean_exit_rt(rt, CALC, C_H_N);
-		if (point_plus_vector(&rt->calc.min.point, &coca->cy->norm_vec, coca->tmp * -1, &p) == FAILURE)
+		if (point_plus_vector(&rt->calc.min.point, &coca->cy->norm_vec,
+				coca->tmp * -1, &p) == FAILURE)
 			clean_exit_rt(rt, CALC, C_H_N);
-		//now P should be on the same plane as cy center. 
 		if (point_minus_point(&p, &coca->cy->point, &coca->hit_n) == FAILURE)
 			clean_exit_rt(rt, CALC, C_H_N);
 	}
@@ -203,31 +181,28 @@ void	calculate_hit_normal(t_mini_rt *rt, t_color_calc *coca)
 
 void	get_colors_cylinder(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 {
-	//printf("hi\n");
-	//pointers to existing structs for less . and ->
 	rt->coca.cy = get_cylinder_pointer(rt, &rt->calc.min);
 	calculate_hit_normal(rt, &rt->coca);
-	//prevent self hit with collision
-	if (point_plus_vector(&rt->calc.min.point, &rt->coca.hit_n, EPSILON, &rt->calc.min.point) == FAILURE)
+	if (point_plus_vector(&rt->calc.min.point, &rt->coca.hit_n, EPSILON,
+			&rt->calc.min.point) == FAILURE)
 		clean_exit_rt(rt, CALC, G_C_C);
 	rt->coca.A = rt->cf.amb;
 	rt->coca.L = rt->cf.light;
-	//abient color calculation
-	ambient->r = rt->coca.cy->col.r * rt->coca.A.col.r * rt->coca.A.lighting_ratio;
-	ambient->g = rt->coca.cy->col.g * rt->coca.A.col.g * rt->coca.A.lighting_ratio;
-	ambient->b = rt->coca.cy->col.b * rt->coca.A.col.b * rt->coca.A.lighting_ratio;
-	// printf("rgb amb %d, %d, %d\n", ambient->r, ambient->g, ambient->b);
-
-	//collisons licht-collision vector with all objects. ausgenommen eigenes objekt mit t = 0
+	ambient->r = rt->coca.cy->col.r * rt->coca.A.col.r
+		* rt->coca.A.lighting_ratio;
+	ambient->g = rt->coca.cy->col.g * rt->coca.A.col.g
+		* rt->coca.A.lighting_ratio;
+	ambient->b = rt->coca.cy->col.b * rt->coca.A.col.b
+		* rt->coca.A.lighting_ratio;
 	if (in_light(rt, &rt->coca) == false)
 		return ;
-	//printf("in light\n");
-	//now we have a normal in the right direction
-	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir, &rt->coca.tmp) == FAILURE)
+	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir,
+			&rt->coca.tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, G_C_C);
-	//printf("tmp = %10f\n", rt->coca.tmp);
-	diffuse->r = rt->coca.cy->col.r * rt->coca.L.bright * rt->coca.L.col.r * d_max(0, rt->coca.tmp);
-	diffuse->g = rt->coca.cy->col.g * rt->coca.L.bright * rt->coca.L.col.g * d_max(0, rt->coca.tmp);
-	diffuse->b = rt->coca.cy->col.b * rt->coca.L.bright * rt->coca.L.col.b * d_max(0, rt->coca.tmp);
-	// printf("rgb dif %d, %d, %d\n", diffuse->r, diffuse->g, diffuse->b);
+	diffuse->r = rt->coca.cy->col.r * rt->coca.L.bright
+		* rt->coca.L.col.r * d_max(0, rt->coca.tmp);
+	diffuse->g = rt->coca.cy->col.g * rt->coca.L.bright
+		* rt->coca.L.col.g * d_max(0, rt->coca.tmp);
+	diffuse->b = rt->coca.cy->col.b * rt->coca.L.bright
+		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);
 }
