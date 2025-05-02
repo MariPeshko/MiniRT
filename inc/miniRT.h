@@ -1,32 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 21:31:31 by mpeshko           #+#    #+#             */
+/*   Updated: 2025/05/02 21:32:31 by mpeshko          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
-//unistd.h is included in libft.h
 # include "../libft/inc/libft.h"
 # include "../libft/inc/get_next_line.h"
-
-# include <float.h>  // For DBL_MAX and DBL_MIN. these are macros, no functions, and therefor allowed
+// For DBL_MAX and DBL_MIN. these are macros, 
+//no functions, and therefor allowed
+//Norminette error: Invalid file argument for #include directive
+// # include <float.h>  
 # include <stdio.h>
-# include <fcntl.h> // open
+# include <fcntl.h>
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
 # include <math.h>
-# include <stdbool.h> //boolean
-# include <string.h> //strerror
-# include <errno.h> //errno, perror
-//# include "../libft/inc/libft_gnl_printf.h"
-//libft, gnl and fr_printf by sgramsch
+# include <stdbool.h> 
+//strerror
+# include <string.h>
+//errno, perror
+# include <errno.h>
 # include "miniRT_error_macro.h"
 # include "miniRT_structs.h"
-# include <mlx.h>//minilibx-linux
-# include <X11/keysym.h>//keysyms 
+# include <mlx.h>
+//keysyms 
+# include <X11/keysym.h>
 
-#ifndef M_PI
-#    define M_PI 3.14159265358979323846
-#endif
+# define M_PI 3.14159265358979323846
 # define EPSILON 1e-6
-
 # define RESET   "\033[0m"
 # define RED     "\033[1;31m"
 # define GREEN   "\033[1;32m"
@@ -35,20 +46,18 @@
 # define SUCCESS 0
 # define FAILURE 1
 # define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
-# define DestroyNotify 17
+# define DESTROY_NOTIFY 17
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
 # define RATIO 0.5
-# define VIEWPORT_RATIO (16.0 / 9.0)
-# define VIEWPORT_RATIO_REVERSE (9.0 / 16.0)
+# define VIEWPORT_RATIO 8
+# define VIEWPORT_RATIO_REVERSE 0.5625
 # define MAN false
 
 # define NONE "NONE"
 # define PLANE "PLANE"
 # define SPHERE "SPHERE"
 # define CYLINDER "CYLINDER"
-
-# define DestroyNotify 17
 
 //parsing
 //parsing/check_initial.c
@@ -106,8 +115,8 @@ void	setup_mlx(t_mini_rt *rt);
 int		handle_close(void *param);
 int		handle_keypress(int keycode, void *param);
 //image/viewport_00.c
-int     viewport_calculation(t_config *cf, t_mini_rt *rt);
-void    init_viewport(t_vp *vp);
+int		viewport_calculation(t_config *cf, t_mini_rt *rt);
+void	init_viewport(t_vp *vp);
 int		calculate_height(t_config *cf);
 int		calculate_width(t_config *cf);
 //image/viewport_01.c
@@ -129,7 +138,8 @@ void	update_min(t_hit *min, t_hit *got);
 int		fill_hit(char *object, t_col *calc, int id, t_hit *got);
 //hit/check_plane_00.c
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-int		ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, t_mini_rt *rt);
+int		ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, 
+			t_mini_rt *rt);
 //hit/check_plane_01.c
 int		camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt);
 int		cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal);
@@ -137,17 +147,21 @@ int		cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal);
 void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 void	reset_calc(t_col *calc);
 //hit/check_cylinders_hit.c
-int		get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
+int		get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, 
+			t_hit *new, t_ray *ray);
 int		get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
 //vector_calc.c
 int		cross_product(t_vector *a, t_vector *b, t_vector *result);
 int		normalize_vector(t_vector *v);
-int		point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result);
-int		scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result);
+int		point_plus_vector(t_point *point, t_vector *vector, 
+			double scalar, t_point *result);
+int		scalar_multiply_vector(double scalar, t_vector *vector, 
+			t_vector *result);
 int		vector_multiply_vector(t_vector *a, t_vector *b, double *result);
-int		dot_product(t_vector *a, t_vector *b, double *result); // shorter version of a function above
+// shorter version of a function above
+int		dot_product(t_vector *a, t_vector *b, double *result); 
 int		subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int		point_minus_point(t_point *a, t_point *b, t_vector *result);
 int		get_normal(t_vector *v, t_vector *n);
@@ -163,17 +177,20 @@ int		get_positive_min(double a, double b, double *c);
 
 //quadratic_cys_helpers.c
 int		get_a_cylinder(t_vector *d_vertical, double *a, t_mini_rt *rt);
-int		get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical, double *b, t_mini_rt *rt);
-int		get_c_cylinder(t_vector *oc_vertical, double radius, double *c, t_mini_rt *rt);
+int		get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical, 
+			double *b, t_mini_rt *rt);
+int		get_c_cylinder(t_vector *oc_vertical, double radius, 
+			double *c, t_mini_rt *rt);
 int		get_vertical_parts(t_vector *d_vertical, t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
-int		cy_calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int		cy_calculate_quadratic_arguments(double *args, 
+			t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
 //utils
 //utils/cleanup.c
 void	clean_exit(t_config *cf, char *er_msg);
 void	clean_exit_rt(t_mini_rt *rt, char *er_msg, char *place);
-int     cleanup_mlx(t_mini_rt *rt);
-int     cleanup_cf(t_config *cf);
+int		cleanup_mlx(t_mini_rt *rt);
+int		cleanup_cf(t_config *cf);
 void	*free_pls(t_plane *pls);
 void	*free_sps(t_spher *sps);
 void	*free_cys(t_cys *cys);
@@ -183,7 +200,7 @@ int		display_error(char *msg);
 void	print_triplet(float *triplet);
 void	print_vec(t_vector *vec);
 void	print_point(t_point *p);
-void    print_map(char **map);
+void	print_map(char **map);
 void	print_test_config(t_config *cf);
 void	print_all_cylider(t_config *cf);
 void	print_all_spheres(t_config *cf);

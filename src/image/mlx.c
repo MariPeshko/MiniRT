@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/02 21:10:18 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/02 21:25:00 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	setup_screen(t_mini_rt *rt)
  * 
  * mlx_hook() — registers events. Allows you to listen for native X11 
  * events, such as mouse movements, key presses, window interaction, and more.
- * @param DestroyNotify (17) — an event,  indicates a window destruction
+ * @param DESTROY_NOTIFY (17) — an event,  indicates a window destruction
  * event. When the window is about to be destroyed (for example, when 
  * the user clicks the close button), this event is triggered.
  * 
@@ -98,6 +98,6 @@ void	setup_mlx(t_mini_rt *rt)
 		clean_exit_rt(rt, MLX_WIN_INIT, NULL);
 	if (setup_img(rt) == FAILURE)
 		clean_exit_rt(rt, MLX_IMG_INIT, NULL);
-	mlx_hook(rt->visual.win, DestroyNotify, 0, handle_close, rt);
+	mlx_hook(rt->visual.win, DESTROY_NOTIFY, 0, handle_close, rt);
 	mlx_key_hook(rt->visual.win, handle_keypress, rt);
 }

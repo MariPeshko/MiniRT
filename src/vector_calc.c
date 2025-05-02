@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:53:47 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 18:32:21 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/02 21:23:25 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int	get_normal(t_vector *v, t_vector *n)
 	return (SUCCESS);
 }
 
+/** shorter vector_multiply_vector() */
 int	dot_product(t_vector *a, t_vector *b, double *result)
 {
 	if (!a || !b || !result)
