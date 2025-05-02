@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_hit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 12:50:28 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/05/02 12:50:28 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 /*for a single ray, find closest collision.
@@ -6,26 +18,13 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
-	
+
 	check_plane_hit(cf, rt, ray);
 	check_sphere_hit(cf, rt, ray);
 	check_cys_hit(cf, rt, ray);
-	//printf("get_hit_done\n");
 	if (ft_strncmp(rt->calc.min.type, NONE, 4) != SUCCESS)
-	{
-		//printf(RED "top / bottom = %d, %d\n" RESET, rt->calc.min.cy_top, rt->calc.min.cy_bottom);
-
-		//print_collision(rt->calc);
 		return (SUCCESS);
-	}
 	return (FAILURE);
-}
-
-/*sets pixel color to ambient due to no hit*/
-void	get_ambient()
-{
-//	printf("Here I would get ambient color to put into pixel\n");
-	return ;
 }
 
 /**
@@ -38,8 +37,8 @@ void	get_ambient()
 */
 void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 {
-	/*calculates a ray*/
 	double	triplet[3];
+
 	triplet[0] = pixel.x - camera.x;
 	triplet[1] = pixel.y - camera.y;
 	triplet[2] = pixel.z - camera.z;
@@ -52,14 +51,6 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 	init_vec(&rt->calc.ray.v_dir, triplet);
 	return ;
 }
-
-// gpt
-/* void	get_pixel(t_vp vp, int x, int y, t_point *pixel)
-{
-	pixel->x = vp.point.x + x * vp.horizontal.x + y * vp.vertical.x;
-	pixel->y = vp.point.y + x * vp.horizontal.y + y * vp.vertical.y;
-	pixel->z = vp.point.z + x * vp.horizontal.z + y * vp.vertical.z;
-} */
 
 //gets the coordinates of a pixel
 void	get_pixel(t_vp vp, int h, int w, t_point *pixel)
@@ -83,20 +74,18 @@ int	rays_loop(t_mini_rt *rt)
 {
 	int	h;
 	int	w;
-	
+
 	h = 0;
-	while (h < rt->visual.img.height)//for each row WIN_HEIGHT
+	while (h < rt->visual.img.height)
 	{
 		w = 0;
-		while (w < rt->visual.img.width)//for each column WIN_WIDTH
+		while (w < rt->visual.img.width)
 		{
 			init_coca(&rt->coca);
 			get_pixel(rt->cf.viewp, h, w, &rt->calc.pixel);
 			get_ray(rt, rt->calc.pixel, rt->cf.cam.point);
 			if (get_hit(&rt->cf, rt, &rt->calc.ray) == SUCCESS)
 			{
-				//if(w % 100 == 0 && h % 100 == 0)
-					//printf("HIT: %s id:%i\n", rt->calc.min.type, rt->calc.min.id);
 				get_color(rt, &rt->calc.hit_color);
 				put_pixel(&rt->visual.img, w, h, rt->calc.hit_color);
 			}
@@ -115,9 +104,3 @@ void	save_color(t_col *calc, t_color col)
 	calc->hit_color.g = col.g;
 	calc->hit_color.b = col.b;
 }
-
-// HEY STEFFI THIS IS the test for correct width and height
-// if (w == WIN_WIDTH / 2)
-// 	put_pixel(&rt->visual.img, w, h, (t_color){255, 0, 0}); // red vertical line
-// if (h == WIN_HEIGHT / 2)
-// 	put_pixel(&rt->visual.img, w, h, (t_color){0, 255, 0}); // green horizontal line
