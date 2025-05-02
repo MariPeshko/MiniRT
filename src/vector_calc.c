@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_calc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:53:47 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:27 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:32:21 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,18 @@ double	vector_length(t_vector *v, t_mini_rt *rt)
 	double	length;
 
 	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
-	if (isnan(length) || isinf(length) || length == 0)
-		clean_exit_rt(rt, CALC, NULL);
+	if (length < EPSILON)
+	{
+		clean_exit_rt(rt, CALC, V_L_ZERO);
+	}
+	if (isinf(length))
+	{
+		clean_exit_rt(rt, CALC, V_L_ISINF);
+	}
+	if (isnan(length))
+	{
+		clean_exit_rt(rt, CALC, V_L_ISNAN);
+	}
 	return (length);
 }
 

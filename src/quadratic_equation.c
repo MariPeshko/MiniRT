@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadratic_equation.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:25:24 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:45 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:07:41 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ int	quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt)
 
 	discriminant = args[1] * args[1] - 4 * args[0]*args[2];
 	if (isnan(discriminant) || isinf(discriminant))
+	{
 		clean_exit_rt(rt, CALC, NULL);
+	}
 	res = -1 * args[1] - sqrt(discriminant);
 	res /= 2*args[0];
 	if (isnan(res) || isinf(res))
+	{
 		clean_exit_rt(rt, CALC, NULL);
+	}
 	*solution = res;
 	return (SUCCESS);
 }

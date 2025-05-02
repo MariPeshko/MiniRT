@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:07 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/28 18:07:45 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/02 18:03:21 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt)
 	double		dot_prod;
 
 	if (point_minus_point(&cf->cam.point, &pl->point, &cam_to_plane) == FAILURE)
-		clean_exit_rt(rt, CALC, NULL);
+		clean_exit_rt(rt, CALC, C_C_O_P);
 	if (dot_product(&pl->pl_normal, &cam_to_plane, &dot_prod) == FAILURE)
-		clean_exit_rt(rt, CALC, NULL);
+		clean_exit_rt(rt, CALC, C_C_O_P);
 	if (fabs(dot_prod) < EPSILON)
 		return (SUCCESS);
 	return (FAILURE);

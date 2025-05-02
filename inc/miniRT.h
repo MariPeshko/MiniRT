@@ -135,7 +135,6 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
 int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
-
 //vector_calc.c
 int	cross_product(t_vector *a, t_vector *b, t_vector *result);
 int	normalize_vector(t_vector *v);
@@ -146,6 +145,9 @@ int	dot_product(t_vector *a, t_vector *b, double *result); // shorter version of
 int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int	point_minus_point(t_point *a, t_point *b, t_vector *result);
 int	get_normal(t_vector *v, t_vector *n);
+
+//vector_calc_bon.c
+double	vector_length_light(t_vector *v, t_mini_rt *rt);
 
 //quadratic_equation.c
 int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);

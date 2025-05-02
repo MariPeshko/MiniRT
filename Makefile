@@ -52,6 +52,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/utils/error_handling.c \
 		/utils/array_utils.c \
 		vector_calc.c 		\
+		vector_calc_bon.c	\
 		quadratic_equation.c \
 		cys_quadratic_helpers.c\
 		)

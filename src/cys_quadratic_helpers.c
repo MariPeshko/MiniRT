@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cys_quadratic_helpers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:47:27 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:59:56 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:06:44 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

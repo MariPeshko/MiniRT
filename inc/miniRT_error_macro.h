@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_error_macro.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:15:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 13:05:41 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:18:08 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ is exactly in the plane."
 
 //Places
 # define V_L_CY "vector_length_cy"
+# define V_L "vector_length()"
+# define V_L_ISNAN "vector_length() isnan(length)"
+# define V_L_ISINF "vector_length() isinf(length)"
+# define V_L_ZERO "vector_length() length is zero"
 # define P_P_V "point_plus_vector"
 # define V_M_V "vector_multiply_vector"
 # define P_M_P "point_minus_point"
@@ -103,4 +107,6 @@ is exactly in the plane."
 # define I_L "in_light"
 # define G_R_C "get_ray_color"
 # define C_H_N "calculate_hit_normal"
+# define C_C_O_P "check camera_on_the_plane()"
+
 #endif
