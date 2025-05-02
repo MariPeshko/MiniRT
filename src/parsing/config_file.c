@@ -158,35 +158,35 @@ t_point vec3_sub(t_vector a, t_point b)
 	return (result);
 }
 
+/**
+ * proj - Projected vector along the cylinder axis
+ * if (projection_length < 0 || projection_length > cyl.height)
+ * // outside vertically
+ * v_perp - Perpendicular vector
+ * 
+ */
 int	check_camera_inside_cylinder(t_point camera_pos, t_cys cyl)
 {
 	t_vector	v;
 	double		radius;
 	double		projection_length;
 	t_vector	*cyl_normalized;
+	t_vector	proj;
+	t_vector	v_perp;
+	double		distance_squared;
 
 	radius = cyl.diam / 2;
 	cyl_normalized = &cyl.norm_vec;
 	normalize_vector(cyl_normalized);
 	point_minus_point(&camera_pos, &cyl.point, &v);
 	dot_product(&v, cyl_normalized, &projection_length);
-
 	if (projection_length < 0 || projection_length > cyl.height)
-    	return (SUCCESS); // outside vertically
-    
-    // Projected vector along the cylinder axis
-    t_vector proj;
-
-    proj.x = projection_length * cyl_normalized->x;
-    proj.y = projection_length * cyl_normalized->y;
-    proj.z = projection_length * cyl_normalized->z;
-    
-    // Perpendicular vector
-    t_vector v_perp;
+		return (SUCCESS); 
+	proj.x = projection_length * cyl_normalized->x;
+	proj.y = projection_length * cyl_normalized->y;
+	proj.z = projection_length * cyl_normalized->z;
 	subtract_vectors(&v, &proj, &v_perp);
-
-	double distance_squared = vec3_dot(v_perp, v_perp);
-
+	distance_squared = vec3_dot(v_perp, v_perp);
 	if (distance_squared < radius * radius)
 		return (FAILURE);
 	return (SUCCESS);
