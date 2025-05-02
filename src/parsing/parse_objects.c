@@ -63,6 +63,8 @@ int	full_parse_camera(char *line, t_camera *camera)
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (FAILURE);
 	init_vec(&camera->norm_vec, triplet);
+	if (normalize_vector(&camera->norm_vec) == FAILURE)
+		return (FAILURE);
 	//get FOV. Is this an int or float? -> full nbr
 	if (get_int(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
@@ -119,6 +121,8 @@ int	assign_value_plane(char *line, t_plane *lst_pl)
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (FAILURE);
 	init_vec(&lst_pl->pl_normal, triplet);
+	if (normalize_vector(&lst_pl->pl_normal) == FAILURE)
+		return (FAILURE);
 	//get RGB color of plane
 	if (get_rgb(line, &pos, &rgb) == FAILURE)
 		return (FAILURE);
@@ -161,9 +165,9 @@ int	assign_value_cyl(char *line, t_cys *cylinder)
 	if (triplet_in_scope(triplet, -1.0, 1.0) == FAILURE)
 		return (FAILURE);
 	init_vec(&cylinder->norm_vec, triplet);
-	//get cylinder diameter (float)
 	if (normalize_vector(&cylinder->norm_vec) == FAILURE)
 		return (FAILURE);
+	//get cylinder diameter (float)
 	if (get_float(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
 	if (tmp <= 0)
