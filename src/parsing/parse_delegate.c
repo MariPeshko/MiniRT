@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_delegate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:32:31 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 13:32:58 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:52:28 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	parse_delegate(char *line, t_config *cf)
 	else if (line[0] != '\0')
 	{
 		free(line);
-		clean_exit(cf,WRONG_IDENTIFIER);
+		clean_exit(cf, WRONG_IDENTIFIER);
 	}
 	return (SUCCESS);
 }

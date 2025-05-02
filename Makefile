@@ -23,9 +23,14 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/parsing/check_initial.c \
 		/parsing/config_file.c \
 		/parsing/parse_delegate.c	\
-		/parsing/parse_objects.c 	\
+		/parsing/parse_obj_cam_lig.c 	\
+		/parsing/parse_obj_pl_sp.c \
+		/parsing/parse_obj_cyl.c \
 		/parsing/parse_rgb.c	\
-		/parsing/parse_helpers.c 	\
+		/parsing/parse_help_00.c \
+		/parsing/parse_help_01.c 	\
+		/parsing/cam_ins.c \
+		/parsing/get_float.c	\
 		/parsing/lst_struct_plane.c \
 		/parsing/lst_struct_sphere.c \
 		/parsing/lst_struct_cylinder.c \

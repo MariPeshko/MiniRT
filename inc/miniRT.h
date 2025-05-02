@@ -57,24 +57,32 @@ void	check_filename(char *config);
 int		is_empt_file(char *filename);
 //parsing/config_file.c
 int		open_config(char *config, t_config *cf);
+//parsing/parse_help_00.c
+void	init_col(t_color *c, int r, int g, int b);
 void	init_point(t_point *p, double *triplet);
 void	init_vec(t_vector *vec, double *triplet);
+//parsing/parse_help_01.c
+int		get_int(char *line, int *pos, int *dest);
+int		triplet_in_scope(double *triplet, double min, double max);
+//parsing/cam_ins.c
+void	cam_inside_sphere(t_config *cf);
+int		cam_inside_cyl(t_config *cf);
 //parsing/parse_delegate.c
 int		parse_delegate(char *line, t_config *cf);
 int		calc_nmb_args(char *line);
-//parsing/parse_objects.c
+//parsing/parse_obj_cam_lig.c
 int		full_parse_ambient(char *line, t_ambient *amb);
 int		full_parse_camera(char *line, t_camera *camera);
 int		full_parse_light(char *line, t_light *light);
-int		parse_cylinder(char *line, t_cys **cylinder);
+//parsing/parse_obj_pl_sp.c
 int		parse_plane(char *line, t_plane **plane);
 int		parse_sphere(char *line, t_spher **sphere);
+//parsing/parse_obj_cyl.c
+int		parse_cylinder(char *line, t_cys **cylinder);
 //parsing/parse_rgb.c
 int		get_rgb(char *line, int *pos, t_color *result_rgb);
 void	assign_rgb(t_color *in_struct, t_color result_rgb);
-//parsing/parse_helpers.c
-int		get_int(char *line, int *pos, int *dest);
-int		triplet_in_scope(double *triplet, double min, double max);
+//parsing/get_float.c
 int		get_float(char *line, int *pos, float *dest);
 int		get_three_floats(char *line, int *pos, double triplet[3]);
 //parsing/test_parse_delegate.c
@@ -100,13 +108,11 @@ int		handle_keypress(int keycode, void *param);
 //image/viewport_00.c
 int     viewport_calculation(t_config *cf, t_mini_rt *rt);
 void    init_viewport(t_vp *vp);
-int	calculate_height(t_config *cf);
-int	calculate_width(t_config *cf);
+int		calculate_height(t_config *cf);
+int		calculate_width(t_config *cf);
 //image/viewport_01.c
-/* int     calculate_viewport_orientation(t_config *cf); */
-int	calculate_viewport_orientation(t_config *cf, t_img img);
-/* int     calculate_upper_left_corner(t_vp *viewp); */
-int	calculate_upper_left_corner(t_vp *viewp, t_img img);
+int		calculate_viewport_orientation(t_config *cf, t_img img);
+int		calculate_upper_left_corner(t_vp *viewp, t_img img);
 void	get_up_vector(t_config *cf, t_vector *up);
 //image/image.c
 void	put_pixel(t_img *img, int x, int y, t_color rgb_color);
@@ -114,8 +120,8 @@ int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
 
 //hit/
 //hit/get_hit.c
-int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-int	rays_loop(t_mini_rt *rt);
+int		get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
+int		rays_loop(t_mini_rt *rt);
 void	save_color(t_col *calc, t_color col);
 //hit/lst_hit.c
 void	init_hit(t_hit *hit);
@@ -123,44 +129,44 @@ void	update_min(t_hit *min, t_hit *got);
 int		fill_hit(char *object, t_col *calc, int id, t_hit *got);
 //hit/check_plane_00.c
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-int	ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, t_mini_rt *rt);
+int		ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, t_mini_rt *rt);
 //hit/check_plane_01.c
-int	camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt);
-int	cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal);
+int		camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt);
+int		cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal);
 //hit/check_sphere_hit.c
 void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 void	reset_calc(t_col *calc);
 //hit/check_cylinders_hit.c
-int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
-int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
+int		get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
+int		get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
 //vector_calc.c
-int	cross_product(t_vector *a, t_vector *b, t_vector *result);
-int	normalize_vector(t_vector *v);
-int	point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result);
-int	scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result);
-int	vector_multiply_vector(t_vector *a, t_vector *b, double *result);
-int	dot_product(t_vector *a, t_vector *b, double *result); // shorter version of a function above
-int	subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
-int	point_minus_point(t_point *a, t_point *b, t_vector *result);
-int	get_normal(t_vector *v, t_vector *n);
+int		cross_product(t_vector *a, t_vector *b, t_vector *result);
+int		normalize_vector(t_vector *v);
+int		point_plus_vector(t_point *point, t_vector *vector, double scalar, t_point *result);
+int		scalar_multiply_vector(double scalar, t_vector *vector, t_vector *result);
+int		vector_multiply_vector(t_vector *a, t_vector *b, double *result);
+int		dot_product(t_vector *a, t_vector *b, double *result); // shorter version of a function above
+int		subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
+int		point_minus_point(t_point *a, t_point *b, t_vector *result);
+int		get_normal(t_vector *v, t_vector *n);
 
 //vector_calc_bon.c
 double	vector_length_light(t_vector *v, t_mini_rt *rt);
 
 //quadratic_equation.c
-int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
-int	quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt);
-int	discriminant_check(double a, double b, double c, t_mini_rt *rt);
-int get_positive_min(double a, double b, double *c);
+int		quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
+int		quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt);
+int		discriminant_check(double a, double b, double c, t_mini_rt *rt);
+int		get_positive_min(double a, double b, double *c);
 
 //quadratic_cys_helpers.c
-int get_a_cylinder(t_vector *d_vertical, double *a, t_mini_rt *rt);
-int get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical, double *b, t_mini_rt *rt);
-int get_c_cylinder(t_vector *oc_vertical, double radius, double *c, t_mini_rt *rt);
-int get_vertical_parts(t_vector *d_vertical, t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
-int cy_calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int		get_a_cylinder(t_vector *d_vertical, double *a, t_mini_rt *rt);
+int		get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical, double *b, t_mini_rt *rt);
+int		get_c_cylinder(t_vector *oc_vertical, double radius, double *c, t_mini_rt *rt);
+int		get_vertical_parts(t_vector *d_vertical, t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int		cy_calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
 //utils
 //utils/cleanup.c
@@ -172,7 +178,7 @@ void	*free_pls(t_plane *pls);
 void	*free_sps(t_spher *sps);
 void	*free_cys(t_cys *cys);
 //utils/error_handling.c
-int	display_error(char *msg);
+int		display_error(char *msg);
 //utils/debugging_prints.c
 void	print_triplet(float *triplet);
 void	print_vec(t_vector *vec);
@@ -195,17 +201,16 @@ void	skip_whitespace(char *str, int *pos);
 //utils/array_utils.c
 int		map_len(char **map);
 
-
 //to be sorted
 void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse);
 void	get_color(t_mini_rt *rt, t_color *color);
 void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera);
 double	d_max(double a, double b);
 double	d_min(double a, double b);
-int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt);
+int		get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt);
 bool	in_light(t_mini_rt *rt, t_color_calc *coca);
 bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca);
-int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
+int		get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray);
 void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse);
 double	vector_length(t_vector *v, t_mini_rt *rt);
 bool	sphere_blocks_light(t_mini_rt *rt, t_color_calc *coca);
@@ -214,4 +219,5 @@ bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca);
 void	check_height(t_mini_rt *rt, t_ray *ray, t_cys *cy);
 void	check_height_two(t_mini_rt *rt, t_ray *ray, t_cys *cy, double *t);
 double	vector_length_cy(t_vector *v, t_mini_rt *rt);
+
 #endif
