@@ -26,7 +26,7 @@ int	get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	//check d*v isnt 0
 	if (rt->calc.t2 == 0)
 	{
-		printf("ray parallel to cap\n");
+		//printf("ray parallel to cap\n");
 		return (FAILURE);
 	}
 	//fraction upper part
@@ -71,7 +71,7 @@ int	get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	//check d*v isnt 0
 	if (rt->calc.t2 == 0)
 	{
-		printf("ray parallel to cap\n");
+		//printf("ray parallel to cap\n");
 		return (FAILURE);
 	}
 	//fraction upper part
