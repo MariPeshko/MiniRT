@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_plane_00.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/02 13:21:12 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 21:12:37 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ int	get_hit_plane(t_plane *pl, t_ray *ray, t_mini_rt *rt)
 }
 
 /*sets min to got, if got is closer than min*/
-void update_min_plane(t_hit *min, t_hit *got, t_plane *pl, t_col *calc)
+void	update_min_plane(t_hit *min, t_hit *got, t_plane *pl, t_col *calc)
 {
-
 	if (!min || !got)
 		return ;
 	if (got->distance == -1)
