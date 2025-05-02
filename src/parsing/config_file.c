@@ -172,10 +172,7 @@ int	check_camera_inside_cylinder(t_point camera_pos, t_cys cyl)
 	dot_product(&v, cyl_normalized, &projection_length);
 
 	if (projection_length < 0 || projection_length > cyl.height)
-	{
-		printf("outside vertically\n");
     	return (SUCCESS); // outside vertically
-	}
     
     // Projected vector along the cylinder axis
     t_vector proj;
