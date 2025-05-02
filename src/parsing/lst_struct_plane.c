@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_struct_plane.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 13:32:18 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/05/02 13:32:23 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 /* Getting a pointer to the last cylinder. */
@@ -32,7 +44,7 @@ void	ft_lstadd_back_pl(t_plane **lst, t_plane *new)
 {
 	t_plane	*temp;
 	int		id;
-	
+
 	id = 1;
 	temp = *lst;
 	if (*lst == NULL)

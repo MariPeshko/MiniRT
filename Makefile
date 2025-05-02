@@ -26,7 +26,6 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/parsing/parse_objects.c 	\
 		/parsing/parse_rgb.c	\
 		/parsing/parse_helpers.c 	\
-		/parsing/test_parse_delegate.c 	\
 		/parsing/lst_struct_plane.c \
 		/parsing/lst_struct_sphere.c \
 		/parsing/lst_struct_cylinder.c \

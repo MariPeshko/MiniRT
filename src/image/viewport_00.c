@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   viewport_00.c									  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: sgramsch <sgramsch@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/05/02 13:25:29 by sgramsch		  #+#	#+#			 */
+/*   Updated: 2025/05/02 13:25:30 by sgramsch		 ###   ########.fr	   */
+/*																			*/
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 int	calculate_height(t_config *cf)
@@ -44,15 +56,6 @@ int	calculate_width(t_config *cf)
 	return (SUCCESS);
 }
 
-// deleted????
-/* static int	calc_center_viewport(t_config *cf, double scalar)
-{
-	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec,
-			scalar, &cf->viewp.vp_center) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
-} */
-
 /**
  * initialized viewport struct
  * @param upperleft - upper-left corner aka first pixel.
@@ -64,20 +67,15 @@ void	init_viewport(t_vp *vp)
 {
 	double	triplet[3];
 
-    triplet[0] = 0.0;
-    triplet[1] = 0.0;
-    triplet[2] = 0.0;
+	triplet[0] = 0.0;
+	triplet[1] = 0.0;
+	triplet[2] = 0.0;
 	if (!vp)
 		return ;
-	// Initialize the corner point and c_point to (0, 0, 0)
 	init_point(&vp->upperleft, triplet);
 	init_point(&vp->vp_center, triplet);
-
-	// Initialize the horizontal and vertical vectors to (0, 0, 0)
 	init_vec(&vp->horizontal, triplet);
 	init_vec(&vp->vertical, triplet);
-
-	// Set width and height to 0
 	vp->width = 0;
 	vp->height = 0;
 }
@@ -86,22 +84,16 @@ void	init_viewport(t_vp *vp)
 int	viewport_calculation(t_config *cf, t_mini_rt *rt)
 {
 	init_viewport(&cf->viewp);
-	//center view port
 	if (point_plus_vector(&cf->cam.point, &cf->cam.norm_vec, 1, \
 						&cf->viewp.vp_center) == FAILURE)
 		clean_exit_rt(rt, VIEWP_C, NULL);
-	//width
 	if (calculate_width(cf) == FAILURE)
 		clean_exit_rt(rt, NULL, NULL);
-	//height
 	if (calculate_height(cf) == FAILURE)
 		clean_exit_rt(rt, NULL, NULL);
-	//horizontal and vertical vector
 	if (calculate_viewport_orientation(cf, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL, NULL);
-	//corner
 	if (calculate_upper_left_corner(&cf->viewp, rt->visual.img) == FAILURE)
 		clean_exit_rt(rt, NULL, NULL);
-	//print_viewport(&cf->viewp);
 	return (SUCCESS);
 }
