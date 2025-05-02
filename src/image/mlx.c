@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:04:37 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/02 13:25:21 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/02 21:10:18 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,7 @@ static int	setup_img(t_mini_rt *rt)
 	return (SUCCESS);
 }
 
-/**
- * @brief 
- * 
- * mlx_new_window() creates a new window instance.
- * 
- * mlx_hook() — registers events. Allows you to listen for native X11 
- * events, such as mouse movements, key presses, window interaction, and more.
- * @param DestroyNotify (17) — an event,  indicates a window destruction
- * event. When the window is about to be destroyed (for example, when 
- * the user clicks the close button), this event is triggered.
- * 
- * mlx_key_hook() registers a function (handle_keypress) to be called 
- * when a key is released.
-*/
-void	setup_mlx(t_mini_rt *rt)
+static void	setup_screen(t_mini_rt *rt)
 {
 	int	x;
 	int	y;
@@ -86,6 +72,25 @@ void	setup_mlx(t_mini_rt *rt)
 		rt->visual.width = WIN_WIDTH;
 		rt->visual.height = WIN_HEIGHT;
 	}
+}
+
+/**
+ * @brief 
+ * 
+ * mlx_new_window() creates a new window instance.
+ * 
+ * mlx_hook() — registers events. Allows you to listen for native X11 
+ * events, such as mouse movements, key presses, window interaction, and more.
+ * @param DestroyNotify (17) — an event,  indicates a window destruction
+ * event. When the window is about to be destroyed (for example, when 
+ * the user clicks the close button), this event is triggered.
+ * 
+ * mlx_key_hook() registers a function (handle_keypress) to be called 
+ * when a key is released.
+*/
+void	setup_mlx(t_mini_rt *rt)
+{
+	setup_screen(rt);
 	rt->visual.win = NULL;
 	rt->visual.win = mlx_new_window(rt->visual.mlx, rt->visual.width, \
 								rt->visual.height, "42MiniRT");
