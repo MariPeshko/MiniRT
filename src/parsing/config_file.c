@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   config_file.c									  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: sgramsch <sgramsch@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/05/02 13:28:25 by sgramsch		  #+#	#+#			 */
+/*   Updated: 2025/05/02 13:28:25 by sgramsch		 ###   ########.fr	   */
+/*																			*/
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 /*opens given file and returns id upon it being a
@@ -30,12 +42,12 @@ static void	init_col(t_color *c, int r, int g, int b)
 
 void	init_point(t_point *p, double *triplet)
 {
-    if (p != NULL)
+	if (p != NULL)
 	{
-        p->x = triplet[0];
-        p->y = triplet[1];
-        p->z = triplet[2];
-    }
+		p->x = triplet[0];
+		p->y = triplet[1];
+		p->z = triplet[2];
+	}
 }
 
 void	init_vec(t_vector *vec, double *triplet)
@@ -56,9 +68,9 @@ void	init_config(t_config *cf)
 {
 	double triplet[3];
 
-    triplet[0] = 0.0;
-    triplet[1] = 0.0;
-    triplet[2] = 0.0;
+	triplet[0] = 0.0;
+	triplet[1] = 0.0;
+	triplet[2] = 0.0;
 	cf->valid = true;
 	cf->one_amb = false;
 	cf->one_cam = false;
@@ -98,19 +110,24 @@ int	check_final_config(t_config *cf)
 	return (SUCCESS);
 }
 
-static void check_camera_inside_sphere(t_point camera_pos, t_point sphere_center, double diametr)
+static void check_camera_inside_sphere(t_point camera_pos,
+		t_point sphere_center, double diametr)
 {
-	double radius;
+	double	radius;
+	double	dx;
+	double	dy;
+	double	dz;
+	double	distance_squared;
 
 	radius = diametr / 2;
-    double dx = camera_pos.x - sphere_center.x;
-    double dy = camera_pos.y - sphere_center.y;
-    double dz = camera_pos.z - sphere_center.z;
-    double distance_squared = dx * dx + dy * dy + dz * dz;
-    if (distance_squared < radius * radius)
+	dx = camera_pos.x - sphere_center.x;
+	dy = camera_pos.y - sphere_center.y;
+	dz = camera_pos.z - sphere_center.z;
+	distance_squared = dx * dx + dy * dy + dz * dz;
+	if (distance_squared < radius * radius)
 	{
 		printf(GREEN "Message: " RESET);
-        printf("Camera is inside the sphere!\n");
+		printf("Camera is inside the sphere!\n");
 	}
 }
 
@@ -128,17 +145,17 @@ static void cam_inside_sphere(t_config *cf)
 
 double vec3_dot(t_vector a, t_vector b)
 {
-    return (a.x * b.x + a.y * b.y + a.z * b.z);
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
 t_point vec3_sub(t_vector a, t_point b)
 {
-    t_point result;
+	t_point	result;
 
-    result.x = a.x - b.x;
-    result.y = a.y - b.y;
-    result.z = a.z - b.z;
-    return (result);
+	result.x = a.x - b.x;
+	result.y = a.y - b.y;
+	result.z = a.z - b.z;
+	return (result);
 }
 
 int	check_camera_inside_cylinder(t_point camera_pos, t_cys cyl)
@@ -171,9 +188,9 @@ int	check_camera_inside_cylinder(t_point camera_pos, t_cys cyl)
     t_vector v_perp;
 	subtract_vectors(&v, &proj, &v_perp);
 
-    double distance_squared = vec3_dot(v_perp, v_perp);
+	double distance_squared = vec3_dot(v_perp, v_perp);
 
-    if (distance_squared < radius * radius)
+	if (distance_squared < radius * radius)
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -212,12 +229,6 @@ int	open_config(char *config, t_config *cf)
 			trim_out_spaces(&line);
 		if (parse_delegate(line, cf) == FAILURE)
 			cf->valid = false;
-		/* {
-			if (line[0] && (line[0] != '\n') && cf->valid == true)
-				printf("%s\n", line);
-		}
-		else */
-		//	cf->valid = false;
 		free(line);
 		line = get_next_line(fd_conf);
 	}
@@ -226,11 +237,6 @@ int	open_config(char *config, t_config *cf)
 	if (cam_inside_cyl(cf) == FAILURE)
 		return (FAILURE);
 	if (check_final_config(cf) == SUCCESS)
-	{
-		// assigning an id for each element.
-		// it might be convenient 
-		//print_test_config(cf);
 		return (SUCCESS);
-	}
 	return (FAILURE);
 }

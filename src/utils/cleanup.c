@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/02 13:01:59 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/05/02 13:03:42 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 void	*free_cys(t_cys *cys)
@@ -14,7 +26,7 @@ void	*free_cys(t_cys *cys)
 		tmp = tmp2;
 	}
 	return (NULL);
-}//set cys to NULL
+}
 
 void	*free_sps(t_spher *sps)
 {
@@ -53,7 +65,7 @@ displays error macro
 frees all heap memory
 exits
 */
-int	cleanup_cf(t_config *cf)//rename cleanup and exit
+int	cleanup_cf(t_config *cf)
 {
 	if (cf->cy)
 		cf->cy = free_cys(cf->cy);
@@ -69,10 +81,10 @@ int	cleanup_mlx(t_mini_rt *rt)
 	if (rt->visual.img.img_ptr)
 		mlx_destroy_image(rt->visual.mlx, rt->visual.img.img_ptr);
 	if (rt->visual.win)
-		mlx_destroy_window(rt->visual.mlx, rt->visual.win);// Free the window
+		mlx_destroy_window(rt->visual.mlx, rt->visual.win);
 	if (rt->visual.mlx)
 	{
-		mlx_destroy_display(rt->visual.mlx);// Destroy the mlx display
+		mlx_destroy_display(rt->visual.mlx);
 		free(rt->visual.mlx);
 	}
 	return (SUCCESS);
@@ -96,11 +108,3 @@ void	clean_exit_rt(t_mini_rt *rt, char *er_msg, char *place)
 		printf(RED "%s\n" RESET, place);
 	exit(FAILURE);
 }
-
-// Why do we need this function? 
-/*void	clean_exit_from_parsing(t_config *cf, char *er_msg, char *line)
-{
-	if (line)
-		free(line);
-	clean_exit(cf, er_msg);
-}*/

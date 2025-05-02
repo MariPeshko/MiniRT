@@ -135,6 +135,7 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
 int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
+
 //vector_calc.c
 int	cross_product(t_vector *a, t_vector *b, t_vector *result);
 int	normalize_vector(t_vector *v);
@@ -149,14 +150,14 @@ int	get_normal(t_vector *v, t_vector *n);
 //quadratic_equation.c
 int	quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
 int	quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt);
-int	discriminant_check(double A, double B, double C, t_mini_rt *rt);
+int	discriminant_check(double a, double b, double c, t_mini_rt *rt);
 int get_positive_min(double a, double b, double *c);
 
 //quadratic_cys_helpers.c
-int get_A_cylinder(t_vector *d_vertical, double *A, t_mini_rt *rt);
-int get_B_cylinder(t_vector *OC_vertical, t_vector *d_vertical, double *B, t_mini_rt *rt);
-int get_C_cylinder(t_vector *OC_vertical, double radius, double *C, t_mini_rt *rt);
-int get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int get_a_cylinder(t_vector *d_vertical, double *a, t_mini_rt *rt);
+int get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical, double *b, t_mini_rt *rt);
+int get_c_cylinder(t_vector *oc_vertical, double radius, double *c, t_mini_rt *rt);
+int get_vertical_parts(t_vector *d_vertical, t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 int cy_calculate_quadratic_arguments(double *args, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
 //utils

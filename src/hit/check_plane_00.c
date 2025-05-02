@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_plane_00.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 20:41:21 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/04/28 18:08:59 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/02 13:21:12 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, t_mini_rt *rt)
 		clean_exit_rt(rt, CALC, D_P);
 	if (fabs(dot_prod) < EPSILON)
 	{
-		/* printf("Plane. Dot product of d * n is 0\n");
-		printf("So this ray is parallel to the Plane\n"); */
 		return (true);
 	}
 	*denom = dot_prod;
@@ -92,7 +90,6 @@ void update_min_plane(t_hit *min, t_hit *got, t_plane *pl, t_col *calc)
 
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {
-	
 	t_col	*calc;
 	t_plane	*pl;
 

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_error_macro.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:15:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/04/28 20:21:25 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/02 13:05:41 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_ERROR_MACRO_H
 # define MINIRT_ERROR_MACRO_H
+
 
 //memory
 # define MEMORY "Memory allocation failed"
