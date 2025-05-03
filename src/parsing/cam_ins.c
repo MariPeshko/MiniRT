@@ -39,7 +39,7 @@ int	check_camera_inside_cylinder(t_point camera_pos, t_cys cyl)
 	point_minus_point(&camera_pos, &cyl.point, &v);
 	dot_product(&v, &cyl.norm_vec, &projection_length);
 	if (projection_length < 0 || projection_length > cyl.height)
-		return (SUCCESS); 
+		return (SUCCESS);
 	proj.x = projection_length * cyl.norm_vec.x;
 	proj.y = projection_length * cyl.norm_vec.y;
 	proj.z = projection_length * cyl.norm_vec.z;

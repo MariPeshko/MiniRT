@@ -12,16 +12,6 @@
 
 #include "../inc/miniRT.h"
 
-double	vector_length_cy(t_vector *v, t_mini_rt *rt)
-{
-	double	length;
-
-	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
-	if (isnan(length) || isinf(length))
-		clean_exit_rt(rt, CALC, V_L_CY);
-	return (length);
-}
-
 int	get_cys_top_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 {
 	t_point		center;
@@ -109,7 +99,7 @@ int	get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 }
 
 /*sets min to got, if got is closer than min*/
-void update_min_cy(t_hit *min, t_hit *got, t_cys *cy, t_col *calc)
+void	update_min_cy(t_hit *min, t_hit *got, t_cys *cy, t_col *calc)
 {
 	if (!min || !got)
 		return ;

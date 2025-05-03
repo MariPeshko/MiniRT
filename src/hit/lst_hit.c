@@ -13,7 +13,7 @@
 #include "../inc/miniRT.h"
 
 /*sets min to got, if got is closer than min*/
-void update_min(t_hit *min, t_hit *got)
+void	update_min(t_hit *min, t_hit *got)
 {
 	if (!min || !got)
 		return ;
@@ -48,4 +48,20 @@ int	fill_hit(char *object, t_col *calc, int id, t_hit *got)
 			&got->point) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
+}
+
+void	save_color(t_col *calc, t_color col)
+{
+	calc->hit_color.r = col.r;
+	calc->hit_color.g = col.g;
+	calc->hit_color.b = col.b;
+}
+
+void	reset_calc(t_col *calc)
+{
+	calc->t1 = -1;
+	calc->t2 = -1;
+	calc->quadratic_args[0] = 0;
+	calc->quadratic_args[1] = 0;
+	calc->quadratic_args[2] = 0;
 }

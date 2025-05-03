@@ -12,92 +12,6 @@
 
 #include "../inc/miniRT.h"
 
-int	fill_hit_shadow(char *object, t_col *calc, t_ray *ray, t_hit *got)
-{
-	got->type = object;
-	got->distance = calc->t1;
-	if (point_plus_vector(&ray->c, &ray->v_dir, got->distance,
-			&got->point) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-int	get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
-{
-	t_point		center;
-	t_vector	tmp;
-
-	if (point_plus_vector(&cy->point, &cy->norm_vec, cy->height / 2, &center) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_P_V);
-	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, V_M_V);
-	if (rt->calc.t2 == 0)
-		return (FAILURE);
-	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_M_P);
-	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, V_M_V);
-	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
-	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
-		clean_exit_rt(rt, CALC_CT, NULL);
-	if (rt->calc.t1 > rt->coca.L_distance)
-		return (FAILURE);
-	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
-	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_M_P);
-	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-int	get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
-{
-	t_point		center;
-	t_vector	tmp;
-
-	if (point_plus_vector(&cy->point, &cy->norm_vec, ((cy->height / 2) * -1), &center) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_P_V);
-	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, V_M_V);
-	if (rt->calc.t2 == 0)
-		return (FAILURE);
-	if (point_minus_point(&center, &ray->c, &tmp) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_M_P);
-	if (vector_multiply_vector(&tmp, &cy->norm_vec, &rt->calc.t1) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, V_M_V);
-	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
-	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
-		clean_exit_rt(rt, CALC_CT, NULL);
-	if (rt->calc.t1 > rt->coca.L_distance)
-		return (FAILURE);
-	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
-	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_M_P);
-	if (vector_length_cy(&tmp, rt) > (cy->diam / 2))
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-int	get_cys_wall_shadow(t_mini_rt *rt, t_cys *cy, t_ray *ray)
-{
-	int		solutions;
-
-	cy_calculate_quadratic_arguments(rt->calc.quadratic_args, cy, ray, rt);
-	solutions = discriminant_check(rt->calc.quadratic_args[0],
-			rt->calc.quadratic_args[1], rt->calc.quadratic_args[2], rt);
-	if (solutions == 0)
-		return (FAILURE);
-	quadratic_formula_plus(rt->calc.quadratic_args, &rt->calc.t1, rt);
-	if (solutions == 2)
-		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
-	check_height(rt, ray, cy);
-	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
-		return (FAILURE);
-	if (rt->calc.t1 > rt->coca.L_distance)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
 int	cys_shadow_check(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 {
 	t_hit	new;
@@ -140,7 +54,7 @@ t_cys	*get_cylinder_pointer(t_mini_rt *rt, t_hit *min)
 	int		i;
 
 	cy = rt->cf.cy;
-	i = 1; 
+	i = 1;
 	while (i < min->id)
 	{
 		cy = cy->next;
@@ -165,7 +79,7 @@ void	calculate_hit_normal(t_mini_rt *rt, t_color_calc *coca)
 	{
 		if (point_minus_point(&rt->calc.min.point, &coca->cy->point,
 				&coca->hit_n) == FAILURE)
-				clean_exit_rt(rt, CALC, C_H_N);
+			clean_exit_rt(rt, CALC, C_H_N);
 		if (vector_multiply_vector(&coca->hit_n, &coca->cy->norm_vec,
 				&coca->tmp) == FAILURE)
 			clean_exit_rt(rt, CALC, C_H_N);

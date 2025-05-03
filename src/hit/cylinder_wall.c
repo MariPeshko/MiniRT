@@ -65,7 +65,7 @@ int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical,
 {
 	double		tmp;
 	t_vector	v_tmp;
-	t_vector	CO;
+	t_vector	co;
 
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
@@ -76,16 +76,26 @@ int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical,
 	d_vertical->x = v_tmp.x;
 	d_vertical->y = v_tmp.y;
 	d_vertical->z = v_tmp.z;
-	if (point_minus_point(&ray->c, &cy->point, &CO) == FAILURE)
+	if (point_minus_point(&ray->c, &cy->point, &co) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
-	if (vector_multiply_vector(&CO, &cy->norm_vec, &tmp) == FAILURE)
+	if (vector_multiply_vector(&co, &cy->norm_vec, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
 	if (scalar_multiply_vector(tmp, &cy->norm_vec, &v_tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
-	if (subtract_vectors(&CO, &v_tmp, &v_tmp) == FAILURE)
+	if (subtract_vectors(&co, &v_tmp, &v_tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
 	OC_vertical->x = v_tmp.x;
 	OC_vertical->y = v_tmp.y;
 	OC_vertical->z = v_tmp.z;
 	return (SUCCESS);
+}
+
+double	vector_length_cy(t_vector *v, t_mini_rt *rt)
+{
+	double	length;
+
+	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
+	if (isnan(length) || isinf(length))
+		clean_exit_rt(rt, CALC, V_L_CY);
+	return (length);
 }

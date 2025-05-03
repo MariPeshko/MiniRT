@@ -33,13 +33,13 @@ int	quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt)
 	double	discriminant;
 	double	res;
 
-	discriminant = args[1] * args[1] - 4 * args[0]*args[2];
+	discriminant = args[1] * args[1] - 4 * args[0] * args[2];
 	if (isnan(discriminant) || isinf(discriminant))
 	{
 		clean_exit_rt(rt, CALC, NULL);
 	}
 	res = -1 * args[1] - sqrt(discriminant);
-	res /= 2*args[0];
+	res /= 2 * args[0];
 	if (isnan(res) || isinf(res))
 	{
 		clean_exit_rt(rt, CALC, NULL);
@@ -67,7 +67,7 @@ int	discriminant_check(double A, double B, double C, t_mini_rt *rt)
 /*takes two doubles and a pointer to one. 
 assigns the lowest positive vlaue of a and b to c.
 returns failure if a and b are negative.*/
-int get_positive_min(double a, double b, double *c)
+int	get_positive_min(double a, double b, double *c)
 {
 	if (c == NULL)
 		return (FAILURE);

@@ -38,7 +38,7 @@ t_spher	*get_sphere_pointer(t_mini_rt *rt, t_hit *min)
 	int		i;
 
 	sp = rt->cf.sp;
-	i = 1; 
+	i = 1;
 	while (i < min->id)
 	{
 		sp = sp->next;
@@ -46,7 +46,6 @@ t_spher	*get_sphere_pointer(t_mini_rt *rt, t_hit *min)
 	}
 	return (sp);
 }
-
 
 void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 {

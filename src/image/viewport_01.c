@@ -65,10 +65,10 @@ int	calculate_viewport_orientation(t_config *cf, t_img img)
 	if (normalize_vector(&vertical) == FAILURE)
 		return (FAILURE);
 	horizontal.x *= cf->viewp.width / img.width;
-	horizontal.y *= cf->viewp.width / img.width; 
+	horizontal.y *= cf->viewp.width / img.width;
 	horizontal.z *= cf->viewp.width / img.width;
 	vertical.x *= cf->viewp.height / img.height;
-	vertical.y *= cf->viewp.height / img.height; 
+	vertical.y *= cf->viewp.height / img.height;
 	vertical.z *= cf->viewp.height / img.height;
 	cf->viewp.horizontal = horizontal;
 	cf->viewp.vertical = vertical;
@@ -116,8 +116,8 @@ int	point_minus_vector(t_point *point, t_vector *vector,
 	new_x = point->x - scalar * vector->x;
 	new_y = point->y - scalar * vector->y;
 	new_z = point->z - scalar * vector->z;
-	if (isnan(new_x) || isnan(new_y) || isnan(new_z) || 
-		isinf(new_x) || isinf(new_y) || isinf(new_z))
+	if (isnan(new_x) || isnan(new_y) || isnan(new_z)
+		|| isinf(new_x) || isinf(new_y) || isinf(new_z))
 	{
 		return (FAILURE);
 	}

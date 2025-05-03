@@ -18,7 +18,6 @@ int	get_hit(t_config *cf, t_mini_rt *rt, t_ray *ray)
 {
 	init_hit(&rt->calc.got);
 	init_hit(&rt->calc.min);
-
 	check_plane_hit(cf, rt, ray);
 	check_sphere_hit(cf, rt, ray);
 	check_cys_hit(cf, rt, ray);
@@ -42,8 +41,8 @@ void	get_ray(t_mini_rt *rt, t_point pixel, t_point camera)
 	triplet[0] = pixel.x - camera.x;
 	triplet[1] = pixel.y - camera.y;
 	triplet[2] = pixel.z - camera.z;
-	if (isnan(triplet[0]) || isnan(triplet[1]) || isnan(triplet[2]) || 
-		isinf(triplet[0]) || isinf(triplet[1]) || isinf(triplet[2]))
+	if (isnan(triplet[0]) || isnan(triplet[1]) || isnan(triplet[2])
+		|| isinf(triplet[0]) || isinf(triplet[1]) || isinf(triplet[2]))
 	{
 		clean_exit_rt(rt, CALC, G_R);
 	}
@@ -96,11 +95,4 @@ int	rays_loop(t_mini_rt *rt)
 		h++;
 	}
 	return (SUCCESS);
-}
-
-void	save_color(t_col *calc, t_color col)
-{
-	calc->hit_color.r = col.r;
-	calc->hit_color.g = col.g;
-	calc->hit_color.b = col.b;
 }

@@ -52,11 +52,11 @@ bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 
 t_plane	*get_plane_pointer(t_mini_rt *rt, t_hit *min)
 {
-	t_plane *pl;
-	int i;
+	t_plane	*pl;
+	int		i;
 
 	pl = rt->cf.pl;
-	i = 1; 
+	i = 1;
 	while (i < min->id)
 	{
 		pl = pl->next;
@@ -96,5 +96,5 @@ void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 	diffuse->g = rt->coca.pl->col.g * rt->coca.L.bright
 		* rt->coca.L.col.g * d_max(0, rt->coca.tmp);
 	diffuse->b = rt->coca.pl->col.b * rt->coca.L.bright
-		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);	
+		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);
 }

@@ -29,19 +29,10 @@ int	sp_calculate_quadratic_arguments(double *args, t_spher *sp,
 		clean_exit_rt(rt, CALC, NULL);
 	if (vector_multiply_vector(&v, &v, &args[2]) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
-	args[2] -= (sp->diam/2) * (sp->diam/2);
+	args[2] -= (sp->diam / 2) * (sp->diam / 2);
 	if (isnan(args[2]) || isinf(args[2]))
 		clean_exit_rt(rt, CALC, NULL);
 	return (SUCCESS);
-}
-
-void	reset_calc(t_col *calc)
-{
-	calc->t1 = -1;
-	calc->t2 = -1;
-	calc->quadratic_args[0] = 0;
-	calc->quadratic_args[1] = 0;
-	calc->quadratic_args[2] = 0;
 }
 
 int	block_relevant(t_mini_rt *rt, t_spher *sp)
@@ -84,7 +75,7 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 }
 
 /*sets min to got, if got is closer than min*/
-void update_min_sph(t_hit *min, t_hit *got, t_spher	*sp, t_col *calc)
+void	update_min_sph(t_hit *min, t_hit *got, t_spher	*sp, t_col *calc)
 {
 	if (!min || !got)
 		return ;

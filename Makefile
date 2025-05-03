@@ -46,6 +46,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/color/color_sp.c\
 		/color/color_helpers.c\
 		/color/color_cy.c\
+		/color/shadow_cy.c\
 		/image/image.c	\
 		/image/mlx.c \
 		/image/viewport_00.c \
@@ -57,6 +58,7 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/utils/error_handling.c \
 		/utils/array_utils.c \
 		vector_calc.c 		\
+		vector_calc_two.c\
 		vector_calc_bon.c	\
 		quadratic_equation.c \
 		cys_quadratic_helpers.c\

@@ -28,7 +28,6 @@ bool	in_light(t_mini_rt *rt, t_color_calc *coca)
 	return (true);
 }
 
-
 void	get_ray_color(t_mini_rt *rt, t_point light, t_point hit_p)
 {
 	double	triplet[3];
@@ -36,8 +35,8 @@ void	get_ray_color(t_mini_rt *rt, t_point light, t_point hit_p)
 	triplet[0] = light.x - hit_p.x;
 	triplet[1] = light.y - hit_p.y;
 	triplet[2] = light.z - hit_p.z;
-	if (isnan(triplet[0]) || isnan(triplet[1]) || isnan(triplet[2]) || 
-		isinf(triplet[0]) || isinf(triplet[1]) || isinf(triplet[2]))
+	if (isnan(triplet[0]) || isnan(triplet[1]) || isnan(triplet[2])
+		|| isinf(triplet[0]) || isinf(triplet[1]) || isinf(triplet[2]))
 	{
 		clean_exit_rt(rt, CALC, G_R_C);
 	}
