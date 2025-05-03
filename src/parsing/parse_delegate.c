@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_delegate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:32:31 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 18:52:28 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/03 15:10:44 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ int	parse_delegate(char *line, t_config *cf)
 		return (parse_cylinder(line, &cf->cy));
 	else if (line[0] != '\0')
 	{
-		free(line);
-		clean_exit(cf, WRONG_IDENTIFIER);
+		display_error(WRONG_IDENTIFIER);
+		return (FAILURE);
+		//free(line);
+		//clean_exit(cf, WRONG_IDENTIFIER);
 	}
 	return (SUCCESS);
 }

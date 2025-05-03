@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:09:44 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/03 11:28:16 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:06:55 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ bool	cylinder_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 			cy = cy->next;
 			continue ;
 		}
-		if (cys_shadow_check(rt, cy, &coca->r_shadow) == SUCCESS)
+		if (cys_shadow_check(rt, cy, &coca->r_shadow) == SUCCESS
+			&& rt->calc.t1 > EPSILON)
 			return (true);
 		cy = cy->next;
 	}

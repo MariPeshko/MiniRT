@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_cam_lig.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:09:45 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/02 20:19:09 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/03 15:23:35 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	full_parse_camera(char *line, t_camera *camera)
 		return (FAILURE);
 	if (get_int(line, &pos, &tmp) == FAILURE)
 		return (FAILURE);
-	if (tmp > 180 || tmp < 0)
+	if (tmp >= 180 || tmp <= 0)
 		return (display_error(FOV_SCOPE));
 	camera->fov = tmp;
 	return (SUCCESS);

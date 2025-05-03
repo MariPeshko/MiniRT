@@ -103,6 +103,8 @@ int	open_config(char *config, t_config *cf)
 		line = get_next_line(fd_conf);
 	}
 	close(fd_conf);
+	if (cf->valid == false)
+		return (FAILURE);
 	cam_inside_sphere(cf);
 	if (cam_inside_cyl(cf) == FAILURE)
 		return (FAILURE);
