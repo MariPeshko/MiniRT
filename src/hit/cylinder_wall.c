@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:50:35 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:50:41 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:15:58 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,30 @@ int	get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	return (SUCCESS);
 }
 
-int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical,
-	t_cys *cy, t_ray *ray, t_mini_rt *rt)
+int	get_vertical_oc(t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt)
+{
+	t_vector	co;
+	double		tmp;
+	t_vector	v_tmp;
+
+	if (point_minus_point(&ray->c, &cy->point, &co) == FAILURE)
+		clean_exit_rt(rt, CALC, NULL);
+	if (vector_multiply_vector(&co, &cy->norm_vec, &tmp) == FAILURE)
+		clean_exit_rt(rt, CALC, NULL);
+	if (scalar_multiply_vector(tmp, &cy->norm_vec, &v_tmp) == FAILURE)
+		clean_exit_rt(rt, CALC, NULL);
+	if (subtract_vectors(&co, &v_tmp, &v_tmp) == FAILURE)
+		clean_exit_rt(rt, CALC, NULL);
+	oc_vertical->x = v_tmp.x;
+	oc_vertical->y = v_tmp.y;
+	oc_vertical->z = v_tmp.z;
+	return (SUCCESS);
+}
+
+int	get_vertical_d(t_vector *d_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt)
 {
 	double		tmp;
 	t_vector	v_tmp;
-	t_vector	co;
 
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, NULL);
@@ -76,26 +94,5 @@ int	get_vertical_parts(t_vector *d_vertical, t_vector *OC_vertical,
 	d_vertical->x = v_tmp.x;
 	d_vertical->y = v_tmp.y;
 	d_vertical->z = v_tmp.z;
-	if (point_minus_point(&ray->c, &cy->point, &co) == FAILURE)
-		clean_exit_rt(rt, CALC, NULL);
-	if (vector_multiply_vector(&co, &cy->norm_vec, &tmp) == FAILURE)
-		clean_exit_rt(rt, CALC, NULL);
-	if (scalar_multiply_vector(tmp, &cy->norm_vec, &v_tmp) == FAILURE)
-		clean_exit_rt(rt, CALC, NULL);
-	if (subtract_vectors(&co, &v_tmp, &v_tmp) == FAILURE)
-		clean_exit_rt(rt, CALC, NULL);
-	OC_vertical->x = v_tmp.x;
-	OC_vertical->y = v_tmp.y;
-	OC_vertical->z = v_tmp.z;
 	return (SUCCESS);
-}
-
-double	vector_length_cy(t_vector *v, t_mini_rt *rt)
-{
-	double	length;
-
-	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
-	if (isnan(length) || isinf(length))
-		clean_exit_rt(rt, CALC, V_L_CY);
-	return (length);
 }

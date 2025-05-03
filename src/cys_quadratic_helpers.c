@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cys_quadratic_helpers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:47:27 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 18:06:44 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:14:54 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int	cy_calculate_quadratic_arguments(double *args, t_cys *cy,
 	t_vector	d_vertical;
 	t_vector	oc_vertical;
 
-	if (get_vertical_parts(&d_vertical, &oc_vertical, cy, ray, rt) == FAILURE)
+	if (get_vertical_d(&d_vertical, cy, ray, rt) == FAILURE)
+		clean_exit_rt(rt, CALC_CYL_QU, NULL);
+	if (get_vertical_oc(&oc_vertical, cy, ray, rt) == FAILURE)
 		clean_exit_rt(rt, CALC_CYL_QU, NULL);
 	if (get_a_cylinder(&d_vertical, &args[0], rt) == FAILURE)
 		clean_exit_rt(rt, CALC_CYL_QU, NULL);
@@ -61,4 +63,14 @@ int	cy_calculate_quadratic_arguments(double *args, t_cys *cy,
 	if (get_c_cylinder(&oc_vertical, cy->diam / 2, &args[2], rt) == FAILURE)
 		clean_exit_rt(rt, CALC_CYL_QU, NULL);
 	return (SUCCESS);
+}
+
+double	vector_length_cy(t_vector *v, t_mini_rt *rt)
+{
+	double	length;
+
+	length = sqrt(v->x * v->x + v->y * v->y + v->z * v->z);
+	if (isnan(length) || isinf(length))
+		clean_exit_rt(rt, CALC, V_L_CY);
+	return (length);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shadow_cy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/03 11:05:19 by sgramsch          #+#    #+#             */
+/*   Updated: 2025/05/03 11:17:09 by sgramsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/miniRT.h"
 
 int	fill_hit_shadow(char *object, t_col *calc, t_ray *ray, t_hit *got)
@@ -10,14 +22,19 @@ int	fill_hit_shadow(char *object, t_col *calc, t_ray *ray, t_hit *got)
 	return (SUCCESS);
 }
 
+void	get_cap_center(t_mini_rt *rt, t_cys *cy, t_point *center, double d)
+{
+	if (point_plus_vector(&cy->point, &cy->norm_vec,
+			((cy->height / 2) * d), center) == FAILURE)
+		clean_exit_rt(rt, CALC_CT, P_P_V);
+}
+
 int	get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 {
 	t_point		center;
 	t_vector	tmp;
 
-	if (point_plus_vector(&cy->point, &cy->norm_vec, cy->height / 2, &center)
-		== FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_P_V);
+	get_cap_center(rt, cy, &center, 1);
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2)
 		== FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);
@@ -45,9 +62,7 @@ int	get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	t_point		center;
 	t_vector	tmp;
 
-	if (point_plus_vector(&cy->point, &cy->norm_vec,
-			((cy->height / 2) * -1), &center) == FAILURE)
-		clean_exit_rt(rt, CALC_CT, P_P_V);
+	get_cap_center(rt, cy, &center, -1);
 	if (vector_multiply_vector(&ray->v_dir, &cy->norm_vec, &rt->calc.t2)
 		== FAILURE)
 		clean_exit_rt(rt, CALC_CT, V_M_V);

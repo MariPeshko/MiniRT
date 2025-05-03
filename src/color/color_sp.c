@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:14:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:37:46 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:04:45 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ t_spher	*get_sphere_pointer(t_mini_rt *rt, t_hit *min)
 	return (sp);
 }
 
+void	get_sphere_diffuse(t_mini_rt *rt, t_color *diffuse)
+{
+	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir,
+			&rt->coca.tmp) == FAILURE)
+		clean_exit_rt(rt, CALC, G_C_S);
+	diffuse->r = rt->coca.sp->col.r * rt->coca.L.bright
+		* rt->coca.L.col.r * d_max(0, rt->coca.tmp);
+	diffuse->g = rt->coca.sp->col.g * rt->coca.L.bright
+		* rt->coca.L.col.g * d_max(0, rt->coca.tmp);
+	diffuse->b = rt->coca.sp->col.b * rt->coca.L.bright
+		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);
+}
+
 void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 {
 	rt->coca.sp = get_sphere_pointer(rt, &rt->calc.min);
@@ -68,13 +81,5 @@ void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 		* rt->coca.A.lighting_ratio;
 	if (in_light(rt, &rt->coca) == false)
 		return ;
-	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir,
-			&rt->coca.tmp) == FAILURE)
-		clean_exit_rt(rt, CALC, G_C_S);
-	diffuse->r = rt->coca.sp->col.r * rt->coca.L.bright
-		* rt->coca.L.col.r * d_max(0, rt->coca.tmp);
-	diffuse->g = rt->coca.sp->col.g * rt->coca.L.bright
-		* rt->coca.L.col.g * d_max(0, rt->coca.tmp);
-	diffuse->b = rt->coca.sp->col.b * rt->coca.L.bright
-		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);
+	get_sphere_diffuse(rt, diffuse);
 }

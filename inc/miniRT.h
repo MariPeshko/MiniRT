@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 21:31:31 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/02 21:32:31 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:15:47 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ int		get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical,
 			double *b, t_mini_rt *rt);
 int		get_c_cylinder(t_vector *oc_vertical, double radius, 
 			double *c, t_mini_rt *rt);
-int		get_vertical_parts(t_vector *d_vertical, t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 int		cy_calculate_quadratic_arguments(double *args, 
 			t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
@@ -239,5 +238,7 @@ double	vector_length_cy(t_vector *v, t_mini_rt *rt);
 int		get_cys_wall_shadow(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 int		get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
 int		get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
-
+void	calculate_wall_normal(t_mini_rt *rt, t_color_calc *coca, t_point *p);
+int		get_vertical_oc(t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int		get_vertical_d(t_vector *d_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
 #endif

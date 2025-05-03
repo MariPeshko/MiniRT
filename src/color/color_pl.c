@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:13:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:14:35 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:03:49 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,8 @@ t_plane	*get_plane_pointer(t_mini_rt *rt, t_hit *min)
 	return (pl);
 }
 
-void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
+void	get_diffuse_plane(t_mini_rt *rt, t_color *diffuse)
 {
-	rt->coca.pl = get_plane_pointer(rt, &rt->calc.min);
-	rt->coca.hit_n = rt->coca.pl->pl_normal;
-	rt->coca.A = rt->cf.amb;
-	rt->coca.L = rt->cf.light;
-	ambient->r = rt->coca.pl->col.r * rt->coca.A.col.r
-		* rt->coca.A.lighting_ratio;
-	ambient->g = rt->coca.pl->col.g * rt->coca.A.col.g
-		* rt->coca.A.lighting_ratio;
-	ambient->b = rt->coca.pl->col.b * rt->coca.A.col.b
-		* rt->coca.A.lighting_ratio;
-	if (in_light(rt, &rt->coca) == false)
-		return ;
 	if (vector_multiply_vector(&rt->calc.ray.v_dir, &rt->coca.hit_n,
 			&rt->coca.tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, G_C_P);
@@ -97,4 +85,21 @@ void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 		* rt->coca.L.col.g * d_max(0, rt->coca.tmp);
 	diffuse->b = rt->coca.pl->col.b * rt->coca.L.bright
 		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);
+}
+
+void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
+{
+	rt->coca.pl = get_plane_pointer(rt, &rt->calc.min);
+	rt->coca.hit_n = rt->coca.pl->pl_normal;
+	rt->coca.A = rt->cf.amb;
+	rt->coca.L = rt->cf.light;
+	ambient->r = rt->coca.pl->col.r * rt->coca.A.col.r
+		* rt->coca.A.lighting_ratio;
+	ambient->g = rt->coca.pl->col.g * rt->coca.A.col.g
+		* rt->coca.A.lighting_ratio;
+	ambient->b = rt->coca.pl->col.b * rt->coca.A.col.b
+		* rt->coca.A.lighting_ratio;
+	if (in_light(rt, &rt->coca) == false)
+		return ;
+	get_diffuse_plane(rt, diffuse);
 }
