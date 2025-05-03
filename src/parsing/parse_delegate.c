@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 13:32:31 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/03 15:10:44 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 15:28:28 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	parse_delegate(char *line, t_config *cf)
 	{
 		display_error(WRONG_IDENTIFIER);
 		return (FAILURE);
-		//free(line);
-		//clean_exit(cf, WRONG_IDENTIFIER);
 	}
 	return (SUCCESS);
 }
