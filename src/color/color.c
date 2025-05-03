@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:15:58 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 18:25:09 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:31:11 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_ray_color(t_mini_rt *rt, t_point light, t_point hit_p)
 	}
 	rt->coca.r_shadow.c = hit_p;
 	init_vec(&rt->coca.r_shadow.v_dir, triplet);
-	rt->coca.L_distance = vector_length_light(&rt->coca.r_shadow.v_dir, rt);
+	rt->coca.l_distance = vector_length_light(&rt->coca.r_shadow.v_dir, rt);
 	normalize_vector(&rt->coca.r_shadow.v_dir);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:50:28 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 12:50:28 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:28:38 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	init_coca(t_color_calc *coca)
 	coca->pl = NULL;
 	coca->sp = NULL;
 	coca->cy = NULL;
-	coca->L_distance = -1;
+	coca->l_distance = -1;
 }
 
 /*moves through pixels and delegates coloring it.

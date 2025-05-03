@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:13:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/03 11:03:49 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:31:46 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	plane_blocks_light(t_mini_rt *rt, t_color_calc *coca)
 			return (false);
 		if (get_hit_plane(pl, &coca->r_shadow, rt) == SUCCESS)
 		{
-			if (rt->calc.got.distance < coca->L_distance)
+			if (rt->calc.got.distance < coca->l_distance)
 				return (true);
 		}
 		pl = pl->next;
@@ -79,26 +79,26 @@ void	get_diffuse_plane(t_mini_rt *rt, t_color *diffuse)
 	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir,
 			&rt->coca.tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, G_C_P);
-	diffuse->r = rt->coca.pl->col.r * rt->coca.L.bright
-		* rt->coca.L.col.r * d_max(0, rt->coca.tmp);
-	diffuse->g = rt->coca.pl->col.g * rt->coca.L.bright
-		* rt->coca.L.col.g * d_max(0, rt->coca.tmp);
-	diffuse->b = rt->coca.pl->col.b * rt->coca.L.bright
-		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);
+	diffuse->r = rt->coca.pl->col.r * rt->coca.l.bright
+		* rt->coca.l.col.r * d_max(0, rt->coca.tmp);
+	diffuse->g = rt->coca.pl->col.g * rt->coca.l.bright
+		* rt->coca.l.col.g * d_max(0, rt->coca.tmp);
+	diffuse->b = rt->coca.pl->col.b * rt->coca.l.bright
+		* rt->coca.l.col.b * d_max(0, rt->coca.tmp);
 }
 
 void	get_colors_plane(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 {
 	rt->coca.pl = get_plane_pointer(rt, &rt->calc.min);
 	rt->coca.hit_n = rt->coca.pl->pl_normal;
-	rt->coca.A = rt->cf.amb;
-	rt->coca.L = rt->cf.light;
-	ambient->r = rt->coca.pl->col.r * rt->coca.A.col.r
-		* rt->coca.A.lighting_ratio;
-	ambient->g = rt->coca.pl->col.g * rt->coca.A.col.g
-		* rt->coca.A.lighting_ratio;
-	ambient->b = rt->coca.pl->col.b * rt->coca.A.col.b
-		* rt->coca.A.lighting_ratio;
+	rt->coca.a = rt->cf.amb;
+	rt->coca.l = rt->cf.light;
+	ambient->r = rt->coca.pl->col.r * rt->coca.a.col.r
+		* rt->coca.a.lighting_ratio;
+	ambient->g = rt->coca.pl->col.g * rt->coca.a.col.g
+		* rt->coca.a.lighting_ratio;
+	ambient->b = rt->coca.pl->col.b * rt->coca.a.col.b
+		* rt->coca.a.lighting_ratio;
 	if (in_light(rt, &rt->coca) == false)
 		return ;
 	get_diffuse_plane(rt, diffuse);

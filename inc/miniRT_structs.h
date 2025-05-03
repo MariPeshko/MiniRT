@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:07:52 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 13:05:35 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:05:22 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_ambient
 {
 	double	lighting_ratio;
 	t_color	col;
-	t_color	adjusted; // color * light_ratio
+	t_color	adjusted;
 }	t_ambient;
 
 /*the light brightness ratio in range [0.0,1.0]
@@ -81,7 +81,7 @@ typedef struct t_spher
 	double				diam;
 	t_color				col;
 	int					id;
-	struct t_spher	*next;
+	struct t_spher		*next;
 }	t_spher;
 
 // Cylinder(s)
@@ -105,8 +105,8 @@ typedef struct s_cys
 typedef struct s_vp
 {
 	t_point		upperleft;
-	t_vector	horizontal;//from one pixel to next in row
-	t_vector	vertical;//from one pixel to next in column
+	t_vector	horizontal;
+	t_vector	vertical;
 	double		width;
 	double		height;
 	t_point		vp_center;
@@ -128,7 +128,6 @@ typedef struct s_config
 	bool		one_lit;
 }	t_config;
 
-
 /*
 struct that saves a single instance of a collision (intersection).
 type: Object type (e.g., "NONE", "PLANE", "CYLINDER", "SPHERE")
@@ -136,14 +135,14 @@ distance: Distance from the ray origin to the intersection point.
 Purpose: Finding the closest intersection and not only this.
 point: Coordinates of the intersection point.
 */
-typedef struct	s_hit
+typedef struct s_hit
 {
 	char	*type;
 	int		id;
 	double	distance;
 	t_point	point;
-	int	cy_top;
-	int	cy_bottom;
+	int		cy_top;
+	int		cy_bottom;
 }	t_hit;
 
 // c - camera position as the origin of the ray
@@ -174,7 +173,7 @@ typedef struct s_col
 	double	t1;
 	double	t2;
 	t_color	hit_color;
-}	t_col;//col = collisions calculations
+}	t_col;
 
 // a pointer to the image (returned by mlx_new_image)
 // a pointer to the image data buffer (from mlx_get_data_addr)
@@ -188,25 +187,25 @@ typedef struct s_col
 // width and height (to help your raytracer with resolution)
 typedef struct s_img
 {
-	void	*img_ptr;   // pointer to MLX image (from mlx_new_image)
-	char	*data;      // address of image data (from mlx_get_data_addr)
-	int		width;      // image width
-	int		height;     // image height
-	int		bpp;        // bits per pixel. Needed to calculate how to write a pixel.
+	void	*img_ptr;
+	char	*data;
+	int		width;
+	int		height;
+	int		bpp;
 	int		line_len;
 	int		endian;
 }	t_img;
 
 typedef struct s_color_calc
 {
-	t_plane *pl;
-	t_spher *sp;
-	t_cys	*cy;
-	t_ambient	A;
-	t_light	L;
+	t_plane		*pl;
+	t_spher		*sp;
+	t_cys		*cy;
+	t_ambient	a;
+	t_light		l;
 	t_vector	hit_n;
-	t_ray	r_shadow;
-	double	L_distance;
+	t_ray		r_shadow;
+	double		l_distance;
 	double		tmp;
 }	t_color_calc;
 
@@ -217,16 +216,14 @@ typedef struct s_visual
 	t_img		img;
 	int			width;
 	int			height;
-	//t_viewp 	vp?
 }	t_visual;
 
 typedef struct s_mini_rt
 {
-	t_config	cf;
-	t_col		calc;
-	t_color_calc coca;
-	t_visual	visual;
-	// rest of the structs
+	t_config		cf;
+	t_col			calc;
+	t_color_calc	coca;
+	t_visual		visual;
 }	t_mini_rt;
 
 #endif

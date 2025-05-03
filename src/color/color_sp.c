@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 12:14:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/03 11:04:45 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:30:31 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ void	get_sphere_diffuse(t_mini_rt *rt, t_color *diffuse)
 	if (vector_multiply_vector(&rt->coca.hit_n, &rt->coca.r_shadow.v_dir,
 			&rt->coca.tmp) == FAILURE)
 		clean_exit_rt(rt, CALC, G_C_S);
-	diffuse->r = rt->coca.sp->col.r * rt->coca.L.bright
-		* rt->coca.L.col.r * d_max(0, rt->coca.tmp);
-	diffuse->g = rt->coca.sp->col.g * rt->coca.L.bright
-		* rt->coca.L.col.g * d_max(0, rt->coca.tmp);
-	diffuse->b = rt->coca.sp->col.b * rt->coca.L.bright
-		* rt->coca.L.col.b * d_max(0, rt->coca.tmp);
+	diffuse->r = rt->coca.sp->col.r * rt->coca.l.bright
+		* rt->coca.l.col.r * d_max(0, rt->coca.tmp);
+	diffuse->g = rt->coca.sp->col.g * rt->coca.l.bright
+		* rt->coca.l.col.g * d_max(0, rt->coca.tmp);
+	diffuse->b = rt->coca.sp->col.b * rt->coca.l.bright
+		* rt->coca.l.col.b * d_max(0, rt->coca.tmp);
 }
 
 void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
@@ -71,14 +71,14 @@ void	get_colors_sphere(t_mini_rt *rt, t_color *ambient, t_color *diffuse)
 	if (point_plus_vector(&rt->calc.min.point, &rt->coca.hit_n, EPSILON,
 			&rt->calc.min.point) == FAILURE)
 		clean_exit_rt(rt, CALC, G_C_S);
-	rt->coca.A = rt->cf.amb;
-	rt->coca.L = rt->cf.light;
-	ambient->r = rt->coca.sp->col.r * rt->coca.A.col.r
-		* rt->coca.A.lighting_ratio;
-	ambient->g = rt->coca.sp->col.g * rt->coca.A.col.g
-		* rt->coca.A.lighting_ratio;
-	ambient->b = rt->coca.sp->col.b * rt->coca.A.col.b
-		* rt->coca.A.lighting_ratio;
+	rt->coca.a = rt->cf.amb;
+	rt->coca.l = rt->cf.light;
+	ambient->r = rt->coca.sp->col.r * rt->coca.a.col.r
+		* rt->coca.a.lighting_ratio;
+	ambient->g = rt->coca.sp->col.g * rt->coca.a.col.g
+		* rt->coca.a.lighting_ratio;
+	ambient->b = rt->coca.sp->col.b * rt->coca.a.col.b
+		* rt->coca.a.lighting_ratio;
 	if (in_light(rt, &rt->coca) == false)
 		return ;
 	get_sphere_diffuse(rt, diffuse);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_sphere_hits.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 10:43:40 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 18:05:30 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:28:57 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	block_relevant(t_mini_rt *rt, t_spher *sp)
 		return (SUCCESS);
 	if (rt->coca.sp && rt->coca.sp->diam > min)
 		return (FAILURE);
-	if (min > (rt->coca.L_distance - EPSILON))
+	if (min > (rt->coca.l_distance - EPSILON))
 		return (FAILURE);
 	return (SUCCESS);
 }
@@ -64,7 +64,7 @@ int	get_hit_sphere(t_mini_rt *rt, t_spher *sp, t_ray *ray)
 	quadratic_formula_plus(rt->calc.quadratic_args, &rt->calc.t1, rt);
 	if (solutions == 2)
 		quadratic_formula_minus(rt->calc.quadratic_args, &rt->calc.t2, rt);
-	if (rt->coca.L_distance != -1)
+	if (rt->coca.l_distance != -1)
 		return (block_relevant(rt, sp));
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);

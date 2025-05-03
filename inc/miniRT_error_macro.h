@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_error_macro.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 11:15:50 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/02 18:18:08 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/05/03 11:33:43 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_ERROR_MACRO_H
 # define MINIRT_ERROR_MACRO_H
-
 
 //memory
 # define MEMORY "Memory allocation failed"
@@ -64,9 +63,11 @@ name of the configuration file"
 # define CALC_CYL_PMP "Cylinder calculation failed. Point minus point."
 # define CALC_CYL_PPV "Cylinder calculation failed. Point plus vector."
 # define CALC_CYL_VMV "Cylinder calculation failed. Vector multiply vector."
-# define CALC_CYL_QU "Cylinder calculation failed. Calculate_quadratic_arguments()."
+# define CALC_CYL_QU "Cylinder calculation failed.\
+	Calculate_quadratic_arguments()."
 # define CALC_CYL_DIS "Cylinder calculation failed. Discriminant()."
-# define CALC_CYL_QFP "Cylinder calculation failed. Quadratic_formula_plus. line: isnan(res) || isinf(res)"
+# define CALC_CYL_QFP "Cylinder calculation failed.\
+	Quadratic_formula_plus. line: isnan(res) || isinf(res)"
 # define VIEWP_C "Viewport Center calculation failed."
 
 //errors for camera at invalid position

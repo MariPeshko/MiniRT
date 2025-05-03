@@ -54,7 +54,6 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/utils/cleanup.c \
 		/utils/str_utils.c	\
 		/utils/whitespaces.c	\
-		/utils/debugging_prints.c \
 		/utils/error_handling.c \
 		/utils/array_utils.c \
 		vector_calc.c 		\

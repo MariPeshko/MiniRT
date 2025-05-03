@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 21:31:31 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/03 11:15:47 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 12:05:53 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # include "../libft/inc/libft.h"
 # include "../libft/inc/get_next_line.h"
-// For DBL_MAX and DBL_MIN. these are macros, 
-//no functions, and therefor allowed
-//Norminette error: Invalid file argument for #include directive
-// # include <float.h>  
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -45,7 +41,8 @@
 
 # define SUCCESS 0
 # define FAILURE 1
-# define ESC_KEY 65307// Keycode for ESC key on Linux with MinilibX
+// Keycode for ESC key on Linux with MinilibX
+# define ESC_KEY 65307
 # define DESTROY_NOTIFY 17
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
@@ -195,17 +192,6 @@ void	*free_sps(t_spher *sps);
 void	*free_cys(t_cys *cys);
 //utils/error_handling.c
 int		display_error(char *msg);
-//utils/debugging_prints.c
-void	print_triplet(float *triplet);
-void	print_vec(t_vector *vec);
-void	print_point(t_point *p);
-void	print_map(char **map);
-void	print_test_config(t_config *cf);
-void	print_all_cylider(t_config *cf);
-void	print_all_spheres(t_config *cf);
-void	print_all_planes(t_config *cf);
-void	print_collision(t_col calc);
-void	print_viewport(t_vp *vp);
 //utils/str_utils.c
 void	ft_freestr(char **lst);
 int		ft_spacetabchecker(char *input);
@@ -239,6 +225,8 @@ int		get_cys_wall_shadow(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 int		get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
 int		get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray);
 void	calculate_wall_normal(t_mini_rt *rt, t_color_calc *coca, t_point *p);
-int		get_vertical_oc(t_vector *oc_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
-int		get_vertical_d(t_vector *d_vertical, t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int		get_vertical_oc(t_vector *oc_vertical,
+			t_cys *cy, t_ray *ray, t_mini_rt *rt);
+int		get_vertical_d(t_vector *d_vertical,
+			t_cys *cy, t_ray *ray, t_mini_rt *rt);
 #endif

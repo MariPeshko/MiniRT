@@ -6,7 +6,7 @@
 /*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:05:19 by sgramsch          #+#    #+#             */
-/*   Updated: 2025/05/03 11:17:09 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:30:09 by sgramsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_cys_top_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
 	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
 		clean_exit_rt(rt, CALC_CT, NULL);
-	if (rt->calc.t1 > rt->coca.L_distance)
+	if (rt->calc.t1 > rt->coca.l_distance)
 		return (FAILURE);
 	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
 	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
@@ -75,7 +75,7 @@ int	get_cys_bottom_shadow(t_mini_rt *rt, t_cys *cy, t_hit *new, t_ray *ray)
 	rt->calc.t1 = rt->calc.t1 / rt->calc.t2;
 	if (isnan(rt->calc.t1) || isinf(rt->calc.t1))
 		clean_exit_rt(rt, CALC_CT, NULL);
-	if (rt->calc.t1 > rt->coca.L_distance)
+	if (rt->calc.t1 > rt->coca.l_distance)
 		return (FAILURE);
 	fill_hit_shadow(CYLINDER, &rt->calc, ray, new);
 	if (point_minus_point(&new->point, &center, &tmp) == FAILURE)
@@ -100,7 +100,7 @@ int	get_cys_wall_shadow(t_mini_rt *rt, t_cys *cy, t_ray *ray)
 	check_height(rt, ray, cy);
 	if (get_positive_min(rt->calc.t1, rt->calc.t2, &rt->calc.t1) == FAILURE)
 		return (FAILURE);
-	if (rt->calc.t1 > rt->coca.L_distance)
+	if (rt->calc.t1 > rt->coca.l_distance)
 		return (FAILURE);
 	return (SUCCESS);
 }
