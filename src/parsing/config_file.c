@@ -83,7 +83,11 @@ int	check_final_config(t_config *cf)
 	return (SUCCESS);
 }
 
-/*open a config file a scene in format *.rt*/
+/* Open a config file a scene in format *.rt
+
+Program reads the file till the end to avoid 
+still reachable bytes which are unfreed leftover of
+the static char *[name] of our get_next_line() */
 int	open_config(char *config, t_config *cf)
 {
 	int		fd_conf;
