@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_obj_cam_lig.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:09:45 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/03 15:23:35 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/04 08:42:21 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	full_parse_camera(char *line, t_camera *camera)
 {
 	double	triplet[3];
 	int		pos;
-	int		tmp;
+	float	tmp_fov;
 	int		nmb_args;
 
 	pos = 1;
@@ -71,11 +71,11 @@ int	full_parse_camera(char *line, t_camera *camera)
 	init_vec(&camera->norm_vec, triplet);
 	if (normalize_vector(&camera->norm_vec) == FAILURE)
 		return (FAILURE);
-	if (get_int(line, &pos, &tmp) == FAILURE)
+	if (get_float(line, &pos, &tmp_fov) == FAILURE)
 		return (FAILURE);
-	if (tmp >= 180 || tmp <= 0)
+	if (tmp_fov >= 180 || tmp_fov <= EPSILON)
 		return (display_error(FOV_SCOPE));
-	camera->fov = tmp;
+	camera->fov = tmp_fov;
 	return (SUCCESS);
 }
 

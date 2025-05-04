@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgramsch <sgramsch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 21:31:31 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/03 12:05:53 by sgramsch         ###   ########.fr       */
+/*   Updated: 2025/05/04 08:17:21 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	update_min(t_hit *min, t_hit *got);
 int		fill_hit(char *object, t_col *calc, int id, t_hit *got);
 //hit/check_plane_00.c
 void	check_plane_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
-int		ray_paral_plane(t_ray *ray, t_plane *pl, double *denom, 
+int		ray_paral_plane(t_ray *ray, t_plane *pl, double *denom,
 			t_mini_rt *rt);
 //hit/check_plane_01.c
 int		camera_on_the_plane(t_config *cf, t_plane *pl, t_mini_rt *rt);
@@ -144,7 +144,7 @@ int		cam_dir_in_plane(t_vector cam_dir, t_vector pl_normal);
 void	check_sphere_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 void	reset_calc(t_col *calc);
 //hit/check_cylinders_hit.c
-int		get_cys_wall_collision(t_mini_rt *rt, t_cys *cy, 
+int		get_cys_wall_collision(t_mini_rt *rt, t_cys *cy,
 			t_hit *new, t_ray *ray);
 int		get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
@@ -152,13 +152,13 @@ void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 //vector_calc.c
 int		cross_product(t_vector *a, t_vector *b, t_vector *result);
 int		normalize_vector(t_vector *v);
-int		point_plus_vector(t_point *point, t_vector *vector, 
+int		point_plus_vector(t_point *point, t_vector *vector,
 			double scalar, t_point *result);
-int		scalar_multiply_vector(double scalar, t_vector *vector, 
+int		scalar_multiply_vector(double scalar, t_vector *vector,
 			t_vector *result);
 int		vector_multiply_vector(t_vector *a, t_vector *b, double *result);
 // shorter version of a function above
-int		dot_product(t_vector *a, t_vector *b, double *result); 
+int		dot_product(t_vector *a, t_vector *b, double *result);
 int		subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int		point_minus_point(t_point *a, t_point *b, t_vector *result);
 int		get_normal(t_vector *v, t_vector *n);
@@ -174,11 +174,11 @@ int		get_positive_min(double a, double b, double *c);
 
 //quadratic_cys_helpers.c
 int		get_a_cylinder(t_vector *d_vertical, double *a, t_mini_rt *rt);
-int		get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical, 
+int		get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical,
 			double *b, t_mini_rt *rt);
-int		get_c_cylinder(t_vector *oc_vertical, double radius, 
+int		get_c_cylinder(t_vector *oc_vertical, double radius,
 			double *c, t_mini_rt *rt);
-int		cy_calculate_quadratic_arguments(double *args, 
+int		cy_calculate_quadratic_arguments(double *args,
 			t_cys *cy, t_ray *ray, t_mini_rt *rt);
 
 //utils
