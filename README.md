@@ -2,6 +2,10 @@
 
 Let's ray-trace some light into this project! ✨
 
+<p align="center">
+  <img src = "https://user-images.githubusercontent.com//MariPeshko/.github/images/42_logo" />
+</p>
+
 Maryna and Stephanie's MiniRT, a 42 school project written in C language that uses the ray tracing technique for CGI.
 
 The goal of this program is to generate images using the Raytracing protocol.Those computer-generated images will each represent a scene, as seen from a specific angle and position, defined by simple geometric objects, and each with its own lighting system.
