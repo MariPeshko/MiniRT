@@ -12,6 +12,19 @@ The goal of this program is to generate images using the Raytracing protocol.Tho
 
 Ray tracing is a technique for modeling light transport to generate digital images.
 
+# Examples
+![Brightness_Light_sideways_000 rt](https://github.com/user-attachments/assets/2304c896-08ed-4c28-b313-ba417f57f8cd)
+![Brightness_Light_sideways](https://github.com/user-attachments/assets/58cc552c-f737-4b41-862f-41c65aae1d95)
+![Screenshot from 2025-04-28 19-43-12](https://github.com/user-attachments/assets/6a2f851a-a0aa-41c3-8364-6d864a864898)
+## Colored_light
+![Colored_light](https://github.com/user-attachments/assets/6c3824e6-e2b0-46ed-a709-40ba31aa014a)
+## Two cylinders
+![Screenshot from 2025-04-28 19-43-12](https://github.com/user-attachments/assets/217f6966-85d0-40a1-8428-8acbf31fecfd)
+## Marbles
+![marbles](https://github.com/user-attachments/assets/d2944021-d8ff-422f-b8bb-2c3d6b0a6a5f)
+## Snowman
+![snowman](https://github.com/user-attachments/assets/d9077693-5644-4620-b5e3-9c25ddfe403e)
+
 Our first RayTracer with miniLibX
 miniLibX is [explanation].
 
@@ -221,6 +234,18 @@ EPSILON instead of zero in calculation
 
 Floating-point numbers can be very slightly off, even when they’re theoretically zero. We use an epsilon. Otherwise, it may fail to detect the camera on the plane due to tiny floating-point errors.
 Also we use EPSILON in plane calculations.
+
+## Issues we had
+First picture without light calculations
+![Screenshot from 2025-04-12 16-49-01](https://github.com/user-attachments/assets/03a9a374-7c75-41ee-8378-504d12725278)
+Shadow acne
+![Spheres_acne](https://github.com/user-attachments/assets/af93e159-be41-413e-ab86-a115598e1cea)
+Wierd shadows of the cylinder
+![Screenshot from 2025-05-01 20-23-19](https://github.com/user-attachments/assets/52e6026e-2758-4379-8bfb-b6e81524ae92)
+A cylinder without a bottom
+![Screenshot from 2025-04-28 15-04-52](https://github.com/user-attachments/assets/79ca331a-aff3-433a-8033-074cfa6f9ebb)
+
+
 
 
 
