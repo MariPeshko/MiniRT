@@ -3,7 +3,7 @@
 Let's ray-trace some light into this project! ✨
 
 <p align="center">
-  <img src = "https://user-images.githubusercontent.com/MariPeshko/.github/images/42_logo" />
+  <img src = "https://user-images.githubusercontent.com/MariPeshko/MiniRT/m_begin/.github/images/42_logo.png" />
 </p>
 
 Maryna and Stephanie's MiniRT, a 42 school project written in C language that uses the ray tracing technique for CGI.
