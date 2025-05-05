@@ -22,6 +22,11 @@ Ray tracing is a technique for modeling light transport to generate digital imag
 ![Screenshot from 2025-04-28 19-43-12](https://github.com/user-attachments/assets/217f6966-85d0-40a1-8428-8acbf31fecfd)
 ## Marbles
 ![marbles](https://github.com/user-attachments/assets/d2944021-d8ff-422f-b8bb-2c3d6b0a6a5f)
+## Marbles bigger
+![marbles0_8](https://github.com/user-attachments/assets/bdbe0a5e-a802-4856-8839-dfbf4e6387a9)
+
+
+
 ## Snowman
 ![snowman](https://github.com/user-attachments/assets/d9077693-5644-4620-b5e3-9c25ddfe403e)
 
