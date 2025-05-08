@@ -127,7 +127,7 @@ In 3D space, the viewport is a rectangular plane defined by:
 * Orientation Vector (o): A normalized vector (length of 1) that indicates the direction the camera is facing.
 * **Field of View (FOV):** This angle determines the horizontal extent of the visible scene, directly influencing the viewport's width.
 
-# Set Up the Viewport
+## Set Up the Viewport
 
 * **A center point:** This anchors the viewport's position.
 * **Width and height:** These dimensions are crucial for determining which points fall within the viewport's boundaries, distinguishing them from the infinite expanse of a general 3D plane.
@@ -201,7 +201,7 @@ To determine the position of each pixel, we calculate step vectors for horizonta
 
 The viewport corners are calculated based on the viewport center, width, height, and the basis vectors.
 
-# How to use the Viewport
+## How to use the Viewport
 
 Now that we have the Viewport and its Total width and height, we can calculate the position of each individual Pixel in this 3D space by dividing the width by the total number of Pixels in a row and the height with those in a column. 
 
@@ -226,7 +226,7 @@ Note: We’ve already normalized the basis vectors when setting up the viewport;
 
 `Ray direction = (Pixel position - Camera position)`
 
-# The Ray Equation
+## The Ray Equation
 
 Key Components:
 * O - the origin point (the camera position).
