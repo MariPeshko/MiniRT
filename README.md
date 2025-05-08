@@ -89,7 +89,7 @@ Our raytracer supports multiple spheres, planes, and cylinders, one ambient ligh
 Our first RayTracer with miniLibX
 miniLibX is [explanation].
 
-## Function Return Value Conventions
+# Function Return Value Conventions
 
 This project utilizes distinct return value conventions to enhance clarity and maintainability.
 
@@ -97,7 +97,7 @@ For functions indicating the success or failure of an operation, standard practi
 
 For functions representing boolean "yes/no" or "true/false" conditions, the `stdbool.h` library is included to enable the use of `true` and `false`. To improve readability, boolean checks are explicitly written in the form `if (is_empty_file(filename) == true)`, emphasizing the intended condition.
 
-## Window Creation
+# Window Creation
 
 The program utilizes the MiniLibX (MLX) library to create a graphical window. This window serves as the primary display for the rendered scene.
 
@@ -113,7 +113,7 @@ In our program, the window is instantiated within the `setup_mlx()` function. Th
 
 In this example, a default size of 800 pixels wide and 600 pixels high is used. However, these values can be adjusted to create windows of different sizes as needed.
 
-## Viewport Definition
+# Viewport Definition
 
 In our 3D raytracing scene, the viewport acts as the 2D window through which we visualize the 3D world.
 
@@ -127,7 +127,7 @@ In 3D space, the viewport is a rectangular plane defined by:
 * Orientation Vector (o): A normalized vector (length of 1) that indicates the direction the camera is facing.
 * **Field of View (FOV):** This angle determines the horizontal extent of the visible scene, directly influencing the viewport's width.
 
-## Set Up the Viewport
+# Set Up the Viewport
 
 * **A center point:** This anchors the viewport's position.
 * **Width and height:** These dimensions are crucial for determining which points fall within the viewport's boundaries, distinguishing them from the infinite expanse of a general 3D plane.
@@ -201,13 +201,13 @@ To determine the position of each pixel, we calculate step vectors for horizonta
 
 The viewport corners are calculated based on the viewport center, width, height, and the basis vectors.
 
-## How to use the Viewport
+# How to use the Viewport
 
 Now that we have the Viewport and its Total width and height, we can calculate the position of each individual Pixel in this 3D space by dividing the width by the total number of Pixels in a row and the height with those in a column. 
 
 Instead of fixed positions, you can also calculate each vector to move horizontally and vertically to access each pixel by scaling the vectors with full numbers. 
 
-## Ray Generation (Rendering Phase)
+# Ray Generation (Rendering Phase)
 
 **Pixel Position Calculation**
 
@@ -226,7 +226,7 @@ Note: We’ve already normalized the basis vectors when setting up the viewport;
 
 `Ray direction = (Pixel position - Camera position)`
 
-## The Ray Equation
+# The Ray Equation
 
 Key Components:
 * O - the origin point (the camera position).
@@ -237,7 +237,7 @@ We can express any point P in the ray as:
 
 `P = O + t(V−O)`
 
-## Edge cases that we handled
+# Edge cases that we handled
 
 1. Error: Camera is embedded in the plane.
 File: camera_on_plane.rt
@@ -258,7 +258,7 @@ Files for these tests in `rt_files/invalid_config/`
 
 And more.
 
-### The almost last but not least
+# The almost last but not least
 ### EPSILON Macro instead of zero in calculation
 
 Floating-point numbers can be very slightly off, even when they’re theoretically zero. We use an epsilon.
