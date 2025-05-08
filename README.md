@@ -1,16 +1,16 @@
 # MiniRT
 
-Let's ray-trace some light into this project! ✨
+<p align="center"> 
+  Let's ray-trace some light into this project! ✨
+</p>
 
 <p align="center">
-  <img src = "https://github.com/user-attachments/assets/04b5f43e-228e-4dd0-835b-3845718ac54a" />
+ <img src = "https://github.com/user-attachments/assets/3a9d4014-fd86-4f75-9b15-1b53f83714a8" />
 </p>
 
 MiniRT is a _raytracing project_ developed by Maryna Peshko and Stephanie Patricia Gramsch as part of the 42 Berlin school curriculum in 2025. It is written in C and generates basic computer graphics using ray tracing techniques.
 
 [LinkedIn Maryna Peshko](https://www.linkedin.com/in/maryna-peshko/)
-
-[LinkedIn Stephanie Patricia Gramsch](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#getting-a-screen-on-windows-10-wsl2).
 
 The goal of this program is to generate images using the raytracing protocol. Ray tracing is a technique for modeling light transport to generate digital images. Those computer-generated images will each represent a scene, as seen from a specific angle and position, defined by simple geometric objects, and each with its own lighting system.
 <br />
@@ -48,28 +48,24 @@ Command-line usage as well
 
 * **Ubuntu (Linux):** As students at 42Berlin, we primarily develop and test our programs on Ubuntu Linux. In this environment, MiniLibX is readily available, and the window creation process should function seamlessly without requiring any additional software installations.
 * **Windows 10 (WSL2):** It is also possible to run our program on Windows 10 using Windows Subsystem for Linux 2 (WSL2). However, to display the graphical window, you will need to install an X server, such as "Xming X Server for Windows". For detailed instructions on setting up an X server on Windows 10 (WSL2), please refer to the following tutorial: [Getting a screen on Windows 10 (WSL2)](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html#getting-a-screen-on-windows-10-wsl2).
-<br />
-<br />
+
 # Configuration files
 
 You can find them in `/rt_files` folder.
 
-Key words in rt_file
+Keywords in rt_file
 Feature: despite that fact that vectors must be in a range from 0 to 1, there is no need to set a normilized vector in config file. Our miniRT normilize all the vectors in a parsing part.
 
-* **A — ambient light**, intensity and R,G,B colors
+* **A — ambient light**, intensity, and R,G,B colors
 * **C — camera**, position, direction, field of view (rotation is not available)
 * **L — light**, position, intensity, R,G,B colors (light is treated as _omnidirectional_ — it does not have a specific direction but instead radiates equally in all directions from its source.)
 * **sp — sphere**, position of the center, size, R,G,B colors
 * **pl — plane**, position, normal vector (perpendicular to the entire plane), R,G,B colors
-* **cy — cylinder**, postion of the center, a vector of axis, diameter, height, R,G,B colors
-
-<br />
-<br />
+* **cy — cylinder**, position of the center, a vector of axis, diameter, height, R,G,B colors
 
 # Examples
 
-Our raytracer support multiple spheres, planes and cylinders, one ambient light and colored lighting, shadows.
+Our raytracer supports multiple spheres, planes, and cylinders, one ambient light, and colored lighting, shadows.
 
 ![Brightness_Light_sideways_000 rt](https://github.com/user-attachments/assets/2304c896-08ed-4c28-b313-ba417f57f8cd)
 <br />
@@ -152,7 +148,7 @@ The viewport plane is perpendicular to the orientation vector (o) and passes thr
 Key Components:
 * `M_PI` is a constant that represents the mathematical value of π (pi).
 * `Radians` are a unit of angular measurement. Many programming languages and graphics libraries use radians for their trigonometric functions.
-* `isnan` - floating-point classification macro. It checks whether a floating-point number (width in case of calculationg width) is NaN (Not a Number). In C, NaN (Not a Number) is a special floating-point value that represents an invalid or undefined mathematical result.
+* `isnan` - floating-point classification macro. It checks whether a floating-point number (width in case of calculating width) is NaN (Not a Number). In C, NaN (Not a Number) is a special floating-point value that represents an invalid or undefined mathematical result.
 * `Radian_FOV` - The camera’s horizontal field of view in degrees (converted to radians).
 
 The viewport size depends on the horizontal field of view (FOV) and the chosen distance:
@@ -179,7 +175,7 @@ This is the normalized direction the camera is looking at.
 
 * Right vector (horizontal axis) → "x-axis"
 
-This is perpendicular to the forward vector and usually computed using the cross product.
+This is perpendicular to the forward vector and is usually computed using the cross product.
 
 * Up vector (vertical axis) → "y-axis"
 
@@ -207,7 +203,7 @@ The viewport corners are calculated based on the viewport center, width, height,
 
 ## How to use the Viewport
 
-Now that we have the Viewport and its Total width and height, we can calculate the position of each individual Pixel in this 3D space by dividing the width with the total number of Pixels in a row and the height with those in a column. 
+Now that we have the Viewport and its Total width and height, we can calculate the position of each individual Pixel in this 3D space by dividing the width by the total number of Pixels in a row and the height with those in a column. 
 
 Instead of fixed positions, you can also calculate each vector to move horizontally and vertically to access each pixel by scaling the vectors with full numbers. 
 
@@ -226,7 +222,7 @@ Instead, we’ll consider the rays of light “in reverse”; we’ll start with
 (c) https://www.gabrielgambetta.com/computer-graphics-from-scratch/02-basic-raytracing.html
 
 Each ray starts from the camera position and points toward the pixel. Normalization ensures all rays have the same step size.
-Note: we’ve already normalized the basis vectors when setting up the viewport, you don't need to normalize the ray direction again when calculating each ray.
+Note: We’ve already normalized the basis vectors when setting up the viewport; you don't need to normalize the ray direction again when calculating each ray.
 
 `Ray direction = (Pixel position - Camera position)`
 
@@ -269,14 +265,14 @@ Floating-point numbers can be very slightly off, even when they’re theoretical
 
 Otherwise, it may fail to detect the camera on the plane due to tiny floating-point errors.
 
-We use EPSILON in light-shadow calculations. It helped to avoid artifacts such as shadow acne, which occurs when a surface incorrectly shadows itself due to floating-point inaccuracies. By offsetting the hit point slightly along the surface normal, we ensured that secondary rays (like shadow rays) don't falsely detect intersections with the surface they originated from.
+We use EPSILON in light-shadow calculations. It helped to avoid artifacts such as shadow acne, which occurs when a surface incorrectly shadows itself due to floating-point inaccuracies. By offsetting the hit point slightly along the surface normal, we ensured that secondary rays (like shadow rays) don't falsely detect intersections with the surface they originated.
 
 # # Fun issues we had during implementation
 First picture without light calculations
 ![Screenshot from 2025-04-12 16-49-01](https://github.com/user-attachments/assets/03a9a374-7c75-41ee-8378-504d12725278)
 Shadow acne
 ![Spheres_acne](https://github.com/user-attachments/assets/af93e159-be41-413e-ab86-a115598e1cea)
-Wierd shadows of the cylinder
+Weird shadows of the cylinder
 ![Screenshot from 2025-05-01 20-23-19](https://github.com/user-attachments/assets/52e6026e-2758-4379-8bfb-b6e81524ae92)
 A cylinder without a bottom
 ![Screenshot from 2025-04-28 15-04-52](https://github.com/user-attachments/assets/79ca331a-aff3-433a-8033-074cfa6f9ebb)
