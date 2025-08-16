@@ -1,14 +1,14 @@
 # MiniRT
 
 <p align="center"> 
-  Let's ray-trace some light into this project! ✨
+  Let's ray trace some light into this project! ✨
 </p>
 
 <p align="center">
  <img src = "https://github.com/user-attachments/assets/3a9d4014-fd86-4f75-9b15-1b53f83714a8" />
 </p>
 
-MiniRT is a _raytracing project_ developed by Maryna Peshko and Stephanie Patricia Gramsch as part of the 42 Berlin school curriculum in 2025. It is written in C and generates basic computer graphics using ray tracing techniques.
+MiniRT is a _ray tracing project_ developed by Maryna Peshko and Stephanie Patricia Gramsch as part of the 42 Berlin school curriculum in 2025. It is written in C and generates basic computer graphics using ray tracing techniques.
 
 [LinkedIn Maryna Peshko](https://www.linkedin.com/in/maryna-peshko/)
 
@@ -54,7 +54,6 @@ Command-line usage as well
 You can find them in `/rt_files` folder.
 
 Keywords in rt_file
-Feature: despite that fact that vectors must be in a range from 0 to 1, there is no need to set a normilized vector in config file. Our miniRT normilize all the vectors in a parsing part.
 
 * **A — ambient light**, intensity, and R,G,B colors
 * **C — camera**, position, direction, field of view (rotation is not available)
@@ -62,6 +61,8 @@ Feature: despite that fact that vectors must be in a range from 0 to 1, there is
 * **sp — sphere**, position of the center, size, R,G,B colors
 * **pl — plane**, position, normal vector (perpendicular to the entire plane), R,G,B colors
 * **cy — cylinder**, position of the center, a vector of axis, diameter, height, R,G,B colors
+
+Feature: despite the fact that vectors must be in a range from 0 to 1, there is no need to set a normalized vector in a config file. Our miniRT normalizes all the vectors during the parsing phase.
 
 # Examples
 
