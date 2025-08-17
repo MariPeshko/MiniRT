@@ -6,7 +6,7 @@
 /*   By: mpeshko <mpeshko@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 21:31:31 by mpeshko           #+#    #+#             */
-/*   Updated: 2025/05/04 08:17:21 by mpeshko          ###   ########.fr       */
+/*   Updated: 2025/08/17 19:01:31 by mpeshko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ int		calculate_upper_left_corner(t_vp *viewp, t_img img);
 void	get_up_vector(t_config *cf, t_vector *up);
 //image/image.c
 void	put_pixel(t_img *img, int x, int y, t_color rgb_color);
-int		color_map_1(t_visual *vis, t_config *cf, int w, int h);
 
 //hit/
 //hit/get_hit.c
@@ -149,7 +148,8 @@ int		get_cys_wall_collision(t_mini_rt *rt, t_cys *cy,
 int		get_hit_cys(t_mini_rt *rt, t_cys *cy, t_ray *ray);
 void	check_cys_hit(t_config *cf, t_mini_rt *rt, t_ray *ray);
 
-//vector_calc.c
+//math/
+//math/vector_calc.c
 int		cross_product(t_vector *a, t_vector *b, t_vector *result);
 int		normalize_vector(t_vector *v);
 int		point_plus_vector(t_point *point, t_vector *vector,
@@ -162,17 +162,14 @@ int		dot_product(t_vector *a, t_vector *b, double *result);
 int		subtract_vectors(t_vector *a, t_vector *b, t_vector *result);
 int		point_minus_point(t_point *a, t_point *b, t_vector *result);
 int		get_normal(t_vector *v, t_vector *n);
-
-//vector_calc_bon.c
+//math/vector_calc_bon.c
 double	vector_length_light(t_vector *v, t_mini_rt *rt);
-
-//quadratic_equation.c
+//math/quadratic_equation.c
 int		quadratic_formula_plus(double *args, double *solution, t_mini_rt *rt);
 int		quadratic_formula_minus(double *args, double *solution, t_mini_rt *rt);
 int		discriminant_check(double a, double b, double c, t_mini_rt *rt);
 int		get_positive_min(double a, double b, double *c);
-
-//quadratic_cys_helpers.c
+//math/quadratic_cys_helpers.c
 int		get_a_cylinder(t_vector *d_vertical, double *a, t_mini_rt *rt);
 int		get_b_cylinder(t_vector *oc_vertical, t_vector *d_vertical,
 			double *b, t_mini_rt *rt);

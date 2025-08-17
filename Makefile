@@ -56,11 +56,11 @@ SRC = $(addprefix $(SRC_DIR)/,\
 		/utils/whitespaces.c	\
 		/utils/error_handling.c \
 		/utils/array_utils.c \
-		vector_calc.c 		\
-		vector_calc_two.c\
-		vector_calc_bon.c	\
-		quadratic_equation.c \
-		cys_quadratic_helpers.c\
+		/math/vector_calc.c \
+		/math/vector_calc_two.c\
+		/math/vector_calc_bon.c	\
+		/math/quadratic_equation.c \
+		/math/cys_quadratic_helpers.c\
 		)
 
 INCLUDES = inc/miniRT.h inc/miniRT_structs.h inc/miniRT_error_macro.h
